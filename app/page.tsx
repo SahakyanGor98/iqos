@@ -26,7 +26,7 @@ export default function Home() {
           </p>
           <Link
             href='/products/iqos'
-            className='btn-primary bg-white text-black hover:bg-neutral-200 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200'
+            className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200'
           >
             Выбрать устройство
           </Link>
@@ -55,7 +55,7 @@ export default function Home() {
           </p>
           <Link
             href='/products/terea'
-            className='btn-primary bg-white text-black hover:bg-neutral-200 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-200'
+            className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200'
           >
             Каталог вкусов
           </Link>
