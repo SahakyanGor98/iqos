@@ -1,0 +1,242 @@
+[
+  {
+    "id": 13,
+    "slug": "terea-yellow-am",
+    "title": "Terea Yellow AM",
+    "description": "TEREA Yellow для IQOS ILUMA — это стики с мягким табачным вкусом, дополненным освежающими цитрусовыми нотками, которые придают аромату легкость и утонченность. Эти стики созданы специально для устройств IQOS ILUMA, чтобы обеспечить чистоту и насыщенность вкуса без дыма и пепла, благодаря системе нагрева без лезвий. Закажите оригинальные стики TEREA Yellow с доставкой по всей России и наслаждайтесь сбалансированным ароматом каждый день.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Yellow.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус", "Фруктовый вкус"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 14,
+    "slug": "terea-sienna-am",
+    "title": "Terea Sienna AM",
+    "description": "Стики TEREA Sienna для IQOS ILUMA — это насыщенный табачный вкус с легкими древесными и пряными нотами, придающими особую глубину. Идеальный выбор для тех, кто предпочитает богатый и выразительный вкус",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Sienna.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус"],
+    "strength": "крепкий",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 15,
+    "slug": "terea-purple-wave-am",
+    "title": "Terea Purple Wave AM",
+    "description": "TEREA Purple Wave — это табачные стики, разработанные специально для устройств серии IQOS ILUMA. Они предлагают гармоничное сочетание сладости спелой черники и освежающего ментола, создавая уникальный вкус, напоминающий о летних днях. Эти стики предназначены исключительно для использования с IQOS ILUMA и не совместимы с предыдущими моделями устройств. Каждая упаковка содержит 20 стиков, обеспечивая длительное наслаждение.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Purple Wave.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Фруктовый вкус", "Ментол"],
+    "strength": "легкий",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 16,
+    "slug": "terea-turquoise-am",
+    "title": "Terea Turquoise AM",
+    "description": "TEREA Turquoise для IQOS ILUMA — это стики с освежающим ментоловым вкусом, дополненные тонкими пряными нотками, которые создают легкость и прохладу. Эти стики идеально подходят для любителей яркого ментолового аромата. Разработаны специально для устройств IQOS ILUMA, обеспечивая чистоту и насыщенность вкуса благодаря инновационной системе нагрева без лезвий. Закажите оригинальные стики TEREA Turquoise с доставкой по всей России.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Turquoise.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Ментол"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 17,
+    "slug": "terea-silver-am",
+    "title": "Terea Silver AM",
+    "description": "TEREA Silver для IQOS ILUMA — это стики с мягким табачным вкусом, дополненным легкими ореховыми оттенками, создающие гармоничный и утонченный аромат. Эти стики подходят исключительно для использования с устройствами IQOS ILUMA, обеспечивая чистый и насыщенный вкус благодаря технологии нагрева без лезвий. TEREA Silver — идеальный выбор для тех, кто предпочитает классический вкус с легким послевкусием. Закажите оригинальные стики TEREA Silver с доставкой по всей России.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Silver.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 18,
+    "slug": "terea-amber-am",
+    "title": "Terea Amber AM",
+    "description": "TEREA Amber — это табачные стики, разработанные специально для устройств серии IQOS ILUMA. Они предлагают богатый табачный вкус с тонными древесными и ореховыми оттенками, создавая гармоничный и насыщенный аромат. Эти стики предназначены исключительно для использования с IQOS ILUMA и не совместимы с предыдущими моделями устройств. Каждая упаковка содержит 20 стиков, обеспечивая длительное наслаждение.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Amber.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус"],
+    "strength": "крепкий",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 19,
+    "slug": "terea-sun-pearl-am",
+    "title": "Terea Sun Pearl AM",
+    "description": "TEREA Sun Pearl для IQOS ILUMA — это стики с легким табачным вкусом, дополненным сочными нотами арбуза и освежающим ментоловым охлаждением.\r\nЭтот вкус идеален для тех, кто ищет сочетание фруктовой сладости и прохлады. Стики разработаны специально для устройств IQOS ILUMA и не совместимы с предыдущими моделями. Насладитесь чистым и насыщенным вкусом без дыма и пепла, который обеспечивается инновационной системой нагрева без лезвий. Закажите оригинальные стики TEREA Sun Pearl с доставкой по всей России.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Sun Pearl.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус", "Фруктовый вкус", "Ментол"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 20,
+    "slug": "terea-oasis-pearl-am",
+    "title": "Terea Oasis Pearl AM",
+    "description": "Стики TEREA Oasis Pearl для IQOS ILUMA — это сочетание освежающего ментолового охлаждения и насыщенного аромата маракуйи.\r\nИдеальный выбор для любителей ярких и фруктовых вкусов. Оригинальные стики Oasis Pearl обеспечивают чистый вкус и комфортное использование благодаря инновационной технологии нагрева без лезвий.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Armenia Terea Oasis Pearl.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Ментол", "Экзотические"],
+    "strength": "легкий",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 112,
+    "slug": "terea-am-teek",
+    "title": "Terea Teak AM",
+    "description": "Округло-сливочный вкус. Сбалансированная смесь обжаренных табаков со сливочными и ореховыми нотками аромата. Только для использования с устройствами Iluma.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Terea Teak AM.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": true,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 114,
+    "slug": "terea-am-green",
+    "title": "Terea Green AM",
+    "description": "Стики TEREA Green для IQOS ILUMA — это свежий мятный вкус с легкими травяными нотками, который дарит ощущение прохлады и чистоты в каждом затяжке. Идеальный выбор для тех, кто предпочитает натуральные и освежающие ароматы",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Indonesia Terea Green.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Ментол"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5500,
+    "pricePack": 560,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 142,
+    "slug": "terea-starling-pearl-am",
+    "title": "Terea Starling Pearl AM",
+    "description": "TEREA Starling Pearl (Тереа Старлин Пёрл) — стики для IQOS ILUMA с капсулой, со вкусом клубники с базиликом и ментолом. В розово-серой пачке со знаком жемчужинки.\r\nЕсли не нажимать на кнопку, стик будет иметь насыщенный табачный аромат. При нажатии капсула добавляет табачному аэрозолю освежающий вкус клубники с базиликом.\r\nНе имеет аналогов среди среди стиков HEETS.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Terea Starling Pearl AM.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус", "Фруктовый вкус", "Экзотические"],
+    "strength": "средний",
+    "hasCapsule": true,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 143,
+    "slug": "terea-beige-am",
+    "title": "Terea Beige AM",
+    "description": "Табачный классический вкус с нотками солода. По крепости=Amber.",
+    "imageBlock": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/terea/Terea Beige.webp",
+    "category": "sticks",
+    "brand": "Terea",
+    "origin": "armenia",
+    "flavors": ["Табачный вкус"],
+    "strength": "средний",
+    "hasCapsule": false,
+    "priceBlock": 5000,
+    "pricePack": 510,
+    "badges": {
+      "isNew": false,
+      "isHit": false
+    },
+    "inStock": true
+  }
+]

@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Utilities */
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 max-w-7xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300 border border-neutral-200 hover:border-black;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.badge {
+  @apply text-[10px] rounded px-2 py-1 text-white;
+}

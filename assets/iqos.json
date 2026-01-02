@@ -1,0 +1,427 @@
+[
+  {
+    "id": 67,
+    "slug": "iqos-iluma-one-pink",
+    "title": "IQOS Iluma One Pink",
+    "description": "Нагреватель табака IQOS Iluma One Красный - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Pink.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Красный",
+    "price": 5000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 64,
+    "slug": "iqos-iluma-one-green",
+    "title": "IQOS Iluma One Green",
+    "description": "Нагреватель табака IQOS Iluma One Зелёный - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Green.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Зеленый",
+    "price": 5000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 63,
+    "slug": "iqos-iluma-one-gray",
+    "title": "IQOS Iluma One Gray",
+    "description": "Нагреватель табака IQOS Iluma One Тёмно-серый - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Gray.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Серый",
+    "price": 5000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 65,
+    "slug": "iqos-iluma-one-blue",
+    "title": "IQOS Iluma One Blue",
+    "description": "Нагреватель табака IQOS Iluma One Синий - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Blue.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Синий",
+    "price": 5000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 66,
+    "slug": "iqos-iluma-one-beige",
+    "title": "IQOS Iluma One Beige",
+    "description": "Нагреватель табака IQOS Iluma One Бежевый - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Beige.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Бежевый",
+    "price": 5000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 62,
+    "slug": "iqos-iluma-i-series-one-leaf-green",
+    "title": "IQOS Iluma i Series One Leaf Green",
+    "description": "Нагреватель табака IQOS Iluma i Series One Leaf Green - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS Iluma i Series One Leaf Green.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Зеленый",
+    "price": 8500,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 60,
+    "slug": "iqos-iluma-i-one-midnight-black",
+    "title": "IQOS Iluma i One Midnight Black",
+    "description": "Нагреватель табака Iqos Iluma i One Midnight Black - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma i One Midnight Black.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Черный",
+    "price": 8500,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 58,
+    "slug": "iqos-iluma-i-one-digital-violet",
+    "title": "IQOS Iluma i One Digital Violet",
+    "description": "Нагреватель табака Iqos Iluma i One Digital Violet - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом\r\n",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma i One Digital Violet.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Синий",
+    "price": 8500,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 57,
+    "slug": "iqos-iluma-i-one-breeze-blue",
+    "title": "IQOS Iluma i One Breeze Blue",
+    "description": "Нагреватель табака Iqos Iluma i One Breeze Blue - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma i One Breeze Blue.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Синий",
+    "price": 8500,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 82,
+    "slug": "iqos-iluma-standard-blue",
+    "title": "IQOS Iluma Standard Blue",
+    "description": "Нагреватель табака IQOS Iluma Синий - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma Standart Blue.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Синий",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 99,
+    "slug": "iqos-iluma-i-series-one-2025-leaf-green",
+    "title": "IQOS Iluma i Series One 2025 Leaf Green",
+    "description": "Нагреватель табака IQOS Iluma i Series One Leaf Green - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS Iluma i Series One 2025 Leaf Green.WEBP",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Зеленый",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 61,
+    "slug": "iqos-iluma-i-series-one-vivid-terracotta",
+    "title": "IQOS Iluma i Series One Vivid Terracotta",
+    "description": "Нагреватель табака IQOS ILUMA I series One vivid terracotta - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS ILUMA I series One vivid terracotta.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Оранжевый",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 92,
+    "slug": "iqos-iluma-i-one-2025-breeze-blue",
+    "title": "IQOS Iluma i One 2025 Breeze Blue",
+    "description": "Нагреватель табака Iqos Iluma i One Breeze Blue - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos iluma i one breeze blue 2025.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Синий",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 93,
+    "slug": "iqos-iluma-i-one-2025-vivid-terracotta",
+    "title": "IQOS Iluma i One 2025 Vivid Terracotta",
+    "description": "Нагреватель табака Iqos Iluma i One Vivid Terracotta - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos iluma i one vivid terracotta 2025.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Красный",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 95,
+    "slug": "iqos-iluma-i-one-2025-digital-violet",
+    "title": "IQOS Iluma i One 2025 Digital Violet",
+    "description": "Нагреватель табака Iqos Iluma i One Digital Violet - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos iluma i one digital violet 2025.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Синий",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 78,
+    "slug": "iqos-iluma-standard-gray",
+    "title": "IQOS Iluma Standard Gray",
+    "description": "Нагреватель табака IQOS Iluma Тёмно-серый - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma Standart Gray.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Черный",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 79,
+    "slug": "iqos-iluma-standard-beige",
+    "title": "IQOS Iluma Standard Beige",
+    "description": "Нагреватель табака IQOS Iluma Бежевый - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma Standart Beige.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Бежевый",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 80,
+    "slug": "iqos-iluma-standard-pink",
+    "title": "IQOS Iluma Standard Pink",
+    "description": "Нагреватель табака IQOS Iluma Красный - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma Standart Pink.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Красный",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 81,
+    "slug": "iqos-iluma-standard-green",
+    "title": "IQOS Iluma Standard Green",
+    "description": "Нагреватель табака IQOS Iluma Зеленый - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma Standart Green.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Зеленый",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": false
+  },
+  {
+    "id": 94,
+    "slug": "iqos-iluma-i-one-2025-midnight-black",
+    "title": "IQOS Iluma i One 2025 Midnight Black",
+    "description": "Нагреватель табака Iqos Iluma i One Midnight Black - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos iluma i one midnight black 2025.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Черный",
+    "price": 9000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 1,
+    "slug": "iqos-iluma-standard-we-edition",
+    "title": "IQOS Iluma Standard WE Edition",
+    "description": "Нагреватель табака IQOS Iluma standart WE Edition - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом\r\n",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS Iluma standart WE Edition.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Синий",
+    "price": 9500,
+    "badges": {
+      "isNew": true,
+      "isHit": false,
+      "isExclusive": true
+    },
+    "inStock": true
+  },
+  {
+    "id": 84,
+    "slug": "iqos-iluma-standard-oasis",
+    "title": "IQOS Iluma Standard Oasis",
+    "description": "Нагреватель табака IQOS Iluma standart Oasis - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS Iluma standart Oasis.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Оранжевый",
+    "price": 9500,
+    "badges": {
+      "isNew": false,
+      "isHit": true,
+      "isExclusive": true
+    },
+    "inStock": true
+  },
+  {
+    "id": 85,
+    "slug": "iqos-iluma-standard-bright-limited-edition",
+    "title": "IQOS Iluma Standard Bright Limited Edition",
+    "description": "Нагреватель табака IQOS Iluma standart Bright Limited Edition - новинка от IQOS с более консервативным пластиковым корпусом и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/IQOS Iluma standart Bright Limited Edition.webp",
+    "category": "gadget",
+    "line": "standard",
+    "color": "Желтый",
+    "price": 9500,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": true
+    },
+    "inStock": true
+  },
+  {
+    "id": 59,
+    "slug": "iqos-iluma-i-one-anniversary-model",
+    "title": "IQOS Iluma i One Anniversary Model",
+    "description": "Нагреватель табака Iqos Iluma i One Anniversary Model - новинка от IQOS с единым алюминиевым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma i One Anniversary Model.webp",
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Черный",
+    "price": 11000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": true
+    },
+    "inStock": true
+  },
+  {
+    "id": 68,
+    "slug": "iqos-iluma-one-limited-edition-neon",
+    "title": "IQOS Iluma One Limited Edition Neon",
+    "description": "Нагреватель табака IQOS Iluma One Limited Edition - Neon - новинка от IQOS с единым пластиковым корпусом без чехла и бесконтактной системой нагрева табака, что исключает поломку нагревательного элемента механическим способом",
+    "image": "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/Iqos Iluma One Limited Edition - Neon.webp",
+    "category": "gadget",
+    "line": "one",
+    "color": "Фиолетовый",
+    "price": 12000,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": true
+    },
+    "inStock": false
+  }
+]
