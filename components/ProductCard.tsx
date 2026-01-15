@@ -78,6 +78,23 @@ export const ProductCard = ({ product }: Props) => {
                 : attributes.flavors}
             </span>
           )}
+          {product.category === 'sticks' && attributes.origin && (
+            <div className='flex items-center gap-1.5 mt-1.5'>
+              <span className="text-[10px] uppercase tracking-wider text-neutral-400 font-medium">
+                {(() => {
+                  const origin = String(attributes.origin).toLowerCase();
+                  const map: Record<string, string> = {
+                    armenia: 'Армения',
+                    kazakhstan: 'Казахстан',
+                    russia: 'Россия',
+                    japan: 'Япония',
+                    italy: 'Италия',
+                  };
+                  return map[origin] || attributes.origin;
+                })()}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Price */}

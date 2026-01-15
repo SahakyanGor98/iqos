@@ -37,6 +37,10 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
     query = query.order('price', { ascending: false });
   } else if (sort === 'newest') {
     query = query.order('created_at', { ascending: false });
+  } else if (sort === 'title_asc') {
+    query = query.order('title', { ascending: true });
+  } else if (sort === 'title_desc') {
+    query = query.order('title', { ascending: false });
   } else {
     query = query.order('id', { ascending: true });
   }

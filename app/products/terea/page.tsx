@@ -36,6 +36,7 @@ export default async function TereaPage({ searchParams }: Props) {
       flavors: params.flavors as string,
       strength: params.strength as string,
       hasCapsule: params.hasCapsule as string,
+      origin: params.origin as string,
     },
   });
 
@@ -64,6 +65,16 @@ export default async function TereaPage({ searchParams }: Props) {
         { label: 'Табачный вкус', value: 'Табачный вкус' },
         { label: 'Фруктовый вкус', value: 'Фруктовый вкус' },
         { label: 'Экзотические', value: 'Экзотические' },
+      ],
+    },
+    {
+      id: 'origin',
+      label: 'Страна производства',
+      type: 'checkbox' as const,
+      options: [
+        { label: 'Армения', value: 'armenia' },
+        { label: 'Казахстан', value: 'kazakhstan' },
+        { label: 'Россия', value: 'russia' },
       ],
     },
     {

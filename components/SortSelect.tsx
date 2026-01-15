@@ -39,6 +39,8 @@ export const SortSelect = () => {
         <option value='price_asc'>Сначала дешевые</option>
         <option value='price_desc'>Сначала дорогие</option>
         <option value='newest'>Новинки</option>
+        <option value='title_asc'>Название (А-Я)</option>
+        <option value='title_desc'>Название (Я-А)</option>
       </select>
     </div>
   );
