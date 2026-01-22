@@ -41,7 +41,7 @@ export default function Home() {
             src='/terea.webp'
             alt='Terea Sticks Background'
             fill
-            className='object-cover transition-transform duration-700 group-hover:scale-105'
+            className='object-cover object-right transition-transform duration-700 group-hover:scale-105'
             priority
           />
         </div>

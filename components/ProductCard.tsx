@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
-import { useCartStore } from '@/store/cartStore';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { Product } from '@/types/product';
 
@@ -31,21 +30,19 @@ export const ProductCard = ({ product }: Props) => {
   const badges = product.badges as { isNew?: boolean; isHit?: boolean; isExclusive?: boolean };
   const attributes = product.attributes as Record<string, any>;
 
-
-
   return (
     <Link
       href={`/products/${product.category === 'gadget' ? 'iqos' : 'terea'}/${product.slug}`}
-      className='group block rounded-xl border border-neutral-200 bg-white p-4 transition hover:shadow-md h-full flex flex-col'
+      className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden'
     >
       {/* Image */}
-      <div className='relative aspect-square mb-4'>
+      <div className='relative aspect-square'>
         <Image
           src={product.image}
           alt={product.title}
           fill
           sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
-          className='object-contain'
+          className='object-cover'
         />
 
         {/* Badges */}
@@ -63,7 +60,7 @@ export const ProductCard = ({ product }: Props) => {
       </div>
 
       {/* Content */}
-      <div className='flex-1 flex flex-col'>
+      <div className='flex-1 flex flex-col p-4'>
         <h3 className='text-sm font-medium leading-snug mb-1 line-clamp-2'>{product.title}</h3>
 
         {/* Attributes Display */}
@@ -80,7 +77,7 @@ export const ProductCard = ({ product }: Props) => {
           )}
           {product.category === 'sticks' && attributes.origin && (
             <div className='flex items-center gap-1.5 mt-1.5'>
-              <span className="text-[10px] uppercase tracking-wider text-neutral-400 font-medium">
+              <span className='text-[10px] uppercase tracking-wider text-neutral-400 font-medium'>
                 {(() => {
                   const origin = String(attributes.origin).toLowerCase();
                   const map: Record<string, string> = {
@@ -114,11 +111,11 @@ export const ProductCard = ({ product }: Props) => {
 
       {/* Add to Cart */}
       {/* Add to Cart */}
-      <div className='mt-4'>
+      <div className='m-4'>
         <AddToCartButton
           product={mapToStoreProduct(product)}
           disabled={!product.in_stock}
-          className="text-sm py-2.5"
+          className='text-sm py-2.5'
         />
       </div>
     </Link>

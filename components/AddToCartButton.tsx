@@ -85,9 +85,10 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
       onClick={handleAdd}
       disabled={disabled}
       className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide transition-all duration-300 transform active:scale-95
-        ${disabled
-          ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-          : 'bg-black text-white hover:bg-neutral-800'
+        ${
+          disabled
+            ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+            : 'bg-black text-white hover:bg-neutral-800'
         } ${className}
       `}
     >
