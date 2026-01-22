@@ -32,7 +32,7 @@ export default function ContactPage() {
                 Самый быстрый способ получить ответ. Пишите нам в любое время.
               </p>
               <a
-                href='https://t.me/placeholder' // TODO: Update Telegram link
+                href='https://t.me/iqos_msk' // TODO: Update Telegram link
                 target='_blank'
                 rel='noopener noreferrer'
                 className='inline-flex items-center justify-center px-6 py-3 bg-[#229ED9] text-white rounded-full font-bold hover:bg-[#1E8BBF] transition active:scale-95'
@@ -46,7 +46,9 @@ export default function ContactPage() {
 
             <div className='p-6 bg-neutral-50 rounded-2xl border border-neutral-100'>
               <h3 className='font-bold text-lg mb-2'>Email</h3>
-              <p className='text-neutral-600'>Example@domain.com</p>
+              <a href='mailto:iqos_russia_02@vk.com' className='text-neutral-600'>
+                iqos_russia_02@vk.com
+              </a>
             </div>
           </div>
         </div>
