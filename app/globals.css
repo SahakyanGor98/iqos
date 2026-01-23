@@ -1,17 +1,19 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #171717;
+  --background: #fffdfb; /* Soft White */
+  --foreground: #34303d; /* Slate */
+  --primary: #34303d;
+  --accent: #f5f3f1; /* Off-White/Cream */
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #34303d;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -23,11 +25,11 @@ body {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300;
+    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white bg-[#34303D] transition-all duration-300 hover:bg-black hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all duration-300 border border-neutral-200 hover:border-black;
+    @apply inline-flex items-center justify-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-[0.1em] text-[#34303D] border-2 border-[#34303D] bg-transparent transition-all duration-300 hover:bg-[#34303D] hover:text-white;
   }
 }
 

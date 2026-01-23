@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
@@ -37,12 +36,11 @@ export const ProductCard = ({ product }: Props) => {
     >
       {/* Image */}
       <div className='relative aspect-square'>
-        <Image
+        <img
           src={product.image}
           alt={product.title}
-          fill
-          sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
-          className='object-cover'
+          className='w-full h-full object-cover'
+          loading='lazy'
         />
 
         {/* Badges */}

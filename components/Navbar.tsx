@@ -29,11 +29,11 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className='sticky top-0 z-50 w-full border-b border-[var(--border)] bg-white/80 backdrop-blur-md'>
-        <div className='container-custom flex h-16 items-center justify-between'>
+      <header className='sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300'>
+        <div className='container-custom flex h-20 items-center justify-between'>
           {/* Logo */}
-          <Link href='/' className='text-2xl font-black tracking-tighter uppercase'>
-            IQOS<span className='text-neutral-400'>STORE</span>
+          <Link href='/' className='text-3xl font-bold tracking-tighter uppercase text-[#34303D]'>
+            IQOS<span className='text-neutral-400 font-light'>STORE</span>
           </Link>
 
           {/* Desktop Nav */}

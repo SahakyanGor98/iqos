@@ -46,13 +46,11 @@ export default async function IqosSlugPage({ params }: Props) {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16'>
         {/* Gallery Section */}
         <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
-          <Image
+          <img
             src={productRow.image}
             alt={productRow.title}
-            fill
-            className='object-contain transition-transform duration-500 hover:scale-105'
-            sizes='(max-width: 768px) 100vw, 50vw'
-            priority
+            className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
+            loading='lazy'
           />
           {/* Badges Overlay */}
           <div className='absolute top-6 left-6 flex flex-col gap-2'>

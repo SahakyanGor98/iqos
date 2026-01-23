@@ -46,13 +46,11 @@ export default async function TereaSlugPage({ params }: Props) {
         {/* Gallery */}
         <div className='flex flex-col gap-4'>
           <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
-            <Image
+            <img
               src={productRow.image}
               alt={productRow.title}
-              fill
-              className='object-contain transition-transform duration-500 hover:scale-105'
-              sizes='(max-width: 768px) 100vw, 50vw'
-              priority
+              className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
+              loading='lazy'
             />
             <div className='absolute top-6 left-6 flex flex-col gap-2'>
               {badgeData.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
@@ -62,11 +60,11 @@ export default async function TereaSlugPage({ params }: Props) {
           {/* Pack Image Preview if exists */}
           {attrs.imagePack && (
             <div className='relative bg-neutral-50 rounded-xl overflow-hidden aspect-[4/3] p-4 flex items-center justify-center'>
-              <Image
+              <img
                 src={attrs.imagePack}
                 alt={`${productRow.title} pack`}
-                fill
-                className='object-contain'
+                className='w-full h-full object-contain'
+                loading='lazy'
               />
               <span className='absolute bottom-2 right-2 text-[10px] text-neutral-400 uppercase font-bold tracking-wider'>
                 Вид пачки
