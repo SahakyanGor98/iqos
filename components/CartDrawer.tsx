@@ -80,7 +80,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     <div key={item.product.id} className='flex gap-4 border-b pb-4 last:border-0'>
                       <div className='relative w-20 h-20 flex-shrink-0 bg-neutral-50 rounded-md overflow-hidden'>
                         <img
-                          src={item.product.image}
+                          src={`/api/proxy?url=${encodeURIComponent(item.product.image)}`}
                           alt={item.product.title}
                           className='w-full h-full object-contain p-1'
                           loading='lazy'

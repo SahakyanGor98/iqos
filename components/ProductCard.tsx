@@ -37,7 +37,7 @@ export const ProductCard = ({ product }: Props) => {
       {/* Image */}
       <div className='relative aspect-square'>
         <img
-          src={product.image}
+          src={`/api/proxy?url=${encodeURIComponent(product.image)}`}
           alt={product.title}
           className='w-full h-full object-cover'
           loading='lazy'

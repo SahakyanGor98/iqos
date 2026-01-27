@@ -47,7 +47,7 @@ export default async function TereaSlugPage({ params }: Props) {
         <div className='flex flex-col gap-4'>
           <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
             <img
-              src={productRow.image}
+              src={`/api/proxy?url=${encodeURIComponent(productRow.image)}`}
               alt={productRow.title}
               className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
               loading='lazy'
@@ -61,7 +61,7 @@ export default async function TereaSlugPage({ params }: Props) {
           {attrs.imagePack && (
             <div className='relative bg-neutral-50 rounded-xl overflow-hidden aspect-[4/3] p-4 flex items-center justify-center'>
               <img
-                src={attrs.imagePack}
+                src={`/api/proxy?url=${encodeURIComponent(attrs.imagePack)}`}
                 alt={`${productRow.title} pack`}
                 className='w-full h-full object-contain'
                 loading='lazy'

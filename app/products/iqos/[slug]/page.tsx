@@ -47,7 +47,7 @@ export default async function IqosSlugPage({ params }: Props) {
         {/* Gallery Section */}
         <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
           <img
-            src={productRow.image}
+            src={`/api/proxy?url=${encodeURIComponent(productRow.image)}`}
             alt={productRow.title}
             className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
             loading='lazy'
