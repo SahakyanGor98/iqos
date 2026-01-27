@@ -10,7 +10,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL('https://24iqos.ru'),
   title: {
     template: '%s | IQOS & TEREA',
     default: 'IQOS & TEREA - Купить стики и устройства',

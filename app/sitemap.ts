@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://example.com'; // TODO: Update with real domain
+  const baseUrl = 'https://24iqos.ru';
 
   // Static routes
   const routes = ['', '/products/iqos', '/products/terea'].map((route) => ({

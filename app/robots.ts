@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://example.com/sitemap.xml', // TODO: Update with real domain
+    sitemap: 'https://24iqos.ru/sitemap.xml',
   };
 }

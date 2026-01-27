@@ -108,7 +108,6 @@ export const ProductCard = ({ product }: Props) => {
       </div>
 
       {/* Add to Cart */}
-      {/* Add to Cart */}
       <div className='m-4'>
         <AddToCartButton
           product={mapToStoreProduct(product)}
