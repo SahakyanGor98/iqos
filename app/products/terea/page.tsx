@@ -33,10 +33,10 @@ export default async function TereaPage({ searchParams }: Props) {
     sort: params.sort as string,
     priceRange: { min: minPrice, max: maxPrice },
     filters: {
-      flavors: params.flavors as string,
-      strength: params.strength as string,
-      hasCapsule: params.hasCapsule as string,
-      origin: params.origin as string,
+      flavors: params.flavors as string | string[],
+      strength: params.strength as string | string[],
+      hasCapsule: params.hasCapsule as string | string[],
+      origin: params.origin as string | string[],
     },
   });
 

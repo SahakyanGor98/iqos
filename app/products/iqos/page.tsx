@@ -33,7 +33,7 @@ export default async function IqosPage({ searchParams }: Props) {
     sort: params.sort as string,
     priceRange: { min: minPrice, max: maxPrice },
     filters: {
-      color: params.color as string,
+      color: params.color as string | string[],
     },
   });
 

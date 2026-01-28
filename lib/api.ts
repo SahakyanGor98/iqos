@@ -46,45 +46,42 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
   }
 
   // Dynamic Filters (JSONB)
-  // Dynamic Filters (JSONB)
   if (filters) {
     Object.entries(filters).forEach(([key, value]) => {
-      if (value) {
-        // Special handling for 'hasCapsule' boolean logic
-        if (key === 'hasCapsule') {
-          // value from URL is 'true'
-          query = query.contains('attributes', { [key]: value === 'true' });
-          return;
-        }
+      if (!value) return;
 
-        // Supabase .contains() logic:
-        // If DB has { "flavors": ["A", "B"] }, searching for "A" via .contains requires
-        // passing { "flavors": ["A"] }.
-        // If we pass { "flavors": "A" }, it looks for a string value "A", not element in array.
+      // Special handling for 'hasCapsule' boolean logic
+      if (key === 'hasCapsule') {
+        // value from URL is 'true'
+        query = query.contains('attributes', { [key]: value === 'true' });
+        return;
+      }
 
-        // HACK: We assume specific keys are arrays based on known schema.
-        const knownArrayKeys = ['flavors'];
+      const knownArrayKeys = ['flavors'];
 
+      if (Array.isArray(value)) {
+        // Multiple values selected -> OR logic
         if (knownArrayKeys.includes(key)) {
-          // Force wrap value in array for .contains to work on JSON arrays
-          // Even if value is already array (from multi-select params),
-          // we might need to handle it.
-          // If param is ?flavors=A -> value='A' -> wrap -> ['A']
-          // If param is ?flavors=A&flavors=B -> value=['A','B'] -> use as is or wrap?
-          // .contains({flavors: ['A', 'B']}) means "Contains BOTH A and B". (AND logic)
-          // If user wants OR, we can't easily do it with simple .contains
-
-          if (Array.isArray(value)) {
-            query = query.contains('attributes', { [key]: value });
-          } else {
-            query = query.contains('attributes', { [key]: [value] });
-          }
+          // For array fields in DB (attributes->flavors)
+          // attributes->flavors.cs.["A"],attributes->flavors.cs.["B"]
+          const orCondition = value
+            .map((v) => `attributes->${key}.cs.["${v}"]`)
+            .join(',');
+          query = query.or(orCondition);
         } else {
-          // Standard string match (e.g. strength, color)
-          // DB: { "strength": "strong" } -> Query: { "strength": "strong" }
-          if (typeof value === 'string') {
-            query = query.contains('attributes', { [key]: value });
-          }
+          // For string fields in DB (attributes->color)
+          // attributes->>color.eq.Red,attributes->>color.eq.Blue
+          const orCondition = value
+            .map((v) => `attributes->>${key}.eq.${v}`)
+            .join(',');
+          query = query.or(orCondition);
+        }
+      } else {
+        // Single value
+        if (knownArrayKeys.includes(key)) {
+          query = query.contains('attributes', { [key]: [value] });
+        } else {
+          query = query.contains('attributes', { [key]: value });
         }
       }
     });

@@ -47,12 +47,15 @@ export const ProductFilters = ({ sections }: Props) => {
 
   const handleCheckboxChange = (sectionId: string, value: string) => {
     const params = new URLSearchParams(searchParams);
-    // Single select logic for now to stay robust with current API,
-    // implies "replace value"
-    if (params.get(sectionId) === value) {
+    const currentValues = params.getAll(sectionId);
+
+    if (currentValues.includes(value)) {
       params.delete(sectionId);
+      currentValues
+        .filter((v) => v !== value)
+        .forEach((v) => params.append(sectionId, v));
     } else {
-      params.set(sectionId, value);
+      params.append(sectionId, value);
     }
     updateParams(params);
   };
@@ -109,7 +112,7 @@ export const ProductFilters = ({ sections }: Props) => {
             {section.type === 'checkbox' && section.options && (
               <div className='space-y-2'>
                 {section.options.map((option) => {
-                  const isChecked = searchParams.get(section.id) === option.value;
+                  const isChecked = searchParams.getAll(section.id).includes(option.value);
                   return (
                     <label
                       key={option.value}
