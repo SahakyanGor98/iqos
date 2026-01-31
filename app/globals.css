@@ -1,10 +1,13 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #fffdfb; /* Soft White */
-  --foreground: #34303d; /* Slate */
+  --background: #fffdfb;
+  /* Soft White */
+  --foreground: #34303d;
+  /* Slate */
   --primary: #34303d;
-  --accent: #f5f3f1; /* Off-White/Cream */
+  --accent: #f5f3f1;
+  /* Off-White/Cream */
   --border: #e5e7eb;
   --input: #e5e7eb;
   --ring: #34303d;
@@ -13,7 +16,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -6,7 +6,7 @@ export default function Home() {
     <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden'>
       {/* IQOS Section */}
       <section className='relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
-        <div className='absolute inset-0 bg-neutral-900 z-10 opacity-60 transition-opacity duration-500 group-hover:opacity-40'></div>
+        <div className='absolute inset-0 bg-neutral-900 z-10 opacity-30 md:opacity-60 transition-opacity duration-500 group-hover:opacity-30'></div>
         <div className='absolute inset-0 z-0'>
           <Image
             src='/iqos.webp'
@@ -21,7 +21,7 @@ export default function Home() {
           <h2 className='text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500'>
             IQOS ILUMA
           </h2>
-          <p className='text-lg md:text-xl text-neutral-200 mb-8 max-w-md translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100'>
+          <p className='text-lg md:text-xl text-neutral-200 mb-8 max-w-md translate-y-4 opacity-100 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100'>
             Революционная технология индукционного нагревания табака без лезвия.
           </p>
           <Link
@@ -35,7 +35,7 @@ export default function Home() {
 
       {/* Terea Section */}
       <section className='relative flex-1 group overflow-hidden'>
-        <div className='absolute inset-0 bg-neutral-800 z-10 opacity-60 transition-opacity duration-500 group-hover:opacity-40'></div>
+        <div className='absolute inset-0 bg-neutral-800 z-10 opacity-30 md:opacity-60 transition-opacity duration-500 group-hover:opacity-30'></div>
         <div className='absolute inset-0 z-0'>
           <Image
             src='/terea.webp'
@@ -50,7 +50,7 @@ export default function Home() {
           <h2 className='text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500'>
             Стики Terea
           </h2>
-          <p className='text-lg md:text-xl text-neutral-200 mb-8 max-w-md translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100'>
+          <p className='text-lg md:text-xl text-neutral-200 mb-8 max-w-md translate-y-4 opacity-100 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100'>
             Широкая палитра вкусов для вашего устройства IQOS Iluma.
           </p>
           <Link

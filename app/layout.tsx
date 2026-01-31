@@ -1,13 +1,6 @@
 import type { Metadata } from 'next';
-import { Outfit } from 'next/font/google';
 import './globals.css';
 import { Navbar, Footer } from '@/components';
-
-const outfit = Outfit({
-  variable: '--font-outfit',
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://24iqos.ru'),
@@ -33,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru'>
-      <body className={`${outfit.variable} antialiased min-h-screen flex flex-col font-sans`}>
+      <body className={`antialiased min-h-screen flex flex-col font-sans`}>
         <Navbar />
         <main className='flex-grow'>{children}</main>
         <Footer />
