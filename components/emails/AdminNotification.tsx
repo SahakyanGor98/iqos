@@ -34,7 +34,9 @@ export const AdminNotification = ({ orderId, customer, items, totalAmount }: Pro
 
         {/* Customer Details */}
         <div style={emailStyles.section}>
-          <h2 style={{ fontSize: '18px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Данные клиента</h2>
+          <h2 style={{ fontSize: '18px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
+            Данные клиента
+          </h2>
           <table style={{ width: '100%' }}>
             <tbody>
               <tr>
@@ -44,19 +46,27 @@ export const AdminNotification = ({ orderId, customer, items, totalAmount }: Pro
               <tr>
                 <td style={{ padding: '8px 0', color: '#666' }}>Телефон:</td>
                 <td style={{ padding: '8px 0', fontWeight: 'bold' }}>
-                  <a href={`tel:${customer.phone}`} style={{ color: '#333' }}>{customer.phone}</a>
+                  <a href={`tel:${customer.phone}`} style={{ color: '#333' }}>
+                    {customer.phone}
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td style={{ padding: '8px 0', color: '#666' }}>Email:</td>
                 <td style={{ padding: '8px 0' }}>
-                  <a href={`mailto:${customer.email}`} style={{ color: '#333' }}>{customer.email}</a>
+                  <a href={`mailto:${customer.email}`} style={{ color: '#333' }}>
+                    {customer.email}
+                  </a>
                 </td>
               </tr>
               {customer.message && (
                 <tr>
-                  <td style={{ padding: '8px 0', color: '#666', verticalAlign: 'top' }}>Комментарий:</td>
-                  <td style={{ padding: '8px 0', fontStyle: 'italic', color: '#555' }}>{customer.message}</td>
+                  <td style={{ padding: '8px 0', color: '#666', verticalAlign: 'top' }}>
+                    Комментарий:
+                  </td>
+                  <td style={{ padding: '8px 0', fontStyle: 'italic', color: '#555' }}>
+                    {customer.message}
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -65,7 +75,9 @@ export const AdminNotification = ({ orderId, customer, items, totalAmount }: Pro
 
         {/* Order Details */}
         <div style={emailStyles.section}>
-          <h2 style={{ fontSize: '18px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>Состав заказа</h2>
+          <h2 style={{ fontSize: '18px', borderBottom: '1px solid #eee', paddingBottom: '10px' }}>
+            Состав заказа
+          </h2>
           <table style={emailStyles.table}>
             <thead>
               <tr>
@@ -87,9 +99,7 @@ export const AdminNotification = ({ orderId, customer, items, totalAmount }: Pro
             </tbody>
           </table>
 
-          <div style={{ ...emailStyles.total, fontSize: '24px' }}>
-            {totalAmount} ₽
-          </div>
+          <div style={{ ...emailStyles.total, fontSize: '24px' }}>{totalAmount} ₽</div>
         </div>
       </div>
     </div>

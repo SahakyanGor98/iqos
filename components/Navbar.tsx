@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import { CartDrawer } from '@/components';
+import { ROUTES } from '@/lib/constants';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -20,9 +21,9 @@ export const Navbar = () => {
   const totalItems = mounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
 
   const links = [
-    { href: '/products/iqos', label: 'Устройства IQOS' },
-    { href: '/products/terea', label: 'Стики Terea' },
-    { href: '/contact', label: 'Контакты' },
+    { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
+    { href: ROUTES.catalog.terea, label: 'Стики Terea' },
+    { href: ROUTES.contact, label: 'Контакты' },
   ];
 
   const isActive = (path: string) => pathname.startsWith(path);
@@ -30,59 +31,11 @@ export const Navbar = () => {
   return (
     <>
       <header className='sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300'>
-        <div className='container-custom flex h-20 items-center justify-between'>
-          {/* Logo */}
-          <Link href='/' className='text-3xl font-bold tracking-tighter uppercase text-[#34303D]'>
-            IQOS<span className='text-neutral-400 font-light'>STORE</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className='hidden md:flex items-center gap-8'>
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-black ${
-                  isActive(link.href) ? 'text-black' : 'text-neutral-500'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className='flex items-center gap-4'>
+        <div className='container-custom flex h-16 items-center justify-between'>
+          {/* Mobile Menu Button (Left) */}
+          <div className='flex-1 md:hidden'>
             <button
-              onClick={() => setIsCartOpen(true)}
-              className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors'
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='w-5 h-5'
-              >
-                <circle cx='9' cy='21' r='1' />
-                <circle cx='20' cy='21' r='1' />
-                <path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6' />
-              </svg>
-              {totalItems > 0 && (
-                <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white'>
-                  {totalItems}
-                </span>
-              )}
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              className='md:hidden p-2 hover:bg-neutral-100 rounded-lg'
+              className='p-2 hover:bg-neutral-100 rounded-lg -ml-2'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg
@@ -109,6 +62,61 @@ export const Navbar = () => {
                   </>
                 )}
               </svg>
+            </button>
+          </div>
+
+          {/* Desktop Nav (Left) */}
+          <nav className='hidden md:flex flex-1 items-center gap-8'>
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-colors hover:text-black ${
+                  isActive(link.href) ? 'text-black' : 'text-neutral-500'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Logo (Center) */}
+          <div className='flex items-center justify-center'>
+            <Link
+              href='/'
+              className='text-xl md:text-2xl tracking-tighter uppercase text-[#34303D] font-[family-name:var(--font-christ)]'
+            >
+              IQOS STORE
+            </Link>
+          </div>
+
+          {/* Actions (Right) */}
+          <div className='flex flex-1 items-center justify-end gap-4'>
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors -mr-2'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='w-5 h-5'
+              >
+                <circle cx='9' cy='21' r='1' />
+                <circle cx='20' cy='21' r='1' />
+                <path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6' />
+              </svg>
+              {totalItems > 0 && (
+                <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white'>
+                  {totalItems}
+                </span>
+              )}
             </button>
           </div>
         </div>

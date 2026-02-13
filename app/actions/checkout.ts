@@ -4,6 +4,7 @@ import React from 'react';
 
 import { z } from 'zod';
 import { Resend } from 'resend';
+import { CONTACTS } from '@/lib/constants';
 import { supabase } from '@/lib/supabase';
 import { CartItem } from '@/store/cartStore';
 
@@ -80,11 +81,11 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
             customer: validatedData,
             items: items,
             totalAmount: totalAmount,
-          })
+          }),
         );
 
         const adminResult = await resend.emails.send({
-          from: 'IQOS Orders <support@24iqos.ru>',
+          from: `IQOS Orders <${CONTACTS.supportEmail}>`,
           to: INTERNAL_EMAIL,
           subject: `Новый заказ #${order.id} - ${totalAmount} ₽`,
           html: adminHtml,
@@ -103,11 +104,11 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
             customerName: validatedData.fullName,
             items: items,
             totalAmount: totalAmount,
-          })
+          }),
         );
 
         const userResult = await resend.emails.send({
-          from: 'IQOS <support@24iqos.ru>',
+          from: `IQOS <${CONTACTS.supportEmail}>`,
           to: validatedData.email,
           subject: `Ваш заказ #${order.id} принят!`,
           html: userHtml,

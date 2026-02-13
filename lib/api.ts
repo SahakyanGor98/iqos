@@ -64,16 +64,12 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
         if (knownArrayKeys.includes(key)) {
           // For array fields in DB (attributes->flavors)
           // attributes->flavors.cs.["A"],attributes->flavors.cs.["B"]
-          const orCondition = value
-            .map((v) => `attributes->${key}.cs.["${v}"]`)
-            .join(',');
+          const orCondition = value.map((v) => `attributes->${key}.cs.["${v}"]`).join(',');
           query = query.or(orCondition);
         } else {
           // For string fields in DB (attributes->color)
           // attributes->>color.eq.Red,attributes->>color.eq.Blue
-          const orCondition = value
-            .map((v) => `attributes->>${key}.eq.${v}`)
-            .join(',');
+          const orCondition = value.map((v) => `attributes->>${key}.eq.${v}`).join(',');
           query = query.or(orCondition);
         }
       } else {

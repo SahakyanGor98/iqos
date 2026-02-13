@@ -1,5 +1,5 @@
-import React from 'react';
 import { emailStyles } from './styles';
+import { CONTACTS } from '@/lib/constants';
 
 type OrderItem = {
   product: {
@@ -22,7 +22,7 @@ export const OrderConfirmation = ({ orderId, customerName, items, totalAmount }:
       <div style={emailStyles.container}>
         {/* Header */}
         <div style={emailStyles.header}>
-          <a href="https://24iqos.ru" style={emailStyles.logo}>
+          <a href={CONTACTS.website.url} style={emailStyles.logo}>
             IQOS STORE
           </a>
         </div>
@@ -33,7 +33,8 @@ export const OrderConfirmation = ({ orderId, customerName, items, totalAmount }:
         <p style={emailStyles.text}>
           Здравствуйте, <strong>{customerName}</strong>!
           <br />
-          Ваш заказ <strong>#{orderId}</strong> принят в обработку. Мы свяжемся с вами в ближайшее время для подтверждения деталей доставки.
+          Ваш заказ <strong>#{orderId}</strong> принят в обработку. Мы свяжемся с вами в ближайшее
+          время для подтверждения деталей доставки.
         </p>
 
         {/* Order Details */}
@@ -59,20 +60,31 @@ export const OrderConfirmation = ({ orderId, customerName, items, totalAmount }:
             </tbody>
           </table>
 
-          <div style={emailStyles.total}>
-            Итого: {totalAmount} ₽
-          </div>
+          <div style={emailStyles.total}>Итого: {totalAmount} ₽</div>
         </div>
 
         {/* Contact Info */}
-        <div style={{ ...emailStyles.section, backgroundColor: '#f9fafb', padding: '20px', borderRadius: '8px' }}>
+        <div
+          style={{
+            ...emailStyles.section,
+            backgroundColor: '#f9fafb',
+            padding: '20px',
+            borderRadius: '8px',
+          }}
+        >
           <h3 style={{ margin: '0 0 15px 0', fontSize: '16px', color: '#333' }}>Наши контакты</h3>
           <div style={emailStyles.text}>
             <div style={emailStyles.contactItem}>
-              <strong>Telegram:</strong> <a href="https://t.me/iqos_msk" style={{ color: '#333' }}>@iqos_msk</a>
+              <strong>Telegram:</strong>{' '}
+              <a href={CONTACTS.telegram.link} style={{ color: '#333' }}>
+                {CONTACTS.telegram.handle}
+              </a>
             </div>
             <div style={emailStyles.contactItem}>
-              <strong>Email:</strong> <a href="mailto:24iqos.info@gmail.com" style={{ color: '#333' }}>24iqos.info@gmail.com</a>
+              <strong>Email:</strong>{' '}
+              <a href={`mailto:${CONTACTS.email}`} style={{ color: '#333' }}>
+                {CONTACTS.email}
+              </a>
             </div>
           </div>
         </div>

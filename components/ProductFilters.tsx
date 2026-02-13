@@ -38,6 +38,13 @@ export const ProductFilters = ({ sections }: Props) => {
     setMaxPrice(searchParams.get('maxPrice') || '');
   }, [searchParams]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Close filters when searching/navigating on mobile
+  useEffect(() => {
+    setIsOpen(false);
+  }, [searchParams]);
+
   const updateParams = (newParams: URLSearchParams) => {
     newParams.set('page', '1');
     startTransition(() => {
@@ -51,9 +58,7 @@ export const ProductFilters = ({ sections }: Props) => {
 
     if (currentValues.includes(value)) {
       params.delete(sectionId);
-      currentValues
-        .filter((v) => v !== value)
-        .forEach((v) => params.append(sectionId, v));
+      currentValues.filter((v) => v !== value).forEach((v) => params.append(sectionId, v));
     } else {
       params.append(sectionId, value);
     }
@@ -90,8 +95,54 @@ export const ProductFilters = ({ sections }: Props) => {
   };
 
   return (
-    <div className='w-full md:w-64 flex-shrink-0 space-y-6'>
-      <div className='flex items-center justify-between'>
+    <div className='w-full md:w-64 flex-shrink-0 space-y-4 md:space-y-6'>
+      {/* Mobile Toggle */}
+      <div
+        className='flex items-center justify-between md:hidden bg-[#f5f5f5] p-3 rounded-lg cursor-pointer'
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className='flex items-center gap-2'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='18'
+            height='18'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <line x1='4' y1='21' x2='4' y2='14'></line>
+            <line x1='4' y1='10' x2='4' y2='3'></line>
+            <line x1='12' y1='21' x2='12' y2='12'></line>
+            <line x1='12' y1='8' x2='12' y2='3'></line>
+            <line x1='20' y1='21' x2='20' y2='16'></line>
+            <line x1='20' y1='12' x2='20' y2='3'></line>
+            <line x1='1' y1='14' x2='7' y2='14'></line>
+            <line x1='9' y1='8' x2='15' y2='8'></line>
+            <line x1='17' y1='16' x2='23' y2='16'></line>
+          </svg>
+          <span className='font-bold uppercase text-sm tracking-wide'>Фильтры</span>
+        </div>
+        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='20'
+            height='20'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <polyline points='6 9 12 15 18 9'></polyline>
+          </svg>
+        </div>
+      </div>
+
+      <div className='hidden md:flex items-center justify-between'>
         <h3 className='text-xl font-bold uppercase tracking-wide'>Фильтры</h3>
         <button
           onClick={handleClearFilters}
@@ -101,7 +152,9 @@ export const ProductFilters = ({ sections }: Props) => {
         </button>
       </div>
 
-      <div className='space-y-4'>
+      <div
+        className={`${isOpen ? 'block' : 'hidden'} md:block space-y-4 animate-in slide-in-from-top-2 duration-200 md:animate-none`}
+      >
         {sections.map((section) => (
           <div key={section.id} className='border-b border-neutral-100 pb-4 last:border-0'>
             {/* Simple header - could be collapsible detail but keep open for visibility for now */}
@@ -202,6 +255,15 @@ export const ProductFilters = ({ sections }: Props) => {
             )}
           </div>
         ))}
+      </div>
+
+      <div className={`${isOpen ? 'block' : 'hidden'} md:block md:mt-4`}>
+        <button
+          onClick={handleClearFilters}
+          className='md:hidden w-full text-center text-xs text-neutral-500 hover:text-black uppercase tracking-wider underline decoration-neutral-300 py-2 mb-2'
+        >
+          Сбросить все
+        </button>
       </div>
 
       {isPending && (
