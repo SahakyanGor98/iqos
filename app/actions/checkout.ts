@@ -85,7 +85,7 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
         );
 
         const adminResult = await resend.emails.send({
-          from: `IQOS Orders <${CONTACTS.supportEmail}>`,
+          from: `${CONTACTS.sender.name} Orders <${CONTACTS.sender.email}>`,
           to: INTERNAL_EMAIL,
           subject: `Новый заказ #${order.id} - ${totalAmount} ₽`,
           html: adminHtml,
@@ -108,7 +108,7 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
         );
 
         const userResult = await resend.emails.send({
-          from: `IQOS <${CONTACTS.supportEmail}>`,
+          from: `${CONTACTS.sender.name} <${CONTACTS.sender.email}>`,
           to: validatedData.email,
           subject: `Ваш заказ #${order.id} принят!`,
           html: userHtml,

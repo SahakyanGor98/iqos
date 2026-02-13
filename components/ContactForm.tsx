@@ -8,7 +8,7 @@ import { submitContact } from '@/app/actions/contact';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  phone: z.string().min(7, 'Введите корректный номер телефона'),
+  phone: z.string().min(5, 'Введите корректный номер телефона'),
   email: z.string().email('Введите корректный email'),
   message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
 });
@@ -103,7 +103,7 @@ export const ContactForm = () => {
               className={`w-full p-4 bg-neutral-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition ${
                 errors.phone ? 'border-red-500' : 'border-transparent'
               }`}
-              placeholder='+7 (999) 000-00-00'
+              placeholder='+7 (999) 000-00-00 или 8999...'
             />
             {errors.phone && <p className='text-red-500 text-sm mt-1'>{errors.phone.message}</p>}
           </div>

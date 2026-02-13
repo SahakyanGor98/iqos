@@ -1,8 +1,10 @@
 'use server';
 
+import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
+import { CONTACTS } from '@/lib/constants';
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -10,7 +12,7 @@ const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL;
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  phone: z.string().min(10, 'Введите корректный номер телефона'),
+  phone: z.string().min(5, 'Введите корректный номер телефона'),
   email: z.string().email('Введите корректный email'),
   message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
 });
@@ -39,18 +41,23 @@ export async function submitContact(data: ContactData) {
     // 3. Send Email (Internal Notification Only)
     if (process.env.RESEND_API_KEY && INTERNAL_EMAIL) {
       try {
+        const { renderToStaticMarkup } = await import('react-dom/server');
+        const { ContactNotification } = await import('@/components/emails/ContactNotification');
+
+        const emailHtml = renderToStaticMarkup(
+          React.createElement(ContactNotification, {
+            name: validatedData.name,
+            email: validatedData.email,
+            phone: validatedData.phone,
+            message: validatedData.message,
+          }),
+        );
+
         await resend.emails.send({
-          from: 'IQOS Contact <onboarding@resend.dev>',
+          from: `${CONTACTS.sender.name} Contact <${CONTACTS.sender.email}>`,
           to: INTERNAL_EMAIL,
           subject: `Новое сообщение от ${validatedData.name}`,
-          html: `
-            <h1>Новое сообщение с формы контактов</h1>
-            <p><strong>Имя:</strong> ${validatedData.name}</p>
-            <p><strong>Email:</strong> ${validatedData.email}</p>
-            <p><strong>Телефон:</strong> ${validatedData.phone}</p>
-            <h2>Сообщение:</h2>
-            <p>${validatedData.message}</p>
-          `,
+          html: emailHtml,
         });
       } catch (emailError) {
         console.error('Resend Error:', emailError);

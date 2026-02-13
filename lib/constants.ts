@@ -1,6 +1,10 @@
 export const CONTACTS = {
   email: '24iqos.info@gmail.com', // Public contact email
   supportEmail: 'support@24iqos.ru', // Sender email for transactional
+  sender: {
+    name: 'IQOS STORE',
+    email: 'support@24iqos.ru',
+  },
   telegram: {
     handle: '@iqos_msk',
     link: 'https://t.me/iqos_msk',

@@ -30,7 +30,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className='sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300'>
+      <header className='sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300 border-b border-neutral-200'>
         <div className='container-custom flex h-16 items-center justify-between'>
           {/* Mobile Menu Button (Left) */}
           <div className='flex-1 md:hidden'>
@@ -84,7 +84,7 @@ export const Navbar = () => {
           <div className='flex items-center justify-center'>
             <Link
               href='/'
-              className='text-xl md:text-2xl tracking-tighter uppercase text-[#34303D] font-[family-name:var(--font-christ)]'
+              className='text-2xl tracking-tighter uppercase text-[#34303D] font-[family-name:var(--font-christ)]'
             >
               IQOS STORE
             </Link>
