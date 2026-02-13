@@ -8,7 +8,7 @@ import { submitContact } from '@/app/actions/contact';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  phone: z.string().min(10, 'Введите корректный номер телефона'),
+  phone: z.string().min(7, 'Введите корректный номер телефона'),
   email: z.string().email('Введите корректный email'),
   message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
 });

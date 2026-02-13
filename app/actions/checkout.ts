@@ -14,7 +14,7 @@ const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL || null;
 // Schema (matching client-side)
 const formSchema = z.object({
   fullName: z.string().min(2),
-  phone: z.string().min(10),
+  phone: z.string().min(7),
   email: z.string().email(),
   message: z.string().optional(),
 });
