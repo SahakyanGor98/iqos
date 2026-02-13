@@ -1,5 +1,7 @@
 'use server';
 
+import React from 'react';
+
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { supabase } from '@/lib/supabase';
@@ -68,65 +70,51 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
 
     // 3. Send Emails (if API key exists)
     if (process.env.RESEND_API_KEY && INTERNAL_EMAIL) {
+      // Internal Notification
       try {
-        // Internal Notification
-        await resend.emails.send({
-          from: 'IQOS Orders <onboarding@resend.dev>',
-          to: INTERNAL_EMAIL,
-          subject: `Новый заказ #${order.id} от ${validatedData.fullName}`,
-          html: `
-            <h1>Новый заказ!</h1>
-            <p><strong>Клиент:</strong> ${validatedData.fullName}</p>
-            <p><strong>Телефон:</strong> ${validatedData.phone}</p>
-            <p><strong>Email:</strong> ${validatedData.email}</p>
-            <p><strong>Комментарий:</strong> ${validatedData.message || 'Нет'}</p>
-            
-            <h2>Товары:</h2>
-            <ul>
-              ${items
-                .map(
-                  (item) =>
-                    `<li>${item.product.title} x ${item.quantity} - ${
-                      item.product.price * item.quantity
-                    } ₽</li>`,
-                )
-                .join('')}
-            </ul>
-            
-            <p><strong>Итого:</strong> ${totalAmount} ₽</p>
-          `,
-        });
+        const { renderToStaticMarkup } = await import('react-dom/server');
+        const { AdminNotification } = await import('@/components/emails/AdminNotification');
+        const adminHtml = renderToStaticMarkup(
+          React.createElement(AdminNotification, {
+            orderId: order.id.toString(),
+            customer: validatedData,
+            items: items,
+            totalAmount: totalAmount,
+          })
+        );
 
-        // User Confirmation
-        await resend.emails.send({
-          from: 'IQOS <onboarding@resend.dev>',
-          to: validatedData.email,
-          subject: `Подтверждение заказа #${order.id}`,
-          html: `
-            <h1>Спасибо за ваш заказ, ${validatedData.fullName}!</h1>
-            <p>Мы получили ваш заказ и скоро свяжемся с вами для подтверждения.</p>
-            
-            <h2>Детали заказа:</h2>
-            <ul>
-              ${items
-                .map(
-                  (item) =>
-                    `<li>${item.product.title} x ${item.quantity} - ${
-                      item.product.price * item.quantity
-                    } ₽</li>`,
-                )
-                .join('')}
-            </ul>
-            
-            <p><strong>Сумма:</strong> ${totalAmount} ₽</p>
-          `,
+        const adminResult = await resend.emails.send({
+          from: 'IQOS Orders <support@24iqos.ru>',
+          to: INTERNAL_EMAIL,
+          subject: `Новый заказ #${order.id} - ${totalAmount} ₽`,
+          html: adminHtml,
         });
-      } catch (emailError) {
-        console.error('Resend Error:', emailError);
-        // We don't fail the order if email fails, but we log it
+      } catch (adminError) {
+        console.error('Failed to send Admin Email:', adminError);
       }
-    } else {
-      console.log('Resend API key or Internal Email not found, skipping email sending.');
+
+      // User Confirmation
+      try {
+        const { renderToStaticMarkup } = await import('react-dom/server');
+        const { OrderConfirmation } = await import('@/components/emails/OrderConfirmation');
+        const userHtml = renderToStaticMarkup(
+          React.createElement(OrderConfirmation, {
+            orderId: order.id.toString(),
+            customerName: validatedData.fullName,
+            items: items,
+            totalAmount: totalAmount,
+          })
+        );
+
+        const userResult = await resend.emails.send({
+          from: 'IQOS <support@24iqos.ru>',
+          to: validatedData.email,
+          subject: `Ваш заказ #${order.id} принят!`,
+          html: userHtml,
+        });
+      } catch (userError) {
+        console.error('Failed to send User Email:', userError);
+      }
     }
 
     return { success: true };

@@ -1,0 +1,97 @@
+import React from 'react';
+
+export const emailStyles = {
+  body: {
+    backgroundColor: '#fffdfb',
+    fontFamily: 'Arial, sans-serif',
+    color: '#34303d',
+    margin: 0,
+    padding: '20px',
+  },
+  container: {
+    maxWidth: '600px',
+    margin: '0 auto',
+    backgroundColor: '#ffffff',
+    padding: '40px',
+    borderRadius: '12px',
+    border: '1px solid #e5e7eb',
+  },
+  header: {
+    textAlign: 'center' as const,
+    marginBottom: '30px',
+    borderBottom: '1px solid #eee',
+    paddingBottom: '20px',
+  },
+  logo: {
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: '#000000',
+    textDecoration: 'none',
+    letterSpacing: '0.1em',
+  },
+  heading: {
+    fontSize: '20px',
+    fontWeight: 'normal',
+    textAlign: 'center' as const,
+    margin: '30px 0',
+    color: '#333',
+  },
+  section: {
+    marginBottom: '30px',
+  },
+  text: {
+    fontSize: '16px',
+    lineHeight: '1.5',
+    color: '#555',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse' as const,
+    marginTop: '20px',
+    marginBottom: '20px',
+  },
+  th: {
+    borderBottom: '2px solid #eee',
+    textAlign: 'left' as const,
+    padding: '10px',
+    color: '#888',
+    fontSize: '12px',
+    textTransform: 'uppercase' as const,
+    letterSpacing: '0.05em',
+  },
+  td: {
+    borderBottom: '1px solid #eee',
+    padding: '15px 10px',
+    fontSize: '14px',
+    color: '#333',
+  },
+  total: {
+    textAlign: 'right' as const,
+    paddingTop: '20px',
+    fontSize: '18px',
+    fontWeight: 'bold',
+  },
+  footer: {
+    marginTop: '40px',
+    textAlign: 'center' as const,
+    fontSize: '12px',
+    color: '#999',
+    borderTop: '1px solid #eee',
+    paddingTop: '20px',
+  },
+  button: {
+    display: 'inline-block',
+    backgroundColor: '#000000',
+    color: '#ffffff',
+    padding: '12px 25px',
+    textDecoration: 'none',
+    borderRadius: '50px',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    margin: '20px auto',
+    textAlign: 'center' as const,
+  },
+  contactItem: {
+    marginBottom: '8px',
+  },
+};

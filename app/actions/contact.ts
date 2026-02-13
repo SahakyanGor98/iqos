@@ -56,8 +56,6 @@ export async function submitContact(data: ContactData) {
         console.error('Resend Error:', emailError);
         // Don't fail the request if email fails
       }
-    } else {
-      console.log('Resend API key or Internal Email not found, skipping email sending.');
     }
 
     return { success: true };
