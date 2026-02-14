@@ -1,5 +1,6 @@
 import { getProducts } from '@/lib/api';
 import { ProductGrid, ProductFilters, Pagination, SortSelect, PerPageSelect } from '@/components';
+import { IQOS_LINES } from '@/lib/constants';
 
 import { Metadata } from 'next';
 
@@ -46,19 +47,18 @@ export default async function IqosPage({ searchParams }: Props) {
       ],
     },
     {
-      id: 'inStock',
-      label: 'В наличии',
-      type: 'boolean' as const,
-    },
-    {
       id: 'line',
       label: 'Модель',
       type: 'checkbox' as const,
-      options: [
-        { label: 'IQOS ILUMA ONE', value: 'one' },
-        { label: 'IQOS ILUMA i ONE', value: 'i-one' },
-        { label: 'IQOS ILUMA', value: 'standard' },
-      ],
+      options: Object.entries(IQOS_LINES).map(([value, label]) => ({
+        label,
+        value,
+      })),
+    },
+    {
+      id: 'inStock',
+      label: 'В наличии',
+      type: 'boolean' as const,
     },
   ];
 

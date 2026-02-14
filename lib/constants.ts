@@ -37,3 +37,9 @@ export const SOCIALS = [
     icon: 'telegram', // You can use this key to render icons
   },
 ];
+
+export const IQOS_LINES: Record<string, string> = {
+  one: 'IQOS ILUMA ONE',
+  'i-one': 'IQOS ILUMA i ONE',
+  standard: 'IQOS ILUMA',
+};

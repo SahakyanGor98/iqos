@@ -1,6 +1,6 @@
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
+import { IQOS_LINES } from '@/lib/constants';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import { AddToCartButton } from '@/components';
 import { Product } from '@/types/product';
 
@@ -68,7 +68,9 @@ export default async function IqosSlugPage({ params }: Props) {
             <h1 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-2'>
               {productRow.title}
             </h1>
-            <p className='text-lg text-neutral-500 font-medium'>{attrs.line || 'IQOS Original'}</p>
+            <p className='text-lg text-neutral-500 font-medium'>
+              {IQOS_LINES[attrs.line as string] || attrs.line || 'IQOS Original'}
+            </p>
           </div>
 
           <div className='flex items-end gap-4'>
