@@ -1,6 +1,6 @@
+import { Metadata } from 'next';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import { AddToCartButton } from '@/components';
 import { Product } from '@/types/product';
 
@@ -8,9 +8,31 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+
 export async function generateStaticParams() {
   const slugs = await getAllSlugs('sticks');
   return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+
+  if (!product) {
+    return {
+      title: 'Товар не найден',
+    };
+  }
+
+  return {
+    title: product.title,
+    description: product.description || `Купить ${product.title} по выгодной цене.`,
+    openGraph: {
+      title: product.title,
+      description: product.description || `Купить ${product.title} по выгодной цене.`,
+      images: [product.image],
+    },
+  };
 }
 
 export const revalidate = 60;
