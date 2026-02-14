@@ -50,6 +50,16 @@ export default async function IqosPage({ searchParams }: Props) {
       label: 'В наличии',
       type: 'boolean' as const,
     },
+    {
+      id: 'line',
+      label: 'Модель',
+      type: 'checkbox' as const,
+      options: [
+        { label: 'IQOS ILUMA ONE', value: 'one' },
+        { label: 'IQOS ILUMA i ONE', value: 'i-one' },
+        { label: 'IQOS ILUMA', value: 'standard' },
+      ],
+    },
   ];
 
   const { data: products, count } = await getProducts({
@@ -61,6 +71,7 @@ export default async function IqosPage({ searchParams }: Props) {
     inStock: params.inStock === 'true',
     filters: {
       color: params.color as string | string[],
+      line: params.line as string | string[],
     },
   });
 
