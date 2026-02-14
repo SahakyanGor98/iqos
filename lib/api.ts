@@ -12,6 +12,7 @@ export type ProductParams = {
   };
   // Dynamic filters
   query?: string;
+  inStock?: boolean;
   filters?: Record<string, string | string[]>;
 };
 
@@ -31,6 +32,9 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
   query = query.range(from, to);
 
   // Sorting
+  // Always prioritize available products
+  query = query.order('in_stock', { ascending: false });
+
   if (sort === 'price_asc') {
     query = query.order('price', { ascending: true });
   } else if (sort === 'price_desc') {
@@ -91,6 +95,11 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
     if (params.priceRange.max !== undefined) {
       query = query.lte('price', params.priceRange.max);
     }
+  }
+
+  // Stock Filter
+  if (params.inStock) {
+    query = query.eq('in_stock', true);
   }
 
   const { data, error, count } = await query;

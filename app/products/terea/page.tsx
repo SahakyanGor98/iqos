@@ -1,5 +1,5 @@
 import { getProducts } from '@/lib/api';
-import { ProductGrid, ProductFilters, Pagination, SortSelect } from '@/components';
+import { ProductGrid, ProductFilters, Pagination, SortSelect, PerPageSelect } from '@/components';
 
 import { Metadata } from 'next';
 
@@ -22,23 +22,10 @@ type Props = {
 export default async function TereaPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
+  const limit = Number(params.limit) || 12;
 
   const minPrice = params.minPrice ? Number(params.minPrice) : undefined;
   const maxPrice = params.maxPrice ? Number(params.maxPrice) : undefined;
-
-  const { data: products, count } = await getProducts({
-    category: 'sticks',
-    page,
-    limit: 12,
-    sort: params.sort as string,
-    priceRange: { min: minPrice, max: maxPrice },
-    filters: {
-      flavors: params.flavors as string | string[],
-      strength: params.strength as string | string[],
-      hasCapsule: params.hasCapsule as string | string[],
-      origin: params.origin as string | string[],
-    },
-  });
 
   const filterSections = [
     {
@@ -82,7 +69,27 @@ export default async function TereaPage({ searchParams }: Props) {
       label: 'С капсулой',
       type: 'boolean' as const,
     },
+    {
+      id: 'inStock',
+      label: 'В наличии',
+      type: 'boolean' as const,
+    },
   ];
+
+  const { data: products, count } = await getProducts({
+    category: 'sticks',
+    page,
+    limit,
+    sort: params.sort as string,
+    priceRange: { min: minPrice, max: maxPrice },
+    inStock: params.inStock === 'true',
+    filters: {
+      flavors: params.flavors as string | string[],
+      strength: params.strength as string | string[],
+      hasCapsule: params.hasCapsule as string | string[],
+      origin: params.origin as string | string[],
+    },
+  });
 
   return (
     <div className='container mx-auto p-4 flex flex-col md:flex-row gap-8'>
@@ -91,12 +98,15 @@ export default async function TereaPage({ searchParams }: Props) {
       </aside>
 
       <div className='flex-1'>
-        <div className='flex justify-between items-center mb-6'>
+        <div className='flex flex-col md:flex-row justify-between items-center mb-6 gap-4'>
           <h1 className='text-2xl font-bold'>Стики Terea</h1>
           <SortSelect />
         </div>
         <ProductGrid products={products} />
-        <Pagination totalItems={count || 0} itemsPerPage={12} />
+        <Pagination totalItems={count || 0} itemsPerPage={limit} />
+        <div className='flex justify-center mt-8'>
+          <PerPageSelect />
+        </div>
       </div>
     </div>
   );

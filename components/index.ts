@@ -11,5 +11,6 @@ export * from './ProductCard';
 export * from './ProductFilters';
 export * from './ProductGrid';
 export * from './SortSelect';
+export * from './PerPageSelect';
 export * from './PromoToast';
 export * from './TelegramFloat';

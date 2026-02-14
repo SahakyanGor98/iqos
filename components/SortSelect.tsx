@@ -27,7 +27,7 @@ export const SortSelect = () => {
   };
 
   return (
-    <div className='flex items-center gap-2 mb-4'>
+    <div className='flex items-center gap-2'>
       <span className='text-sm text-neutral-500'>Сортировка:</span>
       <select
         value={currentSort}
