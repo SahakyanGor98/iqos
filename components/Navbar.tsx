@@ -22,7 +22,7 @@ export const Navbar = () => {
 
   const links = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
-    { href: ROUTES.catalog.terea, label: 'Стики Terea' },
+    { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
     { href: ROUTES.contact, label: 'Контакты' },
   ];
 

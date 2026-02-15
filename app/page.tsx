@@ -65,18 +65,18 @@ export default function Home() {
       </div>
 
       {/* CTA Section */}
-      <section className='bg-neutral-50 py-24 px-6 text-center'>
+      <section className='bg-neutral-50 py-16 md:py-24 px-6 text-center'>
         <div className='container-custom max-w-4xl mx-auto'>
-          <h2 className='text-3xl md:text-4xl font-black uppercase tracking-tight mb-6'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6'>
             Мы здесь, чтобы помочь
           </h2>
-          <p className='text-lg text-neutral-600 mb-10 max-w-2xl mx-auto leading-relaxed'>
+          <p className='text-base md:text-lg text-neutral-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed'>
             Не уверены в выборе? Наши эксперты проконсультируют вас и помогут подобрать идеальное
             устройство и вкусы, подходящие именно вам.
           </p>
           <Link
             href='/contact'
-            className='inline-flex items-center justify-center px-8 py-4 bg-black text-white font-bold uppercase tracking-wider rounded-full hover:bg-neutral-800 transition-transform active:scale-95'
+            className='inline-flex items-center justify-center px-6 py-3 text-sm md:px-8 md:py-4 md:text-base bg-black text-white font-bold uppercase tracking-wider rounded-full hover:bg-neutral-800 transition-transform active:scale-95'
           >
             Связаться с нами
           </Link>

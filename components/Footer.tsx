@@ -27,7 +27,7 @@ export const Footer = () => {
                 </li>
                 <li>
                   <Link href={ROUTES.catalog.terea} className='hover:text-white transition-colors'>
-                    Стики Terea
+                    Стики TEREA
                   </Link>
                 </li>
                 <li>

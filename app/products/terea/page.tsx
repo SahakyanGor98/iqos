@@ -99,7 +99,7 @@ export default async function TereaPage({ searchParams }: Props) {
 
       <div className='flex-1'>
         <div className='flex flex-col md:flex-row justify-between items-center mb-6 gap-4'>
-          <h1 className='text-2xl font-bold'>Стики Terea</h1>
+          <h1 className='text-2xl font-bold'>Стики TEREA</h1>
           <SortSelect />
         </div>
         <ProductGrid products={products} />

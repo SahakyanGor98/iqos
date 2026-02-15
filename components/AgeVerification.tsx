@@ -54,16 +54,16 @@ export const AgeVerification = () => {
   if (!isVisible) return null;
 
   return (
-    <div className='fixed inset-0 z-[100] bg-neutral-900 text-white flex flex-col items-center justify-center p-4'>
+    <div className='fixed inset-0 z-[100] bg-white/90 backdrop-blur-sm text-neutral-900 flex flex-col items-center justify-center p-4'>
       <div className='max-w-md w-full text-center space-y-8 animate-in fade-in duration-500'>
         <div className='space-y-4'>
-          <h1 className='text-4xl font-black uppercase tracking-tighter'>IQOS STORE</h1>
-          <p className='text-neutral-400 text-sm uppercase tracking-widest'>
+          <h1 className='text-4xl font-black uppercase tracking-tighter font-[family-name:var(--font-christ)]'>IQOS STORE</h1>
+          <p className='text-neutral-500 text-sm uppercase tracking-widest'>
             Официальная продукция
           </p>
         </div>
 
-        <div className='bg-[#34303D] p-8 rounded-2xl shadow-2xl border border-white/5'>
+        <div className='bg-white p-8 rounded-2xl shadow-xl border border-neutral-100'>
           <h2 className='text-xl font-bold mb-6'>Подтвердите ваш возраст</h2>
 
           <div className='space-y-4'>
@@ -73,10 +73,10 @@ export const AgeVerification = () => {
                 <select
                   value={birthMonth}
                   onChange={(e) => setBirthMonth(e.target.value)}
-                  className='w-full bg-neutral-800 border border-neutral-700 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors'
+                  className='w-full bg-neutral-50 border border-neutral-200 rounded-lg p-3 text-neutral-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all appearance-none cursor-pointer'
                 >
                   <option value='' disabled>
-                    Выбрать
+                    Выберите месяц
                   </option>
                   {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                     <option key={m} value={m}>
@@ -90,10 +90,10 @@ export const AgeVerification = () => {
                 <select
                   value={birthYear}
                   onChange={(e) => setBirthYear(e.target.value)}
-                  className='w-full bg-neutral-800 border border-neutral-700 rounded-lg p-3 text-white focus:outline-none focus:border-white transition-colors'
+                  className='w-full bg-neutral-50 border border-neutral-200 rounded-lg p-3 text-neutral-900 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all appearance-none cursor-pointer'
                 >
                   <option value='' disabled>
-                    Выбрать
+                    Выберите год
                   </option>
                   {Array.from(
                     { length: new Date().getFullYear() - 1900 },
@@ -108,21 +108,21 @@ export const AgeVerification = () => {
             </div>
 
             {error && (
-              <div className='text-red-500 text-sm font-medium bg-red-500/10 p-2 rounded'>
+              <div className='text-red-600 text-sm font-medium bg-red-50 p-2 rounded'>
                 {error}
               </div>
             )}
 
             <button
               onClick={handleVerify}
-              className='w-full bg-white text-black font-bold uppercase tracking-wider py-4 rounded-full hover:bg-neutral-200 transition-colors mt-4'
+              className='w-full bg-black text-white font-bold uppercase tracking-wider py-4 rounded-full hover:bg-neutral-800 transition-colors mt-4'
             >
               Войти на сайт
             </button>
           </div>
         </div>
 
-        <p className='text-xs text-neutral-600 max-w-xs mx-auto'>
+        <p className='text-xs text-neutral-500 max-w-xs mx-auto'>
           МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ
         </p>
       </div>
