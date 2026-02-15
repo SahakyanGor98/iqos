@@ -57,7 +57,9 @@ export const AgeVerification = () => {
     <div className='fixed inset-0 z-[100] bg-white/90 backdrop-blur-sm text-neutral-900 flex flex-col items-center justify-center p-4'>
       <div className='max-w-md w-full text-center space-y-8 animate-in fade-in duration-500'>
         <div className='space-y-4'>
-          <h1 className='text-4xl font-black uppercase tracking-tighter font-[family-name:var(--font-christ)]'>IQOS STORE</h1>
+          <h1 className='text-4xl font-black uppercase tracking-tighter font-[family-name:var(--font-christ)]'>
+            IQOS STORE
+          </h1>
           <p className='text-neutral-500 text-sm uppercase tracking-widest'>
             Официальная продукция
           </p>
@@ -108,9 +110,7 @@ export const AgeVerification = () => {
             </div>
 
             {error && (
-              <div className='text-red-600 text-sm font-medium bg-red-50 p-2 rounded'>
-                {error}
-              </div>
+              <div className='text-red-600 text-sm font-medium bg-red-50 p-2 rounded'>{error}</div>
             )}
 
             <button
