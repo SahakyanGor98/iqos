@@ -93,15 +93,28 @@ export default async function TereaPage({ searchParams }: Props) {
 
   return (
     <div className='container mx-auto p-4 flex flex-col md:flex-row gap-8'>
-      <aside className='w-full md:mt-16 md:w-64'>
+      {/* Desktop Sidebar */}
+      <aside className='hidden md:block md:mt-16 md:w-64'>
         <ProductFilters sections={filterSections} />
       </aside>
 
       <div className='flex-1'>
-        <div className='flex flex-col md:flex-row justify-between items-center mb-6 gap-4'>
+        <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
           <h1 className='text-2xl font-bold'>Стики TEREA</h1>
-          <SortSelect />
+
+          {/* Controls Row */}
+          <div className='flex items-center justify-between gap-2 w-full md:w-auto'>
+            {/* Mobile Filter Button */}
+            <div className='md:hidden'>
+              <ProductFilters sections={filterSections} />
+            </div>
+            {/* Sort Icon Button */}
+            <div>
+              <SortSelect />
+            </div>
+          </div>
         </div>
+
         <ProductGrid products={products} />
         <Pagination totalItems={count || 0} itemsPerPage={limit} />
         <div className='flex justify-center mt-8'>
