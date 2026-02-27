@@ -41,10 +41,6 @@ export const ProductFilters = ({ sections }: Props) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // Close filters when searching/navigating on mobile
-  useEffect(() => {
-    setIsOpen(false);
-  }, [searchParams]);
 
   const updateParams = (newParams: URLSearchParams) => {
     newParams.set('page', '1');
