@@ -139,7 +139,7 @@ export const AgeVerification = () => {
                         }}
                         className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors hover:bg-neutral-200 ${birthMonth === index + 1 ? 'text-black font-bold' : 'text-neutral-600'}`}
                       >
-                        <span>{month}</span>
+                        <span className='text-[14px] py-1'>{month}</span>
                         {birthMonth === index + 1 && <Check size={14} className='text-black' />}
                       </button>
                     ))}
@@ -179,7 +179,7 @@ export const AgeVerification = () => {
                         }}
                         className={`w-full flex items-center justify-between px-4 py-2.5 text-xs transition-colors hover:bg-neutral-200 ${birthYear === year ? 'text-black font-bold' : 'text-neutral-600'}`}
                       >
-                        <span>{year}</span>
+                        <span className='text-[14px] py-1'>{year}</span>
                         {birthYear === year && <Check size={14} className='text-black' />}
                       </button>
                     ))}

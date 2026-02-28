@@ -17,9 +17,7 @@ export default function ContactPage() {
             <span className='text-sm font-bold tracking-widest text-neutral-500 uppercase mb-2 block'>
               Поддержка
             </span>
-            <h1 className='text-4xl md:text-5xl font-black mb-6'>
-              Мы всегда на <br /> связи
-            </h1>
+            <h1 className='text-3xl md:text-5xl font-black mb-6'>Мы всегда на связи</h1>
             <p className='text-lg text-neutral-600 leading-relaxed'>
               У вас возникли вопросы по устройствам IQOS или стикам TEREA? Наша команда готова
               помочь вам с выбором или решением любых проблем.
@@ -27,7 +25,7 @@ export default function ContactPage() {
           </div>
 
           <div className='flex flex-col gap-6'>
-            <div className='p-6 bg-neutral-50 rounded-2xl border border-neutral-100'>
+            <div className='p-6 bg-neutral-50 rounded-2xl border border-neutral-200'>
               <h3 className='font-bold text-lg mb-2'>Telegram</h3>
               <p className='text-neutral-600 mb-4'>
                 Самый быстрый способ получить ответ. Пишите нам в любое время.
@@ -45,7 +43,7 @@ export default function ContactPage() {
               </a>
             </div>
 
-            <div className='p-6 bg-neutral-50 rounded-2xl border border-neutral-100'>
+            <div className='p-6 bg-neutral-50 rounded-2xl border border-neutral-200'>
               <h3 className='font-bold text-lg mb-2'>Email</h3>
               <a
                 href={`mailto:${CONTACTS.email}`}
@@ -58,11 +56,7 @@ export default function ContactPage() {
         </div>
 
         {/* Form Column */}
-        <div className='animate-in slide-in-from-right duration-500 delay-100'>
-          <div className='bg-white rounded-3xl p-1 md:p-2 border border-neutral-100 shadow-xl shadow-neutral-100/50'>
-            <ContactForm />
-          </div>
-        </div>
+        <ContactForm />
       </div>
     </div>
   );

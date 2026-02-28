@@ -41,7 +41,6 @@ export const ProductFilters = ({ sections }: Props) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-
   const updateParams = (newParams: URLSearchParams) => {
     newParams.set('page', '1');
     startTransition(() => {
