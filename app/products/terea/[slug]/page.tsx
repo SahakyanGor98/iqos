@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
+import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
 
 type Props = {
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: product.title,
       description: product.description || `Купить ${product.title} по выгодной цене.`,
-      images: [product.image],
+      images: Array.isArray(product.image) ? [product.image[0]] : [product.image],
     },
   };
 }
@@ -48,12 +49,17 @@ export default async function TereaSlugPage({ params }: Props) {
   const attrs = attributes as Record<string, any>;
   const badgeData = badges as Record<string, boolean>;
 
+  // Image Array logic
+  const mainImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
+  // Add pack image to gallery if exists
+  const allImages = attrs.imagePack ? [...mainImages, attrs.imagePack] : mainImages;
+
   // Map to Store Product Type
   const storeProduct: Product = {
     id: productRow.id,
     slug: productRow.slug,
     title: productRow.title,
-    image: productRow.image,
+    image: mainImages,
     price: productRow.price,
     category: productRow.category,
     brand: productRow.brand || undefined,
@@ -65,33 +71,23 @@ export default async function TereaSlugPage({ params }: Props) {
     <div className='container-custom py-12'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16'>
         {/* Gallery */}
-        <div className='flex flex-col gap-4'>
-          <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
-            <img
-              src={`/api/proxy?url=${encodeURIComponent(productRow.image)}`}
-              alt={productRow.title}
-              className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
-              loading='lazy'
-            />
-            <div className='absolute top-6 left-6 flex flex-col gap-2'>
-              {badgeData.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
-              {badgeData.isHit && <span className='badge bg-orange-500 px-3 py-1.5'>Хит</span>}
-            </div>
-          </div>
-          {/* Pack Image Preview if exists */}
-          {attrs.imagePack && (
-            <div className='relative bg-neutral-50 rounded-xl overflow-hidden aspect-[4/3] p-4 flex items-center justify-center'>
+        <div className='relative'>
+          {allImages.length > 1 ? (
+            <ProductImageCarousel images={allImages} title={productRow.title} />
+          ) : (
+            <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
               <img
-                src={`/api/proxy?url=${encodeURIComponent(attrs.imagePack)}`}
-                alt={`${productRow.title} pack`}
-                className='w-full h-full object-contain'
+                src={`/api/proxy?url=${encodeURIComponent(allImages[0])}`}
+                alt={productRow.title}
+                className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
                 loading='lazy'
               />
-              <span className='absolute bottom-2 right-2 text-[10px] text-neutral-400 uppercase font-bold tracking-wider'>
-                Вид пачки
-              </span>
             </div>
           )}
+          <div className='absolute top-6 left-6 z-10 flex flex-col gap-2'>
+            {badgeData.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
+            {badgeData.isHit && <span className='badge bg-orange-500 px-3 py-1.5'>Хит</span>}
+          </div>
         </div>
 
         {/* Info */}

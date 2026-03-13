@@ -13,11 +13,15 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@supabase/supabase-js": "^2.89.0",
+    "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "lucide-react": "^0.577.0",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
     "resend": "^6.6.0",
+    "tailwind-merge": "^3.5.0",
     "zod": "^4.3.4",
     "zustand": "^5.0.9"
   },

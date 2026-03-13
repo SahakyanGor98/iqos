@@ -3,6 +3,7 @@ import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { IQOS_LINES } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
+import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
 
 type Props = {
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: product.title,
       description: product.description || `Купить ${product.title} по выгодной цене.`,
-      images: [product.image],
+      images: Array.isArray(product.image) ? [product.image[0]] : [product.image],
     },
   };
 }
@@ -50,12 +51,14 @@ export default async function IqosSlugPage({ params }: Props) {
   const attrs = attributes as Record<string, any>;
   const badgeData = badges as Record<string, boolean>;
 
+  const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
+
   // Map to Store Product Type for the button
   const storeProduct: Product = {
     id: productRow.id,
     slug: productRow.slug,
     title: productRow.title,
-    image: productRow.image,
+    image: productImages,
     price: productRow.price,
     category: productRow.category,
     brand: productRow.brand || undefined,
@@ -67,15 +70,21 @@ export default async function IqosSlugPage({ params }: Props) {
     <div className='container-custom py-12'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16'>
         {/* Gallery Section */}
-        <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
-          <img
-            src={`/api/proxy?url=${encodeURIComponent(productRow.image)}`}
-            alt={productRow.title}
-            className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
-            loading='lazy'
-          />
+        <div className='relative'>
+          {productImages.length > 1 ? (
+            <ProductImageCarousel images={productImages} title={productRow.title} />
+          ) : (
+            <div className='bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
+              <img
+                src={`/api/proxy?url=${encodeURIComponent(productImages[0])}`}
+                alt={productRow.title}
+                className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
+                loading='lazy'
+              />
+            </div>
+          )}
           {/* Badges Overlay */}
-          <div className='absolute top-6 left-6 flex flex-col gap-2'>
+          <div className='absolute top-6 left-6 z-10 flex flex-col gap-2'>
             {badgeData.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
             {badgeData.isHit && <span className='badge bg-orange-500 px-3 py-1.5'>Хит</span>}
             {badgeData.isExclusive && (

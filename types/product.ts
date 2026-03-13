@@ -5,7 +5,7 @@ export type Product = {
   id: number;
   slug: string;
   title: string;
-  image: string;
+  image: string[];
   price: number;
   category: 'gadget' | 'sticks';
   // Optional fields to preserve specific data if needed for UI, but not strictly required for Cart logic if handled there
@@ -23,7 +23,7 @@ export const toProduct = (item: TIqos | TTerea): Product => {
       id: iqos.id,
       slug: iqos.slug,
       title: iqos.title,
-      image: iqos.image,
+      image: Array.isArray(iqos.image) ? iqos.image : [iqos.image],
       price: iqos.price,
       category: 'gadget',
       line: iqos.line,
@@ -35,7 +35,7 @@ export const toProduct = (item: TIqos | TTerea): Product => {
       id: terea.id,
       slug: terea.slug,
       title: terea.title,
-      image: terea.imageBlock, // Using Block image
+      image: Array.isArray(terea.imageBlock) ? terea.imageBlock : [terea.imageBlock], // Assuming imageBlock might be the array or single
       price: terea.priceBlock, // Using Block price
       category: 'sticks',
       brand: terea.brand,

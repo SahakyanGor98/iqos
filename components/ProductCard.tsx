@@ -16,7 +16,7 @@ const mapToStoreProduct = (row: ProductRow): Product => {
     id: row.id,
     slug: row.slug,
     title: row.title,
-    image: row.image,
+    image: Array.isArray(row.image) ? row.image : [row.image],
     price: row.price,
     category: row.category,
     brand: row.brand || undefined,
@@ -37,7 +37,7 @@ export const ProductCard = ({ product }: Props) => {
       {/* Image */}
       <div className='relative aspect-square'>
         <img
-          src={`/api/proxy?url=${encodeURIComponent(product.image)}`}
+          src={`/api/proxy?url=${encodeURIComponent(product.image[0])}`}
           alt={product.title}
           className='w-full h-full object-cover'
           loading='lazy'

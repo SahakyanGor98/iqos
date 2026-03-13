@@ -10,7 +10,7 @@ export interface Database {
           slug: string;
           title: string;
           description: string | null;
-          image: string;
+          image: string[];
           price: number;
           category: 'gadget' | 'sticks';
           in_stock: boolean;
@@ -24,7 +24,7 @@ export interface Database {
           slug: string;
           title: string;
           description?: string | null;
-          image: string;
+          image: string[];
           price: number;
           category: 'gadget' | 'sticks';
           in_stock: boolean;
@@ -38,7 +38,7 @@ export interface Database {
           slug?: string;
           title?: string;
           description?: string | null;
-          image?: string;
+          image?: string[];
           price?: number;
           category?: 'gadget' | 'sticks';
           in_stock?: boolean;
