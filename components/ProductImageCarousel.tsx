@@ -41,7 +41,10 @@ export const ProductImageCarousel = ({ images, title }: Props) => {
         <div className='overflow-hidden w-full h-full' ref={emblaRef}>
           <div className='flex h-full'>
             {images.map((src, index) => (
-              <div key={index} className='flex-[0_0_100%] min-w-0 h-full flex items-center justify-center'>
+              <div
+                key={index}
+                className='flex-[0_0_100%] min-w-0 h-full flex items-center justify-center'
+              >
                 <img
                   src={`/api/proxy?url=${encodeURIComponent(src)}`}
                   alt={`${title} - image ${index + 1}`}
@@ -81,7 +84,7 @@ export const ProductImageCarousel = ({ images, title }: Props) => {
               onClick={() => scrollTo(index)}
               className={cn(
                 'relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition',
-                selectedIndex === index ? 'border-neutral-900' : 'border-transparent bg-neutral-50'
+                selectedIndex === index ? 'border-neutral-900' : 'border-transparent bg-neutral-50',
               )}
             >
               <img
