@@ -14,3 +14,4 @@ export * from './SortSelect';
 export * from './PerPageSelect';
 export * from './PromoToast';
 export * from './TelegramFloat';
+export * from './YandexMetrika';

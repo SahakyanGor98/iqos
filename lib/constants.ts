@@ -20,6 +20,10 @@ export const CONTACTS = {
   },
 };
 
+export const ANALYTICS = {
+  yandexMetrikaId: Number(process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID) || 107242786,
+};
+
 export const ROUTES = {
   home: '/',
   catalog: {

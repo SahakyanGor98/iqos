@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ROUTES, CONTACTS } from '@/lib/constants';
+import { CONTACTS, ROUTES } from '@/lib/constants';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();

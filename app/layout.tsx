@@ -1,13 +1,19 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import './globals.css';
 const christFont = localFont({
   src: '../assets/christ.100.ttf',
   variable: '--font-christ',
 });
 
-import { Navbar, Footer, AgeVerification, PromoToast, TelegramFloat } from '@/components';
+import {
+  AgeVerification,
+  Footer,
+  Navbar,
+  PromoToast,
+  TelegramFloat,
+  YandexMetrika,
+} from '@/components';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://24iqos.ru'),
@@ -34,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang='ru'>
       <body className={`antialiased min-h-screen flex flex-col font-sans ${christFont.variable}`}>
+        <YandexMetrika />
         <AgeVerification />
         <PromoToast />
         <TelegramFloat />

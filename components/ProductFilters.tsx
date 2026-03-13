@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
-import { SlidersHorizontal, X, Check } from 'lucide-react';
+import { Check, SlidersHorizontal, X } from 'lucide-react';
 
 type FilterOption = {
   label: string;

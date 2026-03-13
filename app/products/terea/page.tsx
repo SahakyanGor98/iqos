@@ -1,5 +1,5 @@
 import { getProducts } from '@/lib/api';
-import { ProductGrid, ProductFilters, Pagination, SortSelect, PerPageSelect } from '@/components';
+import { Pagination, PerPageSelect, ProductFilters, ProductGrid, SortSelect } from '@/components';
 
 import { Metadata } from 'next';
 
