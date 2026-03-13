@@ -7,7 +7,7 @@ export const CONTACTS = {
   },
   telegram: {
     handle: '@iqos_msk',
-    link: 'https://t.me/iqos_msk',
+    link: 'https://t.me/iqos_ms',
     label: 'Telegram',
   },
   phone: {
