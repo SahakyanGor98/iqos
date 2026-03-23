@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     siteName: 'IQOS Shop',
   },
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({
