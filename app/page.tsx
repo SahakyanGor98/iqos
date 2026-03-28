@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { HeroSlider } from '@/components';
 
 export default function Home() {
   return (
-    <div className='flex flex-col min-h-[calc(100vh-64px)]'>
+    <div className='flex flex-col min-h-screen'>
+      <HeroSlider />
       <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] relative'>
         {/* IQOS Section */}
         <section className='relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
