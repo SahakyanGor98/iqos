@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { HeroSlider } from '@/components';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Купить IQOS ILUMA и стики TEREA в Москве | Официальный магазин',
+  description:
+    'Магазин оригинальных устройств IQOS ILUMA и стиков TEREA. Все вкусы в наличии, быстрая доставка по Москве. Проконсультируйтесь с нашими экспертами.',
+};
 
 export default function Home() {
   return (
@@ -13,7 +20,7 @@ export default function Home() {
           <div className='absolute inset-0 z-0'>
             <Image
               src='/iqos.webp'
-              alt='IQOS Device Background'
+              alt='Устройство IQOS ILUMA - Революционная технология нагревания табака'
               fill
               sizes='(max-width: 768px) 100vw, 50vw'
               className='object-cover transition-transform duration-700 group-hover:scale-105'
@@ -43,7 +50,7 @@ export default function Home() {
           <div className='absolute inset-0 z-0'>
             <Image
               src='/terea.webp'
-              alt='Terea Sticks Background'
+              alt='Стики TEREA для IQOS ILUMA - Широкий выбор вкусов'
               fill
               sizes='(max-width: 768px) 100vw, 50vw'
               className='object-cover object-right transition-transform duration-700 group-hover:scale-105'

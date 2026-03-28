@@ -29,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: product.title,
     description: product.description || `Купить ${product.title} по выгодной цене.`,
+    alternates: {
+      canonical: `/products/iqos/${slug}`,
+    },
     openGraph: {
       title: product.title,
       description: product.description || `Купить ${product.title} по выгодной цене.`,
@@ -66,8 +69,33 @@ export default async function IqosSlugPage({ params }: Props) {
     color: attrs.color,
   };
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: productRow.title,
+    description: productRow.description,
+    image: productImages,
+    brand: {
+      '@type': 'Brand',
+      name: 'IQOS',
+    },
+    offers: {
+      '@type': 'Offer',
+      price: productRow.price,
+      priceCurrency: 'RUB',
+      availability: productRow.in_stock
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      url: `https://24iqos.ru/products/iqos/${productRow.slug}`,
+    },
+  };
+
   return (
     <div className='container-custom py-12'>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className='grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16'>
         {/* Gallery Section */}
         <div className='relative'>
