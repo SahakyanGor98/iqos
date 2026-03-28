@@ -15,6 +15,7 @@ export default function Home() {
               src='/iqos.webp'
               alt='IQOS Device Background'
               fill
+              sizes='(max-width: 768px) 100vw, 50vw'
               className='object-cover transition-transform duration-700 group-hover:scale-105'
               priority
             />
@@ -44,6 +45,7 @@ export default function Home() {
               src='/terea.webp'
               alt='Terea Sticks Background'
               fill
+              sizes='(max-width: 768px) 100vw, 50vw'
               className='object-cover object-right transition-transform duration-700 group-hover:scale-105'
               priority
             />
