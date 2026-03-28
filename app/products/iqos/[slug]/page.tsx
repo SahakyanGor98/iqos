@@ -94,14 +94,14 @@ export default async function IqosSlugPage({ params }: Props) {
         </div>
 
         {/* Info Section */}
-        <div className='flex flex-col justify-center space-y-8'>
+        <div className='flex flex-col justify-center space-y-4'>
           <div>
             <h1 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-2'>
               {productRow.title}
             </h1>
-            <p className='text-lg text-neutral-500 font-medium'>
+            {/* <p className='text-lg text-neutral-500 font-medium'>
               {IQOS_LINES[attrs.line as string] || attrs.line || 'IQOS Original'}
-            </p>
+            </p> */}
           </div>
 
           <div className='flex items-end gap-4'>

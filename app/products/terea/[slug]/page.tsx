@@ -75,11 +75,11 @@ export default async function TereaSlugPage({ params }: Props) {
           {allImages.length > 1 ? (
             <ProductImageCarousel images={allImages} title={productRow.title} />
           ) : (
-            <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
+            <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center'>
               <img
                 src={`/api/proxy?url=${encodeURIComponent(allImages[0])}`}
                 alt={productRow.title}
-                className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
+                className='w-full h-full object-cover transition-transform duration-500 hover:scale-105'
                 loading='lazy'
               />
             </div>

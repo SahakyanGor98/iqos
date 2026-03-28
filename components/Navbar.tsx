@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,16 @@ export const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -81,12 +92,63 @@ export const Navbar = () => {
           </nav>
 
           {/* Logo (Center) */}
-          <div className='flex items-center justify-center'>
-            <Link
-              href='/'
-              className='text-2xl tracking-tighter uppercase text-[#34303D] font-[family-name:var(--font-christ)]'
-            >
-              IQOS STORE
+          <div className='flex items-center justify-center font-[family-name:var(--font-christ)]'>
+            <Link href='/' className='relative flex items-center justify-center group h-10'>
+              {/* Left Word: IQOS (Staggered Characters) */}
+              <div className='flex items-center'>
+                {'IQOS'.split('').map((char, index) => (
+                  <span
+                    key={`iqos-${index}`}
+                    style={{
+                      transitionDelay: scrolled ? `${(3 - index) * 35}ms` : `${index * 35}ms`,
+                    }}
+                    className={`text-2xl tracking-tighter uppercase text-[#34303D] transition-all duration-500 ease-in-out inline-block ${
+                      scrolled
+                        ? 'opacity-0 translate-x-20 blur-sm scale-x-50 pointer-events-none'
+                        : 'opacity-100 translate-x-0 scale-x-100'
+                    }`}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </div>
+
+              {/* Center Logo: Hummingbird Icon */}
+              <div
+                className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-out ${
+                  scrolled
+                    ? 'opacity-100 scale-100 rotate-0 transition-delay-200'
+                    : 'opacity-0 scale-50 -rotate-12 pointer-events-none'
+                }`}
+              >
+                <Image
+                  src='/icon.png'
+                  alt='IQOS Logo'
+                  width={42}
+                  height={42}
+                  priority
+                  className='object-contain'
+                />
+              </div>
+
+              {/* Right Word: STORE (Staggered Characters) */}
+              <div className='flex items-center pl-2'>
+                {'STORE'.split('').map((char, index) => (
+                  <span
+                    key={`store-${index}`}
+                    style={{
+                      transitionDelay: scrolled ? `${index * 35}ms` : `${(4 - index) * 35}ms`,
+                    }}
+                    className={`text-2xl tracking-tighter uppercase text-[#34303D] transition-all duration-500 ease-in-out inline-block ${
+                      scrolled
+                        ? 'opacity-0 -translate-x-20 blur-sm scale-x-50 pointer-events-none'
+                        : 'opacity-100 translate-x-0 scale-x-100'
+                    }`}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </div>
             </Link>
           </div>
 
