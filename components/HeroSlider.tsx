@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -33,16 +33,64 @@ const slides: Slide[] = [
     buttonText: 'Выбрать устройство',
     buttonLink: '/products/iqos/iqos-iluma-prime-i-x-seletti',
   },
+  {
+    id: 3,
+    title: 'IQOS ILUMA i PRIME',
+    subtitle: 'Инновационная технология и премиальный дизайн для истинных ценителей.',
+    image: '/ILUMA_i_Prime.webp',
+    buttonText: 'Выбрать модель',
+    buttonLink: '/products/iqos?line=i-prime',
+  },
 ];
 
 export const HeroSlider = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
+  const startAutoplay = useCallback(() => {
+    if (!emblaApi) return;
+
+    // Clear any existing timer just in case
+    if (timerRef.current) clearInterval(timerRef.current);
+
+    // Start fresh 5s timer
+    timerRef.current = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 5000);
+  }, [emblaApi]);
+
+  const stopAutoplay = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = null;
+  }, []);
+
+  const resetAutoplay = useCallback(() => {
+    stopAutoplay();
+    startAutoplay();
+  }, [stopAutoplay, startAutoplay]);
+
+  const scrollPrev = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+    resetAutoplay();
+  }, [emblaApi, resetAutoplay]);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+    resetAutoplay();
+  }, [emblaApi, resetAutoplay]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (!emblaApi) return;
+      emblaApi.scrollTo(index);
+      resetAutoplay();
+    },
+    [emblaApi, resetAutoplay],
+  );
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -57,13 +105,11 @@ export const HeroSlider = () => {
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
 
-    // Simple Autoplay
-    const autoplay = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 3000);
+    // Initial start
+    startAutoplay();
 
-    return () => clearInterval(autoplay);
-  }, [emblaApi, setScrollSnaps, onSelect]);
+    return () => stopAutoplay();
+  }, [emblaApi, setScrollSnaps, onSelect, startAutoplay, stopAutoplay]);
 
   return (
     <section className='relative w-full h-[70vh] md:h-[80vh] overflow-hidden group'>
@@ -77,7 +123,7 @@ export const HeroSlider = () => {
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  sizes="100vw"
+                  sizes='100vw'
                   className='object-cover'
                   priority={slide.id === 1}
                 />
@@ -87,7 +133,7 @@ export const HeroSlider = () => {
               {/* Content Box */}
               <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
                 <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
-                  <h1 className='text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 md:mb-6 leading-tight'>
+                  <h1 className='text-5xl md:text-8xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
                     {slide.title}
                   </h1>
                   <p className='text-lg md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl mx-auto opacity-90 leading-relaxed'>

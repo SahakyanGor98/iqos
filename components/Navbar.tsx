@@ -122,7 +122,7 @@ export const Navbar = () => {
                 }`}
               >
                 <Image
-                  src='/icon.png'
+                  src='/icon3.png'
                   alt='IQOS Logo'
                   width={42}
                   height={42}

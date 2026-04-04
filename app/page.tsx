@@ -9,10 +9,18 @@ export const metadata: Metadata = {
     'Магазин оригинальных устройств IQOS ILUMA и стиков TEREA. Все вкусы в наличии, быстрая доставка по Москве. Проконсультируйтесь с нашими экспертами.',
 };
 
+const TextSeparator = ({ className = '' }: { className?: string }) => (
+  <div className={`w-full bg-white h-2 md:h-3 border-y border-neutral-100 ${className}`} />
+);
+
 export default function Home() {
   return (
     <div className='flex flex-col min-h-screen'>
       <HeroSlider />
+
+      {/* Separator 1: Always visible */}
+      <TextSeparator />
+
       <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] relative'>
         {/* IQOS Section */}
         <section className='relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
@@ -43,6 +51,9 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        {/* Separator 2: Only visible on mobile, separates IQOS and Terea blocks */}
+        <TextSeparator className='md:hidden border-t-0' />
 
         {/* Terea Section */}
         <section className='relative flex-1 group overflow-hidden'>

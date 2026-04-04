@@ -43,7 +43,9 @@ export const SOCIALS = [
 ];
 
 export const IQOS_LINES: Record<string, string> = {
-  one: 'IQOS ILUMA ONE',
+  i: 'IQOS ILUMA i',
   'i-one': 'IQOS ILUMA i ONE',
-  standard: 'IQOS ILUMA',
+  'i prime': 'IQOS ILUMA i PRIME',
+  'i x Seletti': 'IQOS ILUMA i x SELETTI',
+  'prime i x Seletti': 'IQOS ILUMA PRIME i x SELETTI',
 };
