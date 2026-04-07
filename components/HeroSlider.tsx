@@ -37,7 +37,7 @@ const slides: Slide[] = [
     id: 3,
     title: 'IQOS ILUMA i PRIME',
     subtitle: 'Инновационная технология и премиальный дизайн для истинных ценителей.',
-    image: '/ILUMA_i_Prime.webp',
+    image: '/ILUMA_i_Prime.jpg',
     buttonText: 'Выбрать модель',
     buttonLink: '/products/iqos?line=i-prime',
   },
