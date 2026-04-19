@@ -3,6 +3,7 @@
 import { useCartStore } from '@/store/cartStore';
 import { Product } from '@/types/product';
 import { useEffect, useState } from 'react';
+import { HapticButton } from './HapticButton';
 
 type Props = {
   product: Product;
@@ -45,12 +46,12 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
 
   if (!mounted) {
     return (
-      <button
+      <HapticButton
         disabled={true}
         className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide bg-neutral-100 text-neutral-400 ${className}`}
       >
         Загрузка...
-      </button>
+      </HapticButton>
     );
   }
 
@@ -63,36 +64,36 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
           e.stopPropagation();
         }}
       >
-        <button
+        <HapticButton
           onClick={handleDecrement}
-          className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 text-xl font-medium'
+          className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 active:brightness-90 active:bg-neutral-700 text-xl font-medium focus-visible:outline-white'
         >
           −
-        </button>
+        </HapticButton>
         <span className='font-bold text-lg w-8 text-center'>{quantity}</span>
-        <button
+        <HapticButton
           onClick={handleIncrement}
-          className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 text-xl font-medium'
+          className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 active:brightness-90 active:bg-neutral-700 text-xl font-medium focus-visible:outline-white'
         >
           +
-        </button>
+        </HapticButton>
       </div>
     );
   }
 
   return (
-    <button
+    <HapticButton
       onClick={handleAdd}
       disabled={disabled}
-      className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide transition-all duration-300 transform active:scale-95
+      className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide transition-all duration-300 transform active:scale-95 active:brightness-90
         ${
           disabled
             ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
-            : 'bg-black text-white hover:bg-neutral-800'
+            : 'bg-black text-white hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2'
         } ${className}
       `}
     >
       {disabled ? 'Нет в наличии' : 'В корзину'}
-    </button>
+    </HapticButton>
   );
 };

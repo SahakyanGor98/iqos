@@ -27,6 +27,14 @@ const slides: Slide[] = [
   },
   {
     id: 2,
+    title: 'Новый дизайн — тот же вкус',
+    subtitle: 'Откройте для себя обновленную коллекцию стиков TEREA для IQOS ILUMA.',
+    image: '/heroTerea.webp',
+    buttonText: 'Каталог стиков',
+    buttonLink: '/products/terea',
+  },
+  {
+    id: 3,
     title: 'IQOS ILUMA PRIME i x SELETTI',
     subtitle: 'Премиальный дизайн и передовые технологии в лимитированном издании.',
     image: '/seletti-prime.webp',
@@ -34,7 +42,7 @@ const slides: Slide[] = [
     buttonLink: '/products/iqos/iqos-iluma-prime-i-x-seletti',
   },
   {
-    id: 3,
+    id: 4,
     title: 'IQOS ILUMA i PRIME',
     subtitle: 'Инновационная технология и премиальный дизайн для истинных ценителей.',
     image: '/ILUMA_i_Prime.jpg',
@@ -141,7 +149,7 @@ export const HeroSlider = () => {
                   </p>
                   <Link
                     href={slide.buttonLink}
-                    className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 shadow-2xl'
+                    className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
                   >
                     {slide.buttonText}
                   </Link>
@@ -155,14 +163,14 @@ export const HeroSlider = () => {
       {/* Navigation - Arrows */}
       <button
         onClick={scrollPrev}
-        className='absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition hover:bg-white/20 opacity-0 group-hover:opacity-100 hidden md:flex'
+        className='absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition hover:bg-white/20 active:scale-90 active:bg-white/30 focus-visible:ring-2 focus-visible:ring-white opacity-0 group-hover:opacity-100 hidden md:flex'
         aria-label='Previous slide'
       >
         <ChevronLeft className='w-6 h-6 md:w-8 md:h-8' />
       </button>
       <button
         onClick={scrollNext}
-        className='absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition hover:bg-white/20 opacity-0 group-hover:opacity-100 hidden md:flex'
+        className='absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition hover:bg-white/20 active:scale-90 active:bg-white/30 focus-visible:ring-2 focus-visible:ring-white opacity-0 group-hover:opacity-100 hidden md:flex'
         aria-label='Next slide'
       >
         <ChevronRight className='w-6 h-6 md:w-8 md:h-8' />
@@ -175,7 +183,7 @@ export const HeroSlider = () => {
             key={index}
             onClick={() => scrollTo(index)}
             className={cn(
-              'w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300',
+              'w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 active:scale-75',
               selectedIndex === index
                 ? 'bg-white scale-110 shadow-[0_0_15px_rgba(255,255,255,0.8)]'
                 : 'bg-white/40 hover:bg-white/60',

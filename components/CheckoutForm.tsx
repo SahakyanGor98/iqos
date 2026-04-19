@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { HapticButton } from './HapticButton';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -70,12 +71,12 @@ export const CheckoutForm = ({ onBack }: Props) => {
         </div>
         <h3 className='text-xl font-bold mb-2'>Заказ оформлен!</h3>
         <p className='text-neutral-600 mb-6'>Мы отправили подтверждение на вашу почту.</p>
-        <button
+        <HapticButton
           onClick={onBack}
           className='text-black underline underline-offset-4 hover:text-neutral-700'
         >
           Вернуться в магазин
-        </button>
+        </HapticButton>
       </div>
     );
   }
@@ -83,7 +84,7 @@ export const CheckoutForm = ({ onBack }: Props) => {
   return (
     <div className='flex flex-col h-full animate-in slide-in-from-right'>
       <div className='flex items-center p-4 border-b'>
-        <button
+        <HapticButton
           onClick={onBack}
           className='mr-4 p-2 -ml-2 rounded-full hover:bg-neutral-100 transition'
         >
@@ -95,7 +96,7 @@ export const CheckoutForm = ({ onBack }: Props) => {
               d='M15 19l-7-7 7-7'
             />
           </svg>
-        </button>
+        </HapticButton>
         <h2 className='text-lg font-bold'>Оформление заказа</h2>
       </div>
 
@@ -154,13 +155,13 @@ export const CheckoutForm = ({ onBack }: Props) => {
 
         {error && <div className='p-3 bg-red-50 text-red-600 rounded-lg text-sm'>{error}</div>}
 
-        <button
+        <HapticButton
           type='submit'
           disabled={isSubmitting}
           className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-4'
         >
           {isSubmitting ? 'Оформляем...' : 'Подтвердить заказ'}
-        </button>
+        </HapticButton>
       </form>
     </div>
   );

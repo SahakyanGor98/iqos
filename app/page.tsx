@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { HeroSlider } from '@/components';
+import { HeroSlider, HapticLink } from '@/components';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -43,12 +43,12 @@ export default function Home() {
             <p className='text-base md:text-lg font-bold text-white mb-8 max-w-md translate-y-4 opacity-100 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 leading-relaxed'>
               Революционная технология индукционного нагревания табака без лезвия.
             </p>
-            <Link
+            <HapticLink
               href='/products/iqos'
-              className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200 shadow-none'
+              className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
             >
               Выбрать устройство
-            </Link>
+            </HapticLink>
           </div>
         </section>
 
@@ -76,12 +76,12 @@ export default function Home() {
             <p className='text-base md:text-lg font-bold text-white mb-8 max-w-md translate-y-4 opacity-100 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 leading-relaxed'>
               Широкая палитра вкусов для вашего устройства IQOS Iluma.
             </p>
-            <Link
+            <HapticLink
               href='/products/terea'
-              className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200 shadow-none'
+              className='btn-primary bg-white text-black hover:bg-neutral-200 opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
             >
               Каталог вкусов
-            </Link>
+            </HapticLink>
           </div>
         </section>
       </div>
@@ -98,7 +98,7 @@ export default function Home() {
           </p>
           <Link
             href='/contact'
-            className='inline-flex items-center justify-center px-6 py-3 text-sm md:px-8 md:py-4 md:text-base bg-black text-white font-bold uppercase tracking-wider rounded-full hover:bg-neutral-800 transition-transform active:scale-95'
+            className='inline-flex items-center justify-center px-6 py-3 text-sm md:px-8 md:py-4 md:text-base bg-black text-white font-bold uppercase tracking-wider rounded-full hover:bg-neutral-800 transition-transform active:scale-95 active:brightness-90'
           >
             Связаться с нами
           </Link>

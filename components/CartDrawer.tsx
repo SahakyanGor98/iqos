@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { CheckoutForm } from './CheckoutForm';
+import { HapticButton } from './HapticButton';
 
 type Props = {
   isOpen: boolean;
@@ -54,7 +55,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
               {/* Header */}
               <div className='flex items-center justify-between p-4 border-b'>
                 <h2 className='text-lg font-bold'>Корзина</h2>
-                <button
+                <HapticButton
                   onClick={onClose}
                   className='p-2 rounded-full hover:bg-neutral-100 transition'
                 >
@@ -66,7 +67,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                       d='M6 18L18 6M6 6l12 12'
                     />
                   </svg>
-                </button>
+                </HapticButton>
               </div>
 
               {/* Items */}
@@ -89,7 +90,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                       <div className='flex-1'>
                         <div className='flex justify-between items-start'>
                           <h3 className='text-sm font-medium line-clamp-2'>{item.product.title}</h3>
-                          <button
+                          <HapticButton
                             onClick={() => removeFromCart(item.product.id)}
                             className='text-red-500 hover:text-red-700 ml-2'
                           >
@@ -106,28 +107,28 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                                 d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16'
                               />
                             </svg>
-                          </button>
+                          </HapticButton>
                         </div>
                         <p className='text-sm text-neutral-500 mt-1'>{item.product.price} ₽ / шт</p>
 
                         <div className='flex items-center justify-between mt-3'>
                           <div className='flex items-center border rounded-md'>
-                            <button
+                            <HapticButton
                               onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
                               className='px-2 py-1 hover:bg-neutral-100 transition'
                               disabled={item.quantity <= 1}
                             >
                               -
-                            </button>
+                            </HapticButton>
                             <span className='px-2 py-1 min-w-[32px] text-center text-sm'>
                               {item.quantity}
                             </span>
-                            <button
+                            <HapticButton
                               onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
                               className='px-2 py-1 hover:bg-neutral-100 transition'
                             >
                               +
-                            </button>
+                            </HapticButton>
                           </div>
                           <p className='font-semibold'>{item.product.price * item.quantity} ₽</p>
                         </div>
@@ -144,12 +145,12 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     <span className='text-lg font-medium'>Итого:</span>
                     <span className='text-xl font-bold'>{getTotalPrice()} ₽</span>
                   </div>
-                  <button
+                  <HapticButton
                     onClick={() => setIsCheckingOut(true)}
                     className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition active:scale-95'
                   >
                     Оформить заказ
-                  </button>
+                  </HapticButton>
                 </div>
               )}
             </>
