@@ -29,7 +29,10 @@ export const HapticButton = ({
     <button
       {...props}
       onClick={handleClick}
-      className={cn('active:scale-[0.96] active:brightness-95 active:shadow-inner transition-all duration-100', className)}
+      className={cn(
+        'active:scale-[0.96] active:brightness-95 active:shadow-inner transition-all duration-100',
+        className,
+      )}
     >
       {children}
     </button>

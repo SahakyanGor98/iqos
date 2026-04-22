@@ -11,9 +11,12 @@ interface Slide {
   id: number;
   title: string;
   subtitle: string;
-  image: string;
+  desktopImage: string;
+  mobileImage?: string;
   buttonText: string;
   buttonLink: string;
+  imagePlacement?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down' | 'fit';
+  backgroundColor?: string;
 }
 
 const slides: Slide[] = [
@@ -21,15 +24,18 @@ const slides: Slide[] = [
     id: 1,
     title: 'IQOS ILUMA i x SELETTI',
     subtitle: 'Эксклюзивная коллекция, созданная в коллаборации с итальянским брендом Seletti.',
-    image: '/seletti.webp',
+    desktopImage: '/seletti.webp',
+    mobileImage: '/seletti2.webp',
     buttonText: 'Выбрать устройство',
     buttonLink: '/products/iqos/iqos-iluma-i-x-seletti',
+    imagePlacement: 'contain',
+    backgroundColor: '#080808',
   },
   {
     id: 2,
     title: 'Новый дизайн — тот же вкус',
     subtitle: 'Откройте для себя обновленную коллекцию стиков TEREA для IQOS ILUMA.',
-    image: '/heroTerea.webp',
+    desktopImage: '/heroTerea.webp',
     buttonText: 'Каталог стиков',
     buttonLink: '/products/terea',
   },
@@ -37,17 +43,22 @@ const slides: Slide[] = [
     id: 3,
     title: 'IQOS ILUMA PRIME i x SELETTI',
     subtitle: 'Премиальный дизайн и передовые технологии в лимитированном издании.',
-    image: '/seletti-prime.webp',
+    desktopImage: '/seletti-prime.webp',
+    mobileImage: '/seletti-prime2.webp',
     buttonText: 'Выбрать устройство',
     buttonLink: '/products/iqos/iqos-iluma-prime-i-x-seletti',
+    imagePlacement: 'contain',
+    backgroundColor: '#080808',
   },
   {
     id: 4,
     title: 'IQOS ILUMA i PRIME',
     subtitle: 'Инновационная технология и премиальный дизайн для истинных ценителей.',
-    image: '/ILUMA_i_Prime.jpg',
+    desktopImage: '/ILUMA_i_Prime.webp',
     buttonText: 'Выбрать модель',
-    buttonLink: '/products/iqos?line=i-prime',
+    buttonLink: '/products/iqos?line=i+prime&page=1',
+    imagePlacement: 'contain',
+    backgroundColor: '#19bcc2',
   },
 ];
 
@@ -123,40 +134,76 @@ export const HeroSlider = () => {
     <section className='relative w-full h-[70vh] md:h-[80vh] overflow-hidden group'>
       <div className='overflow-hidden h-full' ref={emblaRef}>
         <div className='flex h-full'>
-          {slides.map((slide) => (
-            <div key={slide.id} className='relative flex-[0_0_100%] min-w-0 h-full'>
-              {/* Background Image */}
-              <div className='absolute inset-0 z-0'>
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes='100vw'
-                  className='object-cover'
-                  priority={slide.id === 1}
-                />
-                <div className='absolute inset-0 bg-black/40' />
-              </div>
+          {slides.map((slide) => {
+            const objectFitClass = cn(
+              slide.imagePlacement === 'contain' || slide.imagePlacement === 'fit'
+                ? 'object-contain'
+                : slide.imagePlacement === 'fill'
+                  ? 'object-fill'
+                  : slide.imagePlacement === 'none'
+                    ? 'object-none'
+                    : slide.imagePlacement === 'scale-down'
+                      ? 'object-scale-down'
+                      : 'object-cover',
+            );
 
-              {/* Content Box */}
-              <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
-                <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
-                  <h1 className='text-5xl md:text-8xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
-                    {slide.title}
-                  </h1>
-                  <p className='text-lg md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl mx-auto opacity-90 leading-relaxed'>
-                    {slide.subtitle}
-                  </p>
-                  <Link
-                    href={slide.buttonLink}
-                    className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
-                  >
-                    {slide.buttonText}
-                  </Link>
+            return (
+              <div key={slide.id} className='relative flex-[0_0_100%] min-w-0 h-full'>
+                {/* Background Image */}
+                <div
+                  className='absolute inset-0 z-0'
+                  style={{ backgroundColor: slide.backgroundColor }}
+                >
+                  {/* Mobile Image */}
+                  <div className='md:hidden absolute inset-0'>
+                    <Image
+                      src={slide.mobileImage || slide.desktopImage}
+                      alt={slide.title}
+                      fill
+                      sizes='100vw'
+                      className={objectFitClass}
+                      priority={slide.id === 1}
+                    />
+                  </div>
+                  {/* Desktop Image */}
+                  <div className='hidden md:block absolute inset-0'>
+                    <Image
+                      src={slide.desktopImage}
+                      alt={slide.title}
+                      fill
+                      sizes='100vw'
+                      className={objectFitClass}
+                      priority={slide.id === 1}
+                    />
+                  </div>
+                  <div
+                    className={cn(
+                      'absolute inset-0 transition-opacity duration-700',
+                      slide.backgroundColor ? 'bg-black/20' : 'bg-black/40',
+                    )}
+                  />
+                </div>
+
+                {/* Content Box */}
+                <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
+                  <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
+                    <h1 className='text-5xl md:text-8xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
+                      {slide.title}
+                    </h1>
+                    <p className='text-lg md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl mx-auto opacity-90 leading-relaxed'>
+                      {slide.subtitle}
+                    </p>
+                    <Link
+                      href={slide.buttonLink}
+                      className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
+                    >
+                      {slide.buttonText}
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

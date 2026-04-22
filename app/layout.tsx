@@ -13,7 +13,9 @@ import {
   PromoToast,
   TelegramFloat,
   YandexMetrika,
+  GlobalLoader,
 } from '@/components';
+import { LoadingProvider } from '@/context/LoadingContext';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://24iqos.ru'),
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     description: 'Широкий ассортимент устройств IQOS и стиков TEREA.',
   },
   icons: {
-    icon: '/icon1.png',
+    icon: '/icon1.webp',
   },
 };
 
@@ -48,7 +50,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'IQOS & TEREA Shop',
   url: 'https://24iqos.ru',
-  logo: 'https://24iqos.ru/icon.png',
+  logo: 'https://24iqos.ru/icon.webp',
 };
 
 export default function RootLayout({
@@ -65,13 +67,16 @@ export default function RootLayout({
         />
       </head>
       <body className={`antialiased min-h-screen flex flex-col font-sans ${christFont.variable}`}>
-        <YandexMetrika />
-        <AgeVerification />
-        <PromoToast />
-        <TelegramFloat />
-        <Navbar />
-        <main className='flex-grow'>{children}</main>
-        <Footer />
+        <LoadingProvider>
+          <GlobalLoader />
+          <YandexMetrika />
+          <AgeVerification />
+          <PromoToast />
+          <TelegramFloat />
+          <Navbar />
+          <main className='flex-grow'>{children}</main>
+          <Footer />
+        </LoadingProvider>
       </body>
     </html>
   );

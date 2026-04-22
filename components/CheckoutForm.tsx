@@ -9,9 +9,14 @@ import { placeOrder } from '@/app/actions/checkout';
 import { useCartStore } from '@/store/cartStore';
 
 // Russian error messages and labels
+const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+
 const formSchema = z.object({
   fullName: z.string().min(2, 'Введите ваше ФИО'),
-  phone: z.string().min(10, 'Введите корректный номер телефона'),
+  phone: z
+    .string()
+    .min(1, 'Введите номер телефона')
+    .regex(phoneRegex, 'Некорректный формат российского номера (например: +7 999 000-00-00)'),
   email: z.string().email('Введите корректный email'),
   message: z.string().optional(),
 });

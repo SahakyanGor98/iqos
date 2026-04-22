@@ -18,3 +18,4 @@ export * from './YandexMetrika';
 export * from './HeroSlider';
 export * from './HapticLink';
 export * from './HapticButton';
+export * from './GlobalLoader';

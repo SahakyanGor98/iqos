@@ -10,9 +10,11 @@ import { CONTACTS } from '@/lib/constants';
 const resend = new Resend(process.env.RESEND_API_KEY);
 const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL;
 
+const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  phone: z.string().min(5, 'Введите корректный номер телефона'),
+  phone: z.string().regex(phoneRegex),
   email: z.string().email('Введите корректный email'),
   message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
 });

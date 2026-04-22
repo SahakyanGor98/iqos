@@ -13,7 +13,7 @@ export const Footer = () => {
             {/* Column 1: Brand */}
             <div>
               <div className='flex items-center gap-3 text-xl md:text-2xl tracking-tighter uppercase mb-4 font-[family-name:var(--font-christ)]'>
-                <Image src='/icon1.png' alt='IQOS Logo' width={32} height={32} />
+                <Image src='/icon1.webp' alt='IQOS Logo' width={32} height={32} />
                 IQOS STORE
               </div>
             </div>

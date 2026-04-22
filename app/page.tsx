@@ -24,10 +24,10 @@ export default function Home() {
       <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] relative'>
         {/* IQOS Section */}
         <section className='relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
-          <div className='absolute inset-0 bg-neutral-900 z-10 opacity-40 md:opacity-70 transition-opacity duration-500 group-hover:opacity-50'></div>
+          <div className='absolute inset-0 bg-neutral-700 z-10 opacity-40 md:opacity-70 transition-opacity duration-500 group-hover:opacity-50'></div>
           <div className='absolute inset-0 z-0'>
             <Image
-              src='/iqos.webp'
+              src='/devices1.webp'
               alt='Устройство IQOS ILUMA - Революционная технология нагревания табака'
               fill
               sizes='(max-width: 768px) 100vw, 50vw'
@@ -57,7 +57,7 @@ export default function Home() {
 
         {/* Terea Section */}
         <section className='relative flex-1 group overflow-hidden'>
-          <div className='absolute inset-0 bg-neutral-800 z-10 opacity-40 md:opacity-70 transition-opacity duration-500 group-hover:opacity-50'></div>
+          <div className='absolute inset-0 bg-neutral-700 z-10 opacity-40 md:opacity-70 transition-opacity duration-500 group-hover:opacity-50'></div>
           <div className='absolute inset-0 z-0'>
             <Image
               src='/terea.webp'

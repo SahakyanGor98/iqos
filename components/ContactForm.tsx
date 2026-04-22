@@ -6,9 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { submitContact } from '@/app/actions/contact';
 
+const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+
 const contactSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
-  phone: z.string().min(5, 'Введите корректный номер телефона'),
+  phone: z
+    .string()
+    .min(1, 'Введите номер телефона')
+    .regex(phoneRegex, 'Некорректный формат российского номера (например: +7 999 000-00-00)'),
   email: z.string().email('Введите корректный email'),
   message: z.string().min(10, 'Сообщение должно содержать минимум 10 символов'),
 });

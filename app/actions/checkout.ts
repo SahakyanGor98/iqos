@@ -12,10 +12,12 @@ import { CartItem } from '@/store/cartStore';
 const resend = new Resend(process.env.RESEND_API_KEY) || null;
 const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL || null;
 
+const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+
 // Schema (matching client-side)
 const formSchema = z.object({
   fullName: z.string().min(2),
-  phone: z.string().min(7),
+  phone: z.string().regex(phoneRegex),
   email: z.string().email(),
   message: z.string().optional(),
 });
