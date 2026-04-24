@@ -35,7 +35,7 @@ const slides: Slide[] = [
     id: 2,
     title: 'Новый дизайн — тот же вкус',
     subtitle: 'Откройте для себя обновленную коллекцию стиков TEREA для IQOS ILUMA.',
-    desktopImage: '/heroTerea.webp',
+    desktopImage: '/terea-leaf.webp',
     buttonText: 'Каталог стиков',
     buttonLink: '/products/terea',
   },
@@ -58,7 +58,7 @@ const slides: Slide[] = [
     buttonText: 'Выбрать модель',
     buttonLink: '/products/iqos?line=i+prime&page=1',
     imagePlacement: 'contain',
-    backgroundColor: '#19bcc2',
+    backgroundColor: '#58625cff',
   },
 ];
 

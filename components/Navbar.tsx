@@ -82,9 +82,7 @@ export const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-black ${
-                  isActive(link.href) ? 'text-black' : 'text-neutral-500'
-                }`}
+                className='text-base font-medium transition-all duration-300 hover:scale-110 text-black'
               >
                 {link.label}
               </Link>
@@ -102,7 +100,7 @@ export const Navbar = () => {
                     style={{
                       transitionDelay: scrolled ? `${(3 - index) * 35}ms` : `${index * 35}ms`,
                     }}
-                    className={`text-2xl tracking-tighter uppercase text-[#34303D] transition-all duration-500 ease-in-out inline-block ${
+                    className={`text-2xl md:text-3xl tracking-tighter uppercase text-black transition-all duration-500 ease-in-out inline-block ${
                       scrolled
                         ? 'opacity-0 translate-x-20 blur-sm scale-x-50 pointer-events-none'
                         : 'opacity-100 translate-x-0 scale-x-100'
@@ -121,14 +119,15 @@ export const Navbar = () => {
                     : 'opacity-0 scale-50 -rotate-12 pointer-events-none'
                 }`}
               >
-                <Image
-                  src='/icon3.webp'
-                  alt='IQOS Logo'
-                  width={42}
-                  height={42}
-                  priority
-                  className='object-contain'
-                />
+                <div className='relative w-[42px] h-[42px] md:w-[50px] md:h-[50px]'>
+                  <Image
+                    src='/icon3.webp'
+                    alt='IQOS Logo'
+                    fill
+                    priority
+                    className='object-contain'
+                  />
+                </div>
               </div>
 
               {/* Right Word: STORE (Staggered Characters) */}
@@ -139,7 +138,7 @@ export const Navbar = () => {
                     style={{
                       transitionDelay: scrolled ? `${index * 35}ms` : `${(4 - index) * 35}ms`,
                     }}
-                    className={`text-2xl tracking-tighter uppercase text-[#34303D] transition-all duration-500 ease-in-out inline-block ${
+                    className={`text-2xl md:text-3xl tracking-tighter uppercase text-black transition-all duration-500 ease-in-out inline-block ${
                       scrolled
                         ? 'opacity-0 -translate-x-20 blur-sm scale-x-50 pointer-events-none'
                         : 'opacity-100 translate-x-0 scale-x-100'
@@ -168,7 +167,7 @@ export const Navbar = () => {
                 strokeWidth='2'
                 strokeLinecap='round'
                 strokeLinejoin='round'
-                className='w-5 h-5'
+                className='w-5 h-5 md:w-6 md:h-6'
               >
                 <circle cx='9' cy='21' r='1' />
                 <circle cx='20' cy='21' r='1' />
@@ -185,16 +184,14 @@ export const Navbar = () => {
 
         {/* Mobile Drawer */}
         {isMenuOpen && (
-          <div className='md:hidden border-t border-[var(--border)] bg-white p-4 absolute w-full shadow-xl'>
+          <div className='md:hidden border-t border-[var(--border)] rounded-lg bg-white p-4 absolute w-full shadow-xl'>
             <nav className='flex flex-col gap-4'>
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-lg font-medium ${
-                    isActive(link.href) ? 'text-black' : 'text-neutral-500'
-                  }`}
+                  className='text-base font-medium text-black'
                 >
                   {link.label}
                 </Link>
