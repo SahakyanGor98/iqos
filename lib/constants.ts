@@ -49,3 +49,5 @@ export const IQOS_LINES: Record<string, string> = {
   'i x Seletti': 'IQOS ILUMA i x SELETTI',
   'prime i x Seletti': 'IQOS ILUMA PRIME i x SELETTI',
 };
+
+export const ENABLE_PROMO = false;

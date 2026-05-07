@@ -1,21 +1,23 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import './globals.css';
-const christFont = localFont({
-  src: '../assets/christ.100.ttf',
-  variable: '--font-christ',
-});
-
+import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
+  // FloatingPromo,
   Footer,
+  GlobalLoader,
   Navbar,
   PromoToast,
   TelegramFloat,
   YandexMetrika,
-  GlobalLoader,
 } from '@/components';
-import { LoadingProvider } from '@/context/LoadingContext';
+// import { ENABLE_PROMO } from '@/lib/constants';
+import './globals.css';
+
+const christFont = localFont({
+  src: '../assets/christ.100.ttf',
+  variable: '--font-christ',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://24iqos.ru'),
@@ -73,6 +75,7 @@ export default function RootLayout({
           <AgeVerification />
           <PromoToast />
           <TelegramFloat />
+          {/* {ENABLE_PROMO && <FloatingPromo />} */}
           <Navbar />
           <main className='flex-grow'>{children}</main>
           <Footer />

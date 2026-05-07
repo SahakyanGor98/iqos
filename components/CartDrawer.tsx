@@ -1,8 +1,6 @@
 'use client';
 
 import { useCartStore } from '@/store/cartStore';
-import Image from 'next/image';
-import { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import { CheckoutForm } from './CheckoutForm';
 import { HapticButton } from './HapticButton';
@@ -13,9 +11,21 @@ type Props = {
 };
 
 export const CartDrawer = ({ isOpen, onClose }: Props) => {
-  const { items, removeFromCart, updateQuantity, getTotalPrice } = useCartStore();
+  const {
+    items,
+    removeFromCart,
+    updateQuantity,
+    getTotalPrice,
+    discount,
+    promoCode,
+    setPromoCode,
+    clearPromo,
+  } = useCartStore();
+
   const [mounted, setMounted] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [promoInput, setPromoInput] = useState('');
+  const [promoError, setPromoError] = useState('');
 
   // Hydration fix for persist middleware
   useEffect(() => {
@@ -28,6 +38,17 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
       setIsCheckingOut(false);
     }
   }, [isOpen]);
+
+  const applyPromo = () => {
+    const success = setPromoCode(promoInput);
+
+    if (!success) {
+      setPromoError('Неверный промокод');
+    } else {
+      setPromoError('');
+      setPromoInput('');
+    }
+  };
 
   if (!mounted) return null;
 
@@ -141,9 +162,58 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
               {/* Footer */}
               {items.length > 0 && (
                 <div className='p-4 border-t bg-neutral-50'>
-                  <div className='flex justify-between items-center mb-4'>
-                    <span className='text-lg font-medium'>Итого:</span>
-                    <span className='text-xl font-bold'>{getTotalPrice()} ₽</span>
+                  <div className='mb-4'>
+                    {promoCode ? (
+                      <div className='flex items-center justify-between bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm'>
+                        <span>✓ Промокод {promoCode} применён</span>
+                        <button onClick={clearPromo} className='text-red-500 text-xs'>
+                          Удалить
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <div className='flex gap-2'>
+                          <input
+                            value={promoInput}
+                            onChange={(e) => setPromoInput(e.target.value)}
+                            placeholder='Промокод'
+                            className='flex-1 border rounded-lg px-3 py-2 text-sm'
+                          />
+                          <button
+                            onClick={applyPromo}
+                            className='bg-black text-white px-4 rounded-lg text-sm'
+                          >
+                            OK
+                          </button>
+                        </div>
+
+                        {promoError && <p className='text-red-500 text-xs mt-1'>{promoError}</p>}
+                      </>
+                    )}
+                  </div>
+
+                  <div className='space-y-2 mb-4'>
+                    {/* Subtotal */}
+                    <div className='flex justify-between items-center text-sm text-neutral-600'>
+                      <span>Товары</span>
+                      <span>
+                        {items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} ₽
+                      </span>
+                    </div>
+
+                    {/* Discount */}
+                    {discount > 0 && (
+                      <div className='flex justify-between items-center text-sm text-green-600 font-medium'>
+                        <span>Скидка</span>
+                        <span>-{discount} ₽</span>
+                      </div>
+                    )}
+
+                    {/* Divider */}
+                    <div className='border-t pt-3 flex justify-between items-center'>
+                      <span className='text-lg font-medium'>Итого:</span>
+                      <span className='text-2xl font-black'>{getTotalPrice()} ₽</span>
+                    </div>
                   </div>
                   <HapticButton
                     onClick={() => setIsCheckingOut(true)}

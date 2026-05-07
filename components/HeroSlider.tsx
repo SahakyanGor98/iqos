@@ -119,7 +119,7 @@ export const HeroSlider = () => {
   useEffect(() => {
     if (!emblaApi) return;
 
-    onSelect();
+    setSelectedIndex(emblaApi.selectedScrollSnap());
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
@@ -128,7 +128,7 @@ export const HeroSlider = () => {
     startAutoplay();
 
     return () => stopAutoplay();
-  }, [emblaApi, setScrollSnaps, onSelect, startAutoplay, stopAutoplay]);
+  }, [emblaApi, onSelect, startAutoplay, stopAutoplay]);
 
   return (
     <section className='relative w-full h-[70vh] md:h-[80vh] overflow-hidden group'>
@@ -186,16 +186,18 @@ export const HeroSlider = () => {
 
                 {/* Content Box */}
                 <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
-                  <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
-                    <h1 className='text-5xl md:text-8xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
-                      {slide.title}
-                    </h1>
-                    <p className='text-lg md:text-2xl font-medium mb-8 md:mb-12 max-w-2xl mx-auto opacity-90 leading-relaxed'>
-                      {slide.subtitle}
-                    </p>
+                  <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
+                    <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
+                      <h1 className='text-4xl md:text-6xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
+                        {slide.title}
+                      </h1>
+                      <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
+                        {slide.subtitle}
+                      </p>
+                    </div>
                     <Link
                       href={slide.buttonLink}
-                      className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
+                      className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
                     >
                       {slide.buttonText}
                     </Link>
