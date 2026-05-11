@@ -14,9 +14,18 @@ type Props = {
   customerName: string;
   items: OrderItem[];
   totalAmount: number;
+  discount?: number;
 };
 
-export const OrderConfirmation = ({ orderId, customerName, items, totalAmount }: Props) => {
+export const OrderConfirmation = ({
+  orderId,
+  customerName,
+  items,
+  totalAmount,
+  discount,
+}: Props) => {
+  const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
   return (
     <div style={emailStyles.body}>
       <div style={emailStyles.container}>
@@ -58,6 +67,25 @@ export const OrderConfirmation = ({ orderId, customerName, items, totalAmount }:
                 </tr>
               ))}
             </tbody>
+            {discount && discount > 0 && (
+              <tfoot>
+                <tr>
+                  <td colSpan={2} style={{ ...emailStyles.td, paddingTop: '15px' }}>
+                    Промокод
+                  </td>
+                  <td
+                    style={{
+                      ...emailStyles.td,
+                      textAlign: 'right',
+                      paddingTop: '15px',
+                      color: '#059669',
+                    }}
+                  >
+                    -{discount} ₽
+                  </td>
+                </tr>
+              </tfoot>
+            )}
           </table>
 
           <div style={emailStyles.total}>Итого: {totalAmount} ₽</div>

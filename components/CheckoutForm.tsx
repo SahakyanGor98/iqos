@@ -28,7 +28,7 @@ type Props = {
 };
 
 export const CheckoutForm = ({ onBack }: Props) => {
-  const { items, clearCart } = useCartStore();
+  const { items, clearCart, promoCode, discount } = useCartStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -46,7 +46,7 @@ export const CheckoutForm = ({ onBack }: Props) => {
     setError(null);
 
     try {
-      const result = await placeOrder(data, items);
+      const result = await placeOrder(data, items, promoCode, discount);
 
       if (result.success) {
         setSuccess(true);

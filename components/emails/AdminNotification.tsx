@@ -21,9 +21,18 @@ type Props = {
   customer: CustomerInfo;
   items: OrderItem[];
   totalAmount: number;
+  promoCode?: string;
+  discount?: number;
 };
 
-export const AdminNotification = ({ orderId, customer, items, totalAmount }: Props) => {
+export const AdminNotification = ({
+  orderId,
+  customer,
+  items,
+  totalAmount,
+  promoCode,
+  discount,
+}: Props) => {
   return (
     <div style={emailStyles.body}>
       <div style={emailStyles.container}>
@@ -97,6 +106,25 @@ export const AdminNotification = ({ orderId, customer, items, totalAmount }: Pro
                 </tr>
               ))}
             </tbody>
+            {discount && discount > 0 && (
+              <tfoot>
+                <tr>
+                  <td colSpan={2} style={{ ...emailStyles.td, paddingTop: '15px' }}>
+                    Промокод ({promoCode}):
+                  </td>
+                  <td
+                    style={{
+                      ...emailStyles.td,
+                      textAlign: 'right',
+                      paddingTop: '15px',
+                      color: '#059669',
+                    }}
+                  >
+                    -{discount} ₽
+                  </td>
+                </tr>
+              </tfoot>
+            )}
           </table>
 
           <div style={{ ...emailStyles.total, fontSize: '24px' }}>{totalAmount} ₽</div>

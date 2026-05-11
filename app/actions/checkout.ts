@@ -24,7 +24,12 @@ const formSchema = z.object({
 
 type CheckoutData = z.infer<typeof formSchema>;
 
-export async function placeOrder(data: CheckoutData, items: CartItem[]) {
+export async function placeOrder(
+  data: CheckoutData,
+  items: CartItem[],
+  promoCode?: string | null,
+  discount?: number,
+) {
   try {
     // 1. Validation
     const validatedData = formSchema.parse(data);
@@ -33,7 +38,8 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
       return { success: false, error: 'Корзина пуста' };
     }
 
-    const totalAmount = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    const totalAmount = Math.max(0, subtotal - (discount || 0));
 
     // 2. Persist to Supabase
     // Insert Order
@@ -83,6 +89,8 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
             customer: validatedData,
             items: items,
             totalAmount: totalAmount,
+            promoCode: promoCode || undefined,
+            discount: discount || 0,
           }),
         );
 
@@ -106,6 +114,7 @@ export async function placeOrder(data: CheckoutData, items: CartItem[]) {
             customerName: validatedData.fullName,
             items: items,
             totalAmount: totalAmount,
+            discount: discount || 0,
           }),
         );
 
