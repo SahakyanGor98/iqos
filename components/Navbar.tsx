@@ -82,7 +82,7 @@ export const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className='text-base font-medium transition-all duration-300 hover:scale-110 text-black'
+                className='text-lg font-medium transition-all duration-300 hover:scale-110 text-black'
               >
                 {link.label}
               </Link>
@@ -119,9 +119,9 @@ export const Navbar = () => {
                     : 'opacity-0 scale-50 -rotate-12 pointer-events-none'
                 }`}
               >
-                <div className='relative w-[42px] h-[42px] md:w-[50px] md:h-[50px]'>
+                <div className='relative w-[95px] h-[95px] md:w-[120px] md:h-[130px]'>
                   <Image
-                    src='/icon3.webp'
+                    src='/icon9_4.webp'
                     alt='IQOS Logo'
                     fill
                     priority
@@ -184,7 +184,7 @@ export const Navbar = () => {
 
         {/* Mobile Drawer */}
         {isMenuOpen && (
-          <div className='md:hidden border-t border-[var(--border)] rounded-lg bg-white p-4 absolute w-full shadow-xl'>
+          <div className='md:hidden border-t border-[var(--border)] rounded-b-lg bg-white p-4 absolute w-full shadow-xl'>
             <nav className='flex flex-col gap-4'>
               {links.map((link) => (
                 <Link

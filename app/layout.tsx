@@ -5,7 +5,7 @@ import {
   AgeVerification,
   // FloatingPromo,
   Footer,
-  GlobalLoader,
+  // GlobalLoader,
   Navbar,
   PromoToast,
   TelegramFloat,
@@ -70,7 +70,7 @@ export default function RootLayout({
       </head>
       <body className={`antialiased min-h-screen flex flex-col font-sans ${christFont.variable}`}>
         <LoadingProvider>
-          <GlobalLoader />
+          {/* <GlobalLoader /> */}
           <YandexMetrika />
           <AgeVerification />
           <PromoToast />

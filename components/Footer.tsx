@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { CONTACTS, ROUTES } from '@/lib/constants';
 
 export const Footer = () => {
@@ -11,11 +10,8 @@ export const Footer = () => {
         <div className='container-custom'>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-12'>
             {/* Column 1: Brand */}
-            <div>
-              <div className='flex items-center gap-3 text-xl md:text-2xl tracking-tighter uppercase mb-4 font-[family-name:var(--font-christ)]'>
-                <Image src='/icon1.webp' alt='IQOS Logo' width={32} height={32} />
-                IQOS STORE
-              </div>
+            <div className='text-xl md:text-2xl tracking-tighter uppercase font-[family-name:var(--font-christ)]'>
+              IQOS STORE
             </div>
 
             {/* Column 2: Navigation */}
