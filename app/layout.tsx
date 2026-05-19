@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: 'Широкий ассортимент устройств IQOS и стиков TEREA.',
   },
   icons: {
-    icon: '/icon1.webp',
+    icon: '/icon8.webp',
   },
 };
 
