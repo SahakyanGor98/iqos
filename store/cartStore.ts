@@ -8,7 +8,7 @@ export interface CartItem {
 }
 
 const PROMO_CODES: Record<string, number> = {
-  SALE1000: 1000,
+  SALE500: 500,
   WELCOME1000: 1000,
 };
 

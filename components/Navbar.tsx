@@ -82,7 +82,7 @@ export const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className='text-lg font-medium transition-all duration-300 hover:scale-110 text-black'
+                className='text-md font-medium transition-all duration-300 hover:scale-110 text-black'
               >
                 {link.label}
               </Link>
