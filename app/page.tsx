@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import { HapticLink, HeroSlider, PromoBlock } from '@/components';
+import { ChevronDown } from 'lucide-react';
 import { ENABLE_PROMO } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -94,6 +95,44 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      {/* IQOS Info Accordion */}
+      <section className='bg-white border-t border-b border-neutral-200'>
+        <details className='group max-w-5xl mx-auto'>
+          <summary className='relative cursor-pointer list-none px-6 py-6 md:px-10 md:py-8'>
+            <h2 className='text-center text-xl md:text-3xl font-black uppercase tracking-tight'>
+              Что такое IQOS?
+            </h2>
+
+            <ChevronDown className='absolute right-6 top-1/2 -translate-y-1/2 w-6 h-6 transition-transform duration-300 group-open:rotate-180' />
+          </summary>
+
+          <div className='px-6 pb-6 md:px-10 md:pb-10'>
+            <div className='max-w-3xl mx-auto text-neutral-700 space-y-4 leading-relaxed text-center'>
+              <p>
+                IQOS — это система нагревания табака нового поколения. В отличие от обычных сигарет,
+                устройство не сжигает табак, а нагревает его до контролируемой температуры.
+              </p>
+
+              <p>
+                Благодаря отсутствию процесса горения образуется значительно меньше запаха, пепла и
+                продуктов горения по сравнению с традиционными сигаретами.
+              </p>
+
+              <p>
+                Для использования устройства применяются специальные табачные стики TEREA,
+                разработанные исключительно для линейки IQOS ILUMA.
+              </p>
+
+              <p>
+                Линейка IQOS ILUMA использует современную индукционную технологию нагревания без
+                лезвия внутри устройства, что делает использование более удобным и упрощает уход за
+                устройством.
+              </p>
+            </div>
+          </div>
+        </details>
+      </section>
 
       {/* CTA Section */}
       <section className='bg-neutral-50 py-16 md:py-24 px-6 text-center'>

@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+const TELEGRAM_SLIDE_TITLE = 'Подпишись в Telegram';
+
 interface Slide {
   id: number;
   title: string;
@@ -41,6 +43,17 @@ const slides: Slide[] = [
   },
   {
     id: 3,
+    title: TELEGRAM_SLIDE_TITLE,
+    subtitle: 'Секретные промокоды, акции и новинки — только в нашем Telegram канале',
+    desktopImage: '/smokeIqos.webp', // можешь заменить на /seletti.webp или любую синюю
+    mobileImage: '/smokeIqos.webp',
+    buttonText: 'Перейти в канал',
+    buttonLink: 'https://t.me/iqos_ms',
+    backgroundColor: '#0B1220',
+    imagePlacement: 'cover',
+  },
+  {
+    id: 4,
     title: 'IQOS ILUMA PRIME i x SELETTI',
     subtitle: 'Премиальный дизайн и передовые технологии в лимитированном издании.',
     desktopImage: '/seletti-prime.webp',
@@ -51,7 +64,7 @@ const slides: Slide[] = [
     backgroundColor: '#080808',
   },
   {
-    id: 4,
+    id: 5,
     title: 'IQOS ILUMA i PRIME',
     subtitle: 'Инновационная технология и премиальный дизайн для истинных ценителей.',
     desktopImage: '/ILUMA_i_Prime.webp',
@@ -203,12 +216,38 @@ export const HeroSlider = () => {
                         {slide.subtitle}
                       </p>
                     </div>
-                    <Link
-                      href={slide.buttonLink}
-                      className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
-                    >
-                      {slide.buttonText}
-                    </Link>
+                    {slide.title === TELEGRAM_SLIDE_TITLE ? (
+                      <Link
+                        href={slide.buttonLink}
+                        target='_blank'
+                        className='relative inline-flex items-center justify-center mt-6'
+                      >
+                        {/* outer glow */}
+                        <span className='absolute inset-0 rounded-full bg-sky-400/40 animate-ping' />
+
+                        {/* outer white circle */}
+                        <span className='relative w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-xl'>
+                          {/* inner blue circle */}
+                          <span className='w-12 h-12 rounded-full bg-sky-500 flex items-center justify-center'>
+                            {/* Telegram icon (inline SVG) */}
+                            <svg
+                              viewBox='0 0 24 24'
+                              className='w-6 h-6 text-white'
+                              fill='currentColor'
+                            >
+                              <path d='M9.04 15.47l-.39 5.5c.56 0 .81-.24 1.11-.53l2.64-2.53 5.47 4.01c1 .55 1.7.26 1.96-.92L23.9 4.9c.32-1.48-.54-2.06-1.5-1.7L1.7 9.16c-1.45.56-1.43 1.37-.25 1.74l5.7 1.78L19.3 6.3c.6-.38 1.15-.17.7.22' />
+                            </svg>
+                          </span>
+                        </span>
+                      </Link>
+                    ) : (
+                      <Link
+                        href={slide.buttonLink}
+                        className='inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl'
+                      >
+                        {slide.buttonText}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

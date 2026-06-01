@@ -75,8 +75,8 @@ export const Footer = () => {
 
       {/* Fixed Bottom Disclaimer */}
       <div className='fixed bottom-0 left-0 w-full bg-[#272a32] text-white py-3 z-50 text-center px-4'>
-        <p className='text-[10px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
-          МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ
+        <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
+          МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает риски. Аэрозоль содержит никотин, вызывающий зависимость.
         </p>
       </div>
     </>
