@@ -45,8 +45,8 @@ const slides: Slide[] = [
     id: 3,
     title: TELEGRAM_SLIDE_TITLE,
     subtitle: 'Секретные промокоды, акции и новинки — только в нашем Telegram канале',
-    desktopImage: '/smokeIqos.webp', // можешь заменить на /seletti.webp или любую синюю
-    mobileImage: '/smokeIqos.webp',
+    desktopImage: '/blueGradient.webp', // можешь заменить на /seletti.webp или любую синюю
+    mobileImage: '/blueGradient.webp',
     buttonText: 'Перейти в канал',
     buttonLink: 'https://t.me/iqos_ms',
     backgroundColor: '#0B1220',

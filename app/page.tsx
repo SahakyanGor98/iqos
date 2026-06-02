@@ -97,7 +97,7 @@ export default function Home() {
       </div>
 
       {/* IQOS Info Accordion */}
-      <section className='bg-white border-t border-b border-neutral-200'>
+      {/* <section className='bg-white border-t border-b border-neutral-200'>
         <details className='group max-w-5xl mx-auto'>
           <summary className='relative cursor-pointer list-none px-6 py-6 md:px-10 md:py-8'>
             <h2 className='text-center text-xl md:text-3xl font-black uppercase tracking-tight'>
@@ -132,7 +132,7 @@ export default function Home() {
             </div>
           </div>
         </details>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className='bg-neutral-50 py-16 md:py-24 px-6 text-center'>
