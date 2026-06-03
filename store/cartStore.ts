@@ -10,6 +10,11 @@ export interface CartItem {
 const PROMO_CODES: Record<string, number> = {
   SALE500: 500,
   WELCOME1000: 1000,
+  SMOKE500: 500,
+  DISCOUNT500: 500,
+  VIP500: 500,
+  NEW500: 500,
+  IQOS500: 500,
 };
 
 interface CartState {
