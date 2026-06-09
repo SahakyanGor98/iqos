@@ -4,7 +4,7 @@ import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
   // FloatingPromo,
-  Footer,
+  FooterContent,
   // GlobalLoader,
   Navbar,
   PromoToast,
@@ -68,7 +68,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`antialiased min-h-screen flex flex-col font-sans ${christFont.variable}`}>
+      <body className={`antialiased h-screen overflow-hidden flex flex-col font-sans ${christFont.variable}`}>
         <LoadingProvider>
           {/* <GlobalLoader /> */}
           <YandexMetrika />
@@ -77,8 +77,16 @@ export default function RootLayout({
           <TelegramFloat />
           {/* {ENABLE_PROMO && <FloatingPromo />} */}
           <Navbar />
-          <main className='flex-grow'>{children}</main>
-          <Footer />
+          <main className='flex-1 overflow-y-auto'>
+            {children}
+            <FooterContent />
+          </main>
+          {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
+          <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>
+            <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
+              МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает риски. Аэрозоль содержит никотин, вызывающий зависимость.
+            </p>
+          </footer>
         </LoadingProvider>
       </body>
     </html>

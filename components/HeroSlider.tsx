@@ -144,16 +144,16 @@ export const HeroSlider = () => {
   }, [emblaApi, onSelect, startAutoplay, stopAutoplay]);
 
   return (
-    <section className='relative w-full h-[70vh] md:h-[80vh] overflow-hidden group'>
-      {/* Delivery Banner */}
-      <div className='absolute top-0 left-0 right-0 z-30 bg-gradient-to-r from-neutral-950/85 via-neutral-900/90 to-neutral-950/85 backdrop-blur-md border-b border-white/10 text-white py-2.5 px-4 text-center select-none'>
+    <section className='relative w-full flex flex-col group'>
+      {/* Delivery Banner — normal flow, occupies real height */}
+      <div className='w-full bg-gradient-to-r from-neutral-950/85 via-neutral-900/90 to-neutral-950/85 backdrop-blur-md border-b border-white/10 text-white py-2.5 px-4 text-center select-none'>
         <div className='flex items-center justify-center gap-2 text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.25em] uppercase text-neutral-100'>
           <Truck className='w-3.5 h-3.5 md:w-4 md:h-4 text-white animate-pulse' />
           <span>Доставка по всей России</span>
         </div>
       </div>
 
-      <div className='overflow-hidden h-full' ref={emblaRef}>
+      <div className='overflow-hidden h-[70vh] md:h-[80vh]' ref={emblaRef}>
         <div className='flex h-full'>
           {slides.map((slide) => {
             const objectFitClass = cn(
