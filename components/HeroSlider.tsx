@@ -35,14 +35,6 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    title: 'Новый дизайн — тот же вкус',
-    subtitle: 'Откройте для себя обновленную коллекцию стиков TEREA для IQOS ILUMA.',
-    desktopImage: '/terea-leaf.webp',
-    buttonText: 'Каталог стиков',
-    buttonLink: '/products/terea',
-  },
-  {
-    id: 3,
     title: TELEGRAM_SLIDE_TITLE,
     subtitle: 'Секретные промокоды, акции и новинки — только в нашем Telegram канале',
     desktopImage: '/blueGradient.webp', // можешь заменить на /seletti.webp или любую синюю
@@ -51,6 +43,14 @@ const slides: Slide[] = [
     buttonLink: 'https://t.me/iqos_ms',
     backgroundColor: '#0B1220',
     imagePlacement: 'cover',
+  },
+  {
+    id: 3,
+    title: 'Новый дизайн — тот же вкус',
+    subtitle: 'Откройте для себя обновленную коллекцию стиков TEREA для IQOS ILUMA.',
+    desktopImage: '/terea-leaf.webp',
+    buttonText: 'Каталог стиков',
+    buttonLink: '/products/terea',
   },
   {
     id: 4,
