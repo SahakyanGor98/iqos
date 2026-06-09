@@ -54,7 +54,7 @@ export const PromoToast = () => {
           </svg>
         </div>
         <p className='text-sm font-medium text-neutral-800 leading-snug flex-1'>
-          Подпишитесь на наш Telegram и получите скидку до 10%
+          Подпишитесь на Telegram - получите скидку до 10% и доступ к эксклюзивным промокодам.
         </p>
       </div>
 
