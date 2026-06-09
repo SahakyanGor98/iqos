@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useMemo, useState, useTransition } from 'react';
 import { Check, SlidersHorizontal, X } from 'lucide-react';
 import { HapticButton } from '@/components/HapticButton';
 
@@ -140,12 +140,30 @@ export const ProductFilters = ({ sections }: Props) => {
     setIsOpen(false);
   };
 
+  // ── isDirty: true when draft differs from committed URL state ──────────────
+  const isDirty = useMemo(() => {
+    for (const s of sections) {
+      if (s.type === 'checkbox') {
+        const committed = [...searchParams.getAll(s.id)].sort().join(',');
+        const drafted = [...(draft[s.id] || [])].sort().join(',');
+        if (committed !== drafted) return true;
+      } else if (s.type === 'boolean') {
+        const committed = searchParams.get(s.id) === 'true';
+        const drafted = (draft[s.id] || [])[0] === 'true';
+        if (committed !== drafted) return true;
+      }
+    }
+    if ((searchParams.get('minPrice') || '') !== minPrice) return true;
+    if ((searchParams.get('maxPrice') || '') !== maxPrice) return true;
+    return false;
+  }, [draft, searchParams, sections, minPrice, maxPrice]);
+
   // ── Shared action buttons (reused in both mobile and desktop) ─────────────
   const actionButtons = (
     <div className='flex gap-3'>
       <HapticButton
         onClick={handleResetAll}
-        disabled={isPending}
+        disabled={activeFilterCount === 0 || isPending}
         hapticPattern={10}
         className='flex-1 border border-neutral-300 text-black text-xs font-bold py-3 rounded-lg uppercase tracking-wider hover:border-black transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
       >
@@ -153,7 +171,7 @@ export const ProductFilters = ({ sections }: Props) => {
       </HapticButton>
       <HapticButton
         onClick={handleApply}
-        disabled={isPending}
+        disabled={!isDirty || isPending}
         hapticPattern={15}
         className='flex-1 bg-black text-white text-xs font-bold py-3 rounded-lg uppercase tracking-wider hover:bg-neutral-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed'
       >
