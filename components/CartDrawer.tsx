@@ -40,6 +40,8 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
   }, [isOpen]);
 
   const applyPromo = () => {
+    if (!promoInput.trim()) return;
+
     const success = setPromoCode(promoInput);
 
     if (!success) {
@@ -48,6 +50,22 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
       setPromoError('');
       setPromoInput('');
     }
+  };
+
+  const handleCheckout = () => {
+    // If user typed a promo but forgot to click OK, try to apply it now
+    if (promoInput.trim()) {
+      const success = setPromoCode(promoInput);
+      if (success) {
+        setPromoInput('');
+        setPromoError('');
+      } else {
+        // If it's invalid, we block the checkout and show the error
+        setPromoError('Неверный промокод');
+        return;
+      }
+    }
+    setIsCheckingOut(true);
   };
 
   if (!mounted) return null;
@@ -166,7 +184,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     {promoCode ? (
                       <div className='flex items-center justify-between bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm'>
                         <span>✓ Промокод {promoCode} применён</span>
-                        <button onClick={clearPromo} className='text-red-500 text-xs'>
+                        <button onClick={clearPromo} className='text-red-500 text-sm'>
                           Удалить
                         </button>
                       </div>
@@ -176,12 +194,17 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                           <input
                             value={promoInput}
                             onChange={(e) => setPromoInput(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && applyPromo()}
                             placeholder='Промокод'
-                            className='flex-1 border rounded-lg px-3 py-2 text-sm'
+                            className='flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black'
                           />
                           <button
                             onClick={applyPromo}
-                            className='bg-black text-white px-4 rounded-lg text-sm'
+                            className={`px-4 rounded-lg text-sm font-medium transition-colors ${
+                              promoInput.trim()
+                                ? 'bg-black text-white'
+                                : 'bg-neutral-200 text-neutral-500 cursor-not-allowed'
+                            }`}
                           >
                             OK
                           </button>
@@ -216,7 +239,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     </div>
                   </div>
                   <HapticButton
-                    onClick={() => setIsCheckingOut(true)}
+                    onClick={handleCheckout}
                     className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition active:scale-95'
                   >
                     Оформить заказ
