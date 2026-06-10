@@ -17,12 +17,22 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    const mainContent = document.getElementById('main-content');
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (mainContent) {
+        setScrolled(mainContent.scrollTop > 50);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (mainContent) {
+      mainContent.addEventListener('scroll', handleScroll);
+    }
+    
+    return () => {
+      if (mainContent) {
+        mainContent.removeEventListener('scroll', handleScroll);
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -41,7 +51,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className='sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300 border-b border-neutral-200'>
+      <header className='flex-shrink-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300 border-b border-neutral-200'>
         <div className='container-custom flex h-16 items-center justify-between'>
           {/* Mobile Menu Button (Left) */}
           <div className='flex-1 md:hidden'>

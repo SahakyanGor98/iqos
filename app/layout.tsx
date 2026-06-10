@@ -68,7 +68,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`antialiased h-screen overflow-hidden flex flex-col font-sans ${christFont.variable}`}>
+      <body className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans ${christFont.variable}`}>
         <LoadingProvider>
           {/* <GlobalLoader /> */}
           <YandexMetrika />
@@ -77,7 +77,7 @@ export default function RootLayout({
           <TelegramFloat />
           {/* {ENABLE_PROMO && <FloatingPromo />} */}
           <Navbar />
-          <main className='flex-1 overflow-y-auto'>
+          <main id='main-content' className='flex-1 overflow-y-auto'>
             {children}
             <FooterContent />
           </main>
