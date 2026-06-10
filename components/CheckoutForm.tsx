@@ -25,9 +25,10 @@ type FormData = z.infer<typeof formSchema>;
 
 type Props = {
   onBack: () => void;
+  onClose: () => void;
 };
 
-export const CheckoutForm = ({ onBack }: Props) => {
+export const CheckoutForm = ({ onBack, onClose }: Props) => {
   const { items, clearCart, promoCode, discount } = useCartStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +78,7 @@ export const CheckoutForm = ({ onBack }: Props) => {
         <h3 className='text-xl font-bold mb-2'>Заказ оформлен!</h3>
         <p className='text-neutral-600 mb-6'>Мы отправили подтверждение на вашу почту.</p>
         <HapticButton
-          onClick={onBack}
+          onClick={onClose}
           className='text-black underline underline-offset-4 hover:text-neutral-700'
         >
           Вернуться в магазин

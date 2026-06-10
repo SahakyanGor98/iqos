@@ -70,7 +70,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
       >
         <div className='flex h-full flex-col'>
           {isCheckingOut ? (
-            <CheckoutForm onBack={() => setIsCheckingOut(false)} />
+            <CheckoutForm onBack={() => setIsCheckingOut(false)} onClose={onClose} />
           ) : (
             <>
               {/* Header */}
