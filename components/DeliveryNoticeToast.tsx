@@ -12,6 +12,14 @@ export const DeliveryNoticeToast = () => {
     const checkVerification = () => {
       const isVerified = localStorage.getItem('age-verified');
 
+      // Only show the notice from June 18 (day before restriction starts)
+      const now = new Date();
+      const warningStart = new Date('2026-06-18');
+      const warningEnd = new Date('2026-07-01');
+      const isRelevant = now >= warningStart && now < warningEnd;
+
+      if (!isRelevant) return;
+
       if (isVerified) {
         // Show slightly after age verification modal finishes
         const showTimer = setTimeout(() => {

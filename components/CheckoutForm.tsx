@@ -65,8 +65,17 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
   };
 
   const onSubmit = async (data: FormData) => {
-    setTempFormData(data);
-    setShowWarningModal(true);
+    const now = new Date();
+    const warningStart = new Date('2026-06-18');
+    const warningEnd = new Date('2026-07-01');
+    const showWarning = now >= warningStart && now < warningEnd;
+
+    if (showWarning) {
+      setTempFormData(data);
+      setShowWarningModal(true);
+    } else {
+      await proceedWithOrder(data);
+    }
   };
 
   if (success) {
