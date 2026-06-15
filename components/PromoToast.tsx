@@ -1,11 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CONTACTS } from '@/lib/constants';
+import { CONTACTS, DELIVERY_NOTIFICATION_END, DELIVERY_NOTIFICATION_START } from '@/lib/constants';
 
 export const PromoToast = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+
+  const now = new Date();
+  const warningStart = new Date(DELIVERY_NOTIFICATION_START);
+  const warningEnd = new Date(DELIVERY_NOTIFICATION_END);
+  const hasDeliveryNotice =
+    now >= warningStart && now < warningEnd;
+  const topPosition = hasDeliveryNotice
+    ? 'top-48 md:top-20'
+    : 'top-20';
 
   useEffect(() => {
     setIsMounted(true);
@@ -43,9 +52,8 @@ export const PromoToast = () => {
 
   return (
     <div
-      className={`fixed top-48 left-4 right-4 md:top-20 md:left-1/2 md:-translate-x-1/2 md:w-max md:right-auto z-[60] flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-white p-4 md:px-4 md:py-3 rounded-xl shadow-xl border border-neutral-100 transition-all duration-500 transform ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0 pointer-events-none'
-      }`}
+      className={`fixed ${topPosition} left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-max md:right-auto z-[60] flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-white p-4 md:px-4 md:py-3 rounded-xl shadow-xl border border-neutral-100 transition-all duration-500 transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0 pointer-events-none'
+        }`}
     >
       <div className='flex items-center gap-3 w-full md:w-auto'>
         <div className='bg-[#229ED9] p-1.5 rounded-full flex-shrink-0'>

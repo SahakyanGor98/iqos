@@ -51,3 +51,7 @@ export const IQOS_LINES: Record<string, string> = {
 };
 
 export const ENABLE_PROMO = false;
+
+
+export const DELIVERY_NOTIFICATION_START = '2026-06-15';
+export const DELIVERY_NOTIFICATION_END = '2026-07-01';

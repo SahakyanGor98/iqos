@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { placeOrder } from '@/app/actions/checkout';
 import { useCartStore } from '@/store/cartStore';
+import { DELIVERY_NOTIFICATION_END, DELIVERY_NOTIFICATION_START } from '@/lib/constants';
 
 // Russian error messages and labels
 const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
@@ -66,8 +67,8 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
 
   const onSubmit = async (data: FormData) => {
     const now = new Date();
-    const warningStart = new Date('2026-06-18');
-    const warningEnd = new Date('2026-07-01');
+    const warningStart = new Date(DELIVERY_NOTIFICATION_START);
+    const warningEnd = new Date(DELIVERY_NOTIFICATION_END);
     const showWarning = now >= warningStart && now < warningEnd;
 
     if (showWarning) {
@@ -127,9 +128,8 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
           <label className='block text-sm font-medium mb-1'>ФИО</label>
           <input
             {...register('fullName')}
-            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${
-              errors.fullName ? 'border-red-500' : 'border-neutral-200'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${errors.fullName ? 'border-red-500' : 'border-neutral-200'
+              }`}
             placeholder='Иван Иванов'
           />
           {errors.fullName && (
@@ -142,9 +142,8 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
           <input
             {...register('phone')}
             type='tel'
-            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${
-              errors.phone ? 'border-red-500' : 'border-neutral-200'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${errors.phone ? 'border-red-500' : 'border-neutral-200'
+              }`}
             placeholder='+7 (999) 000-00-00'
           />
           {errors.phone && <p className='text-red-500 text-xs mt-1'>{errors.phone.message}</p>}
@@ -155,9 +154,8 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
           <input
             {...register('email')}
             type='email'
-            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${
-              errors.email ? 'border-red-500' : 'border-neutral-200'
-            }`}
+            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${errors.email ? 'border-red-500' : 'border-neutral-200'
+              }`}
             placeholder='ivan@example.com'
           />
           {errors.email && <p className='text-red-500 text-xs mt-1'>{errors.email.message}</p>}
@@ -210,7 +208,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
             {/* Content */}
             <h3 className='text-base font-bold text-neutral-900 mb-2'>Внимание: Доставка ограничена.</h3>
             <p className='text-sm text-neutral-600 mb-6 leading-relaxed'>
-              С <strong>19 по 30 июня</strong> наша доставка работать не будет. 
+              С <strong>19 по 30 июня</strong> наша доставка работать не будет.
               Все оформленные заказы будут доставлены в порядке очереди начиная с <strong>1 июля</strong>.
             </p>
 
