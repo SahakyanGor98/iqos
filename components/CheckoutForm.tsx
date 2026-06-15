@@ -206,7 +206,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
             </div>
 
             {/* Content */}
-            <h3 className='text-base font-bold text-neutral-900 mb-2'>Внимание: Доставка ограничена.</h3>
+            <h3 className='text-base font-bold text-neutral-900 mb-2'>Внимание !</h3>
             <p className='text-sm text-neutral-600 mb-6 leading-relaxed'>
               С <strong>19 по 30 июня</strong> наша доставка работать не будет.
               Все оформленные заказы будут доставлены в порядке очереди начиная с <strong>1 июля</strong>.

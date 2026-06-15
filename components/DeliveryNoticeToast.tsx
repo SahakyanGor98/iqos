@@ -78,7 +78,7 @@ export const DeliveryNoticeToast = () => {
       </div>
 
       <div className='flex-1 min-w-0'>
-        <h4 className='text-md font-bold text-amber-900 leading-tight mb-0.5'>Внимание: Доставка ограничена.</h4>
+        <h4 className='text-md font-bold text-amber-900 leading-tight mb-0.5'>Внимание !</h4>
         <p className='text-s text-amber-800 leading-snug'>
           С <strong>19 по 30 июня</strong> наша доставка работать не будет. Все заказы, оформленные в этот период, будут отправлены начиная с <strong>1 июля</strong>.
         </p>
