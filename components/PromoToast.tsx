@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CONTACTS, DELIVERY_NOTIFICATION_END, DELIVERY_NOTIFICATION_START } from '@/lib/constants';
+import { CONTACTS, DELIVERY_NOTIFICATION_END } from '@/lib/constants';
 
 export const PromoToast = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
   const now = new Date();
-  const warningStart = new Date(DELIVERY_NOTIFICATION_START);
+  const warningStart = new Date('2026-06-15');
   const warningEnd = new Date(DELIVERY_NOTIFICATION_END);
   const hasDeliveryNotice =
     now >= warningStart && now < warningEnd;

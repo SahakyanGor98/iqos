@@ -1,6 +1,6 @@
 'use client';
 
-import { DELIVERY_NOTIFICATION_END, DELIVERY_NOTIFICATION_START } from '@/lib/constants';
+import { DELIVERY_NOTIFICATION_END } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 
 export const DeliveryNoticeToast = () => {
@@ -15,7 +15,7 @@ export const DeliveryNoticeToast = () => {
 
       // Only show the notice from June 18 (day before restriction starts)
       const now = new Date();
-      const warningStart = new Date(DELIVERY_NOTIFICATION_START);
+      const warningStart = new Date('2026-06-15');
       const warningEnd = new Date(DELIVERY_NOTIFICATION_END);
       const isRelevant = now >= warningStart && now < warningEnd;
 
