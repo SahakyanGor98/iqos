@@ -43,7 +43,7 @@ export const PromoToast = () => {
 
   return (
     <div
-      className={`fixed top-20 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-max md:right-auto z-[60] flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-white p-4 md:px-4 md:py-3 rounded-xl shadow-xl border border-neutral-100 transition-all duration-500 transform ${
+      className={`fixed top-48 left-4 right-4 md:top-20 md:left-1/2 md:-translate-x-1/2 md:w-max md:right-auto z-[60] flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-white p-4 md:px-4 md:py-3 rounded-xl shadow-xl border border-neutral-100 transition-all duration-500 transform ${
         isVisible ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0 pointer-events-none'
       }`}
     >

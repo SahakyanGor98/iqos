@@ -21,3 +21,4 @@ export * from './HapticButton';
 export * from './GlobalLoader';
 export * from './FloatingPromo';
 export * from './PromoBlock';
+export * from './DeliveryNoticeToast';

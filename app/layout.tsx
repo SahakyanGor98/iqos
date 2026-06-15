@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
+  DeliveryNoticeToast,
   // FloatingPromo,
   FooterContent,
   // GlobalLoader,
@@ -75,6 +76,7 @@ export default function RootLayout({
           <AgeVerification />
           <PromoToast />
           <TelegramFloat />
+          <DeliveryNoticeToast />
           {/* {ENABLE_PROMO && <FloatingPromo />} */}
           <Navbar />
           <main id='main-content' className='flex-1 overflow-y-auto'>
