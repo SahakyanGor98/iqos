@@ -123,6 +123,55 @@ export async function getProductBySlug(slug: string): Promise<ProductRow | null>
   return data as ProductRow;
 }
 
+export type IqosLineupItem = {
+  line: string;
+  name: string;
+  description: string;
+  ctaLabel: string;
+  slug: string;
+  image: string;
+};
+
+export async function getIqosLineupProducts(
+  lineup: ReadonlyArray<{
+    line: string;
+    name: string;
+    description: string;
+    ctaLabel: string;
+    fallbackSlug: string;
+    fallbackImage: string;
+  }>,
+): Promise<IqosLineupItem[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('slug, image, attributes, in_stock')
+    .eq('category', 'gadget');
+
+  if (error) {
+    console.error('Error fetching IQOS lineup products:', error);
+  }
+
+  const products = data ?? [];
+
+  return lineup.map((item) => {
+    const matches = products.filter(
+      (product) => (product.attributes as Record<string, string>)?.line === item.line,
+    );
+    const featured = matches.find((product) => product.in_stock) ?? matches[0];
+    const imageValue = featured?.image;
+    const image = Array.isArray(imageValue) ? imageValue[0] : imageValue;
+
+    return {
+      line: item.line,
+      name: item.name,
+      description: item.description,
+      ctaLabel: item.ctaLabel,
+      slug: featured?.slug ?? item.fallbackSlug,
+      image: image ?? item.fallbackImage,
+    };
+  });
+}
+
 export async function getAllSlugs(category: 'gadget' | 'sticks'): Promise<string[]> {
   const { data, error } = await supabase.from('products').select('slug').eq('category', category);
 

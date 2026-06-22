@@ -28,6 +28,11 @@ export const FooterContent = () => {
                 </Link>
               </li>
               <li>
+                <Link href={ROUTES.about.iqos} className='hover:text-white transition-colors'>
+                  Об IQOS
+                </Link>
+              </li>
+              <li>
                 <Link href={ROUTES.contact} className='hover:text-white transition-colors'>
                   Контакты
                 </Link>
@@ -52,10 +57,7 @@ export const FooterContent = () => {
               </li>
               <li className='flex items-center gap-2'>
                 <span className='text-white font-medium'>Email:</span>
-                <a
-                  href={`mailto:${CONTACTS.email}`}
-                  className='hover:text-white transition-colors'
-                >
+                <a href={`mailto:${CONTACTS.email}`} className='hover:text-white transition-colors'>
                   {CONTACTS.email}
                 </a>
               </li>

@@ -22,3 +22,4 @@ export * from './GlobalLoader';
 export * from './FloatingPromo';
 export * from './PromoBlock';
 export * from './DeliveryNoticeToast';
+export * from './IqosWhatIsSection';

@@ -26,6 +26,9 @@ export const ANALYTICS = {
 
 export const ROUTES = {
   home: '/',
+  about: {
+    iqos: '/about/iqos',
+  },
   catalog: {
     iqos: '/products/iqos',
     terea: '/products/terea',
@@ -51,7 +54,6 @@ export const IQOS_LINES: Record<string, string> = {
 };
 
 export const ENABLE_PROMO = false;
-
 
 export const DELIVERY_NOTIFICATION_START = '2026-06-19';
 export const DELIVERY_NOTIFICATION_END = '2026-07-01';
