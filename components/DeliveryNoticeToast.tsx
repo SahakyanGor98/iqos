@@ -49,7 +49,9 @@ export const DeliveryNoticeToast = () => {
   if (!isMounted) return null;
 
   return (
-    <div className={`fixed top-4 left-4 right-4 md:top-6 md:right-6 md:left-auto md:w-[380px] z-[70] flex items-start gap-3 bg-amber-50 p-4 rounded-xl shadow-xl border border-amber-200 transition-all duration-500 transform ${isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-8 opacity-0 scale-95 pointer-events-none'}`}>
+    <div
+      className={`fixed top-4 left-4 right-4 md:top-6 md:right-6 md:left-auto md:w-[380px] z-[70] flex items-start gap-3 bg-amber-50 p-4 rounded-xl shadow-xl border border-amber-200 transition-all duration-500 transform ${isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-8 opacity-0 scale-95 pointer-events-none'}`}
+    >
       {/* Warning Icon Container */}
       <div className='bg-amber-500 p-2 rounded-full flex-shrink-0 text-white shadow-sm flex items-center justify-center'>
         <svg
@@ -80,11 +82,10 @@ export const DeliveryNoticeToast = () => {
       <div className='flex-1 min-w-0'>
         <h4 className='text-md font-bold text-amber-900 leading-tight mb-0.5'>Внимание !</h4>
         <p className='text-s text-amber-800 leading-snug'>
-          С <strong>19 по 30 июня</strong> служба доставки не будет работать. Все заказы, оформленные в этот период, будут отправлены начиная с <strong>1 июля</strong>.
+          С <strong>19 по 30 июня</strong> служба доставки не будет работать. Все заказы,
+          оформленные в этот период, будут отправлены начиная с <strong>1 июля</strong>.
         </p>
-        <p className='text-s text-amber-800 leading-snug'>
-          Приносим свои извинения.
-        </p>
+        <p className='text-s text-amber-800 leading-snug'>Приносим свои извинения.</p>
       </div>
 
       <button

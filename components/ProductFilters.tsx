@@ -209,14 +209,13 @@ export const ProductFilters = ({ sections }: Props) => {
       {/* ── Overlay + Panel ── */}
       <div
         className={`fixed inset-0 z-50 md:relative md:z-auto transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto'
+          isOpen
+            ? 'opacity-100'
+            : 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto'
         }`}
       >
         {/* Backdrop (mobile only) */}
-        <div
-          className='absolute inset-0 bg-black/50 md:hidden'
-          onClick={handleClose}
-        />
+        <div className='absolute inset-0 bg-black/50 md:hidden' onClick={handleClose} />
 
         {/* Sidebar Panel */}
         <div

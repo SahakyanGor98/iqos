@@ -7,6 +7,7 @@ This file serves as a reference for AI coding assistants and developers. Please 
 ## 🚀 Project Overview & Tech Stack
 
 This is a premium e-commerce/catalog application for IQOS products built with:
+
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS & Vanilla CSS (in `globals.css`)
@@ -37,7 +38,8 @@ This is a premium e-commerce/catalog application for IQOS products built with:
 Here is a summary of the major features we have built and worked on together:
 
 ### 1. Global Pulse Loader Screen
-- **Files**: 
+
+- **Files**:
   - [GlobalLoader.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/GlobalLoader.tsx)
   - [LoadingContext.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/context/LoadingContext.tsx)
   - [layout.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/layout.tsx)
@@ -57,6 +59,7 @@ Here is a summary of the major features we have built and worked on together:
   ```
 
 ### 2. Russian Phone Number Validation
+
 - **Files**:
   - Form components: [CheckoutForm.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/CheckoutForm.tsx) and [ContactForm.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/ContactForm.tsx)
   - Server actions: [checkout.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/actions/checkout.ts) and [contact.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/actions/contact.ts)
@@ -67,6 +70,7 @@ Here is a summary of the major features we have built and worked on together:
   - Supports formats: `+79991234567`, `89991234567`, `+7 (999) 123-45-67`, etc.
 
 ### 3. Staged Product Filtration & Sticky Footer
+
 - **Files**:
   - [ProductFilters.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/ProductFilters.tsx)
   - [globals.css](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/globals.css)
@@ -77,6 +81,7 @@ Here is a summary of the major features we have built and worked on together:
   - On mobile, the drawer automatically closes upon hitting the "Apply" button.
 
 ### 4. Hero Slider Custom Slide
+
 - **Files**:
   - `HeroSlider.tsx`
   - `public/heroTerea.webp`

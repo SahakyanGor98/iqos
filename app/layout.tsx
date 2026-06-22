@@ -69,7 +69,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans ${christFont.variable}`}>
+      <body
+        className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans ${christFont.variable}`}
+      >
         <LoadingProvider>
           {/* <GlobalLoader /> */}
           <YandexMetrika />
@@ -86,7 +88,8 @@ export default function RootLayout({
           {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
           <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>
             <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
-              МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает риски. Аэрозоль содержит никотин, вызывающий зависимость.
+              МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает
+              риски. Аэрозоль содержит никотин, вызывающий зависимость.
             </p>
           </footer>
         </LoadingProvider>
