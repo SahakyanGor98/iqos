@@ -31,25 +31,45 @@ export default async function IqosAboutPage() {
   const lineupDevices = await getIqosLineupProducts([...IQOS_DEVICE_LINEUP]);
 
   return (
-    <div className='flex flex-col'>
-      {/* Hero */}
-      <section className='relative min-h-[50vh] md:min-h-[60vh] flex items-end overflow-hidden bg-[#34303d]'>
-        <Image
-          src={IQOS_ABOUT_IMAGES.hero}
-          alt='Бездымные альтернативы IQOS'
-          fill
-          priority
-          sizes='100vw'
-          className='object-cover object-center opacity-80'
-        />
-        <div className='absolute inset-0 bg-gradient-to-t from-[#34303d] via-[#34303d]/60 to-transparent' />
-        <div className='relative z-10 container-custom py-12 md:py-16 text-white'>
-          <p className='text-sm font-bold uppercase tracking-widest text-white/70 mb-3'>
-            Бездымные альтернативы
-          </p>
-          <h1 className='text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight max-w-3xl'>
-            Что такое IQOS?
-          </h1>
+    <div className='flex flex-col bg-white'>
+      {/* Hero / Cover Section with stacked layout: Image on top, Text on white below */}
+      <section className='w-full bg-white overflow-hidden border-b border-neutral-100'>
+        {/* Top Banner Image */}
+        <div className='relative w-full h-[35vh] md:h-[50vh] bg-neutral-50 overflow-hidden'>
+          <Image
+            src={IQOS_ABOUT_IMAGES.hero}
+            alt='Бездымные альтернативы IQOS'
+            fill
+            priority
+            sizes='100vw'
+            className='object-cover object-right md:object-center scale-105 opacity-100'
+          />
+        </div>
+
+        {/* Text Content below on white background */}
+        <div className='container-custom py-12 md:py-16'>
+          <div className='max-w-3xl text-left text-[#34303d]'>
+            <p className='text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#34303d]/70 mb-3 md:mb-4'>
+              Бездымные альтернативы
+            </p>
+            <h1 className='text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#34303d] leading-[1.1] text-balance'>
+              Что такое IQOS?
+            </h1>
+            <p className='mt-4 md:mt-6 text-sm md:text-base leading-relaxed text-[#34303d]/90 text-pretty'>
+              IQOS — инновационная линейка бездымных устройств и лучшая альтернатива сигаретам. В отличие от сигарет, IQOS не сжигает табак, а бережно нагревает его до строго контролируемой температуры.
+            </p>
+            <div className='mt-6 md:mt-8 mb-4'>
+              <Link
+                href={ROUTES.catalog.iqos}
+                className='inline-flex items-center justify-center rounded-full bg-[#34303D] text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.1em] hover:bg-black transition-colors duration-300'
+              >
+                Узнать больше
+              </Link>
+            </div>
+            <p className='text-[10px] leading-relaxed text-[#34303d]/60 text-pretty'>
+              Источник: трёхмесячные клинические исследования, проведённые в США и Японии с участием 160 совершеннолетних курильщиков в реальных условиях (амбулаторно).
+            </p>
+          </div>
         </div>
       </section>
 
@@ -68,9 +88,9 @@ export default async function IqosAboutPage() {
       <IqosLineupSection devices={lineupDevices} />
 
       {/* FAQ */}
-      <section className='py-12 md:py-20 bg-white'>
+      <section className='py-12 md:py-20 bg-white border-t border-neutral-100'>
         <div className='container-custom max-w-3xl'>
-          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-center mb-10'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-center mb-10 text-[#34303d] text-balance'>
             Часто задаваемые вопросы
           </h2>
 
@@ -78,10 +98,10 @@ export default async function IqosAboutPage() {
             {IQOS_FAQ.map((item) => (
               <details key={item.question} className='group'>
                 <summary className='relative cursor-pointer list-none py-5 md:py-6 pr-10'>
-                  <span className='font-bold text-base md:text-lg'>{item.question}</span>
-                  <ChevronDown className='absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 transition-transform duration-300 group-open:rotate-180' />
+                  <span className='font-bold text-base md:text-lg text-[#34303d]'>{item.question}</span>
+                  <ChevronDown className='absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-[#34303d]' />
                 </summary>
-                <p className='pb-5 md:pb-6 text-neutral-700 leading-relaxed'>{item.answer}</p>
+                <p className='pb-5 md:pb-6 text-[#34303d]/85 text-left leading-relaxed text-pretty'>{item.answer}</p>
               </details>
             ))}
           </div>
@@ -91,10 +111,10 @@ export default async function IqosAboutPage() {
       {/* CTA */}
       <section className='bg-neutral-50 py-16 md:py-24 px-6 text-center border-t border-neutral-200'>
         <div className='container-custom max-w-4xl mx-auto'>
-          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6 text-[#34303d] text-balance'>
             Начать свой опыт прямо сейчас
           </h2>
-          <p className='text-base md:text-lg text-neutral-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed'>
+          <p className='text-base md:text-lg text-[#34303d]/80 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed text-pretty'>
             Выберите устройство IQOS ILUMA или свяжитесь с нами — мы поможем подобрать идеальный
             вариант.
           </p>
@@ -113,7 +133,7 @@ export default async function IqosAboutPage() {
       <section className='bg-neutral-100 py-8 px-6'>
         <div className='container-custom max-w-4xl mx-auto space-y-3'>
           {IQOS_DISCLAIMERS.map((text) => (
-            <p key={text} className='text-xs text-neutral-500 leading-relaxed text-center'>
+            <p key={text} className='text-xs text-neutral-500 leading-relaxed text-center text-pretty'>
               {text}
             </p>
           ))}

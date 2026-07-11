@@ -1,23 +1,33 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Inter, Montserrat } from 'next/font/google';
 import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
   DeliveryNoticeToast,
-  // FloatingPromo,
   FooterContent,
-  // GlobalLoader,
   Navbar,
   PromoToast,
   TelegramFloat,
   YandexMetrika,
 } from '@/components';
-// import { ENABLE_PROMO } from '@/lib/constants';
 import './globals.css';
 
 const christFont = localFont({
   src: '../assets/christ.100.ttf',
   variable: '--font-christ',
+});
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-montserrat',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -62,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ru'>
+    <html lang="ru" className={`${inter.variable} ${montserrat.variable}`}>
       <head>
         <script
           type='application/ld+json'
@@ -70,16 +80,14 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans ${christFont.variable}`}
+        className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans bg-[#fffdfb] text-[#34303d] ${christFont.variable}`}
       >
         <LoadingProvider>
-          {/* <GlobalLoader /> */}
           <YandexMetrika />
           <AgeVerification />
           <PromoToast />
           <TelegramFloat />
           <DeliveryNoticeToast />
-          {/* {ENABLE_PROMO && <FloatingPromo />} */}
           <Navbar />
           <main id='main-content' className='flex-1 overflow-y-auto'>
             {children}
