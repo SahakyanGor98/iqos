@@ -1,11 +1,12 @@
 export const IQOS_ABOUT_IMAGES = {
-  hero: '/about/hero.jpg',
-  intro: '/about/intro.jpg',
-  heatedTobacco: '/about/heated-tobacco.jpg',
-  science: '/about/science.jpg',
-  teaser: '/about/teaser.jpg',
-  history: '/about/history.jpg',
-  historyMobile: '/about/history-mobile.jpg',
+  entry: '/about/entry.webp',
+  hero: '/about/hero.webp',
+  intro: '/about/intro.webp',
+  heatedTobacco: '/about/heated-tobacco.webp',
+  science: '/about/science.webp',
+  teaser: '/about/teaser.webp',
+  history: '/about/history.webp',
+  historyMobile: '/about/history-mobile.webp',
 } as const;
 
 export const IQOS_HOME_TEASER = {

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const TextSeparator = ({ className = '' }: { className?: string }) => (
-  <div className={`w-full bg-white h-2 md:h-3 border-y border-neutral-100 ${className}`} />
+  <div className={`w-full bg-white h-2 md:h-3 ${className}`} />
 );
 
 export default function Home() {
