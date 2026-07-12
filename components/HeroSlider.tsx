@@ -220,7 +220,7 @@ export const HeroSlider = () => {
                       <Link
                         href={slide.buttonLink}
                         target='_blank'
-                        className='relative inline-flex items-center justify-center mt-6'
+                        className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center'
                       >
                         {/* outer glow */}
                         <span className='absolute inset-0 rounded-full bg-sky-400/40 animate-ping' />
