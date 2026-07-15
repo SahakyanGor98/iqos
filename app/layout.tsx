@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { Inter, Montserrat } from 'next/font/google';
 import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
@@ -16,18 +15,6 @@ import './globals.css';
 const christFont = localFont({
   src: '../assets/christ.100.ttf',
   variable: '--font-christ',
-});
-
-const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const montserrat = Montserrat({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-montserrat',
-  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -72,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="ru">
       <head>
         <script
           type='application/ld+json'

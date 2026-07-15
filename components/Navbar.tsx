@@ -52,7 +52,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className='flex-shrink-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300 border-b border-neutral-200'>
+      <header className='relative flex-shrink-0 z-50 w-full bg-white/90 backdrop-blur-md transition-all duration-300 border-b border-neutral-200'>
         <div className='container-custom flex h-16 items-center justify-between'>
           {/* Mobile Menu Button (Left) */}
           <div className='flex-1 md:hidden'>
@@ -193,24 +193,34 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Drawer */}
-        {isMenuOpen && (
-          <div className='md:hidden border-t border-[var(--border)] rounded-b-lg bg-white p-4 absolute w-full shadow-xl'>
-            <nav className='flex flex-col gap-4'>
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className='text-base font-medium text-black'
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        )}
       </header>
+
+      {/* Mobile Drawer Backdrop */}
+      {isMenuOpen && (
+        <div
+          className='fixed inset-0 top-16 bg-black/25 z-40 md:hidden'
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Drawer */}
+      {isMenuOpen && (
+        <div className='md:hidden border-t border-neutral-100 rounded-b-lg bg-white p-4 fixed top-16 left-0 w-full shadow-xl z-50'>
+          <nav className='flex flex-col gap-4'>
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className='text-base font-medium text-black'
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
+
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
