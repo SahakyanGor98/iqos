@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/Button';
+import { ButtonVariant } from '@/components/ButtonTypes';
 import { Metadata } from 'next';
 import { ChevronDown } from 'lucide-react';
 import {
@@ -119,12 +121,12 @@ export default async function IqosAboutPage() {
             вариант.
           </p>
           <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
-            <Link href={ROUTES.catalog.iqos} className='btn-primary'>
+            <Button href={ROUTES.catalog.iqos} variant={ButtonVariant.PRIMARY}>
               Каталог устройств
-            </Link>
-            <Link href={ROUTES.contact} className='btn-secondary'>
+            </Button>
+            <Button href={ROUTES.contact} variant={ButtonVariant.SECONDARY}>
               Связаться с нами
-            </Link>
+            </Button>
           </div>
         </div>
       </section>

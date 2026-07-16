@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Button } from './Button';
+import { ButtonVariant } from './ButtonTypes';
 import { IQOS_HOME_TEASER, IQOS_ABOUT_IMAGES } from '@/lib/content/iqos-about';
 
 export const IqosWhatIsSection = () => {
@@ -34,21 +35,23 @@ export const IqosWhatIsSection = () => {
               </p>
               
               {/* Desktop Button: Left-aligned and inline in the flex flow */}
-              <Link
+              <Button
                 href={IQOS_HOME_TEASER.ctaHref}
-                className='hidden md:inline-flex items-center justify-center px-8 py-3 text-sm font-bold uppercase tracking-wider rounded-full bg-white text-black hover:bg-neutral-200 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
+                variant={ButtonVariant.LIGHT}
+                className='hidden md:inline-flex'
               >
                 {IQOS_HOME_TEASER.ctaLabel}
-              </Link>
+              </Button>
             </div>
 
             {/* Mobile Button: Absolute positioned at the bottom, centered */}
-            <Link
+            <Button
               href={IQOS_HOME_TEASER.ctaHref}
-              className='md:hidden absolute bottom-8 left-1/2 -translate-x-1/2 btn-primary bg-white text-black hover:bg-neutral-200 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
+              variant={ButtonVariant.LIGHT}
+              className='md:hidden absolute bottom-8 left-1/2 -translate-x-1/2'
             >
               {IQOS_HOME_TEASER.ctaLabel}
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

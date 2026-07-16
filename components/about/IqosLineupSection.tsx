@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { Button } from '../Button';
+import { ButtonVariant } from '../ButtonTypes';
 import { IqosLineupItem } from '@/lib/api';
 import { ROUTES } from '@/lib/constants';
 
@@ -83,12 +84,13 @@ export const IqosLineupSection = ({ devices }: Props) => {
                     <p className={`text-sm leading-relaxed ${styles.desc} text-pretty`}>
                       {device.description}
                     </p>
-                    <Link
+                    <Button
                       href={`${ROUTES.catalog.iqos}/${device.slug}`}
-                      className='inline-flex items-center justify-center w-full px-6 py-4 text-xs font-bold uppercase tracking-wider rounded-full bg-[#34303D] text-white hover:bg-black transition-colors duration-300'
+                      variant={ButtonVariant.PRIMARY}
+                      className='self-center'
                     >
                       {device.ctaLabel}
-                    </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -97,12 +99,12 @@ export const IqosLineupSection = ({ devices }: Props) => {
         </div>
 
         <div className='text-center mt-6'>
-          <Link
+          <Button
             href={ROUTES.catalog.iqos}
-            className='btn-primary bg-[#34303D] text-white hover:bg-black'
+            variant={ButtonVariant.PRIMARY}
           >
             Смотреть все устройства
-          </Link>
+          </Button>
         </div>
       </div>
     </section>

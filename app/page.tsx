@@ -1,7 +1,8 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { HapticLink, HeroSlider, IqosWhatIsSection, PromoBlock } from '@/components';
+import { HeroSlider, IqosWhatIsSection, PromoBlock } from '@/components';
+import { Button } from '@/components/Button';
+import { ButtonVariant } from '@/components/ButtonTypes';
 import { ENABLE_PROMO } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -50,12 +51,13 @@ export default function Home() {
                 Революционная технология индукционного нагревания табака без лезвия.
               </p>
             </div>
-            <HapticLink
+            <Button
               href='/products/iqos'
-              className='absolute bottom-8 md:bottom-12 btn-primary bg-white text-black hover:bg-neutral-200 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
+              variant={ButtonVariant.LIGHT}
+              className='absolute bottom-8 md:bottom-12'
             >
               Выбрать устройство
-            </HapticLink>
+            </Button>
           </div>
         </section>
 
@@ -85,12 +87,13 @@ export default function Home() {
                 Широкая палитра вкусов для вашего устройства IQOS Iluma.
               </p>
             </div>
-            <HapticLink
+            <Button
               href='/products/terea'
-              className='absolute bottom-8 md:bottom-12 btn-primary bg-white text-black hover:bg-neutral-200 shadow-none active:scale-[0.94] active:brightness-90 active:shadow-inner transition-all duration-100'
+              variant={ButtonVariant.LIGHT}
+              className='absolute bottom-8 md:bottom-12'
             >
               Каталог вкусов
-            </HapticLink>
+            </Button>
           </div>
         </section>
       </div>
@@ -109,12 +112,12 @@ export default function Home() {
             Не уверены в выборе? Наши эксперты проконсультируют вас и помогут подобрать идеальное
             устройство и вкусы, подходящие именно вам.
           </p>
-          <Link
+          <Button
             href='/contact'
-            className='inline-flex items-center justify-center px-6 py-3 text-sm md:px-8 md:py-4 md:text-base bg-black text-white font-bold uppercase tracking-wider rounded-full hover:bg-neutral-800 transition-transform active:scale-95 active:brightness-90'
+            variant={ButtonVariant.PRIMARY}
           >
             Связаться с нами
-          </Link>
+          </Button>
         </div>
       </section>
     </div>

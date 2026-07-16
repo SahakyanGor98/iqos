@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { HapticLink } from './HapticLink';
+import { Button } from './Button';
+import { ButtonVariant } from './ButtonTypes';
 import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -217,7 +219,7 @@ export const HeroSlider = () => {
                       </p>
                     </div>
                     {slide.title === TELEGRAM_SLIDE_TITLE ? (
-                      <Link
+                      <HapticLink
                         href={slide.buttonLink}
                         target='_blank'
                         className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center'
@@ -239,14 +241,15 @@ export const HeroSlider = () => {
                             </svg>
                           </span>
                         </span>
-                      </Link>
+                      </HapticLink>
                     ) : (
-                      <Link
+                      <Button
                         href={slide.buttonLink}
-                        className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center px-8 py-4 text-base md:text-lg bg-white text-black font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 transition-all active:scale-95 active:brightness-90 active:shadow-inner shadow-2xl focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/20'
+                        variant={ButtonVariant.LIGHT}
+                        className='absolute bottom-10 md:bottom-16 shadow-2xl'
                       >
                         {slide.buttonText}
-                      </Link>
+                      </Button>
                     )}
                   </div>
                 </div>
