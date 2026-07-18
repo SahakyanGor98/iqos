@@ -1,3 +1,4 @@
+import React from 'react';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,4 +21,40 @@ export function formatPrice(price: number | string): string {
     maximumFractionDigits: 0,
   }).format(numeric);
   return `${formattedNumber}\u00A0₽`;
+}
+
+export function fixCasing(title: string, uppercase = false): string {
+  if (!title) return '';
+  const parts = title.split(/(\s+)/);
+  return parts
+    .map((part) => {
+      const trimmed = part.trim();
+      if (trimmed.toLowerCase() === 'i') {
+        return 'i';
+      }
+      return uppercase ? part.toUpperCase() : part;
+    })
+    .join('');
+}
+
+export function formatDeviceTitle(title: string): React.ReactNode {
+  if (!title) return '';
+  const parts = title.split(/(IQOS)/i);
+  return React.createElement(
+    React.Fragment,
+    null,
+    ...parts.map((part, index) => {
+      if (part.toUpperCase() === 'IQOS') {
+        return React.createElement(
+          'span',
+          {
+            key: index,
+            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.15em] inline-block',
+          },
+          part
+        );
+      }
+      return React.createElement(React.Fragment, { key: index }, part);
+    })
+  );
 }

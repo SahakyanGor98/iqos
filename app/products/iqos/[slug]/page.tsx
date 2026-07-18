@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -124,12 +124,9 @@ export default async function IqosSlugPage({ params }: Props) {
         {/* Info Section */}
         <div className='flex flex-col justify-center space-y-4'>
           <div>
-            <h1 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-2'>
-              {productRow.title}
+            <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
+              {formatDeviceTitle(fixCasing(productRow.title, true))}
             </h1>
-            {/* <p className='text-lg text-neutral-500 font-medium'>
-              {IQOS_LINES[attrs.line as string] || attrs.line || 'IQOS Original'}
-            </p> */}
           </div>
 
           <div className='flex items-end gap-4'>

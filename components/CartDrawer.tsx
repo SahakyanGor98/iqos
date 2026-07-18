@@ -4,7 +4,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import { CheckoutForm } from './CheckoutForm';
 import { HapticButton } from './HapticButton';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
 
 type Props = {
   isOpen: boolean;
@@ -129,7 +129,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                       </div>
                       <div className='flex-1'>
                         <div className='flex justify-between items-start'>
-                          <h3 className='text-sm font-medium line-clamp-2'>{item.product.title}</h3>
+                          <h3 className='text-sm font-medium line-clamp-2'>{formatDeviceTitle(fixCasing(item.product.title, false))}</h3>
                           <HapticButton
                             onClick={() => removeFromCart(item.product.id)}
                             className='text-red-500 hover:text-red-700 ml-2'

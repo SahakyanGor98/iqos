@@ -2,6 +2,7 @@ import { Button } from '../Button';
 import { ButtonVariant } from '../ButtonTypes';
 import { IqosLineupItem } from '@/lib/api';
 import { ROUTES } from '@/lib/constants';
+import { formatDeviceTitle, fixCasing } from '@/lib/utils';
 
 type Props = {
   devices: IqosLineupItem[];
@@ -42,34 +43,13 @@ const getCardStyle = (line: string) => {
   }
 };
 
-const renderDeviceName = (name: string) => {
-  const parts = name.split(/(IQOS)/i);
-  return (
-    <>
-      {parts.map((part, index) => {
-        if (part.toUpperCase() === 'IQOS') {
-          return (
-            <span
-              key={index}
-              className='font-[family-name:var(--font-christ)] text-2xl md:text-3xl normal-case tracking-wide mr-1 inline-block'
-            >
-              IQOS
-            </span>
-          );
-        }
-        return <span key={index}>{part}</span>;
-      })}
-    </>
-  );
-};
-
 export const IqosLineupSection = ({ devices }: Props) => {
   return (
     <section className='py-12 md:py-20 bg-[#fffdfb] text-[#34303d] border-y border-neutral-100'>
       <div className='container-custom'>
         <div className='text-center mb-12 md:mb-16'>
-          <h2 className='text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 text-[#34303d] text-balance'>
-            Изучить линейку IQOS ILUMA i
+          <h2 className='text-3xl md:text-4xl font-black tracking-tight mb-4 text-[#34303d] text-balance'>
+            {formatDeviceTitle(fixCasing('Изучить линейку IQOS ILUMA i', true))}
           </h2>
           <p className='text-[#34303d]/80 max-w-2xl mx-auto leading-relaxed text-pretty'>
             Откройте для себя устройства IQOS ILUMA i — инновационные, умные и интуитивные решения
@@ -87,8 +67,8 @@ export const IqosLineupSection = ({ devices }: Props) => {
               >
                 <div className='p-6 md:p-8 text-center flex flex-col flex-1 justify-between gap-y-6'>
                   <div className='space-y-2'>
-                    <h3 className={`text-xl md:text-2xl font-black uppercase tracking-tight flex items-center justify-center gap-1 ${styles.text}`}>
-                      {renderDeviceName(device.name)}
+                    <h3 className={`text-xl md:text-2xl font-black tracking-tight flex items-center justify-center gap-1 ${styles.text}`}>
+                      {formatDeviceTitle(fixCasing(device.name, true))}
                     </h3>
                   </div>
 

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -122,8 +122,8 @@ export default async function TereaSlugPage({ params }: Props) {
         {/* Info */}
         <div className='flex flex-col justify-center space-y-8'>
           <div>
-            <h1 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-2'>
-              {productRow.title}
+            <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
+              {formatDeviceTitle(fixCasing(productRow.title, true))}
             </h1>
             <div className='flex flex-wrap gap-2'>
               {Array.isArray(attrs.flavors) &&

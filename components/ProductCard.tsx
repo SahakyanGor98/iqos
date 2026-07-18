@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { Product } from '@/types/product';
-import { formatPrice } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
 
 type Props = {
   product: ProductRow;
@@ -60,7 +60,7 @@ export const ProductCard = ({ product }: Props) => {
 
       {/* Content */}
       <div className='flex-1 flex flex-col p-4'>
-        <h3 className='text-sm font-medium leading-snug mb-1 line-clamp-2'>{product.title}</h3>
+        <h3 className='text-sm font-medium leading-snug mb-1 line-clamp-2'>{formatDeviceTitle(fixCasing(product.title, false))}</h3>
 
         {/* Attributes Display */}
         <div className='text-xs text-neutral-500 mb-2 mt-auto'>

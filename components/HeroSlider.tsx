@@ -7,7 +7,7 @@ import { HapticLink } from './HapticLink';
 import { Button } from './Button';
 import { ButtonVariant } from './ButtonTypes';
 import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, fixCasing } from '@/lib/utils';
 
 const TELEGRAM_SLIDE_TITLE = 'Подпишись в Telegram';
 
@@ -212,7 +212,7 @@ export const HeroSlider = () => {
                   <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
                     <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
                       <h1 className='text-4xl md:text-6xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
-                        {slide.title}
+                        {fixCasing(slide.title, true)}
                       </h1>
                       <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
                         {slide.subtitle}
