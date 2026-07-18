@@ -155,7 +155,7 @@ export const HeroSlider = () => {
         </div>
       </div>
 
-      <div className='overflow-hidden h-[50vh] md:h-[calc(100vh-64px)]' ref={emblaRef}>
+      <div className='overflow-hidden h-[60vh] md:h-[calc(100vh-64px)]' ref={emblaRef}>
         <div className='flex h-full'>
           {slides.map((slide) => {
             const objectFitClass = cn(
@@ -210,8 +210,8 @@ export const HeroSlider = () => {
                 {/* Content Box */}
                 <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
                   <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
-                    <div className='max-w-3xl transform transition-all duration-700 translate-y-0 opacity-100'>
-                      <h1 className='text-4xl md:text-6xl font-black tracking-tighter mb-4 md:mb-6 leading-tight'>
+                    <div className='max-w-3xl transform transition-all duration-700 -translate-y-20 md:-translate-y-6 opacity-100'>
+                      <h1 className='text-4xl md:text-6xl font-black tracking-tighter mb-10 md:mb-6 leading-tight'>
                         {fixCasing(slide.title, true)}
                       </h1>
                       <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
@@ -222,7 +222,7 @@ export const HeroSlider = () => {
                       <HapticLink
                         href={slide.buttonLink}
                         target='_blank'
-                        className='absolute bottom-10 md:bottom-16 inline-flex items-center justify-center'
+                        className='absolute bottom-20 md:bottom-24 inline-flex items-center justify-center'
                       >
                         {/* outer glow */}
                         <span className='absolute inset-0 rounded-full bg-sky-400/40 animate-ping' />
@@ -246,7 +246,7 @@ export const HeroSlider = () => {
                       <Button
                         href={slide.buttonLink}
                         variant={ButtonVariant.LIGHT}
-                        className='absolute bottom-10 md:bottom-16 shadow-2xl'
+                        className='absolute bottom-25 md:bottom-24 shadow-2xl'
                       >
                         {slide.buttonText}
                       </Button>
