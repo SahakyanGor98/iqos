@@ -5,7 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { HapticLink } from './HapticLink';
 import { Button } from './Button';
-import { ButtonVariant } from './ButtonTypes';
+import { ButtonShadow, ButtonVariant } from './ButtonTypes';
 import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
 import { cn, fixCasing } from '@/lib/utils';
 
@@ -209,20 +209,18 @@ export const HeroSlider = () => {
 
                 {/* Content Box */}
                 <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
-                  <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
-                    <div className='max-w-3xl transform transition-all duration-700 -translate-y-20 md:-translate-y-6 opacity-100'>
-                      <h1 className='text-4xl md:text-6xl font-black tracking-tighter mb-10 md:mb-6 leading-tight'>
-                        {fixCasing(slide.title, true)}
-                      </h1>
-                      <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
-                        {slide.subtitle}
-                      </p>
-                    </div>
+                  <div className='py-24 w-full max-w-3xl h-full flex flex-col justify-between items-center text-center'>
+                    <h1 className='text-4xl md:text-6xl font-black tracking-tighter leading-tight'>
+                      {fixCasing(slide.title, true)}
+                    </h1>
+                    <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
+                      {slide.subtitle}
+                    </p>
                     {slide.title === TELEGRAM_SLIDE_TITLE ? (
                       <HapticLink
                         href={slide.buttonLink}
                         target='_blank'
-                        className='absolute bottom-20 md:bottom-24 inline-flex items-center justify-center'
+                        className='inline-flex items-center justify-center relative'
                       >
                         {/* outer glow */}
                         <span className='absolute inset-0 rounded-full bg-sky-400/40 animate-ping' />
@@ -246,7 +244,7 @@ export const HeroSlider = () => {
                       <Button
                         href={slide.buttonLink}
                         variant={ButtonVariant.LIGHT}
-                        className='absolute bottom-25 md:bottom-24 shadow-2xl'
+                        shadow={ButtonShadow.LARGE}
                       >
                         {slide.buttonText}
                       </Button>
