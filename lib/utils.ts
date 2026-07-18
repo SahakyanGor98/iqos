@@ -10,3 +10,14 @@ export function triggerHaptic(pattern: number | number[] = 10) {
     window.navigator.vibrate(pattern);
   }
 }
+
+export function formatPrice(price: number | string): string {
+  const numeric = typeof price === 'number' ? price : parseFloat(String(price).replace(/[^\d.]/g, ''));
+  if (isNaN(numeric)) return String(price) + '\u00A0₽';
+  const formattedNumber = new Intl.NumberFormat('ru-RU', {
+    style: 'decimal',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(numeric);
+  return `${formattedNumber}\u00A0₽`;
+}

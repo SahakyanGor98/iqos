@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { Product } from '@/types/product';
+import { formatPrice } from '@/lib/utils';
 
 type Props = {
   product: ProductRow;
@@ -96,13 +97,13 @@ export const ProductCard = ({ product }: Props) => {
         <div className='flex items-center gap-2 mt-2'>
           {attributes.salePrice ? (
             <>
-              <span className='text-lg font-bold text-red-600'>{product.price} ₽</span>
+              <span className='text-lg font-bold text-red-600'>{formatPrice(product.price)}</span>
               <span className='text-sm text-neutral-400 line-through'>
-                {attributes.salePrice} ₽
+                {formatPrice(attributes.salePrice)}
               </span>
             </>
           ) : (
-            <span className='text-lg font-bold'>{product.price} ₽</span>
+            <span className='text-lg font-bold'>{formatPrice(product.price)}</span>
           )}
         </div>
       </div>

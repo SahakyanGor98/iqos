@@ -33,7 +33,7 @@ export default async function IqosAboutPage() {
   const lineupDevices = await getIqosLineupProducts([...IQOS_DEVICE_LINEUP]);
 
   return (
-    <div className='flex flex-col bg-white'>
+    <div className='bg-white'>
       {/* Hero / Cover Section with stacked layout: Image on top, Text on white below */}
       <section className='w-full bg-white overflow-hidden border-b border-neutral-100'>
         {/* Top Banner Image */}
@@ -51,41 +51,33 @@ export default async function IqosAboutPage() {
         {/* Text Content below on white background */}
         <div className='container-custom py-12 md:py-16'>
           <div className='max-w-3xl text-left text-[#34303d]'>
-            <p className='text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#34303d]/70 mb-3 md:mb-4'>
-              Бездымные альтернативы
-            </p>
-            <h1 className='text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#34303d] leading-[1.1] text-balance'>
+            <h1 className='text-3xl md:text-5xl mb-4 lg:text-6xl font-black uppercase tracking-tight text-[#34303d] leading-[1.1] text-balance'>
               Что такое IQOS?
             </h1>
-            <p className='mt-4 md:mt-6 text-sm md:text-base leading-relaxed text-[#34303d]/90 text-pretty'>
+            <p className='text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#34303d]/70 md:mb-4'>
+              Бездымные альтернативы
+            </p>
+            <p className='mt-4 md:mt-6 text-base leading-relaxed text-[#34303d]/90 text-pretty'>
               IQOS — инновационная линейка бездымных устройств и лучшая альтернатива сигаретам. В отличие от сигарет, IQOS не сжигает табак, а бережно нагревает его до строго контролируемой температуры.
             </p>
-            <div className='mt-6 md:mt-8 mb-4'>
-              <Link
-                href={ROUTES.catalog.iqos}
-                className='inline-flex items-center justify-center rounded-full bg-[#34303D] text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.1em] hover:bg-black transition-colors duration-300'
-              >
-                Узнать больше
-              </Link>
-            </div>
-            <p className='text-[10px] leading-relaxed text-[#34303d]/60 text-pretty'>
+            <p className='mt-4 text-xs leading-relaxed text-neutral-500 text-pretty'>
               Источник: трёхмесячные клинические исследования, проведённые в США и Японии с участием 160 совершеннолетних курильщиков в реальных условиях (амбулаторно).
             </p>
           </div>
         </div>
       </section>
 
-      {IQOS_ABOUT_SECTIONS.map((section) => {
-        if (section.layout === 'text-only') {
-          return <AboutTextOnlySection key={section.id} section={section} />;
-        }
-
-        if (section.layout === 'background-right') {
-          return <AboutHistorySection key={section.id} section={section} />;
-        }
-
-        return <AboutDefaultSection key={section.id} section={section} />;
-      })}
+      {IQOS_ABOUT_SECTIONS.map((section) => (
+        <div key={section.id} className='flex flex-col'>
+          {section.layout === 'text-only' ? (
+            <AboutTextOnlySection section={section} />
+          ) : section.layout === 'background-right' ? (
+            <AboutHistorySection section={section} />
+          ) : (
+            <AboutDefaultSection section={section} />
+          )}
+        </div>
+      ))}
 
       <IqosLineupSection devices={lineupDevices} />
 
@@ -111,7 +103,7 @@ export default async function IqosAboutPage() {
       </section>
 
       {/* CTA */}
-      <section className='bg-neutral-50 py-16 md:py-24 px-6 text-center border-t border-neutral-200'>
+      <section className='bg-neutral-50 py-12 md:py-20 px-6 text-center border-t border-neutral-200'>
         <div className='container-custom max-w-4xl mx-auto'>
           <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6 text-[#34303d] text-balance'>
             Начать свой опыт прямо сейчас

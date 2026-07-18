@@ -4,6 +4,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import { CheckoutForm } from './CheckoutForm';
 import { HapticButton } from './HapticButton';
+import { formatPrice } from '@/lib/utils';
 
 type Props = {
   isOpen: boolean;
@@ -148,7 +149,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                             </svg>
                           </HapticButton>
                         </div>
-                        <p className='text-sm text-neutral-500 mt-1'>{item.product.price} ₽ / шт</p>
+                        <p className='text-sm text-neutral-500 mt-1'>{formatPrice(item.product.price)} / шт</p>
 
                         <div className='flex items-center justify-between mt-3'>
                           <div className='flex items-center border rounded-md'>
@@ -169,7 +170,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                               +
                             </HapticButton>
                           </div>
-                          <p className='font-semibold'>{item.product.price * item.quantity} ₽</p>
+                          <p className='font-semibold'>{formatPrice(item.product.price * item.quantity)}</p>
                         </div>
                       </div>
                     </div>
@@ -220,7 +221,7 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     <div className='flex justify-between items-center text-sm text-neutral-600'>
                       <span>Товары</span>
                       <span>
-                        {items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)} ₽
+                        {formatPrice(items.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}
                       </span>
                     </div>
 
@@ -228,14 +229,14 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     {discount > 0 && (
                       <div className='flex justify-between items-center text-sm text-green-600 font-medium'>
                         <span>Скидка</span>
-                        <span>-{discount} ₽</span>
+                        <span>-{formatPrice(discount)}</span>
                       </div>
                     )}
 
                     {/* Divider */}
                     <div className='border-t pt-3 flex justify-between items-center'>
                       <span className='text-lg font-medium'>Итого:</span>
-                      <span className='text-2xl font-black'>{getTotalPrice()} ₽</span>
+                      <span className='text-2xl font-black'>{formatPrice(getTotalPrice())}</span>
                     </div>
                   </div>
                   <HapticButton

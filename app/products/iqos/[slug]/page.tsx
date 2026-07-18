@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
-import { IQOS_LINES } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
+import { formatPrice } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -124,7 +124,7 @@ export default async function IqosSlugPage({ params }: Props) {
         {/* Info Section */}
         <div className='flex flex-col justify-center space-y-4'>
           <div>
-            <h1 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-2'>
+            <h1 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-2'>
               {productRow.title}
             </h1>
             {/* <p className='text-lg text-neutral-500 font-medium'>
@@ -136,14 +136,14 @@ export default async function IqosSlugPage({ params }: Props) {
             {attrs.salePrice ? (
               <>
                 <span className='text-4xl font-bold text-red-600 line-clamp-1'>
-                  {productRow.price} ₽
+                  {formatPrice(productRow.price)}
                 </span>
                 <span className='text-xl text-neutral-400 line-through mb-1'>
-                  {attrs.salePrice} ₽
+                  {formatPrice(attrs.salePrice)}
                 </span>
               </>
             ) : (
-              <span className='text-4xl font-bold text-neutral-900'>{productRow.price} ₽</span>
+              <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
             )}
           </div>
 

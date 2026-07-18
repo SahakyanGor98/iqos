@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
+import { formatPrice } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -121,7 +122,7 @@ export default async function TereaSlugPage({ params }: Props) {
         {/* Info */}
         <div className='flex flex-col justify-center space-y-8'>
           <div>
-            <h1 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-2'>
+            <h1 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-2'>
               {productRow.title}
             </h1>
             <div className='flex flex-wrap gap-2'>
@@ -138,7 +139,7 @@ export default async function TereaSlugPage({ params }: Props) {
           </div>
 
           <div className='flex items-end gap-2'>
-            <span className='text-4xl font-bold text-neutral-900'>{productRow.price} ₽</span>
+            <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
             <span className='text-sm font-medium text-neutral-500 mb-2'>/ блок (10 пачек)</span>
           </div>
 
