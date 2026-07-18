@@ -27,9 +27,9 @@ export default function Home() {
       {/* Separator 1: Always visible */}
       <TextSeparator />
 
-      <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] relative'>
+      <div className='flex flex-col md:flex-row h-auto md:h-[calc(100vh-64px)] relative'>
         {/* IQOS Section */}
-        <section className='relative flex-1 group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
+        <section className='relative flex-1 aspect-square md:aspect-auto md:h-full group overflow-hidden border-b md:border-b-0 md:border-r border-white/10'>
           <div className='absolute inset-0 bg-neutral-700 z-10 opacity-30 md:opacity-70 transition-opacity duration-500 group-hover:opacity-30'></div>
           <div className='absolute inset-0 z-0'>
             <Image
@@ -65,7 +65,7 @@ export default function Home() {
         <TextSeparator className='md:hidden border-t-0' />
 
         {/* Terea Section */}
-        <section className='relative flex-1 group overflow-hidden'>
+        <section className='relative flex-1 aspect-square md:aspect-auto md:h-full group overflow-hidden'>
           <div className='absolute inset-0 bg-neutral-700 z-10 opacity-30 md:opacity-70 transition-opacity duration-500 group-hover:opacity-40'></div>
           <div className='absolute inset-0 z-0'>
             <Image

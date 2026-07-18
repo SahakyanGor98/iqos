@@ -155,7 +155,7 @@ export const HeroSlider = () => {
         </div>
       </div>
 
-      <div className='overflow-hidden h-[70vh] md:h-[80vh]' ref={emblaRef}>
+      <div className='overflow-hidden h-[50vh] md:h-[calc(100vh-64px)]' ref={emblaRef}>
         <div className='flex h-full'>
           {slides.map((slide) => {
             const objectFitClass = cn(
