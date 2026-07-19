@@ -49,7 +49,7 @@ export function formatDeviceTitle(title: string): React.ReactNode {
           'span',
           {
             key: index,
-            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.15em] inline-block',
+            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.1em] inline',
           },
           part
         );
