@@ -7,7 +7,7 @@ export const IqosWhatIsSection = () => {
   return (
     <section className='w-full bg-white'>
       <div className='w-full max-w-none md:max-w-7xl md:mx-auto px-0 md:px-8'>
-        <div className='relative h-[480px] md:h-[600px] overflow-hidden group w-full'>
+        <div className='relative aspect-square md:aspect-auto h-auto md:h-[calc(100vh-64px)] overflow-hidden group w-full'>
           
           {/* Background Image */}
           <div className='absolute inset-0 z-0'>
