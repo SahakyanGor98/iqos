@@ -37,7 +37,11 @@ export function fixCasing(title: string, uppercase = false): string {
     .join('');
 }
 
-export function formatDeviceTitle(title: string): React.ReactNode {
+export function formatDeviceTitle(
+  title: string,
+  iqosColor?: string,
+  remainingColor?: string
+): React.ReactNode {
   if (!title) return '';
   const parts = title.split(/(IQOS)/i);
   return React.createElement(
@@ -45,11 +49,23 @@ export function formatDeviceTitle(title: string): React.ReactNode {
     null,
     ...parts.map((part, index) => {
       if (part.toUpperCase() === 'IQOS') {
+        const style = iqosColor ? { color: iqosColor } : undefined;
         return React.createElement(
           'span',
           {
             key: index,
             className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.1em] inline',
+            style,
+          },
+          part
+        );
+      }
+      if (remainingColor) {
+        return React.createElement(
+          'span',
+          {
+            key: index,
+            style: { color: remainingColor },
           },
           part
         );

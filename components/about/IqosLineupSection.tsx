@@ -68,7 +68,7 @@ export const IqosLineupSection = ({ devices }: Props) => {
                 <div className='p-6 md:p-8 text-center flex flex-col flex-1 justify-between gap-y-6'>
                   <div className='space-y-2'>
                     <h3 className={`text-xl md:text-2xl font-black tracking-tight text-center ${styles.text}`}>
-                      {formatDeviceTitle(fixCasing(device.name, true))}
+                      {formatDeviceTitle(fixCasing(device.name, true), '#3c3c3cff', '#000000ff')}
                     </h3>
                   </div>
 

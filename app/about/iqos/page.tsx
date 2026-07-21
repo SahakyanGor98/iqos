@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/Button';
 import { ButtonVariant } from '@/components/ButtonTypes';
 import { Metadata } from 'next';
