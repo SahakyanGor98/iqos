@@ -22,7 +22,7 @@ export const AboutHistorySection = ({ section }: Props) => {
           />
           {/* Subtle gradient overlay at the top for title readability */}
           <div className='absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-transparent h-2/3' />
-          
+
           {/* Beautiful glassmorphism container for first paragraph positioned at the top */}
           <div className='absolute top-0 inset-x-0 p-4 pt-6 text-left z-10'>
             <div className='bg-white/90 backdrop-blur-md border border-white/40 rounded-2xl p-5 shadow-lg text-[#34303d]'>
@@ -35,7 +35,7 @@ export const AboutHistorySection = ({ section }: Props) => {
             </div>
           </div>
         </div>
-        
+
         {/* Remaining paragraphs and footnotes below image */}
         <div className='px-6 py-12 text-left bg-neutral-50 border-t border-neutral-200/50'>
           <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-pretty text-base'>
@@ -44,9 +44,9 @@ export const AboutHistorySection = ({ section }: Props) => {
             ))}
           </div>
           {section.footnotes && (
-            <div className='mt-4 space-y-2 text-neutral-500 text-pretty'>
+            <div className='mt-4 space-y-2 text-pretty'>
               {section.footnotes.map((note) => (
-                <p key={note} className='text-xs leading-relaxed'>
+                <p key={note} className='text-xs md:text-sm leading-relaxed'>
                   {note}
                 </p>
               ))}
@@ -103,31 +103,23 @@ export const AboutDefaultSection = ({ section }: Props) => {
   return (
     <section id={section.id} className='pb-12 md:py-20 bg-neutral-50'>
       <div className='container-custom'>
-        <div
-          className={`grid gap-10 lg:gap-16 items-center ${
-            section.image ? 'lg:grid-cols-2' : 'max-w-3xl mx-auto'
-          }`}
-        >
+        <div className={`grid gap-10 lg:gap-16 items-center ${section.image ? 'lg:grid-cols-2' : 'max-w-3xl mx-auto'}`}>
           {/* Text is order-2 (appears second on mobile after the image) */}
           <div className={`order-2 ${section.image ? '' : 'space-y-4'} ${section.reverse ? 'lg:order-2' : 'lg:order-1'} text-left`}>
-            <h2
-              className={`text-2xl md:text-3xl font-black uppercase tracking-tight mb-4 text-[#34303d] text-balance ${
-                section.image ? '' : 'mx-auto max-w-2xl'
-              }`}
-            >
+            <h2 className={`text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6 text-[#34303d] text-balance ${section.image ? '' : 'mx-auto max-w-2xl'}`}>
               {section.title}
             </h2>
 
-            <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-pretty'>
+            <div className='space-y-4 text-base md:text-lg leading-relaxed text-[#34303d]/90 text-pretty'>
               {section.paragraphs.map((paragraph) => (
                 <p key={paragraph} className='whitespace-pre-line'>{paragraph}</p>
               ))}
             </div>
 
             {section.footnotes && (
-              <div className='mt-4 space-y-2 text-[#34303d]/70 text-pretty'>
+              <div className='mt-4 space-y-2 text-pretty'>
                 {section.footnotes.map((note) => (
-                  <p key={note} className='text-xs leading-relaxed'>
+                  <p key={note} className='text-xs md:text-sm leading-relaxed'>
                     {note}
                   </p>
                 ))}
@@ -138,9 +130,8 @@ export const AboutDefaultSection = ({ section }: Props) => {
           {/* Image is order-1 (appears first on mobile) */}
           {section.image && (
             <div
-              className={`order-1 relative aspect-[4/3] overflow-hidden -mx-4 md:mx-0 rounded-none md:rounded-2xl bg-neutral-100 ${
-                section.reverse ? 'lg:order-1' : 'lg:order-2'
-              }`}
+              className={`order-1 relative aspect-[4/3] overflow-hidden -mx-4 md:mx-0 rounded-none md:rounded-2xl bg-neutral-100 ${section.reverse ? 'lg:order-1' : 'lg:order-2'
+                }`}
             >
               <Image
                 src={section.image}
