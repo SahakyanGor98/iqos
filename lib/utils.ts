@@ -37,13 +37,31 @@ export function fixCasing(title: string, uppercase = false): string {
     .join('');
 }
 
+export interface FormatDeviceTitleOptions {
+  title: string;
+  iqosColor?: string;
+  remainingColor?: string;
+}
+
 export function formatDeviceTitle(
-  title: string,
-  iqosColor?: string,
-  remainingColor?: string
+  titleOrOptions: string | FormatDeviceTitleOptions,
+  iqosColorParam?: string,
+  remainingColorParam?: string
 ): React.ReactNode {
-  if (!title) return '';
+  let title = '';
+  let iqosColor = iqosColorParam;
+  let remainingColor = remainingColorParam;
+
+  if (typeof titleOrOptions === 'object' && titleOrOptions !== null) {
+    title = titleOrOptions.title;
+    iqosColor = titleOrOptions.iqosColor;
+    remainingColor = titleOrOptions.remainingColor;
+  } else {
+    title = titleOrOptions || '';
+  }
+
   const parts = title.split(/(IQOS)/i);
+
   return React.createElement(
     React.Fragment,
     null,
@@ -54,7 +72,7 @@ export function formatDeviceTitle(
           'span',
           {
             key: index,
-            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.1em] inline',
+            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.06em] inline',
             style,
           },
           part

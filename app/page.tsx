@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { HeroSlider, IqosWhatIsSection, PromoBlock } from '@/components';
 import { Button } from '@/components/Button';
+import { FaqAccordion } from '@/components/FaqAccordion';
 import { ButtonVariant } from '@/components/ButtonTypes';
+import { HeroSlider, IqosWhatIsSection, PromoBlock, TextSeparator } from '@/components';
+import { LANDING_FAQ } from '@/lib/content/faq';
 import { ENABLE_PROMO } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -10,10 +12,6 @@ export const metadata: Metadata = {
   description:
     'Магазин оригинальных устройств IQOS ILUMA и стиков TEREA. Все вкусы в наличии, быстрая доставка по Москве. Проконсультируйтесь с нашими экспертами.',
 };
-
-const TextSeparator = ({ className = '' }: { className?: string }) => (
-  <div className={`w-full bg-white h-2 md:h-3 ${className}`} />
-);
 
 export default function Home() {
   return (
@@ -100,6 +98,15 @@ export default function Home() {
 
       <TextSeparator />
       <IqosWhatIsSection />
+
+      <TextSeparator />
+      <FaqAccordion
+        items={LANDING_FAQ}
+        initialVisibleCount={4}
+        enableExpandButton={true}
+        title='О заказах и доставках'
+        // subtitle='Все, что нужно знать об оформлении заказа, способах оплаты, доставке по России и гарантии качества.'
+      />
 
       <TextSeparator />
       {/* CTA Section */}

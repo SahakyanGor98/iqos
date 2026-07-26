@@ -1,8 +1,10 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { Button } from '@/components/Button';
+import { FaqAccordion } from '@/components/FaqAccordion';
+import { TextSeparator } from '@/components/TextSeparator';
 import { ButtonVariant } from '@/components/ButtonTypes';
-import { Metadata } from 'next';
-import { ChevronDown } from 'lucide-react';
+import { ABOUT_FAQ } from '@/lib/content/faq';
 import {
   AboutDefaultSection,
   AboutHistorySection,
@@ -15,7 +17,6 @@ import {
   IQOS_ABOUT_SECTIONS,
   IQOS_DEVICE_LINEUP,
   IQOS_DISCLAIMERS,
-  IQOS_FAQ,
 } from '@/lib/content/iqos-about';
 import { ROUTES } from '@/lib/constants';
 
@@ -81,25 +82,14 @@ export default async function IqosAboutPage() {
       <IqosLineupSection devices={lineupDevices} />
 
       {/* FAQ */}
-      <section className='py-12 md:py-20 bg-white border-t border-neutral-100'>
-        <div className='container-custom max-w-3xl'>
-          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-center mb-10 text-[#34303d] text-balance'>
-            Часто задаваемые вопросы
-          </h2>
-
-          <div className='divide-y divide-neutral-200 border-y border-neutral-200'>
-            {IQOS_FAQ.map((item) => (
-              <details key={item.question} className='group'>
-                <summary className='relative cursor-pointer list-none py-5 md:py-6 pr-10'>
-                  <span className='font-bold text-base md:text-lg text-[#34303d]'>{item.question}</span>
-                  <ChevronDown className='absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 transition-transform duration-300 group-open:rotate-180 text-[#34303d]' />
-                </summary>
-                <p className='pb-5 md:pb-6 text-[#34303d]/85 text-left leading-relaxed text-pretty'>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TextSeparator />
+      <FaqAccordion
+        items={ABOUT_FAQ}
+        initialVisibleCount={5}
+        enableExpandButton={true}
+        title='О технологиях и устройствах'
+        subtitle='Узнайте подробнее об индукционном нагреве, линейке устройств ILUMA и правилах использования.'
+      />
 
       {/* CTA */}
       <section className='bg-neutral-50 py-12 md:py-20 px-6 text-center border-t border-neutral-200'>

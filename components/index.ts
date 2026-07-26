@@ -1,5 +1,7 @@
 export * from './Button';
 export * from './ButtonTypes';
+export * from './FaqAccordion';
+export * from './TextSeparator';
 export * from './AddToCartButton';
 export * from './CartDrawer';
 export * from './CheckoutForm';
