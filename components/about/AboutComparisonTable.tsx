@@ -10,9 +10,9 @@ export const AboutComparisonTable: React.FC = () => {
     <section className='py-12 md:py-20 bg-white text-[#34303d] border-y border-neutral-100'>
       <div className='container-custom max-w-5xl mx-auto px-4 md:px-6'>
         {/* Section Header */}
-        <div className='mb-10 md:mb-14'>
+        <div className='text-left md:text-center mb-10 md:mb-14'>
           <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 text-[#34303d] text-balance'>
-            {formatDeviceTitle(fixCasing('Чем IQOS отличается от сигарет?', true))}
+            Чем IQOS отличается от сигарет?
           </h2>
           <p className='text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-pretty'>
             Сравнение ключевых характеристик традиционного курения и технологии нагревания табака.
@@ -64,9 +64,9 @@ export const AboutComparisonTable: React.FC = () => {
 
         {/* IQOS vs E-Cigarettes Sub-section */}
         <div className='mt-16 pt-12 border-t border-neutral-200'>
-          <div className='mb-10'>
+          <div className='text-left md:text-center mb-10'>
             <h3 className='text-xl md:text-2xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
-              {formatDeviceTitle(fixCasing('Чем IQOS отличается от электронных сигарет?', true))}
+              Чем IQOS отличается от электронных сигарет?
             </h3>
             <p className='text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-pretty'>
               Это принципиально разные категории продуктов. IQOS создан для ценителей вкуса настоящего табачного листа.

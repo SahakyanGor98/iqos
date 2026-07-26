@@ -8,9 +8,9 @@ export const AboutFactsGrid: React.FC = () => {
       <div className='container-custom max-w-5xl mx-auto px-4 md:px-6 space-y-14 md:space-y-18'>
         {/* Key Facts Grid */}
         <div>
-          <div className='mb-10 md:mb-14'>
+          <div className='text-left md:text-center mb-10 md:mb-14'>
             <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 text-[#34303d] text-balance'>
-              {formatDeviceTitle(fixCasing('Основные факты об IQOS', true))}
+              Основные факты об IQOS
             </h2>
             <p className='text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-pretty'>
               Главные выводы и ключевые особенности технологии в кратком обзоре.
@@ -49,7 +49,7 @@ export const AboutFactsGrid: React.FC = () => {
           <div className='grid sm:grid-cols-2 md:grid-cols-4 gap-4 border-t border-neutral-800 pt-6 text-sm md:text-base text-neutral-300'>
             <div>
               <strong className='text-red-400 block mb-1 font-bold'>🚫 Некурящим</strong>
-              Не предназначен для лиц, которые никогда не курили.
+              Не предназначен для лиц, которые не курят.
             </div>
             <div>
               <strong className='text-red-400 block mb-1 font-bold'>🔞 Несовершеннолетним</strong>

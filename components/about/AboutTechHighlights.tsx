@@ -13,7 +13,7 @@ export const AboutTechHighlights: React.FC = () => {
       <div className='container-custom max-w-5xl mx-auto px-4 md:px-6 space-y-16 md:space-y-24'>
         {/* Temperature & Science Section */}
         <div>
-          <div className='mb-10 md:mb-14'>
+          <div className='text-left md:text-center mb-10 md:mb-14'>
             <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 text-[#34303d] text-balance'>
               {formatDeviceTitle(fixCasing('Температурный режим: Нагрев вместо горения', true))}
             </h2>
@@ -112,7 +112,7 @@ export const AboutTechHighlights: React.FC = () => {
 
         {/* TEREA Flavor Categories */}
         <div className='pt-8 border-t border-neutral-200'>
-          <div className='mb-10'>
+          <div className='text-left md:text-center mb-10'>
             <h3 className='text-xl md:text-2xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
               Виды и категории стиков TEREA
             </h3>

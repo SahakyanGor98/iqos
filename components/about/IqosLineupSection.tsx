@@ -49,7 +49,7 @@ export const IqosLineupSection = ({ devices }: Props) => {
       <div className='container-custom'>
         <div className='text-center mb-8 md:mb-16'>
           <h2 className='text-2xl md:text-4xl font-black tracking-tight mb-4 text-[#34303d] text-balance'>
-            {formatDeviceTitle(fixCasing('Изучить линейку IQOS ILUMA i', true))}
+            Изучить линейку IQOS ILUMA i
           </h2>
           <p className='text-[#34303d]/80 max-w-2xl mx-auto leading-relaxed text-pretty'>
             Откройте для себя устройства IQOS ILUMA i — инновационные, умные и интуитивные решения

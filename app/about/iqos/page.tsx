@@ -25,7 +25,7 @@ import { ROUTES } from '@/lib/constants';
 export const metadata: Metadata = {
   title: 'Что такое IQOS — бездымные альтернативы',
   description:
-    'IQOS — система нагревания табака без сжигания. Узнайте, как работает IQOS ILUMA, технология SMARTCORE, стики TEREA и научные исследования.',
+    'IQOS — система нагревания табака без сжигания. Узнайте, как работает IQOS ILUMA, технология SMARTCORE, стики TEREA и история разработки.',
   alternates: {
     canonical: '/about/iqos',
   },
@@ -34,9 +34,13 @@ export const metadata: Metadata = {
 export default async function IqosAboutPage() {
   const lineupDevices = await getIqosLineupProducts([...IQOS_DEVICE_LINEUP]);
 
+  const whySection = IQOS_ABOUT_SECTIONS.find((s) => s.id === 'why-iqos');
+  const aerosolSection = IQOS_ABOUT_SECTIONS.find((s) => s.id === 'aerosol-science');
+  const historySection = IQOS_ABOUT_SECTIONS.find((s) => s.id === 'history');
+
   return (
     <div className='bg-white'>
-      {/* Hero / Cover Section */}
+      {/* 1. Hero / Cover Section */}
       <section className='w-full bg-white overflow-hidden border-b border-neutral-100'>
         <div className='relative w-full h-[35vh] md:h-[50vh] bg-neutral-50 overflow-hidden'>
           <Image
@@ -64,37 +68,46 @@ export default async function IqosAboutPage() {
         </div>
       </section>
 
-      {/* Main Narrative Sections */}
-      {IQOS_ABOUT_SECTIONS.map((section) => (
-        <div key={section.id} className='flex flex-col'>
+      {/* 2. Act 1: Why IQOS was created */}
+      {whySection && (
+        <>
           <TextSeparator />
-          {section.layout === 'text-only' ? (
-            <AboutTextOnlySection section={section} />
-          ) : section.layout === 'background-right' ? (
-            <AboutHistorySection section={section} />
-          ) : (
-            <AboutDefaultSection section={section} />
-          )}
-        </div>
-      ))}
+          <AboutDefaultSection section={whySection} />
+        </>
+      )}
 
-      {/* Temperature Science & SMARTCORE INDUCTION SYSTEM */}
-      <TextSeparator />
-      <AboutTechHighlights />
+      {/* 3. Act 2: Aerosol Science & Heat-not-Burn */}
+      {aerosolSection && (
+        <>
+          <TextSeparator />
+          <AboutDefaultSection section={aerosolSection} />
+        </>
+      )}
 
-      {/* Comparison Tables: IQOS vs Cigarettes & IQOS vs E-cigs */}
+      {/* 4. Act 3: Direct Comparisons (IQOS vs Cigarettes & E-cigs) */}
       <TextSeparator />
       <AboutComparisonTable />
 
-      {/* Key Facts Summary & Safety positioning */}
+      {/* 5. Act 4: Temperature Science & SMARTCORE INDUCTION SYSTEM */}
       <TextSeparator />
-      <AboutFactsGrid />
+      <AboutTechHighlights />
 
-      {/* Device Lineup Showcase */}
+      {/* 6. Act 5: Chronological History & Evolution Timeline */}
+      {historySection && (
+        <>
+          <TextSeparator />
+          <AboutHistorySection section={historySection} />
+        </>
+      )}
+
+      {/* 7. Act 6: Device Lineup Showcase & Summary Facts Grid */}
       <TextSeparator />
       <IqosLineupSection devices={lineupDevices} />
 
-      {/* Interactive FAQ Accordion */}
+      <TextSeparator />
+      <AboutFactsGrid />
+
+      {/* 8. Act 7: FAQ Accordion & CTA */}
       <TextSeparator />
       <FaqAccordion
         items={ABOUT_FAQ}
@@ -104,7 +117,6 @@ export default async function IqosAboutPage() {
         subtitle='Узнайте подробнее об индукционном нагреве, линейке устройств ILUMA и правилах использования.'
       />
 
-      {/* CTA Section */}
       <TextSeparator />
       <section className='bg-neutral-50 py-12 md:py-20 px-6 text-center border-t border-neutral-200'>
         <div className='container-custom max-w-4xl mx-auto'>
