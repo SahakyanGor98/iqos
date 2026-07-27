@@ -96,7 +96,7 @@ export default function Home() {
         </section>
       </div>
 
-      {/* <TextSeparator />
+      <TextSeparator />
       <IqosWhatIsSection />
 
       <TextSeparator />
@@ -106,7 +106,7 @@ export default function Home() {
         enableExpandButton={true}
         title='Часто задаваемые вопросы'
         // subtitle='Все, что нужно знать об оформлении заказа, способах оплаты, доставке по России и гарантии качества.'
-      /> */}
+      />
 
       <TextSeparator />
       {/* CTA Section */}
