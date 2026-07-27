@@ -102,7 +102,7 @@ export default function Home() {
       <TextSeparator />
       <FaqAccordion
         items={LANDING_FAQ}
-        initialVisibleCount={4}
+        initialVisibleCount={3}
         enableExpandButton={true}
         title='Часто задаваемые вопросы'
         // subtitle='Все, что нужно знать об оформлении заказа, способах оплаты, доставке по России и гарантии качества.'
