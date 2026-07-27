@@ -27,11 +27,11 @@ export const FooterContent = () => {
                   Стики TEREA
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href={ROUTES.about.iqos} className='hover:text-white transition-colors'>
                   Об IQOS
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href={ROUTES.contact} className='hover:text-white transition-colors'>
                   Контакты
