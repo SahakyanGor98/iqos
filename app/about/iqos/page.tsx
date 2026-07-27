@@ -111,10 +111,10 @@ export default async function IqosAboutPage() {
       <TextSeparator />
       <FaqAccordion
         items={ABOUT_FAQ}
-        initialVisibleCount={5}
+        initialVisibleCount={3}
         enableExpandButton={true}
-        title='О технологиях и устройствах'
-        subtitle='Узнайте подробнее об индукционном нагреве, линейке устройств ILUMA и правилах использования.'
+        title='Часто задаваемые вопросы'
+        // subtitle='Узнайте подробнее об индукционном нагреве, линейке устройств ILUMA и правилах использования.'
       />
 
       <TextSeparator />

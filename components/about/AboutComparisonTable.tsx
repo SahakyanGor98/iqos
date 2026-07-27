@@ -27,10 +27,10 @@ export const AboutComparisonTable: React.FC = () => {
                 <th className='p-4 md:p-5 font-extrabold text-sm md:text-base uppercase tracking-wider w-1/4'>
                   Характеристика
                 </th>
-                <th className='p-4 md:p-5 font-extrabold text-sm md:text-base uppercase tracking-wider w-3/8 border-l border-white/10 bg-neutral-800/80'>
+                <th className='p-4 md:p-5 font-extrabold text-center text-sm md:text-base uppercase tracking-wider w-3/8 border-l border-white/10 bg-[#34303d]'>
                   Сигареты
                 </th>
-                <th className='p-4 md:p-5 font-extrabold text-sm md:text-base uppercase tracking-wider w-3/8 border-l border-white/10 bg-[#34303d]'>
+                <th className='p-4 md:p-5 font-extrabold text-center text-sm md:text-base uppercase tracking-wider w-3/8 border-l border-white/10 bg-[#34303d]'>
                   IQOS
                 </th>
               </tr>

@@ -122,12 +122,13 @@ export const AboutTechHighlights: React.FC = () => {
           </div>
 
           <div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-5'>
-            {TEREA_CATEGORIES.map((cat) => (
+            {TEREA_CATEGORIES.map((cat, idx) => (
               <div
                 key={cat.name}
                 className='p-5 rounded-2xl border border-neutral-200 bg-white space-y-2 shadow-sm'
               >
                 <h4 className='text-base md:text-lg font-bold text-[#34303d]'>
+                  <span className='font-black mr-1.5'>{idx + 1}.</span>
                   {cat.name}
                 </h4>
                 <p className='text-sm md:text-base text-[#34303d] leading-relaxed'>

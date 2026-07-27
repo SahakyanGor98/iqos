@@ -104,7 +104,7 @@ export default function Home() {
         items={LANDING_FAQ}
         initialVisibleCount={4}
         enableExpandButton={true}
-        title='О заказах и доставках'
+        title='Часто задаваемые вопросы'
         // subtitle='Все, что нужно знать об оформлении заказа, способах оплаты, доставке по России и гарантии качества.'
       />
 
