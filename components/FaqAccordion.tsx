@@ -126,7 +126,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                   )}
                 >
                   <div className='min-h-0 overflow-hidden px-5 md:px-7'>
-                    <div className='text-sm md:text-base leading-relaxed text-[#34303d]/85 font-medium border-t border-neutral-200/60 py-4'>
+                    <div className='text-sm md:text-base leading-relaxed text-[#34303d]/85 font-medium border-t border-neutral-200/60 py-4 whitespace-pre-line'>
                       {item.answer}
                     </div>
                   </div>
