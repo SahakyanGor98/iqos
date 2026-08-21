@@ -99,11 +99,16 @@ export const useCartStore = create<CartState>()(
         });
       },
       getTotalPrice: () => {
-        const total = get().items.reduce(
+        const items = get().items;
+        const total = items.reduce(
           (sum, item) => sum + item.product.price * item.quantity,
           0,
         );
-        const discount = get().discount;
+        const eligibleTotal = items
+          .filter((item) => item.product.category !== 'water')
+          .reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+
+        const discount = Math.min(get().discount, eligibleTotal);
         return Math.max(0, total - discount);
       },
       getTotalItems: () => {

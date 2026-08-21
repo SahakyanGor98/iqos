@@ -12,7 +12,7 @@ export interface Database {
           description: string | null;
           image: string[];
           price: number;
-          category: 'gadget' | 'sticks';
+          category: 'gadget' | 'sticks' | 'water';
           in_stock: boolean;
           badges: Json;
           attributes: Json;
@@ -26,7 +26,7 @@ export interface Database {
           description?: string | null;
           image: string[];
           price: number;
-          category: 'gadget' | 'sticks';
+          category: 'gadget' | 'sticks' | 'water';
           in_stock: boolean;
           badges: Json;
           attributes: Json;
@@ -40,7 +40,7 @@ export interface Database {
           description?: string | null;
           image?: string[];
           price?: number;
-          category?: 'gadget' | 'sticks';
+          category?: 'gadget' | 'sticks' | 'water';
           in_stock?: boolean;
           badges?: Json;
           attributes?: Json;

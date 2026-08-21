@@ -32,7 +32,7 @@ export const ProductCard = ({ product }: Props) => {
 
   return (
     <Link
-      href={`/products/${product.category === 'gadget' ? 'iqos' : 'terea'}/${product.slug}`}
+      href={`/products/${product.category === 'gadget' ? 'iqos' : product.category === 'water' ? 'water' : 'terea'}/${product.slug}`}
       className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden'
     >
       {/* Image */}
@@ -66,6 +66,9 @@ export const ProductCard = ({ product }: Props) => {
         <div className='text-xs text-neutral-500 mb-2 mt-auto'>
           {product.category === 'gadget' && attributes.color && (
             <span>Цвет: {attributes.color}</span>
+          )}
+          {product.category === 'water' && (
+            <span>{attributes.packaging || 'Упаковка 12 шт.'}</span>
           )}
           {product.category === 'sticks' && attributes.flavors && (
             <span className='line-clamp-1'>

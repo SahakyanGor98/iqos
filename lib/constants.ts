@@ -32,6 +32,7 @@ export const ROUTES = {
   catalog: {
     iqos: '/products/iqos',
     terea: '/products/terea',
+    water: '/products/water',
   },
   contact: '/contact',
   cart: '/cart', // If used

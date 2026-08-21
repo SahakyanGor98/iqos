@@ -88,12 +88,12 @@ export const Navbar = () => {
           </div>
 
           {/* Desktop Nav (Left) */}
-          <nav className='hidden md:flex flex-1 items-center gap-8'>
+          <nav className='hidden md:flex flex-1 items-center gap-6 lg:gap-8'>
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className='text-md font-medium transition-all duration-300 hover:scale-110 text-black'
+                className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
               >
                 {link.label}
               </Link>

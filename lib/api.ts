@@ -2,7 +2,7 @@ import { supabase } from './supabase';
 import { ProductRow } from '@/types/supabase';
 
 export type ProductParams = {
-  category: 'gadget' | 'sticks';
+  category: 'gadget' | 'sticks' | 'water';
   page?: number;
   limit?: number;
   sort?: string; // 'price_asc' | 'price_desc' | 'newest'
@@ -172,7 +172,7 @@ export async function getIqosLineupProducts(
   });
 }
 
-export async function getAllSlugs(category: 'gadget' | 'sticks'): Promise<string[]> {
+export async function getAllSlugs(category: 'gadget' | 'sticks' | 'water'): Promise<string[]> {
   const { data, error } = await supabase.from('products').select('slug').eq('category', category);
 
   if (error) {

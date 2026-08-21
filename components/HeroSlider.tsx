@@ -14,13 +14,15 @@ const TELEGRAM_SLIDE_TITLE = 'Подпишись в Telegram';
 interface Slide {
   id: number;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   desktopImage: string;
   mobileImage?: string;
   buttonText: string;
   buttonLink: string;
   imagePlacement?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down' | 'fit';
   backgroundColor?: string;
+  hideOverlay?: boolean;
+  hideText?: boolean;
 }
 
 const slides: Slide[] = [
@@ -74,6 +76,17 @@ const slides: Slide[] = [
     buttonLink: '/products/iqos?line=i+prime&page=1',
     imagePlacement: 'contain',
     backgroundColor: '#58625cff',
+  },
+  {
+    id: 6,
+    title: 'Природная Горная Вода',
+    buttonText: 'Купить',
+    buttonLink: '/products/water/mountain-water-330ml-box',
+    imagePlacement: 'cover',
+    desktopImage: '/water_hero_desktop.webp',
+    mobileImage: '/water_hero_mobile.webp',
+    hideOverlay: true,
+    hideText: true,
   },
 ];
 
@@ -199,23 +212,33 @@ export const HeroSlider = () => {
                       priority={slide.id === 1}
                     />
                   </div>
-                  <div
-                    className={cn(
-                      'absolute inset-0 transition-opacity duration-700',
-                      slide.backgroundColor ? 'bg-black/20' : 'bg-black/40',
-                    )}
-                  />
+                  {!slide.hideOverlay && (
+                    <div
+                      className={cn(
+                        'absolute inset-0 transition-opacity duration-700',
+                        slide.backgroundColor ? 'bg-black/20' : 'bg-black/40',
+                      )}
+                    />
+                  )}
                 </div>
 
                 {/* Content Box */}
                 <div className='relative z-10 h-full flex flex-col justify-center items-center text-center p-6 md:p-12 text-white'>
                   <div className='py-24 w-full max-w-3xl h-full flex flex-col justify-between items-center text-center'>
-                    <h1 className='text-4xl md:text-6xl font-black tracking-tighter leading-tight'>
-                      {fixCasing(slide.title, true)}
-                    </h1>
-                    <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed'>
-                      {slide.subtitle}
-                    </p>
+                    {!slide.hideText ? (
+                      <div>
+                        <h1 className='text-4xl md:text-6xl font-black tracking-tighter leading-tight'>
+                          {fixCasing(slide.title, true)}
+                        </h1>
+                        {slide.subtitle && (
+                          <p className='text-base md:text-lg font-bold max-w-2xl mx-auto opacity-90 leading-relaxed mt-2'>
+                            {slide.subtitle}
+                          </p>
+                        )}
+                      </div>
+                    ) : (
+                      <div />
+                    )}
                     {slide.title === TELEGRAM_SLIDE_TITLE ? (
                       <HapticLink
                         href={slide.buttonLink}
@@ -241,13 +264,15 @@ export const HeroSlider = () => {
                         </span>
                       </HapticLink>
                     ) : (
-                      <Button
-                        href={slide.buttonLink}
-                        variant={ButtonVariant.LIGHT}
-                        shadow={ButtonShadow.LARGE}
-                      >
-                        {slide.buttonText}
-                      </Button>
+                      slide.buttonText && (
+                        <Button
+                          href={slide.buttonLink}
+                          variant={ButtonVariant.LIGHT}
+                          shadow={ButtonShadow.LARGE}
+                        >
+                          {slide.buttonText}
+                        </Button>
+                      )
                     )}
                   </div>
                 </div>

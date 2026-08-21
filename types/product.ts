@@ -7,7 +7,7 @@ export type Product = {
   title: string;
   image: string[];
   price: number;
-  category: 'gadget' | 'sticks';
+  category: 'gadget' | 'sticks' | 'water';
   // Optional fields to preserve specific data if needed for UI, but not strictly required for Cart logic if handled there
   brand?: string;
   line?: string;
