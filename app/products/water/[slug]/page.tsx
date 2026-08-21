@@ -119,58 +119,61 @@ export default async function WaterSlugPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Info */}
-        <div className='flex flex-col justify-center space-y-8'>
-          <div>
-            <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
-              {formatDeviceTitle(fixCasing(productRow.title, true))}
-            </h1>
+        {/* Info Column */}
+        <div className='flex flex-col justify-between space-y-8'>
+          {/* Top Section */}
+          <div className='space-y-6'>
+            <div>
+              <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
+                {formatDeviceTitle(fixCasing(productRow.title, true))}
+              </h1>
+            </div>
 
+            <div className='flex items-end gap-2'>
+              <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
+              <span className='text-sm font-medium text-neutral-500 mb-2'>/ упаковка ({packSize} шт.)</span>
+            </div>
+
+            {productRow.description && (
+              <div className='prose prose-neutral max-w-none text-neutral-600 leading-relaxed'>
+                <p>{productRow.description}</p>
+              </div>
+            )}
+
+            {/* Attributes Grid */}
+            <div className='grid grid-cols-2 gap-4 py-6 border-y border-neutral-100'>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Формат продажи
+                </span>
+                <span className='font-semibold text-neutral-900'>{packaging}</span>
+              </div>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Общий объем
+                </span>
+                <span className='font-semibold text-neutral-900'>{totalVolume}</span>
+              </div>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Объем бутылки
+                </span>
+                <span className='font-semibold text-neutral-900'>{unitVolume}</span>
+              </div>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Статус
+                </span>
+                {productRow.in_stock ? (
+                  <span className='font-semibold text-green-600'>В наличии</span>
+                ) : (
+                  <span className='font-semibold text-red-600'>Нет в наличии</span>
+                )}
+              </div>
+            </div>
           </div>
 
-          <div className='flex items-end gap-2'>
-            <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
-            <span className='text-sm font-medium text-neutral-500 mb-2'>/ упаковка ({packSize} шт.)</span>
-          </div>
-
-          {productRow.description && (
-            <div className='prose prose-neutral max-w-none text-neutral-600 leading-relaxed'>
-              <p>{productRow.description}</p>
-            </div>
-          )}
-
-          {/* Attributes Grid */}
-          <div className='grid grid-cols-2 gap-4 py-6 border-y border-neutral-100'>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Формат продажи
-              </span>
-              <span className='font-semibold text-neutral-900'>{packaging}</span>
-            </div>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Общий объем
-              </span>
-              <span className='font-semibold text-neutral-900'>{totalVolume}</span>
-            </div>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Объем бутылки
-              </span>
-              <span className='font-semibold text-neutral-900'>{unitVolume}</span>
-            </div>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Статус
-              </span>
-              {productRow.in_stock ? (
-                <span className='font-semibold text-green-600'>В наличии</span>
-              ) : (
-                <span className='font-semibold text-red-600'>Нет в наличии</span>
-              )}
-            </div>
-          </div>
-
+          {/* Bottom Section (Buy Button) */}
           <div className='pt-4'>
             <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
           </div>

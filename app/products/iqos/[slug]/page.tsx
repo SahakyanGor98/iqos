@@ -122,66 +122,72 @@ export default async function IqosSlugPage({ params }: Props) {
         </div>
 
         {/* Info Section */}
-        <div className='flex flex-col justify-center space-y-4'>
-          <div>
-            <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
-              {formatDeviceTitle(fixCasing(productRow.title, true))}
-            </h1>
-          </div>
-
-          <div className='flex items-end gap-4'>
-            {attrs.salePrice ? (
-              <>
-                <span className='text-4xl font-bold text-red-600 line-clamp-1'>
-                  {formatPrice(productRow.price)}
-                </span>
-                <span className='text-xl text-neutral-400 line-through mb-1'>
-                  {formatPrice(attrs.salePrice)}
-                </span>
-              </>
-            ) : (
-              <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
-            )}
-          </div>
-
-          <div className='prose prose-neutral max-w-none text-neutral-600 leading-relaxed'>
-            <p>{productRow.description}</p>
-          </div>
-
-          {/* Attributes Grid */}
-          <div className='grid grid-cols-2 gap-4 py-6 border-y border-neutral-100'>
-            {attrs.color && (
-              <div>
-                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                  Цвет
-                </span>
-                <span className='font-semibold text-neutral-900'>{attrs.color}</span>
-              </div>
-            )}
+        <div className='flex flex-col justify-between space-y-8'>
+          {/* Top Section */}
+          <div className='space-y-6'>
             <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Категория
-              </span>
-              <span className='font-semibold text-neutral-900'>Устройство</span>
+              <h1 className='text-2xl md:text-4xl font-black tracking-tight text-[#34303d] mb-2'>
+                {formatDeviceTitle(fixCasing(productRow.title, true))}
+              </h1>
             </div>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Бренд
-              </span>
-              <span className='font-semibold text-neutral-900'>IQOS</span>
-            </div>
-            <div>
-              <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                Статус
-              </span>
-              {productRow.in_stock ? (
-                <span className='font-semibold text-green-600'>В наличии</span>
+
+            <div className='flex items-end gap-4'>
+              {attrs.salePrice ? (
+                <>
+                  <span className='text-4xl font-bold text-red-600 line-clamp-1'>
+                    {formatPrice(productRow.price)}
+                  </span>
+                  <span className='text-xl text-neutral-400 line-through mb-1'>
+                    {formatPrice(attrs.salePrice)}
+                  </span>
+                </>
               ) : (
-                <span className='font-semibold text-red-600'>Нет в наличии</span>
+                <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
               )}
             </div>
+
+            {productRow.description && (
+              <div className='prose prose-neutral max-w-none text-neutral-600 leading-relaxed'>
+                <p>{productRow.description}</p>
+              </div>
+            )}
+
+            {/* Attributes Grid */}
+            <div className='grid grid-cols-2 gap-4 py-6 border-y border-neutral-100'>
+              {attrs.color && (
+                <div>
+                  <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                    Цвет
+                  </span>
+                  <span className='font-semibold text-neutral-900'>{attrs.color}</span>
+                </div>
+              )}
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Категория
+                </span>
+                <span className='font-semibold text-neutral-900'>Устройство</span>
+              </div>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Бренд
+                </span>
+                <span className='font-semibold text-neutral-900'>IQOS</span>
+              </div>
+              <div>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                  Статус
+                </span>
+                {productRow.in_stock ? (
+                  <span className='font-semibold text-green-600'>В наличии</span>
+                ) : (
+                  <span className='font-semibold text-red-600'>Нет в наличии</span>
+                )}
+              </div>
+            </div>
           </div>
 
+          {/* Bottom Section (Buy Button) */}
           <div className='pt-4'>
             <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
           </div>
