@@ -74,6 +74,22 @@ export const ProductCard = ({ product, variants }: Props) => {
             Нет в наличии
           </div>
         )}
+
+        {/* Hidden Preloader for Instant Color Variant Switching */}
+        {colorVariants.length > 1 && (
+          <div className='hidden' aria-hidden='true'>
+            {colorVariants.map((variant) => {
+              const vImg = Array.isArray(variant.image) ? variant.image[0] : variant.image;
+              return (
+                <img
+                  key={variant.id}
+                  src={`/api/proxy?url=${encodeURIComponent(vImg)}`}
+                  alt=''
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Content */}
