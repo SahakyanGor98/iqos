@@ -130,3 +130,21 @@ This is a premium e-commerce/catalog application for IQOS products built with:
 - **Details**:
   - Staged workflow via `stagedParams` local state, preventing constant URL reloads during filter selection.
   - Sticky footer with **Apply** and **Reset All** buttons.
+
+---
+
+### 8. IQOS Device Color Swatches & Model Line Grouping
+
+- **Files**:
+  - [ProductCard.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/ProductCard.tsx)
+  - [ProductGrid.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/ProductGrid.tsx)
+  - [utils.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/lib/utils.ts)
+  - [page.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/products/iqos/[slug]/page.tsx)
+- **Details**:
+  - **Model Line Grouping**: `ProductGrid` groups device variants sharing the same `attributes.line` (e.g., `i`, `i-one`, `i prime`) into a single model card in the catalog.
+  - **Preferred Model Default Colors**: `MODEL_DEFAULT_COLORS` in `ProductGrid` explicitly controls the default selected color for each device line (`i` -> Breeze Blue, `i-one` -> Digital Violet, `i prime` -> Aspen Green).
+  - **Interactive Swatch Controller**: `ProductCard` renders circular swatches directly below the device title. Clicking a swatch dynamically updates image, title, color label, price, stock status, slug link, and cart payload without triggering parent card link navigation (`e.stopPropagation()` and `e.preventDefault()`).
+  - **Single-Version Hiding**: Swatches are hidden when `colorVariants.length <= 1` (e.g., Seletti editions).
+  - **Declarative Swatch Config**: `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual color keywords to HEX/gradient swatch backgrounds.
+  - **Instant Image Preloading**: Background hidden image preloading (`<img className="hidden" aria-hidden="true" />`) pre-fetches variant images on render so color switching has 0ms lag.
+
