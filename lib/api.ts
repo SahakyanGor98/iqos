@@ -114,12 +114,10 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
 export async function getProductBySlug(slug: string): Promise<ProductRow | null> {
   const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single();
-
   if (error) {
     console.error(`Error fetching product ${slug}:`, error);
     return null;
   }
-
   return data as ProductRow;
 }
 

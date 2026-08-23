@@ -92,3 +92,70 @@ export function formatDeviceTitle(
     })
   );
 }
+
+export type DeviceColorConfig = {
+  keywords: string[];
+  swatch: { background: string; border?: string };
+};
+
+export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
+  {
+    keywords: ['neon', 'we edition'],
+    swatch: { background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%)' },
+  },
+  {
+    keywords: ['oasis'],
+    swatch: { background: 'linear-gradient(135deg, #f97316 0%, #eab308 100%)' },
+  },
+  {
+    keywords: ['midnight black', 'black', 'черный', 'чёрный', 'темно-серый', 'тёмно-серый'],
+    swatch: { background: '#212429' },
+  },
+  {
+    keywords: ['breeze blue', 'blue', 'синий'],
+    swatch: { background: '#4f86c6' },
+  },
+  {
+    keywords: ['digital violet', 'violet', 'фиолетовый'],
+    swatch: { background: '#705096' },
+  },
+  {
+    keywords: ['aspen green', 'leaf green', 'green', 'зеленый', 'зелёный'],
+    swatch: { background: '#406651' },
+  },
+  {
+    keywords: ['garnet red', 'red', 'красный', 'pink', 'розовый'],
+    swatch: { background: '#9e3232' },
+  },
+  {
+    keywords: ['terracotta', 'orange', 'оранжевый'],
+    swatch: { background: '#cf5e2b' },
+  },
+  {
+    keywords: ['beige', 'бежевый'],
+    swatch: { background: '#d7c2a7' },
+  },
+  {
+    keywords: ['gray', 'серый'],
+    swatch: { background: '#6c757d' },
+  },
+  {
+    keywords: ['gold', 'bright', 'желтый', 'жёлтый'],
+    swatch: { background: '#e0a838' },
+  },
+];
+
+const DEFAULT_SWATCH = { background: '#9ca3af' };
+
+export function getDeviceColorSwatch(colorName?: string, title?: string): { background: string; border?: string } {
+  const name = (colorName || title || '').toLowerCase();
+  if (!name) return DEFAULT_SWATCH;
+
+  const matched = DEVICE_COLOR_SWATCH_MAP.find((item) =>
+    item.keywords.some((keyword) => name.includes(keyword))
+  );
+
+  return matched ? matched.swatch : DEFAULT_SWATCH;
+}
+
+

@@ -1,13 +1,15 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   product: ProductRow;
+  variants?: ProductRow[];
 };
 
 // Helper to map DB row to Store Product
@@ -26,33 +28,49 @@ const mapToStoreProduct = (row: ProductRow): Product => {
   };
 };
 
-export const ProductCard = ({ product }: Props) => {
-  const badges = product.badges as { isNew?: boolean; isHit?: boolean; isExclusive?: boolean };
-  const attributes = product.attributes as Record<string, any>;
+export const ProductCard = ({ product, variants }: Props) => {
+  const [selectedVariant, setSelectedVariant] = useState<ProductRow>(product);
+
+  useEffect(() => {
+    setSelectedVariant(product);
+  }, [product]);
+
+  const activeProduct = selectedVariant || product;
+  const badges = activeProduct.badges as { isNew?: boolean; isHit?: boolean; isExclusive?: boolean };
+  const attributes = activeProduct.attributes as Record<string, any>;
+
+  const colorVariants =
+    variants && variants.length > 0
+      ? variants
+      : product.category === 'gadget'
+        ? [product]
+        : [];
+
+  const mainImage = Array.isArray(activeProduct.image) ? activeProduct.image[0] : activeProduct.image;
 
   return (
     <Link
-      href={`/products/${product.category === 'gadget' ? 'iqos' : product.category === 'water' ? 'water' : 'terea'}/${product.slug}`}
+      href={`/products/${activeProduct.category === 'gadget' ? 'iqos' : activeProduct.category === 'water' ? 'water' : 'terea'}/${activeProduct.slug}`}
       className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden'
     >
       {/* Image */}
-      <div className='relative aspect-square'>
+      <div className='relative aspect-square bg-neutral-50 overflow-hidden'>
         <img
-          src={`/api/proxy?url=${encodeURIComponent(Array.isArray(product.image) ? product.image[0] : product.image)}`}
-          alt={product.title}
-          className='w-full h-full object-cover'
+          src={`/api/proxy?url=${encodeURIComponent(mainImage)}`}
+          alt={activeProduct.title}
+          className='w-full h-full object-cover transition-all duration-300 group-hover:scale-105'
           loading='lazy'
         />
 
         {/* Badges */}
-        <div className='absolute top-2 left-2 flex flex-col gap-1'>
+        <div className='absolute top-2 left-2 flex flex-col gap-1 z-10'>
           {badges?.isNew && <span className='badge bg-green-600'>NEW</span>}
           {badges?.isHit && <span className='badge bg-orange-500'>HIT</span>}
           {badges?.isExclusive && <span className='badge bg-purple-600'>EXCLUSIVE</span>}
         </div>
 
-        {!product.in_stock && (
-          <div className='absolute inset-0 flex items-center justify-center bg-white/70 text-sm font-semibold'>
+        {!activeProduct.in_stock && (
+          <div className='absolute inset-0 flex items-center justify-center bg-white/70 text-sm font-semibold z-10'>
             Нет в наличии
           </div>
         )}
@@ -60,24 +78,66 @@ export const ProductCard = ({ product }: Props) => {
 
       {/* Content */}
       <div className='flex-1 flex flex-col p-4'>
-        <h3 className='text-sm font-medium leading-snug mb-1 line-clamp-2'>{formatDeviceTitle(fixCasing(product.title, false))}</h3>
+        <h3 className='text-sm font-medium leading-snug mb-2 line-clamp-2'>
+          {formatDeviceTitle(fixCasing(activeProduct.title, false))}
+        </h3>
 
-        {/* Attributes Display */}
+        {/* Color Swatches Controller for Gadgets directly below main title */}
+        {activeProduct.category === 'gadget' && colorVariants.length > 1 && (
+          <>
+            {attributes.color && (
+              <span className='text-[11px] text-neutral-500 font-medium block mb-3'>
+                Цвет: <span className='text-neutral-800 font-semibold'>{attributes.color}</span>
+              </span>
+            )}
+            <div
+              className='flex items-center gap-2 flex-wrap mb-1.5'
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              {colorVariants.map((variant) => {
+                const vAttrs = variant.attributes as Record<string, any>;
+                const colorLabel = vAttrs.color || variant.title;
+                const isSelected = variant.id === activeProduct.id;
+                const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
+
+                return (
+                  <button
+                    key={variant.id}
+                    type='button'
+                    title={colorLabel}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelectedVariant(variant);
+                    }}
+                    className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${isSelected
+                      ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
+                      : 'hover:scale-110 opacity-80 hover:opacity-100'
+                      }`}
+                    style={swatch}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        {/* Attributes Display for Non-Gadgets */}
         <div className='text-xs text-neutral-500 mb-2 mt-auto'>
-          {product.category === 'gadget' && attributes.color && (
-            <span>Цвет: {attributes.color}</span>
-          )}
-          {product.category === 'water' && (
+          {activeProduct.category === 'water' && (
             <span>{attributes.packaging || 'Упаковка 12 шт.'}</span>
           )}
-          {product.category === 'sticks' && attributes.flavors && (
+          {activeProduct.category === 'sticks' && attributes.flavors && (
             <span className='line-clamp-1'>
               {Array.isArray(attributes.flavors)
                 ? attributes.flavors.join(', ')
                 : attributes.flavors}
             </span>
           )}
-          {product.category === 'sticks' && attributes.origin && (
+          {activeProduct.category === 'sticks' && attributes.origin && (
             <div className='flex items-center gap-1.5 mt-1.5'>
               <span className='text-[10px] uppercase tracking-wider text-neutral-400 font-medium'>
                 {(() => {
@@ -97,28 +157,29 @@ export const ProductCard = ({ product }: Props) => {
         </div>
 
         {/* Price */}
-        <div className='flex items-center gap-2 mt-2'>
+        <div className='flex items-center gap-2 mt-auto pt-1'>
           {attributes.salePrice ? (
             <>
-              <span className='text-lg font-bold text-red-600'>{formatPrice(product.price)}</span>
+              <span className='text-lg font-bold text-red-600'>{formatPrice(activeProduct.price)}</span>
               <span className='text-sm text-neutral-400 line-through'>
                 {formatPrice(attributes.salePrice)}
               </span>
             </>
           ) : (
-            <span className='text-lg font-bold'>{formatPrice(product.price)}</span>
+            <span className='text-lg font-bold'>{formatPrice(activeProduct.price)}</span>
           )}
         </div>
       </div>
 
       {/* Add to Cart */}
-      <div className='m-4'>
+      <div className='m-4 pt-0'>
         <AddToCartButton
-          product={mapToStoreProduct(product)}
-          disabled={!product.in_stock}
+          product={mapToStoreProduct(activeProduct)}
+          disabled={!activeProduct.in_stock}
           className='text-sm py-2.5'
         />
       </div>
     </Link>
   );
 };
+

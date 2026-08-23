@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
-import { getAllSlugs, getProductBySlug } from '@/lib/api';
+import Link from 'next/link';
+import { getAllSlugs, getProductBySlug, getProducts } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -53,6 +54,14 @@ export default async function IqosSlugPage({ params }: Props) {
   const { attributes, badges } = productRow;
   const attrs = attributes as Record<string, any>;
   const badgeData = badges as Record<string, boolean>;
+
+  // Fetch sibling color variants for the same line
+  let siblingVariants: typeof productRow[] = [];
+  if (attrs.line) {
+    const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
+    siblingVariants = gadgets.filter((p) => (p.attributes as Record<string, any>)?.line === attrs.line);
+  }
+
 
   const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
 
@@ -130,6 +139,33 @@ export default async function IqosSlugPage({ params }: Props) {
                 {formatDeviceTitle(fixCasing(productRow.title, true))}
               </h1>
             </div>
+
+            {siblingVariants.length > 1 && (
+              <div className='col-span-2 pt-3 border-t border-neutral-100'>
+                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-2.5 font-medium'>
+                  Цветовые варианты
+                </span>
+                <div className='flex items-center gap-2.5 flex-wrap'>
+                  {siblingVariants.map((variant) => {
+                    const vAttrs = variant.attributes as Record<string, any>;
+                    const isCurrent = variant.slug === productRow.slug;
+                    const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
+                    return (
+                      <Link
+                        key={variant.id}
+                        href={`/products/iqos/${variant.slug}`}
+                        title={vAttrs.color || variant.title}
+                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${isCurrent
+                            ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
+                            : 'hover:scale-110 opacity-80 hover:opacity-100'
+                          }`}
+                        style={swatch}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             <div className='flex items-end gap-4'>
               {attrs.salePrice ? (
