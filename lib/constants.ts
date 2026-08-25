@@ -34,6 +34,7 @@ export const ROUTES = {
     terea: '/products/terea',
     water: '/products/water',
   },
+  tradeIn: '/trade-in',
   contact: '/contact',
   cart: '/cart', // If used
 };

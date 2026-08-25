@@ -28,4 +28,10 @@ export * from './PromoBlock';
 export * from './DeliveryNoticeToast';
 export * from './IqosWhatIsSection';
 export * from './WaterBanner';
+export * from './TradeInPromoBanner';
+export * from './trade-in/TradeInHero';
+export * from './trade-in/TradeInCalculator';
+export * from './trade-in/TradeInForm';
+export * from './trade-in/TradeInSteps';
+export * from './trade-in/TradeInBenefits';
 
