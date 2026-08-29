@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
+import { CompareButton } from '@/components/CompareButton';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   product: ProductRow;
@@ -36,22 +37,24 @@ export const ProductCard = ({ product, variants }: Props) => {
   }, [product]);
 
   const activeProduct = selectedVariant || product;
-  const badges = activeProduct.badges as { isNew?: boolean; isHit?: boolean; isExclusive?: boolean };
+  const badges = activeProduct.badges as {
+    isNew?: boolean;
+    isHit?: boolean;
+    isExclusive?: boolean;
+  };
   const attributes = activeProduct.attributes as Record<string, any>;
 
   const colorVariants =
-    variants && variants.length > 0
-      ? variants
-      : product.category === 'gadget'
-        ? [product]
-        : [];
+    variants && variants.length > 0 ? variants : product.category === 'gadget' ? [product] : [];
 
-  const mainImage = Array.isArray(activeProduct.image) ? activeProduct.image[0] : activeProduct.image;
+  const mainImage = Array.isArray(activeProduct.image)
+    ? activeProduct.image[0]
+    : activeProduct.image;
 
   return (
     <Link
       href={`/products/${activeProduct.category === 'gadget' ? 'iqos' : activeProduct.category === 'water' ? 'water' : 'terea'}/${activeProduct.slug}`}
-      className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden'
+      className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden relative'
     >
       {/* Image */}
       <div className='relative aspect-square bg-neutral-50 overflow-hidden'>
@@ -61,6 +64,11 @@ export const ProductCard = ({ product, variants }: Props) => {
           className='w-full h-full object-cover transition-all duration-300 group-hover:scale-105'
           loading='lazy'
         />
+
+        {/* Compare Button (Top Right) */}
+        <div className='absolute top-2.5 right-2.5 z-20'>
+          <CompareButton product={activeProduct} variant='icon' />
+        </div>
 
         {/* Badges */}
         <div className='absolute top-2 left-2 flex flex-col gap-1 z-10'>
@@ -81,11 +89,7 @@ export const ProductCard = ({ product, variants }: Props) => {
             {colorVariants.map((variant) => {
               const vImg = Array.isArray(variant.image) ? variant.image[0] : variant.image;
               return (
-                <img
-                  key={variant.id}
-                  src={`/api/proxy?url=${encodeURIComponent(vImg)}`}
-                  alt=''
-                />
+                <img key={variant.id} src={`/api/proxy?url=${encodeURIComponent(vImg)}`} alt='' />
               );
             })}
           </div>
@@ -129,10 +133,11 @@ export const ProductCard = ({ product, variants }: Props) => {
                       e.stopPropagation();
                       setSelectedVariant(variant);
                     }}
-                    className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${isSelected
-                      ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
-                      : 'hover:scale-110 opacity-80 hover:opacity-100'
-                      }`}
+                    className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${
+                      isSelected
+                        ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
+                        : 'hover:scale-110 opacity-80 hover:opacity-100'
+                    }`}
                     style={swatch}
                   />
                 );
@@ -176,7 +181,9 @@ export const ProductCard = ({ product, variants }: Props) => {
         <div className='flex items-center gap-2 mt-auto pt-1'>
           {attributes.salePrice ? (
             <>
-              <span className='text-lg font-bold text-red-600'>{formatPrice(activeProduct.price)}</span>
+              <span className='text-lg font-bold text-red-600'>
+                {formatPrice(activeProduct.price)}
+              </span>
               <span className='text-sm text-neutral-400 line-through'>
                 {formatPrice(attributes.salePrice)}
               </span>
@@ -198,4 +205,3 @@ export const ProductCard = ({ product, variants }: Props) => {
     </Link>
   );
 };
-
