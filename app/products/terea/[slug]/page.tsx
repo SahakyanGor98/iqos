@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
-import { AddToCartButton } from '@/components';
+import { AddToCartButton, CompareButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
 import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
@@ -190,9 +190,12 @@ export default async function TereaSlugPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Bottom Section (Buy Button) */}
-          <div className='pt-4'>
-            <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
+          {/* Bottom Section (Buy Button & Compare) */}
+          <div className='pt-4 flex items-center gap-3'>
+            <div className='flex-1'>
+              <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
+            </div>
+            <CompareButton product={productRow} variant='button' showLabel />
           </div>
         </div>
       </div>
