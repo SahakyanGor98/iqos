@@ -228,7 +228,16 @@ export async function getIqosLineupProducts(
     const matches = products.filter(
       (product) => (product.attributes as Record<string, string>)?.line === item.line,
     );
-    const featured = matches.find((product) => product.in_stock) ?? matches[0];
+    const featured =
+      matches.find(
+        (product) =>
+          product.in_stock &&
+          String((product.attributes as Record<string, string>)?.colorVariantName || (product.attributes as Record<string, string>)?.color || product.slug)
+            .toLowerCase()
+            .includes('purple')
+      ) ??
+      matches.find((product) => product.in_stock) ??
+      matches[0];
     const imageValue = featured?.image;
     const image = Array.isArray(imageValue) ? imageValue[0] : imageValue;
 

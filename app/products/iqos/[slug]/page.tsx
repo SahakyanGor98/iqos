@@ -62,6 +62,26 @@ export default async function IqosSlugPage({ params }: Props) {
     siblingVariants = gadgets.filter(
       (p) => (p.attributes as Record<string, any>)?.line === attrs.line,
     );
+    // Show Electric Purple first among the sibling colours (rc behaviour).
+    siblingVariants.sort((a, b) => {
+      const colorA = String(
+        (a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title,
+      ).toLowerCase();
+      const colorB = String(
+        (b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title,
+      ).toLowerCase();
+      const isPurpleA =
+        colorA.includes('electric purple') ||
+        colorA.includes('фиолетовый') ||
+        colorA.includes('purple');
+      const isPurpleB =
+        colorB.includes('electric purple') ||
+        colorB.includes('фиолетовый') ||
+        colorB.includes('purple');
+      if (isPurpleA && !isPurpleB) return -1;
+      if (!isPurpleA && isPurpleB) return 1;
+      return 0;
+    });
   }
 
   const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];

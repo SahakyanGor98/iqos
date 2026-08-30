@@ -148,6 +148,12 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#2563eb' },
   },
   {
+    // Electric Purple (Фиолетовый) keeps its dedicated shade from rc; matched
+    // before the general violet entry below so it wins first-match.
+    keywords: ['electric purple', 'фиолетовый'],
+    swatch: { background: '#705096' },
+  },
+  {
     keywords: [
       'digital violet',
       'wise violet',

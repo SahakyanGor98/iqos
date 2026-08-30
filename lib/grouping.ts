@@ -35,24 +35,36 @@ export function getGroupedCards(products: ProductRow[]): GroupedCard[] {
   });
 
   const MODEL_DEFAULT_COLORS: Record<string, string> = {
-    i: 'breeze blue',
-    'i-one': 'digital violet',
-    'i prime': 'aspen green',
+    i: 'electric purple',
+    'i-one': 'electric purple',
+    'i prime': 'electric purple',
   };
+
+  const colorOf = (p: ProductRow) =>
+    String(
+      (p.attributes as Record<string, any>)?.colorVariantName ||
+        (p.attributes as Record<string, any>)?.color ||
+        p.title,
+    ).toLowerCase();
+
+  const isPurple = (c: string) =>
+    c.includes('electric purple') || c.includes('фиолетовый') || c.includes('purple');
 
   const cardsToRender: GroupedCard[] = [];
 
   groupsMap.forEach((variants, lineKey) => {
+    // Show Electric Purple first in the swatch list (rc behaviour).
+    variants.sort((a, b) => {
+      const pa = isPurple(colorOf(a));
+      const pb = isPurple(colorOf(b));
+      if (pa && !pb) return -1;
+      if (!pa && pb) return 1;
+      return 0;
+    });
+
     const preferredColor = MODEL_DEFAULT_COLORS[lineKey];
     const primary =
-      (preferredColor &&
-        variants.find(
-          (v) =>
-            v.in_stock &&
-            String((v.attributes as Record<string, any>)?.color || v.title)
-              .toLowerCase()
-              .includes(preferredColor),
-        )) ||
+      (preferredColor && variants.find((v) => v.in_stock && colorOf(v).includes(preferredColor))) ||
       variants.find((v) => v.in_stock) ||
       variants[0];
 
