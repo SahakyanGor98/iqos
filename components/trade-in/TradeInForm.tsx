@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { submitTradeIn } from '@/app/actions/tradein';
-import { Button } from '@/components/Button';
-import { ButtonVariant } from '@/components/ButtonTypes';
 import { formatPrice } from '@/lib/utils';
 import { HapticButton } from '@/components/HapticButton';
 
 interface TradeInFormProps {
   isOpen?: boolean;
   oldDeviceName: string;
+  oldDeviceId?: string;
   targetDeviceName: string;
+  targetSlug?: string;
+  targetFullPrice: number;
   estimatedDiscount: number;
   finalPrice: number;
   onSuccess?: () => void;
@@ -20,7 +21,10 @@ interface TradeInFormProps {
 export const TradeInForm: React.FC<TradeInFormProps> = ({
   isOpen = true,
   oldDeviceName,
+  oldDeviceId,
   targetDeviceName,
+  targetSlug,
+  targetFullPrice,
   estimatedDiscount,
   finalPrice,
   onSuccess,
@@ -29,7 +33,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -49,7 +53,8 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
 
   if (!isOpen) return null;
 
-  const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+  const phoneRegex =
+    /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,10 +82,13 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
       phone: phone.trim(),
       email: email.trim() || undefined,
       oldDevice: oldDeviceName,
+      oldDeviceId,
       targetDevice: targetDeviceName,
+      targetSlug,
+      targetFullPrice,
       estimatedDiscount,
       finalPrice,
-      city: city.trim() || undefined,
+      address: address.trim() || undefined,
       comment: comment.trim() || undefined,
     });
 
@@ -114,7 +122,12 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 aria-label='Назад'
               >
                 <svg className='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={2}
+                    d='M15 19l-7-7 7-7'
+                  />
                 </svg>
               </HapticButton>
             )}
@@ -127,7 +140,12 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               aria-label='Закрыть'
             >
               <svg className='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M6 18L18 6M6 6l12 12'
+                />
               </svg>
             </HapticButton>
           )}
@@ -138,12 +156,19 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
           <div className='flex-1 overflow-y-auto p-6 text-center flex flex-col items-center justify-center animate-in fade-in'>
             <div className='w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 text-emerald-600 shrink-0'>
               <svg className='w-8 h-8' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M5 13l4 4L19 7'
+                />
               </svg>
             </div>
             <h3 className='text-xl font-bold text-[#34303d] mb-2'>Заявка оформлена!</h3>
             <p className='text-sm text-neutral-600 mb-6 leading-relaxed'>
-              Спасибо, <strong>{fullName}</strong>! Заявка на обмен <strong>{oldDeviceName}</strong> на <strong>{targetDeviceName}</strong> принята. Мы свяжемся с вами по номеру <strong>{phone}</strong>.
+              Спасибо, <strong>{fullName}</strong>! Заявка на обмен <strong>{oldDeviceName}</strong>{' '}
+              на <strong>{targetDeviceName}</strong> принята. Мы свяжемся с вами по номеру{' '}
+              <strong>{phone}</strong>.
             </p>
 
             <div className='w-full p-4 bg-neutral-50 rounded-xl border border-neutral-200/80 mb-6 text-left space-y-2 text-xs sm:text-sm'>
@@ -169,7 +194,10 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
             </HapticButton>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className='flex-1 overflow-y-auto p-4 md:p-6 space-y-4 text-left'>
+          <form
+            onSubmit={handleSubmit}
+            className='flex-1 overflow-y-auto p-4 md:p-6 space-y-4 text-left'
+          >
             {/* Selected Items Summary Box */}
             <div className='p-4 bg-neutral-50 rounded-xl border border-neutral-200/80 space-y-2 text-xs sm:text-sm mb-4'>
               <div className='flex justify-between items-center text-neutral-600'>
@@ -190,7 +218,9 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               </div>
               <div className='flex justify-between items-center font-black text-sm sm:text-base text-neutral-900'>
                 <span>Итого к оплате:</span>
-                <span className='text-base sm:text-lg text-neutral-900'>{formatPrice(finalPrice)} ₽</span>
+                <span className='text-base sm:text-lg text-neutral-900'>
+                  {formatPrice(finalPrice)} ₽
+                </span>
               </div>
             </div>
 
@@ -238,18 +268,19 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 value='Москва'
                 className='w-full p-3 border border-neutral-200 rounded-lg bg-neutral-50 text-neutral-600 text-sm font-medium cursor-not-allowed select-none'
               />
-              <p className='text-xs text-neutral-400 mt-1 font-normal'>Обмен и доставка только по г. Москва</p>
+              <p className='text-xs text-neutral-400 mt-1 font-normal'>
+                Обмен и доставка только по г. Москва
+              </p>
             </div>
 
             <div>
               <label className='block text-sm font-medium mb-1'>
-                Адрес доставки{' '}
-                <span className='text-neutral-400 font-normal'>(необязательно)</span>
+                Адрес доставки <span className='text-neutral-400 font-normal'>(необязательно)</span>
               </label>
               <input
                 type='text'
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 placeholder='ул. Тверская, д. 1, кв. 10'
                 className='w-full p-3 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition'
               />

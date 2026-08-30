@@ -32,7 +32,8 @@ export const TradeInPromoBanner = () => {
                 Трейд-ин IQOS
               </h2>
               <p className='text-base md:text-lg font-bold text-white max-w-md mx-auto md:mx-0 leading-relaxed'>
-                Обменяйте старое устройство со скидкой до 3 000 ₽ на новый IQOS ILUMA. Принимаем в любом состоянии.
+                Обменяйте старое устройство со скидкой до 2 500 ₽ на новый IQOS ILUMA. Принимаем в
+                любом состоянии.
               </p>
 
               {/* Desktop Button */}
@@ -59,4 +60,3 @@ export const TradeInPromoBanner = () => {
     </section>
   );
 };
-

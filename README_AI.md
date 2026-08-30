@@ -168,3 +168,21 @@ Canonical reference: [`supabase/schema.sql`](file:///c:/Users/Gor/Desktop/Gor/sa
   - **Declarative Swatch Config**: `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual color keywords to HEX/gradient swatch backgrounds.
   - **Instant Image Preloading**: Background hidden image preloading (`<img className="hidden" aria-hidden="true" />`) pre-fetches variant images on render so color switching has 0ms lag.
 
+---
+
+### 9. Trade-In Program (`/trade-in`)
+
+- **Files**:
+  - [app/trade-in/page.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/trade-in/page.tsx)
+  - [app/actions/tradein.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/actions/tradein.ts)
+  - [lib/content/trade-in.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/lib/content/trade-in.ts)
+  - [components/trade-in/](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/trade-in/) (`TradeInHero`, `TradeInCalculator`, `TradeInForm`, `TradeInSteps`, `TradeInBenefits`)
+  - [components/TradeInPromoBanner.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/TradeInPromoBanner.tsx)
+  - [components/emails/TradeInNotification.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/emails/TradeInNotification.tsx)
+- **Details**:
+  - **Online Calculator**: `TradeInCalculator` lets the user pick an old device (`OLD_DEVICES`) and a target `IQOS ILUMA` (`TARGET_DEVICES`); discount and final price update live. Discount is a flat per-device amount via `getDeviceDiscount` (`baseDiscount ?? DEFAULT_TRADE_IN_DISCOUNT`) — device condition does **not** affect pricing.
+  - **Slide-Over Form**: "Оформить обмен" opens `TradeInForm` as a right-hand drawer (matching `CartDrawer`/`CheckoutForm`), locking body scroll. Collects name, phone, optional email, optional Moscow street address, and comment.
+  - **Server Action**: `submitTradeIn` validates with Zod, persists the lead to the Supabase `contact_messages` table (returns an error to the user if the insert fails), then sends an internal Resend notification (`TradeInNotification`) to `INTERNAL_EMAIL`. Email failure is non-fatal since the lead is already saved.
+  - **Moscow-Only**: City is hardcoded to Москва in the form and message body; only the street address is user-entered.
+  - **Marketing Copy**: Max-discount messaging ("до 2 500 ₽") is kept in sync with the highest `baseDiscount` in `OLD_DEVICES`.
+  - **Wiring**: Linked from `Navbar`, `Footer`, and a homepage `TradeInPromoBanner`; route is `ROUTES.tradeIn` (`/trade-in`) and included in `sitemap.ts`.

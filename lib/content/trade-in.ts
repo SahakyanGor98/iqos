@@ -24,13 +24,6 @@ export interface TargetDeviceOption {
   features: string[];
 }
 
-export interface DeviceCondition {
-  id: 'working' | 'used' | 'broken';
-  label: string;
-  multiplier: number; // Discount multiplier (e.g. 1.0 for working, 0.9 for used, 0.75 for broken)
-  note: string;
-}
-
 export const OLD_DEVICES: OldDeviceOption[] = [
   {
     id: 'iqos-3-duo',
@@ -105,27 +98,6 @@ export const OLD_DEVICES: OldDeviceOption[] = [
   },
 ];
 
-export const DEVICE_CONDITIONS: DeviceCondition[] = [
-  {
-    id: 'working',
-    label: 'Отличное / Рабочее',
-    multiplier: 1.0,
-    note: 'Устройство полностью функционирует и заряжается',
-  },
-  {
-    id: 'used',
-    label: 'Есть следы использования',
-    multiplier: 0.9,
-    note: 'Потертости, царапины, но устройство работает',
-  },
-  {
-    id: 'broken',
-    label: 'Сломанное / Не включается',
-    multiplier: 0.75,
-    note: 'Принимаем даже нерабочие и поврежденные устройства',
-  },
-];
-
 export const TARGET_DEVICES: TargetDeviceOption[] = [
   {
     id: 'iluma-i-one',
@@ -183,7 +155,7 @@ export const TRADE_IN_STEPS = [
 export const TRADE_IN_BENEFITS = [
   {
     icon: 'sparkles',
-    title: 'Скидка до 3 000 ₽',
+    title: 'Скидка до 2 500 ₽',
     description:
       'Максимально выгодный обмен старых моделей IQOS и lil SOLID на новые флагманы ILUMA i.',
   },

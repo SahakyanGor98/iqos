@@ -60,10 +60,8 @@ export const TradeInCalculator: React.FC = () => {
 
         {/* INTEGRATED INTERACTIVE SHOWCASE CARD (DARK MODE) */}
         <div className='bg-[#34303D] rounded-3xl p-5 sm:p-8 text-white shadow-xl border border-[#34303D]/20 space-y-6'>
-          
           {/* 2-COLUMN SHOWCASE (Left: Old Device, Right: New Device) */}
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10'>
-            
             {/* LEFT SIDE: Old Device Box with thumbnail selector underneath */}
             <div className='flex flex-col p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 relative'>
               <div className='flex items-center justify-between mb-3'>
@@ -92,9 +90,7 @@ export const TradeInCalculator: React.FC = () => {
                 <h4 className='font-black text-base sm:text-lg text-white leading-tight mb-0.5'>
                   {selectedOldDevice.name}
                 </h4>
-                <p className='text-xs text-neutral-400'>
-                  {selectedOldDevice.description}
-                </p>
+                <p className='text-xs text-neutral-400'>{selectedOldDevice.description}</p>
               </div>
 
               {/* THUMBNAIL / VARIANT SELECTOR (directly under the image) */}
@@ -130,8 +126,12 @@ export const TradeInCalculator: React.FC = () => {
                           />
                         </div>
                         <div className='text-left pr-1'>
-                          <div className='text-[11px] font-bold leading-tight whitespace-nowrap'>{device.name}</div>
-                          <div className={`text-[9px] ${isSelected ? 'text-neutral-700' : 'text-emerald-400'}`}>
+                          <div className='text-[11px] font-bold leading-tight whitespace-nowrap'>
+                            {device.name}
+                          </div>
+                          <div
+                            className={`text-[9px] ${isSelected ? 'text-neutral-700' : 'text-emerald-400'}`}
+                          >
                             -{formatPrice(discountVal)}
                           </div>
                         </div>
@@ -180,9 +180,7 @@ export const TradeInCalculator: React.FC = () => {
                     {formatPrice(selectedTargetDevice.fullPrice)}
                   </span>
                 </div>
-                <p className='text-xs text-neutral-400'>
-                  {selectedTargetDevice.tagline}
-                </p>
+                <p className='text-xs text-neutral-400'>{selectedTargetDevice.tagline}</p>
               </div>
 
               {/* THUMBNAIL / VARIANT SELECTOR (directly under the image) */}
@@ -217,8 +215,12 @@ export const TradeInCalculator: React.FC = () => {
                           />
                         </div>
                         <div className='text-left min-w-0'>
-                          <div className='text-[11px] font-bold leading-tight truncate'>{target.name}</div>
-                          <div className={`text-[9px] font-medium ${isSelected ? 'text-neutral-700' : 'text-neutral-400'}`}>
+                          <div className='text-[11px] font-bold leading-tight truncate'>
+                            {target.name}
+                          </div>
+                          <div
+                            className={`text-[9px] font-medium ${isSelected ? 'text-neutral-700' : 'text-neutral-400'}`}
+                          >
                             {formatPrice(itemFinalPrice)}
                           </div>
                         </div>
@@ -228,7 +230,6 @@ export const TradeInCalculator: React.FC = () => {
                 </div>
               </div>
             </div>
-
           </div>
 
           {/* CALCULATION SUMMARY & CTA BAR */}
@@ -248,14 +249,10 @@ export const TradeInCalculator: React.FC = () => {
               </div>
             </div>
 
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant={ButtonVariant.LIGHT}
-            >
+            <Button onClick={() => setIsModalOpen(true)} variant={ButtonVariant.LIGHT}>
               Оформить обмен
             </Button>
           </div>
-
         </div>
       </div>
 
@@ -263,7 +260,10 @@ export const TradeInCalculator: React.FC = () => {
       <TradeInForm
         isOpen={isModalOpen}
         oldDeviceName={selectedOldDevice.name}
+        oldDeviceId={selectedOldDevice.id}
         targetDeviceName={selectedTargetDevice.name}
+        targetSlug={selectedTargetDevice.slug}
+        targetFullPrice={selectedTargetDevice.fullPrice}
         estimatedDiscount={estimatedDiscount}
         finalPrice={finalPrice}
         onCancel={() => setIsModalOpen(false)}

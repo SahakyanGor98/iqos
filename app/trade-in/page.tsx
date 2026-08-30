@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import {
-  TradeInHero,
-  TradeInCalculator,
-  TradeInSteps,
-  TradeInBenefits,
+  Button,
   FaqAccordion,
   TextSeparator,
-  Button,
+  TradeInBenefits,
+  TradeInCalculator,
+  TradeInHero,
+  TradeInSteps,
 } from '@/components';
 import { ButtonVariant } from '@/components/ButtonTypes';
 import { TRADE_IN_FAQ } from '@/lib/content/trade-in';
@@ -14,7 +14,7 @@ import { TRADE_IN_FAQ } from '@/lib/content/trade-in';
 export const metadata: Metadata = {
   title: 'Трейд-ин IQOS | Обмен старых устройств на IQOS ILUMA со скидкой',
   description:
-    'Программа Трейд-ин IQOS: обменяйте старое устройство IQOS, lil SOLID или аналоги на новый IQOS ILUMA со скидкой до 3 000 ₽. Принимаем в любом состоянии.',
+    'Программа Трейд-ин IQOS: обменяйте старое устройство IQOS, lil SOLID или аналоги на новый IQOS ILUMA со скидкой до 2 500 ₽. Принимаем в любом состоянии.',
 };
 
 export default function TradeInPage() {
@@ -52,12 +52,10 @@ export default function TradeInPage() {
             Готовы обновить свой IQOS?
           </h2>
           <p className='text-base md:text-lg text-[#34303d]/85 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed'>
-            Рассчитайте точно стоимость вашего старого устройства за 1 минуту и получите новый IQOS ILUMA с курьерской доставкой.
+            Рассчитайте точно стоимость вашего старого устройства за 1 минуту и получите новый IQOS
+            ILUMA с курьерской доставкой.
           </p>
-          <Button
-            href='#calculator'
-            variant={ButtonVariant.PRIMARY}
-          >
+          <Button href='#calculator' variant={ButtonVariant.PRIMARY}>
             Перейти к калькулятору
           </Button>
         </div>

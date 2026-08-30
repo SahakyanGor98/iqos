@@ -5,14 +5,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://24iqos.ru';
 
   // Static routes
-  const routes = ['', '/about/iqos', '/products/iqos', '/products/terea', '/contact'].map(
-    (route) => ({
-      url: `${baseUrl}${route}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: route === '' ? 1 : 0.8,
-    }),
-  );
+  const routes = [
+    '',
+    '/about/iqos',
+    '/products/iqos',
+    '/products/terea',
+    '/products/water',
+    '/trade-in',
+    '/contact',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: route === '' ? 1 : 0.8,
+  }));
 
   // Dynamic routes
   const iqosSlugs = await getAllSlugs('gadget');
