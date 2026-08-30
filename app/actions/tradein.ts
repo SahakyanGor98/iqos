@@ -3,7 +3,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { CONTACTS } from '@/lib/constants';
 import type { OrderItemSnapshot } from '@/lib/orders';
 
@@ -62,7 +62,7 @@ export async function submitTradeIn(data: TradeInData) {
     };
 
     // 3. Persist to Supabase `orders`
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         user_name: d.name,

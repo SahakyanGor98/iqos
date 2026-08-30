@@ -91,9 +91,12 @@ create table public.contact_messages (
 alter table public.contact_messages enable row level security;
 
 -- ============================================================================
--- RLS policies (VERIFY): inserts to orders / order_items / contact_messages are
--- currently performed from server actions using the ANON key, so an INSERT path
--- must be reachable for `anon` (either RLS disabled or a permissive insert
--- policy). Confirm that SELECT on these tables is NOT granted to anon before an
--- admin panel is built. See "Next steps" in README_AI.md.
+-- RLS model (no user accounts — every visitor is an anonymous guest):
+--   * products          — RLS on, public SELECT (catalog is public).
+--   * orders            — RLS on, NO anon policies. Writes go through server
+--   * order_items         actions using the SERVICE ROLE key (lib/supabase-admin.ts),
+--                         which bypasses RLS. anon cannot read or write directly.
+--   * contact_messages  — RLS on, anon INSERT allowed (guests submit the contact
+--                         form), no anon SELECT.
+-- See supabase/migrations/20260831_lock_down_orders_rls.sql.
 -- ============================================================================

@@ -5,7 +5,7 @@ import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { CONTACTS } from '@/lib/constants';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { CartItem } from '@/store/cartStore';
 import { cartToSnapshot } from '@/lib/orders';
 
@@ -44,7 +44,7 @@ export async function placeOrder(
 
     // 2. Persist to Supabase
     // Insert Order
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         user_name: validatedData.fullName,
@@ -74,7 +74,7 @@ export async function placeOrder(
       price_at_time: item.product.price,
     }));
 
-    const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
+    const { error: itemsError } = await supabaseAdmin.from('order_items').insert(orderItems);
 
     if (itemsError) {
       console.error('Supabase Items Error:', itemsError);
