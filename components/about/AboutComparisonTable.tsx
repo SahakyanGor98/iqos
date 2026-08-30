@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  CIGARETTE_VS_IQOS_TABLE,
-  ECIG_VS_IQOS,
-} from '@/lib/content/iqos-about';
-import { formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { CIGARETTE_VS_IQOS_TABLE, ECIG_VS_IQOS } from '@/lib/content/iqos-about';
+import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
 export const AboutComparisonTable: React.FC = () => {
   return (
@@ -37,10 +34,7 @@ export const AboutComparisonTable: React.FC = () => {
             </thead>
             <tbody className='divide-y divide-neutral-200 text-sm md:text-base'>
               {CIGARETTE_VS_IQOS_TABLE.map((row, idx) => (
-                <tr
-                  key={row.feature}
-                  className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/70'}
-                >
+                <tr key={row.feature} className={idx % 2 === 0 ? 'bg-white' : 'bg-neutral-50/70'}>
                   <td className='p-4 md:p-5 font-bold text-[#34303d] align-middle'>
                     {row.feature}
                   </td>
@@ -69,7 +63,8 @@ export const AboutComparisonTable: React.FC = () => {
               Чем IQOS отличается от электронных сигарет?
             </h3>
             <p className='text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-pretty'>
-              Это принципиально разные категории продуктов. IQOS создан для ценителей вкуса настоящего табачного листа.
+              Это принципиально разные категории продуктов. IQOS создан для ценителей вкуса
+              настоящего табачного листа.
             </p>
           </div>
 
@@ -85,8 +80,13 @@ export const AboutComparisonTable: React.FC = () => {
                 </h4>
                 <ul className='space-y-3'>
                   {ECIG_VS_IQOS.iqos.points.map((pt) => (
-                    <li key={pt} className='flex items-start gap-3 text-sm md:text-base text-[#34303d] leading-relaxed font-medium'>
-                      <span className='w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 text-xs mt-0.5'>✓</span>
+                    <li
+                      key={pt}
+                      className='flex items-start gap-3 text-sm md:text-base text-[#34303d] leading-relaxed font-medium'
+                    >
+                      <span className='w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 text-xs mt-0.5'>
+                        ✓
+                      </span>
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -105,8 +105,13 @@ export const AboutComparisonTable: React.FC = () => {
                 </h4>
                 <ul className='space-y-3'>
                   {ECIG_VS_IQOS.ecig.points.map((pt) => (
-                    <li key={pt} className='flex items-start gap-3 text-sm md:text-base text-neutral-600 leading-relaxed font-medium'>
-                      <span className='w-5 h-5 rounded-full bg-neutral-300 text-neutral-700 flex items-center justify-center flex-shrink-0 text-xs mt-0.5'>•</span>
+                    <li
+                      key={pt}
+                      className='flex items-start gap-3 text-sm md:text-base text-neutral-600 leading-relaxed font-medium'
+                    >
+                      <span className='w-5 h-5 rounded-full bg-neutral-300 text-neutral-700 flex items-center justify-center flex-shrink-0 text-xs mt-0.5'>
+                        •
+                      </span>
                       <span>{pt}</span>
                     </li>
                   ))}

@@ -7,7 +7,7 @@ export type Product = {
   title: string;
   image: string[];
   price: number;
-  category: 'gadget' | 'sticks' | 'water';
+  category: 'gadget' | 'sticks' | 'water' | 'accessories';
   // Optional fields to preserve specific data if needed for UI, but not strictly required for Cart logic if handled there
   brand?: string;
   line?: string;
@@ -16,7 +16,7 @@ export type Product = {
 };
 
 // Helper to adapt specific types to Product
-export const toProduct = (item: TIqos | TTerea): Product => {
+export const toProduct = (item: TIqos | TTerea | any): Product => {
   if (item.category === 'gadget') {
     const iqos = item as TIqos;
     return {
@@ -28,6 +28,17 @@ export const toProduct = (item: TIqos | TTerea): Product => {
       category: 'gadget',
       line: iqos.line,
       color: iqos.color,
+    };
+  } else if (item.category === 'accessories') {
+    return {
+      id: item.id,
+      slug: item.slug,
+      title: item.title,
+      image: Array.isArray(item.image) ? item.image : [item.image],
+      price: item.price,
+      category: 'accessories',
+      color: item.color || item.attributes?.color,
+      brand: item.brand,
     };
   } else {
     const terea = item as TTerea;

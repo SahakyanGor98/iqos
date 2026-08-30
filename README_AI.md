@@ -92,13 +92,13 @@ This is a premium e-commerce/catalog application for IQOS products built with:
   - [AboutFactsGrid.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/about/AboutFactsGrid.tsx)
   - [AboutSections.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/about/AboutSections.tsx)
 - **7-Act Narrative Flow**:
-  1. **Hero**: Main title *"Что такое IQOS?"* & intro.
-  2. **Act 1 Narrative**: *"Почему появился IQOS?"* (Eliminating combustion at >600°C).
-  3. **Act 2 Narrative**: *"Что представляет собой аэрозоль IQOS?"* (Heat-not-burn ~300–350°C, aerosol vs smoke).
-  4. **Act 3**: `AboutComparisonTable` (*IQOS vs Cigarettes* & *IQOS vs E-cigarettes*).
-  5. **Act 4**: `AboutTechHighlights` (*Temperature gauge*, *SMARTCORE INDUCTION SYSTEM™*, *TEREA stick anatomy image*, *4 benefits*, *flavor categories*, *compatibility rules*).
-  6. **Act 5 Narrative**: *"История развития IQOS"* (Timeline 2008–2024 R&D & Evolution).
-  7. **Act 6 & 7**: `IqosLineupSection`, `AboutFactsGrid` (*8 Key Facts Summary & Adult Smoker Positioning*), `FaqAccordion`, and `CTA`.
+  1. **Hero**: Main title _"Что такое IQOS?"_ & intro.
+  2. **Act 1 Narrative**: _"Почему появился IQOS?"_ (Eliminating combustion at >600°C).
+  3. **Act 2 Narrative**: _"Что представляет собой аэрозоль IQOS?"_ (Heat-not-burn ~300–350°C, aerosol vs smoke).
+  4. **Act 3**: `AboutComparisonTable` (_IQOS vs Cigarettes_ & _IQOS vs E-cigarettes_).
+  5. **Act 4**: `AboutTechHighlights` (_Temperature gauge_, _SMARTCORE INDUCTION SYSTEM™_, _TEREA stick anatomy image_, _4 benefits_, _flavor categories_, _compatibility rules_).
+  6. **Act 5 Narrative**: _"История развития IQOS"_ (Timeline 2008–2024 R&D & Evolution).
+  7. **Act 6 & 7**: `IqosLineupSection`, `AboutFactsGrid` (_8 Key Facts Summary & Adult Smoker Positioning_), `FaqAccordion`, and `CTA`.
 - **Image Placement Pattern**:
   - Images in `AboutDefaultSection` and `AboutTechHighlights` use `relative aspect-[4/3] overflow-hidden -mx-4 md:mx-0 rounded-none md:rounded-2xl bg-neutral-100` so on mobile they break out edge-to-edge (`-mx-4`), and on desktop they sit side-by-side with text (`md:rounded-2xl`).
 
@@ -147,4 +147,3 @@ This is a premium e-commerce/catalog application for IQOS products built with:
   - **Single-Version Hiding**: Swatches are hidden when `colorVariants.length <= 1` (e.g., Seletti editions).
   - **Declarative Swatch Config**: `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual color keywords to HEX/gradient swatch backgrounds.
   - **Instant Image Preloading**: Background hidden image preloading (`<img className="hidden" aria-hidden="true" />`) pre-fetches variant images on render so color switching has 0ms lag.
-

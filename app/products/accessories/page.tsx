@@ -1,17 +1,16 @@
 import { getProducts } from '@/lib/api';
 import { getGroupedCards } from '@/lib/grouping';
 import { Pagination, PerPageSelect, ProductFilters, ProductGrid, SortSelect } from '@/components';
-import { IQOS_LINES } from '@/lib/constants';
-
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Устройства IQOS | Купить оригинал',
+  title: 'Аксессуары IQOS | Чехлы, колпачки, зарядные устройства',
   description:
-    'Каталог оригинальных устройств IQOS. ILUMA, ILUMA ONE, ILUMA PRIME. Выберите свой цвет и модель.',
+    'Каталог оригинальных аксессуаров для устройств IQOS. Чехлы, сменные панели, колпачки, зарядные станции и аксессуары для чистки.',
   openGraph: {
-    title: 'Каталог устройств IQOS - Оригинал, Гарантия',
-    description: 'Все модели IQOS в наличии. Быстрая доставка по городу. Гарантия качества.',
+    title: 'Каталог аксессуаров IQOS - Оригинальные аксессуары',
+    description:
+      'Широкий выбор оригинальных аксессуаров для IQOS ILUMA. Персонализируйте свое устройство.',
   },
 };
 
@@ -21,7 +20,7 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function IqosPage({ searchParams }: Props) {
+export default async function AccessoriesPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const limit = Number(params.limit) || 25;
@@ -40,21 +39,34 @@ export default async function IqosPage({ searchParams }: Props) {
       label: 'Цвет',
       type: 'checkbox' as const,
       options: [
-        { label: 'Зеленый', value: 'Зеленый' },
-        { label: 'Серый', value: 'Серый' },
+        { label: 'Черный', value: 'Черный' },
+        { label: 'Серый / Серебряный', value: 'Серый' },
         { label: 'Синий', value: 'Синий' },
-        { label: 'Золотой', value: 'Золотой' },
-        { label: 'Красный', value: 'Красный' },
+        { label: 'Зеленый', value: 'Зеленый' },
+        { label: 'Золотой / Бежевый', value: 'Золотой' },
+        { label: 'Коралловый / Красный', value: 'Красный' },
       ],
     },
     {
-      id: 'line',
-      label: 'Модель',
+      id: 'type',
+      label: 'Тип аксессуара',
       type: 'checkbox' as const,
-      options: Object.entries(IQOS_LINES).map(([value, label]) => ({
-        label,
-        value,
-      })),
+      options: [
+        { label: 'Чехлы и панели', value: 'Чехлы и панели' },
+        { label: 'Колпачки', value: 'Колпачки' },
+        { label: 'Зарядные устройства', value: 'Зарядные устройства' },
+        { label: 'Чистка и уход', value: 'Чистка и уход' },
+      ],
+    },
+    {
+      id: 'compatibility',
+      label: 'Совместимость',
+      type: 'checkbox' as const,
+      options: [
+        { label: 'IQOS ILUMA i', value: 'IQOS ILUMA i' },
+        { label: 'IQOS ILUMA i ONE', value: 'IQOS ILUMA i ONE' },
+        { label: 'IQOS ILUMA i PRIME', value: 'IQOS ILUMA i PRIME' },
+      ],
     },
     {
       id: 'inStock',
@@ -64,7 +76,7 @@ export default async function IqosPage({ searchParams }: Props) {
   ];
 
   const { data: allProducts } = await getProducts({
-    category: 'gadget',
+    category: 'accessories',
     page: 1,
     limit: 500,
     sort: params.sort as string,
@@ -72,7 +84,8 @@ export default async function IqosPage({ searchParams }: Props) {
     inStock: params.inStock === 'true',
     filters: {
       color: params.color as string | string[],
-      line: params.line as string | string[],
+      type: params.type as string | string[],
+      compatibility: params.compatibility as string | string[],
     },
   });
 
@@ -89,7 +102,7 @@ export default async function IqosPage({ searchParams }: Props) {
 
       <div className='flex-1'>
         <div className='flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4'>
-          <h1 className='text-2xl font-bold'>Устройства IQOS</h1>
+          <h1 className='text-2xl font-bold'>Аксессуары IQOS</h1>
 
           {/* Controls Row */}
           <div className='flex items-center justify-between gap-2 w-full md:w-auto'>

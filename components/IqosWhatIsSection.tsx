@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import { Button } from './Button';
 import { ButtonVariant } from './ButtonTypes';
-import { IQOS_HOME_TEASER, IQOS_ABOUT_IMAGES } from '@/lib/content/iqos-about';
+import { IQOS_ABOUT_IMAGES, IQOS_HOME_TEASER } from '@/lib/content/iqos-about';
 
 export const IqosWhatIsSection = () => {
   return (
     <section className='w-full bg-white'>
       <div className='w-full max-w-none md:max-w-7xl md:mx-auto px-0 md:px-8'>
         <div className='relative aspect-square md:aspect-auto h-auto md:h-[calc(100vh-64px)] overflow-hidden group w-full'>
-          
           {/* Background Image */}
           <div className='absolute inset-0 z-0'>
             <Image
@@ -33,7 +32,7 @@ export const IqosWhatIsSection = () => {
               <p className='text-base md:text-lg font-bold text-white max-w-md mx-auto md:mx-0 leading-relaxed'>
                 {IQOS_HOME_TEASER.subtitle}
               </p>
-              
+
               {/* Desktop Button: Left-aligned and inline in the flex flow */}
               <Button
                 href={IQOS_HOME_TEASER.ctaHref}
@@ -58,11 +57,3 @@ export const IqosWhatIsSection = () => {
     </section>
   );
 };
-
-
-
-
-
-
-
-

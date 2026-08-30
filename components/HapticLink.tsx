@@ -4,7 +4,9 @@ import React from 'react';
 import Link, { LinkProps } from 'next/link';
 import { triggerHaptic } from '@/lib/utils';
 
-interface HapticLinkProps extends LinkProps, Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> {
+interface HapticLinkProps
+  extends LinkProps,
+    Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps> {
   children: React.ReactNode;
   className?: string;
   hapticPattern?: number | number[];

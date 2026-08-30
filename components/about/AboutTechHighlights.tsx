@@ -1,11 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import {
-  SMARTCORE_BENEFITS,
-  TEREA_CATEGORIES,
-  IQOS_ABOUT_IMAGES,
-} from '@/lib/content/iqos-about';
-import { formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { IQOS_ABOUT_IMAGES, SMARTCORE_BENEFITS, TEREA_CATEGORIES } from '@/lib/content/iqos-about';
+import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
 export const AboutTechHighlights: React.FC = () => {
   return (
@@ -18,7 +14,8 @@ export const AboutTechHighlights: React.FC = () => {
               {formatDeviceTitle(fixCasing('Температурный режим: Нагрев вместо горения', true))}
             </h2>
             <p className='text-base md:text-lg text-[#34303d] max-w-2xl mx-auto leading-relaxed text-pretty'>
-              Главный секрет технологии IQOS — строгий контроль температуры нагрева без воспламенения.
+              Главный секрет технологии IQOS — строгий контроль температуры нагрева без
+              воспламенения.
             </p>
           </div>
 
@@ -31,11 +28,10 @@ export const AboutTechHighlights: React.FC = () => {
               <div className='text-4xl md:text-5xl font-black text-red-600 tracking-tight'>
                 &gt; 600°C
               </div>
-              <h3 className='text-xl md:text-2xl font-black text-[#34303d]'>
-                Обычная сигарета
-              </h3>
+              <h3 className='text-xl md:text-2xl font-black text-[#34303d]'>Обычная сигарета</h3>
               <p className='text-sm md:text-base leading-relaxed max-w-sm mx-auto'>
-                Приводит к пиролизу и окислению. Образуются смолы, угарный газ (CO), формальдегид и тысячи продуктов горения.
+                Приводит к пиролизу и окислению. Образуются смолы, угарный газ (CO), формальдегид и
+                тысячи продуктов горения.
               </p>
             </div>
 
@@ -47,11 +43,10 @@ export const AboutTechHighlights: React.FC = () => {
               <div className='text-4xl md:text-5xl font-black text-emerald-600 tracking-tight'>
                 ~300–350°C
               </div>
-              <h3 className='text-xl md:text-2xl font-black text-[#34303d]'>
-                Система IQOS ILUMA
-              </h3>
+              <h3 className='text-xl md:text-2xl font-black text-[#34303d]'>Система IQOS ILUMA</h3>
               <p className='text-sm md:text-base text-[#34303d] leading-relaxed max-w-sm mx-auto font-medium'>
-                Табак нагревается без горения. Раскрывается натуральный вкус и выделяется никотинсодержащий аэрозоль.
+                Табак нагревается без горения. Раскрывается натуральный вкус и выделяется
+                никотинсодержащий аэрозоль.
               </p>
             </div>
           </div>
@@ -67,7 +62,8 @@ export const AboutTechHighlights: React.FC = () => {
                 Что такое SMARTCORE INDUCTION SYSTEM™?
               </h2>
               <p className='text-base md:text-lg leading-relaxed text-[#34303d]/90 text-pretty'>
-                Новейшая технологическая революция в серии IQOS ILUMA. Бесконтактный нагрев без лезвия.
+                Новейшая технологическая революция в серии IQOS ILUMA. Бесконтактный нагрев без
+                лезвия.
               </p>
             </div>
 
@@ -105,7 +101,9 @@ export const AboutTechHighlights: React.FC = () => {
             <span className='text-amber-600 text-xl font-bold flex-shrink-0'>⚠️</span>
             <div>
               <strong className='font-bold block mb-1'>Важное примечание о совместимости:</strong>
-              Стики TEREA™ предназначены исключительно для устройств IQOS ILUMA™. Их нельзя использовать в предыдущих поколениях IQOS с лезвием. Стики HEETS™ несовместимы с IQOS ILUMA™.
+              Стики TEREA™ предназначены исключительно для устройств IQOS ILUMA™. Их нельзя
+              использовать в предыдущих поколениях IQOS с лезвием. Стики HEETS™ несовместимы с IQOS
+              ILUMA™.
             </div>
           </div>
         </div>
@@ -131,9 +129,7 @@ export const AboutTechHighlights: React.FC = () => {
                   <span className='font-black mr-1.5'>{idx + 1}.</span>
                   {cat.name}
                 </h4>
-                <p className='text-sm md:text-base text-[#34303d] leading-relaxed'>
-                  {cat.desc}
-                </p>
+                <p className='text-sm md:text-base text-[#34303d] leading-relaxed'>{cat.desc}</p>
               </div>
             ))}
           </div>

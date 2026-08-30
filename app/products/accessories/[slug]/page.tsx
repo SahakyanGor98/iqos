@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllSlugs, getProductBySlug, getProducts } from '@/lib/api';
 import { notFound } from 'next/navigation';
-import { AddToCartButton, CompareButton } from '@/components';
+import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
 import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
@@ -11,9 +11,8 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// Generate all possible slugs for static generation
 export async function generateStaticParams() {
-  const slugs = await getAllSlugs('gadget');
+  const slugs = await getAllSlugs('accessories');
   return slugs.map((slug) => ({ slug }));
 }
 
@@ -31,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: product.title,
     description: product.description || `Купить ${product.title} по выгодной цене.`,
     alternates: {
-      canonical: `/products/iqos/${slug}`,
+      canonical: `/products/accessories/${slug}`,
     },
     openGraph: {
       title: product.title,
@@ -43,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export const revalidate = 60;
 
-export default async function IqosSlugPage({ params }: Props) {
+export default async function AccessorySlugPage({ params }: Props) {
   const { slug } = await params;
   const productRow = await getProductBySlug(slug);
 
@@ -58,32 +57,13 @@ export default async function IqosSlugPage({ params }: Props) {
   // Fetch sibling color variants for the same line
   let siblingVariants: (typeof productRow)[] = [];
   if (attrs.line) {
-    const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
-    siblingVariants = gadgets.filter(
+    const { data: accessories } = await getProducts({ category: 'accessories', limit: 100 });
+    siblingVariants = accessories.filter(
       (p) => (p.attributes as Record<string, any>)?.line === attrs.line,
     );
-    // Show Electric Purple first among the sibling colours (rc behaviour).
-    siblingVariants.sort((a, b) => {
-      const colorA = String(
-        (a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title,
-      ).toLowerCase();
-      const colorB = String(
-        (b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title,
-      ).toLowerCase();
-      const isPurpleA =
-        colorA.includes('electric purple') ||
-        colorA.includes('фиолетовый') ||
-        colorA.includes('purple');
-      const isPurpleB =
-        colorB.includes('electric purple') ||
-        colorB.includes('фиолетовый') ||
-        colorB.includes('purple');
-      if (isPurpleA && !isPurpleB) return -1;
-      if (!isPurpleA && isPurpleB) return 1;
-      return 0;
-    });
   }
 
+  // Image Array logic
   const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
 
   // Map to Store Product Type for the button
@@ -107,7 +87,7 @@ export default async function IqosSlugPage({ params }: Props) {
     image: productImages,
     brand: {
       '@type': 'Brand',
-      name: 'IQOS',
+      name: productRow.brand || 'IQOS',
     },
     offers: {
       '@type': 'Offer',
@@ -116,7 +96,7 @@ export default async function IqosSlugPage({ params }: Props) {
       availability: productRow.in_stock
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      url: `https://24iqos.ru/products/iqos/${productRow.slug}`,
+      url: `https://24iqos.ru/products/accessories/${productRow.slug}`,
     },
   };
 
@@ -132,7 +112,7 @@ export default async function IqosSlugPage({ params }: Props) {
           {productImages.length > 1 ? (
             <ProductImageCarousel images={productImages} title={productRow.title} />
           ) : (
-            <div className='bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
+            <div className='bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
               <img
                 src={`/api/proxy?url=${encodeURIComponent(productImages[0])}`}
                 alt={productRow.title}
@@ -143,9 +123,9 @@ export default async function IqosSlugPage({ params }: Props) {
           )}
           {/* Badges Overlay */}
           <div className='absolute top-6 left-6 z-10 flex flex-col gap-2'>
-            {badgeData.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
-            {badgeData.isHit && <span className='badge bg-orange-500 px-3 py-1.5'>Хит</span>}
-            {badgeData.isExclusive && (
+            {badgeData?.isNew && <span className='badge bg-green-600 px-3 py-1.5'>Новинка</span>}
+            {badgeData?.isHit && <span className='badge bg-orange-500 px-3 py-1.5'>Хит</span>}
+            {badgeData?.isExclusive && (
               <span className='badge bg-purple-600 px-3 py-1.5'>Эксклюзив</span>
             )}
           </div>
@@ -164,27 +144,32 @@ export default async function IqosSlugPage({ params }: Props) {
             {siblingVariants.length > 1 && (
               <div className='col-span-2 pt-3 border-t border-neutral-100'>
                 <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-2.5 font-medium'>
-                  Цветовые варианты
+                  Варианты исполнений ({siblingVariants.length})
                 </span>
-                <div className='flex items-center gap-2.5 flex-wrap'>
+                <div className='flex items-center gap-2 flex-wrap'>
                   {siblingVariants.map((variant) => {
                     const vAttrs = variant.attributes as Record<string, any>;
                     const isCurrent = variant.slug === productRow.slug;
-                    const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
+                    const variantLabel = vAttrs.colorVariantName || vAttrs.color || variant.title;
+                    const swatch = getDeviceColorSwatch(variantLabel, variant.title, vAttrs.hex);
+
                     return (
                       <Link
                         key={variant.id}
-                        href={`/products/iqos/${variant.slug}`}
-                        scroll={false}
-                        replace={true}
-                        title={vAttrs.color || variant.title}
-                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${
+                        href={`/products/accessories/${variant.slug}`}
+                        title={variantLabel}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-2 border ${
                           isCurrent
-                            ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
-                            : 'hover:scale-110 opacity-80 hover:opacity-100'
+                            ? 'bg-neutral-900 text-white border-neutral-900 shadow-sm scale-105'
+                            : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-400 hover:bg-neutral-50'
                         }`}
-                        style={swatch}
-                      />
+                      >
+                        <span
+                          className='w-3 h-3 rounded-full border border-black/10 shrink-0'
+                          style={swatch}
+                        />
+                        <span>{variantLabel}</span>
+                      </Link>
                     );
                   })}
                 </div>
@@ -192,20 +177,9 @@ export default async function IqosSlugPage({ params }: Props) {
             )}
 
             <div className='flex items-end gap-4'>
-              {attrs.salePrice ? (
-                <>
-                  <span className='text-4xl font-bold text-red-600 line-clamp-1'>
-                    {formatPrice(productRow.price)}
-                  </span>
-                  <span className='text-xl text-neutral-400 line-through mb-1'>
-                    {formatPrice(attrs.salePrice)}
-                  </span>
-                </>
-              ) : (
-                <span className='text-4xl font-bold text-[#34303d]'>
-                  {formatPrice(productRow.price)}
-                </span>
-              )}
+              <span className='text-4xl font-bold text-[#34303d]'>
+                {formatPrice(productRow.price)}
+              </span>
             </div>
 
             {productRow.description && (
@@ -216,7 +190,7 @@ export default async function IqosSlugPage({ params }: Props) {
 
             {/* Attributes Grid */}
             <div className='grid grid-cols-2 gap-4 py-6 border-y border-neutral-100'>
-              {attrs.color && (
+              {attrs?.color && (
                 <div>
                   <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
                     Цвет
@@ -224,17 +198,27 @@ export default async function IqosSlugPage({ params }: Props) {
                   <span className='font-semibold text-neutral-900'>{attrs.color}</span>
                 </div>
               )}
+              {attrs?.type && (
+                <div>
+                  <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                    Тип
+                  </span>
+                  <span className='font-semibold text-neutral-900'>{attrs.type}</span>
+                </div>
+              )}
+              {attrs?.compatibility && (
+                <div>
+                  <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
+                    Совместимость
+                  </span>
+                  <span className='font-semibold text-neutral-900'>{attrs.compatibility}</span>
+                </div>
+              )}
               <div>
                 <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
                   Категория
                 </span>
-                <span className='font-semibold text-neutral-900'>Устройство</span>
-              </div>
-              <div>
-                <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
-                  Бренд
-                </span>
-                <span className='font-semibold text-neutral-900'>IQOS</span>
+                <span className='font-semibold text-neutral-900'>Аксессуар</span>
               </div>
               <div>
                 <span className='block text-xs uppercase tracking-wider text-neutral-400 mb-1'>
@@ -249,12 +233,9 @@ export default async function IqosSlugPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Bottom Section (Buy Button & Compare) */}
-          <div className='pt-4 flex items-center gap-3'>
-            <div className='flex-1'>
-              <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
-            </div>
-            <CompareButton product={productRow} variant='button' showLabel />
+          {/* Bottom Section (Buy Button) */}
+          <div className='pt-4'>
+            <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
           </div>
         </div>
       </div>
