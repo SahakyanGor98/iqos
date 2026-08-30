@@ -423,5 +423,70 @@
       "isExclusive": true
     },
     "inStock": false
+  },
+  {
+    "id": 101,
+    "slug": "iqos-iluma-i-prime-electric-purple",
+    "title": "IQOS ILUMA i PRIME Electric Purple",
+    "description": "Нагреватель табака IQOS ILUMA i PRIME Electric Purple — флагманская модель серии IQOS ILUMA i с сенсорным экраном, режимом паузы (Pause Mode), гибким выбором сеансов FlexPuff и изысканным корпусом в ярком цвете Electric Purple.",
+    "image": [
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-1.webp",
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-2.webp",
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-3.webp"
+    ],
+    "category": "gadget",
+    "line": "i prime",
+    "color": "Фиолетовый",
+    "colorVariantName": "Electric Purple",
+    "price": 14000,
+    "badges": {
+      "isNew": true,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 102,
+    "slug": "iqos-iluma-i-electric-purple",
+    "title": "IQOS ILUMA i Electric Purple",
+    "description": "Нагреватель табака IQOS ILUMA i Electric Purple — инновационная модель с интерактивным сенсорным дисплеем, функцией паузы, режимом сохранения аккумулятора и индукционным нагревом Smartcore INDUCTION SYSTEM™ в стильном цвете Electric Purple.",
+    "image": [
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-4.webp",
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-5.webp",
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-6.webp"
+    ],
+    "category": "gadget",
+    "line": "i",
+    "color": "Фиолетовый",
+    "colorVariantName": "Electric Purple",
+    "price": 11500,
+    "badges": {
+      "isNew": true,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
+  },
+  {
+    "id": 103,
+    "slug": "iqos-iluma-i-one-electric-purple",
+    "title": "IQOS ILUMA i ONE Electric Purple",
+    "description": "Нагреватель табака IQOS ILUMA i ONE Electric Purple — компактное устройство формата «всё в одном», рассчитанное до 20 сеансов без подзарядки, с индукционным нагревом и ярким дизайном в цвете Electric Purple.",
+    "image": [
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-7.webp",
+      "https://sjqoinxhewxxbcczliyl.supabase.co/storage/v1/object/public/illuma/iqos-illuma-i-prime-electric-purple-8.webp"
+    ],
+    "category": "gadget",
+    "line": "i-one",
+    "color": "Фиолетовый",
+    "colorVariantName": "Electric Purple",
+    "price": 9000,
+    "badges": {
+      "isNew": true,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "inStock": true
   }
 ]
