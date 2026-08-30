@@ -10,6 +10,11 @@ import {
 } from '@/components';
 import { ButtonVariant } from '@/components/ButtonTypes';
 import { TRADE_IN_FAQ } from '@/lib/content/trade-in';
+import { getTradeInDevices, getTradeInTargets } from '@/lib/api';
+
+// Device data is admin-managed in the DB; revalidate so edits appear without a
+// redeploy (ISR, 60s).
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Трейд-ин IQOS | Обмен старых устройств на IQOS ILUMA со скидкой',
@@ -17,14 +22,16 @@ export const metadata: Metadata = {
     'Программа Трейд-ин IQOS: обменяйте старое устройство IQOS, lil SOLID или аналоги на новый IQOS ILUMA со скидкой до 2 500 ₽. Принимаем в любом состоянии.',
 };
 
-export default function TradeInPage() {
+export default async function TradeInPage() {
+  const [oldDevices, targetLines] = await Promise.all([getTradeInDevices(), getTradeInTargets()]);
+
   return (
     <div className='flex flex-col min-h-screen bg-neutral-50'>
       <TradeInHero />
 
       <TextSeparator />
 
-      <TradeInCalculator />
+      <TradeInCalculator oldDevices={oldDevices} targetLines={targetLines} />
 
       <TextSeparator />
 

@@ -20,6 +20,7 @@ const tradeInSchema = z.object({
   oldDevice: z.string().min(1, 'Выберите ваше старое устройство'),
   oldDeviceId: z.string().optional(),
   targetDevice: z.string().min(1, 'Выберите новое устройство IQOS ILUMA'),
+  targetColor: z.string().optional(),
   targetSlug: z.string().optional(),
   targetFullPrice: z.number(),
   estimatedDiscount: z.number(),
@@ -36,13 +37,15 @@ export async function submitTradeIn(data: TradeInData) {
     const d = tradeInSchema.parse(data);
 
     // 2. Build self-contained order snapshot
+    const targetTitle = d.targetColor ? `${d.targetDevice} · ${d.targetColor}` : d.targetDevice;
+
     const items: OrderItemSnapshot[] = [
       {
-        title: d.targetDevice,
+        title: targetTitle,
         quantity: 1,
         unit_price: d.targetFullPrice,
         line_total: d.targetFullPrice,
-        product_id: null, // trade-in target isn't tied to a catalog row here
+        product_id: null, // resolved by slug below; kept null since trade-in isn't a cart line
         slug: d.targetSlug ?? null,
       },
     ];
@@ -52,6 +55,7 @@ export async function submitTradeIn(data: TradeInData) {
         old_device: d.oldDevice,
         old_device_id: d.oldDeviceId ?? null,
         target_device: d.targetDevice,
+        target_color: d.targetColor ?? null,
         target_slug: d.targetSlug ?? null,
         original_price: d.targetFullPrice,
         estimated_discount: d.estimatedDiscount,
@@ -97,7 +101,7 @@ export async function submitTradeIn(data: TradeInData) {
             phone: d.phone,
             email: d.email,
             oldDevice: d.oldDevice,
-            targetDevice: d.targetDevice,
+            targetDevice: targetTitle,
             estimatedDiscount: d.estimatedDiscount,
             finalPrice: d.finalPrice,
             address: d.address,
@@ -124,7 +128,7 @@ export async function submitTradeIn(data: TradeInData) {
               orderId: order.id.toString(),
               customerName: d.name,
               oldDevice: d.oldDevice,
-              targetDevice: d.targetDevice,
+              targetDevice: targetTitle,
               estimatedDiscount: d.estimatedDiscount,
               finalPrice: d.finalPrice,
             }),

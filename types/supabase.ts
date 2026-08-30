@@ -146,6 +146,44 @@ export interface Database {
           status?: string | null;
         };
       };
+      trade_in_devices: {
+        Row: {
+          id: number;
+          created_at: string;
+          device_key: string;
+          name: string;
+          description: string | null;
+          image: string[] | null;
+          base_discount: number;
+          badge: string | null;
+          is_active: boolean;
+          sort_order: number;
+        };
+        Insert: {
+          id?: number;
+          created_at?: string;
+          device_key: string;
+          name: string;
+          description?: string | null;
+          image?: string[] | null;
+          base_discount?: number;
+          badge?: string | null;
+          is_active?: boolean;
+          sort_order?: number;
+        };
+        Update: {
+          id?: number;
+          created_at?: string;
+          device_key?: string;
+          name?: string;
+          description?: string | null;
+          image?: string[] | null;
+          base_discount?: number;
+          badge?: string | null;
+          is_active?: boolean;
+          sort_order?: number;
+        };
+      };
     };
   };
 }
@@ -154,3 +192,4 @@ export type ProductRow = Database['public']['Tables']['products']['Row'];
 export type OrderRow = Database['public']['Tables']['orders']['Row'];
 export type OrderItemRow = Database['public']['Tables']['order_items']['Row'];
 export type ContactMessageRow = Database['public']['Tables']['contact_messages']['Row'];
+export type TradeInDeviceRow = Database['public']['Tables']['trade_in_devices']['Row'];

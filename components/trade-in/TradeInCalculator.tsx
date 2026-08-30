@@ -3,29 +3,35 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
-import { ChevronLeft, ChevronRight, ArrowLeftRight, ArrowDown } from 'lucide-react';
-import {
-  OLD_DEVICES,
-  TARGET_DEVICES,
-  OldDeviceOption,
-  TargetDeviceOption,
-  getDeviceDiscount,
-} from '@/lib/content/trade-in';
-import { formatPrice } from '@/lib/utils';
+import { ChevronLeft, ChevronRight, ArrowLeftRight, ArrowDown, Smartphone } from 'lucide-react';
+import type { TradeInDeviceView, TradeInTargetLine, TradeInTargetColor } from '@/lib/api';
+import { formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 import { TradeInForm } from './TradeInForm';
 import { Button } from '@/components/Button';
 import { ButtonVariant } from '@/components/ButtonTypes';
+
+interface Props {
+  oldDevices: TradeInDeviceView[];
+  targetLines: TradeInTargetLine[];
+}
+
+const lineShortLabel = (line: string) => line.replace(/-/g, ' ').toUpperCase();
 
 /* -------------------------------------------------------------------------- */
 /* Old-device selector — embla carousel with arrows, dots and a peek edge      */
 /* -------------------------------------------------------------------------- */
 
 interface OldDeviceCarouselProps {
-  selectedId: string;
-  onSelect: (device: OldDeviceOption) => void;
+  devices: TradeInDeviceView[];
+  selectedKey: string;
+  onSelect: (device: TradeInDeviceView) => void;
 }
 
-const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({ selectedId, onSelect }) => {
+const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
+  devices,
+  selectedKey,
+  onSelect,
+}) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: 'start',
     containScroll: 'trimSnaps',
@@ -90,11 +96,10 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({ selectedId, onSel
       {/* Track */}
       <div className='overflow-hidden -mx-1' ref={emblaRef}>
         <div className='flex'>
-          {OLD_DEVICES.map((device) => {
-            const isSelected = selectedId === device.id;
-            const discountVal = getDeviceDiscount(device);
+          {devices.map((device) => {
+            const isSelected = selectedKey === device.key;
             return (
-              <div key={device.id} className='flex-[0_0_47%] sm:flex-[0_0_38%] min-w-0 px-1'>
+              <div key={device.key} className='flex-[0_0_47%] sm:flex-[0_0_38%] min-w-0 px-1'>
                 <button
                   type='button'
                   onClick={() => onSelect(device)}
@@ -105,14 +110,18 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({ selectedId, onSel
                       : 'border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 hover:border-white/25'
                   }`}
                 >
-                  <div className='relative w-full aspect-square rounded-xl bg-neutral-900/60 overflow-hidden mb-2'>
-                    <Image
-                      src={device.image}
-                      alt={device.name}
-                      fill
-                      sizes='140px'
-                      className='object-contain p-2'
-                    />
+                  <div className='relative w-full aspect-square rounded-xl bg-neutral-900/60 overflow-hidden mb-2 flex items-center justify-center'>
+                    {device.image ? (
+                      <Image
+                        src={device.image}
+                        alt={device.name}
+                        fill
+                        sizes='140px'
+                        className='object-contain p-2'
+                      />
+                    ) : (
+                      <Smartphone className='w-8 h-8 text-neutral-500' />
+                    )}
                   </div>
                   <div className='text-[11px] font-bold leading-tight line-clamp-2 min-h-[26px]'>
                     {device.name}
@@ -120,7 +129,7 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({ selectedId, onSel
                   <div
                     className={`text-xs font-black mt-0.5 ${isSelected ? 'text-emerald-600' : 'text-emerald-400'}`}
                   >
-                    −{formatPrice(discountVal)}
+                    −{formatPrice(device.discount)}
                   </div>
                 </button>
               </div>
@@ -162,15 +171,40 @@ const StepBadge = ({ n, label }: { n: number; label: string }) => (
   </div>
 );
 
-export const TradeInCalculator: React.FC = () => {
-  const [selectedOldDevice, setSelectedOldDevice] = useState<OldDeviceOption>(OLD_DEVICES[0]);
-  const [selectedTargetDevice, setSelectedTargetDevice] = useState<TargetDeviceOption>(
-    TARGET_DEVICES[0],
+export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) => {
+  const [selectedOld, setSelectedOld] = useState<TradeInDeviceView | null>(
+    () => oldDevices[0] ?? null,
+  );
+  const [selectedLine, setSelectedLine] = useState<TradeInTargetLine | null>(
+    () => targetLines[0] ?? null,
+  );
+  const [selectedColor, setSelectedColor] = useState<TradeInTargetColor | null>(
+    () => targetLines[0]?.colors[0] ?? null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const estimatedDiscount = getDeviceDiscount(selectedOldDevice);
-  const finalPrice = Math.max(0, selectedTargetDevice.fullPrice - estimatedDiscount);
+  const handleSelectLine = useCallback((line: TradeInTargetLine) => {
+    setSelectedLine(line);
+    setSelectedColor(line.colors[0] ?? null);
+  }, []);
+
+  if (!selectedOld || !selectedLine || !selectedColor) {
+    return (
+      <section id='calculator' className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
+        <div className='container-custom max-w-2xl mx-auto text-center'>
+          <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight mb-3'>
+            Калькулятор Трейд-ин
+          </h2>
+          <p className='text-[#34303d]/70'>
+            Калькулятор временно недоступен. Пожалуйста, свяжитесь с нами для расчёта обмена.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  const estimatedDiscount = selectedOld.discount;
+  const finalPrice = Math.max(0, selectedColor.price - estimatedDiscount);
 
   return (
     <section id='calculator' className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
@@ -192,28 +226,35 @@ export const TradeInCalculator: React.FC = () => {
             <div className='flex flex-col min-w-0 p-4 sm:p-5 rounded-3xl bg-white/[0.06] border border-white/10'>
               <StepBadge n={1} label='Что сдаёте' />
 
-              <div className='relative w-full h-40 sm:h-52 rounded-2xl bg-neutral-950/40 overflow-hidden'>
-                <Image
-                  key={selectedOldDevice.id}
-                  src={selectedOldDevice.image}
-                  alt={selectedOldDevice.name}
-                  fill
-                  sizes='(max-width: 768px) 90vw, 360px'
-                  className='object-contain p-4'
-                />
+              <div className='relative w-full h-40 sm:h-52 rounded-2xl bg-neutral-950/40 overflow-hidden flex items-center justify-center'>
+                {selectedOld.image ? (
+                  <Image
+                    key={selectedOld.key}
+                    src={selectedOld.image}
+                    alt={selectedOld.name}
+                    fill
+                    sizes='(max-width: 768px) 90vw, 360px'
+                    className='object-contain p-4'
+                  />
+                ) : (
+                  <Smartphone className='w-16 h-16 text-neutral-600' />
+                )}
                 <span className='absolute top-3 right-3 px-2.5 py-1 rounded-full bg-emerald-500 text-white text-xs font-black shadow-lg'>
                   −{formatPrice(estimatedDiscount)}
                 </span>
               </div>
 
               <div className='mt-3'>
-                <h4 className='font-black text-lg leading-tight'>{selectedOldDevice.name}</h4>
-                <p className='text-xs text-neutral-400 mt-0.5'>{selectedOldDevice.description}</p>
+                <h4 className='font-black text-lg leading-tight'>{selectedOld.name}</h4>
+                {selectedOld.description && (
+                  <p className='text-xs text-neutral-400 mt-0.5'>{selectedOld.description}</p>
+                )}
               </div>
 
               <OldDeviceCarousel
-                selectedId={selectedOldDevice.id}
-                onSelect={setSelectedOldDevice}
+                devices={oldDevices}
+                selectedKey={selectedOld.key}
+                onSelect={setSelectedOld}
               />
             </div>
 
@@ -229,68 +270,96 @@ export const TradeInCalculator: React.FC = () => {
             <div className='flex flex-col min-w-0 p-4 sm:p-5 rounded-3xl bg-white/[0.06] border border-white/10'>
               <StepBadge n={2} label='Что получаете' />
 
-              <div className='relative w-full h-40 sm:h-52 rounded-2xl bg-neutral-950/40 overflow-hidden'>
-                <Image
-                  key={selectedTargetDevice.id}
-                  src={selectedTargetDevice.image}
-                  alt={selectedTargetDevice.name}
-                  fill
-                  sizes='(max-width: 768px) 90vw, 360px'
-                  className='object-contain p-4'
-                />
+              <div className='relative w-full h-40 sm:h-52 rounded-2xl bg-neutral-950/40 overflow-hidden flex items-center justify-center'>
+                {selectedColor.image ? (
+                  <Image
+                    key={selectedColor.slug}
+                    src={selectedColor.image}
+                    alt={`${selectedLine.name} ${selectedColor.colorLabel}`}
+                    fill
+                    sizes='(max-width: 768px) 90vw, 360px'
+                    className='object-contain p-4'
+                  />
+                ) : (
+                  <Smartphone className='w-16 h-16 text-neutral-600' />
+                )}
               </div>
 
               <div className='mt-3'>
                 <div className='flex items-baseline gap-2'>
-                  <h4 className='font-black text-lg leading-tight'>{selectedTargetDevice.name}</h4>
+                  <h4 className='font-black text-lg leading-tight'>{selectedLine.name}</h4>
                   <span className='text-xs text-neutral-400 line-through'>
-                    {formatPrice(selectedTargetDevice.fullPrice)}
+                    {formatPrice(selectedColor.price)}
                   </span>
                 </div>
-                <p className='text-xs text-neutral-400 mt-0.5'>{selectedTargetDevice.tagline}</p>
+                <p className='text-xs text-neutral-400 mt-0.5'>
+                  Цвет:{' '}
+                  <span className='text-neutral-200 font-semibold'>{selectedColor.colorLabel}</span>
+                </p>
               </div>
 
-              {/* Target selector — 3 options, all visible */}
-              <div className='mt-auto pt-4'>
-                <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
-                  Выберите новый IQOS ILUMA
-                </span>
-                <div className='grid grid-cols-3 gap-2'>
-                  {TARGET_DEVICES.map((target) => {
-                    const isSelected = selectedTargetDevice.id === target.id;
-                    const itemFinalPrice = Math.max(0, target.fullPrice - estimatedDiscount);
-                    return (
-                      <button
-                        key={target.id}
-                        type='button'
-                        onClick={() => setSelectedTargetDevice(target)}
-                        aria-pressed={isSelected}
-                        className={`p-2 rounded-2xl border text-center transition-all duration-150 ${
-                          isSelected
-                            ? 'border-white bg-white text-neutral-900 shadow-lg'
-                            : 'border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 hover:border-white/25'
-                        }`}
-                      >
-                        <div className='relative w-full aspect-square rounded-lg bg-neutral-900/60 overflow-hidden mb-1.5'>
-                          <Image
-                            src={target.image}
-                            alt={target.name}
-                            fill
-                            sizes='90px'
-                            className='object-contain p-1.5'
-                          />
-                        </div>
-                        <div className='text-[10px] font-bold leading-tight truncate'>
-                          {target.line}
-                        </div>
-                        <div
-                          className={`text-[10px] font-black ${isSelected ? 'text-neutral-900' : 'text-neutral-400'}`}
+              {/* Line + colour selectors */}
+              <div className='mt-auto pt-4 space-y-4'>
+                <div>
+                  <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
+                    Выберите модель для получения
+                  </span>
+                  <div className='grid grid-cols-3 gap-2'>
+                    {targetLines.map((line) => {
+                      const isSelected = selectedLine.line === line.line;
+                      const minPrice = Math.min(...line.colors.map((c) => c.price));
+                      return (
+                        <button
+                          key={line.line}
+                          type='button'
+                          onClick={() => handleSelectLine(line)}
+                          aria-pressed={isSelected}
+                          className={`p-2 rounded-2xl border text-center transition-all duration-150 ${
+                            isSelected
+                              ? 'border-white bg-white text-neutral-900 shadow-lg'
+                              : 'border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 hover:border-white/25'
+                          }`}
                         >
-                          {formatPrice(itemFinalPrice)}
-                        </div>
-                      </button>
-                    );
-                  })}
+                          <div className='text-[11px] font-black leading-tight truncate'>
+                            {lineShortLabel(line.line)}
+                          </div>
+                          <div
+                            className={`text-[10px] font-medium ${isSelected ? 'text-neutral-500' : 'text-neutral-400'}`}
+                          >
+                            от {formatPrice(minPrice)}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
+                    Выберите цвет устройства
+                  </span>
+                  <div className='flex items-center gap-2.5 flex-wrap'>
+                    {selectedLine.colors.map((color) => {
+                      const isSelected = selectedColor.slug === color.slug;
+                      const swatch = getDeviceColorSwatch(color.colorLabel);
+                      return (
+                        <button
+                          key={color.slug}
+                          type='button'
+                          title={color.colorLabel}
+                          aria-label={color.colorLabel}
+                          aria-pressed={isSelected}
+                          onClick={() => setSelectedColor(color)}
+                          style={swatch}
+                          className={`w-7 h-7 rounded-full transition-all duration-200 ${
+                            isSelected
+                              ? 'ring-2 ring-white ring-offset-2 ring-offset-[#34303D] scale-110'
+                              : 'opacity-80 hover:opacity-100 hover:scale-105'
+                          } ${color.inStock ? '' : 'opacity-40'}`}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -310,7 +379,7 @@ export const TradeInCalculator: React.FC = () => {
                   {formatPrice(finalPrice)}
                 </span>
                 <span className='text-sm text-neutral-400 line-through'>
-                  {formatPrice(selectedTargetDevice.fullPrice)}
+                  {formatPrice(selectedColor.price)}
                 </span>
               </div>
               <div className='text-xs text-neutral-400 mt-1'>Итого к оплате при обмене</div>
@@ -326,11 +395,12 @@ export const TradeInCalculator: React.FC = () => {
       {/* Slide-over form */}
       <TradeInForm
         isOpen={isModalOpen}
-        oldDeviceName={selectedOldDevice.name}
-        oldDeviceId={selectedOldDevice.id}
-        targetDeviceName={selectedTargetDevice.name}
-        targetSlug={selectedTargetDevice.slug}
-        targetFullPrice={selectedTargetDevice.fullPrice}
+        oldDeviceName={selectedOld.name}
+        oldDeviceId={selectedOld.key}
+        targetDeviceName={selectedLine.name}
+        targetColor={selectedColor.colorLabel}
+        targetSlug={selectedColor.slug}
+        targetFullPrice={selectedColor.price}
         estimatedDiscount={estimatedDiscount}
         finalPrice={finalPrice}
         onCancel={() => setIsModalOpen(false)}

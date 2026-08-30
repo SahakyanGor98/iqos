@@ -10,6 +10,7 @@ interface TradeInFormProps {
   oldDeviceName: string;
   oldDeviceId?: string;
   targetDeviceName: string;
+  targetColor?: string;
   targetSlug?: string;
   targetFullPrice: number;
   estimatedDiscount: number;
@@ -23,6 +24,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
   oldDeviceName,
   oldDeviceId,
   targetDeviceName,
+  targetColor,
   targetSlug,
   targetFullPrice,
   estimatedDiscount,
@@ -84,6 +86,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
       oldDevice: oldDeviceName,
       oldDeviceId,
       targetDevice: targetDeviceName,
+      targetColor,
       targetSlug,
       targetFullPrice,
       estimatedDiscount,
@@ -178,7 +181,10 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               </div>
               <div className='flex justify-between text-neutral-600'>
                 <span>Получаете:</span>
-                <span className='font-bold text-neutral-900'>{targetDeviceName}</span>
+                <span className='font-bold text-neutral-900'>
+                  {targetDeviceName}
+                  {targetColor ? ` · ${targetColor}` : ''}
+                </span>
               </div>
               <div className='flex justify-between font-bold text-neutral-900 pt-2 border-t border-neutral-200'>
                 <span>К оплате курьеру:</span>
@@ -206,7 +212,10 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               </div>
               <div className='flex justify-between items-center text-neutral-600'>
                 <span>Получаете:</span>
-                <span className='font-bold text-neutral-900'>{targetDeviceName}</span>
+                <span className='font-bold text-neutral-900'>
+                  {targetDeviceName}
+                  {targetColor ? ` · ${targetColor}` : ''}
+                </span>
               </div>
               <div className='flex justify-between items-center text-neutral-600'>
                 <span>Город:</span>
