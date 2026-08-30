@@ -4,10 +4,10 @@ import { TRADE_IN_BENEFITS } from '@/lib/content/trade-in';
 
 export const TradeInBenefits = () => {
   return (
-    <section className='py-12 md:py-20 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
+    <section className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
       <div className='container-custom max-w-5xl mx-auto'>
         <div className='text-left md:text-center mb-10 md:mb-14'>
-          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
+          <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
             Почему стоит сдать старый IQOS в Трейд-ин
           </h2>
           <p className='text-[#34303d]/80 text-sm md:text-base max-w-2xl mx-auto'>

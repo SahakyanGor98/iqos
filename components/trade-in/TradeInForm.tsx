@@ -182,7 +182,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               </div>
               <div className='flex justify-between font-bold text-neutral-900 pt-2 border-t border-neutral-200'>
                 <span>К оплате курьеру:</span>
-                <span className='text-emerald-700 font-black'>{formatPrice(finalPrice)} ₽</span>
+                <span className='text-emerald-700 font-black'>{formatPrice(finalPrice)}</span>
               </div>
             </div>
 
@@ -214,12 +214,12 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               </div>
               <div className='border-t border-neutral-200/80 pt-2 flex justify-between items-center font-bold text-xs sm:text-sm'>
                 <span className='text-neutral-700'>Скидка по Трейд-ин:</span>
-                <span className='text-emerald-700'>-{formatPrice(estimatedDiscount)} ₽</span>
+                <span className='text-emerald-700'>-{formatPrice(estimatedDiscount)}</span>
               </div>
               <div className='flex justify-between items-center font-black text-sm sm:text-base text-neutral-900'>
                 <span>Итого к оплате:</span>
                 <span className='text-base sm:text-lg text-neutral-900'>
-                  {formatPrice(finalPrice)} ₽
+                  {formatPrice(finalPrice)}
                 </span>
               </div>
             </div>
