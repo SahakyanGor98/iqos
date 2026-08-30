@@ -7,7 +7,10 @@ type Props = {
 
 export const AboutHistorySection = ({ section }: Props) => {
   return (
-    <section id={section.id} className='relative bg-neutral-50 text-[#34303d] overflow-hidden border-y border-neutral-100'>
+    <section
+      id={section.id}
+      className='relative bg-neutral-50 text-[#34303d] overflow-hidden border-y border-neutral-100'
+    >
       {/* Mobile view: First paragraph on top of image, second paragraph below image */}
       <div className='block md:hidden w-full'>
         {/* Top Image Banner with First Paragraph, using full aspect-[1/2] ratio matching 1024x2048 */}
@@ -40,7 +43,9 @@ export const AboutHistorySection = ({ section }: Props) => {
         <div className='px-6 py-12 text-left bg-neutral-50 border-t border-neutral-200/50'>
           <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-pretty text-base'>
             {section.paragraphs.slice(1).map((paragraph) => (
-              <p key={paragraph} className='whitespace-pre-line'>{paragraph}</p>
+              <p key={paragraph} className='whitespace-pre-line'>
+                {paragraph}
+              </p>
             ))}
           </div>
           {section.footnotes && (
@@ -78,7 +83,9 @@ export const AboutHistorySection = ({ section }: Props) => {
 
               <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-left text-pretty'>
                 {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph} className='whitespace-pre-line'>{paragraph}</p>
+                  <p key={paragraph} className='whitespace-pre-line'>
+                    {paragraph}
+                  </p>
                 ))}
               </div>
 
@@ -103,16 +110,24 @@ export const AboutDefaultSection = ({ section }: Props) => {
   return (
     <section id={section.id} className='pb-12 md:py-20 bg-neutral-50'>
       <div className='container-custom'>
-        <div className={`grid gap-10 lg:gap-16 items-center ${section.image ? 'lg:grid-cols-2' : 'max-w-3xl mx-auto'}`}>
+        <div
+          className={`grid gap-10 lg:gap-16 items-center ${section.image ? 'lg:grid-cols-2' : 'max-w-3xl mx-auto'}`}
+        >
           {/* Text is order-2 (appears second on mobile after the image) */}
-          <div className={`order-2 ${section.image ? '' : 'space-y-4'} ${section.reverse ? 'lg:order-2' : 'lg:order-1'} text-left`}>
-            <h2 className={`text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6 text-[#34303d] text-balance ${section.image ? '' : 'mx-auto max-w-2xl'}`}>
+          <div
+            className={`order-2 ${section.image ? '' : 'space-y-4'} ${section.reverse ? 'lg:order-2' : 'lg:order-1'} text-left`}
+          >
+            <h2
+              className={`text-2xl md:text-4xl font-black uppercase tracking-tight mb-4 md:mb-6 text-[#34303d] text-balance ${section.image ? '' : 'mx-auto max-w-2xl'}`}
+            >
               {section.title}
             </h2>
 
             <div className='space-y-4 text-base md:text-lg leading-relaxed text-[#34303d]/90 text-pretty'>
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className='whitespace-pre-line'>{paragraph}</p>
+                <p key={paragraph} className='whitespace-pre-line'>
+                  {paragraph}
+                </p>
               ))}
             </div>
 
@@ -130,8 +145,9 @@ export const AboutDefaultSection = ({ section }: Props) => {
           {/* Image is order-1 (appears first on mobile) */}
           {section.image && (
             <div
-              className={`order-1 relative aspect-[4/3] overflow-hidden -mx-4 md:mx-0 rounded-none md:rounded-2xl bg-neutral-100 ${section.reverse ? 'lg:order-1' : 'lg:order-2'
-                }`}
+              className={`order-1 relative aspect-[4/3] overflow-hidden -mx-4 md:mx-0 rounded-none md:rounded-2xl bg-neutral-100 ${
+                section.reverse ? 'lg:order-1' : 'lg:order-2'
+              }`}
             >
               <Image
                 src={section.image}
@@ -158,7 +174,9 @@ export const AboutTextOnlySection = ({ section }: Props) => {
 
         <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-pretty'>
           {section.paragraphs.map((paragraph) => (
-            <p key={paragraph} className='whitespace-pre-line'>{paragraph}</p>
+            <p key={paragraph} className='whitespace-pre-line'>
+              {paragraph}
+            </p>
           ))}
         </div>
       </div>

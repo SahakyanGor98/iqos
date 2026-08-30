@@ -1,6 +1,6 @@
 import React from 'react';
-import { formatDeviceTitle, fixCasing } from '@/lib/utils';
-import { IQOS_KEY_FACTS, IQOS_DISCLAIMERS } from '@/lib/content/iqos-about';
+import { fixCasing, formatDeviceTitle } from '@/lib/utils';
+import { IQOS_DISCLAIMERS, IQOS_KEY_FACTS } from '@/lib/content/iqos-about';
 
 export const AboutFactsGrid: React.FC = () => {
   return (
@@ -43,7 +43,8 @@ export const AboutFactsGrid: React.FC = () => {
           </h3>
 
           <p className='text-neutral-200 text-base md:text-lg leading-relaxed max-w-3xl text-pretty'>
-            IQOS предназначен <strong>исключительно для совершеннолетних курильщиков</strong>, которые в противном случае продолжили бы курить обычные сигареты.
+            IQOS предназначен <strong>исключительно для совершеннолетних курильщиков</strong>,
+            которые в противном случае продолжили бы курить обычные сигареты.
           </p>
 
           <div className='grid sm:grid-cols-2 md:grid-cols-4 gap-4 border-t border-neutral-800 pt-6 text-sm md:text-base text-neutral-300'>

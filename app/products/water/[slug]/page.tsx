@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -130,8 +130,12 @@ export default async function WaterSlugPage({ params }: Props) {
             </div>
 
             <div className='flex items-end gap-2'>
-              <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
-              <span className='text-sm font-medium text-neutral-500 mb-2'>/ упаковка ({packSize} шт.)</span>
+              <span className='text-4xl font-bold text-[#34303d]'>
+                {formatPrice(productRow.price)}
+              </span>
+              <span className='text-sm font-medium text-neutral-500 mb-2'>
+                / упаковка ({packSize} шт.)
+              </span>
             </div>
 
             {productRow.description && (

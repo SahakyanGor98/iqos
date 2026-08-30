@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -56,12 +56,13 @@ export default async function IqosSlugPage({ params }: Props) {
   const badgeData = badges as Record<string, boolean>;
 
   // Fetch sibling color variants for the same line
-  let siblingVariants: typeof productRow[] = [];
+  let siblingVariants: (typeof productRow)[] = [];
   if (attrs.line) {
     const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
-    siblingVariants = gadgets.filter((p) => (p.attributes as Record<string, any>)?.line === attrs.line);
+    siblingVariants = gadgets.filter(
+      (p) => (p.attributes as Record<string, any>)?.line === attrs.line,
+    );
   }
-
 
   const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
 
@@ -155,10 +156,11 @@ export default async function IqosSlugPage({ params }: Props) {
                         key={variant.id}
                         href={`/products/iqos/${variant.slug}`}
                         title={vAttrs.color || variant.title}
-                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${isCurrent
+                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${
+                          isCurrent
                             ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
                             : 'hover:scale-110 opacity-80 hover:opacity-100'
-                          }`}
+                        }`}
                         style={swatch}
                       />
                     );
@@ -178,7 +180,9 @@ export default async function IqosSlugPage({ params }: Props) {
                   </span>
                 </>
               ) : (
-                <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
+                <span className='text-4xl font-bold text-[#34303d]'>
+                  {formatPrice(productRow.price)}
+                </span>
               )}
             </div>
 
@@ -224,8 +228,10 @@ export default async function IqosSlugPage({ params }: Props) {
           </div>
 
           {/* Bottom Section (Buy Button) */}
-          <div className='pt-4'>
-            <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
+          <div className='pt-4 flex items-center gap-3'>
+            <div className='flex-1'>
+              <AddToCartButton product={storeProduct} disabled={!productRow.in_stock} />
+            </div>
           </div>
         </div>
       </div>

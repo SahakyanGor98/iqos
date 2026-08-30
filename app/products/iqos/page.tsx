@@ -1,4 +1,5 @@
 import { getProducts } from '@/lib/api';
+import { getGroupedCards } from '@/lib/grouping';
 import { Pagination, PerPageSelect, ProductFilters, ProductGrid, SortSelect } from '@/components';
 import { IQOS_LINES } from '@/lib/constants';
 
@@ -23,7 +24,7 @@ type Props = {
 export default async function IqosPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
-  const limit = Number(params.limit) || 12;
+  const limit = Number(params.limit) || 25;
 
   const minPrice = params.minPrice ? Number(params.minPrice) : undefined;
   const maxPrice = params.maxPrice ? Number(params.maxPrice) : undefined;
@@ -62,10 +63,10 @@ export default async function IqosPage({ searchParams }: Props) {
     },
   ];
 
-  const { data: products, count } = await getProducts({
+  const { data: allProducts } = await getProducts({
     category: 'gadget',
-    page,
-    limit,
+    page: 1,
+    limit: 500,
     sort: params.sort as string,
     priceRange: { min: minPrice, max: maxPrice },
     inStock: params.inStock === 'true',
@@ -74,6 +75,10 @@ export default async function IqosPage({ searchParams }: Props) {
       line: params.line as string | string[],
     },
   });
+
+  const allCards = getGroupedCards(allProducts);
+  const totalCardsCount = allCards.length;
+  const paginatedCards = allCards.slice((page - 1) * limit, page * limit);
 
   return (
     <div className='container mx-auto p-4 flex flex-col md:flex-row gap-8'>
@@ -99,8 +104,8 @@ export default async function IqosPage({ searchParams }: Props) {
           </div>
         </div>
 
-        <ProductGrid products={products} />
-        <Pagination totalItems={count || 0} itemsPerPage={limit} />
+        <ProductGrid cards={paginatedCards} />
+        <Pagination totalItems={totalCardsCount} itemsPerPage={limit} />
         <div className='flex justify-center mt-8'>
           <PerPageSelect />
         </div>
