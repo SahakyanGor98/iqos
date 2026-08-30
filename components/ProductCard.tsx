@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
+import { CompareButton } from '@/components/CompareButton';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   product: ProductRow;
@@ -53,7 +54,6 @@ export const ProductCard = ({ product, variants }: Props) => {
   const mainImage = Array.isArray(activeProduct.image)
     ? activeProduct.image[0]
     : activeProduct.image;
-
   const getCategoryPath = (cat: string) => {
     if (cat === 'gadget') return 'iqos';
     if (cat === 'accessories') return 'accessories';
@@ -64,7 +64,7 @@ export const ProductCard = ({ product, variants }: Props) => {
   return (
     <Link
       href={`/products/${getCategoryPath(activeProduct.category)}/${activeProduct.slug}`}
-      className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden'
+      className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden relative'
     >
       {/* Image */}
       <div className='relative aspect-square bg-neutral-50 overflow-hidden'>
@@ -74,6 +74,11 @@ export const ProductCard = ({ product, variants }: Props) => {
           className='w-full h-full object-cover transition-all duration-300 group-hover:scale-105'
           loading='lazy'
         />
+
+        {/* Compare Button (Top Right) */}
+        <div className='absolute top-2.5 right-2.5 z-20'>
+          <CompareButton product={activeProduct} variant='icon' />
+        </div>
 
         {/* Badges */}
         <div className='absolute top-2 left-2 flex flex-col gap-1 z-10'>

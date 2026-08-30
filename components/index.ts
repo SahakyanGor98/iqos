@@ -28,3 +28,6 @@ export * from './PromoBlock';
 export * from './DeliveryNoticeToast';
 export * from './IqosWhatIsSection';
 export * from './WaterBanner';
+export * from './CompareButton';
+export * from './CompareFloatingBar';
+export * from './CompareAddModal';

@@ -73,30 +73,41 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
     Object.entries(filters).forEach(([key, value]) => {
       if (!value) return;
 
-      // Special handling for 'hasCapsule' boolean logic
       if (key === 'hasCapsule') {
-        query = query.contains('attributes', { [key]: value === 'true' });
-        return;
-      }
-
-      const knownArrayKeys = ['flavors'];
-
-      if (Array.isArray(value)) {
-        if (knownArrayKeys.includes(key)) {
-          const orCondition = value.map((v) => `attributes->${key}.cs.["${v}"]`).join(',');
-          query = query.or(orCondition);
-        } else {
-          const orCondition = value.map((v) => `attributes->>${key}.eq.${v}`).join(',');
-          query = query.or(orCondition);
+        const valBool = Array.isArray(value) ? value.includes('true') : value === 'true';
+        if (valBool) {
+          query = query.eq('attributes->>hasCapsule', 'true');
+        }
+      } else if (Array.isArray(value)) {
+        if (value.length > 0) {
+          query = query.in(`attributes->>${key}`, value);
         }
       } else {
-        if (knownArrayKeys.includes(key)) {
-          query = query.contains('attributes', { [key]: [value] });
-        } else {
-          query = query.contains('attributes', { [key]: value });
-        }
+        query = query.eq(`attributes->>${key}`, value);
       }
     });
+  }
+
+  // Text Search
+  if (params.query) {
+    const q = params.query.trim();
+
+    // Check for exact device/line search terms
+    if (/iluma\s*i\s*prime/i.test(q)) {
+      query = query.eq('attributes->>line', 'ILUMA i PRIME');
+    } else if (/iluma\s*i\s*one/i.test(q)) {
+      query = query.eq('attributes->>line', 'ILUMA i ONE');
+    } else if (/iluma\s*i/i.test(q)) {
+      query = query.or(
+        'attributes->>line.eq.ILUMA i,attributes->>line.eq.ILUMA i ONE,attributes->>line.eq.ILUMA i PRIME',
+      );
+    } else if (/prime/i.test(q)) {
+      query = query.or('attributes->>line.eq.ILUMA PRIME,attributes->>line.eq.ILUMA i PRIME');
+    } else if (/one/i.test(q)) {
+      query = query.or('attributes->>line.eq.ILUMA ONE,attributes->>line.eq.ILUMA i ONE');
+    } else {
+      query = query.or(`title.ilike.%${q}%,slug.ilike.%${q}%`);
+    }
   }
 
   // Price Range
@@ -171,6 +182,16 @@ export async function getProductBySlug(slug: string): Promise<ProductRow | null>
     return null;
   }
   return data as ProductRow;
+}
+
+export async function getProductsBySlugs(slugs: string[]): Promise<ProductRow[]> {
+  if (!slugs || slugs.length === 0) return [];
+  const { data, error } = await supabase.from('products').select('*').in('slug', slugs);
+  if (error) {
+    console.error(`Error fetching products by slugs:`, error);
+    return [];
+  }
+  return (data as ProductRow[]) || [];
 }
 
 export type IqosLineupItem = {
