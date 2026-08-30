@@ -56,18 +56,18 @@ export const CompareFloatingBar = () => {
   const categoryTitle = categoryLabelMap[currentCategory] || 'товара';
 
   return (
-    <div className='fixed bottom-6 right-4 left-4 md:left-auto md:right-8 z-40 max-w-lg w-full animate-in slide-in-from-bottom-6 duration-300'>
-      <div className='bg-neutral-900/95 backdrop-blur-md text-white rounded-2xl p-4 shadow-2xl border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4'>
+    <div className='fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:max-w-lg z-40 animate-in slide-in-from-bottom-6 duration-300'>
+      <div className='bg-neutral-900/95 backdrop-blur-md text-white rounded-2xl p-3 sm:p-4 shadow-2xl border border-neutral-800 flex items-center justify-between gap-2 sm:gap-4'>
         {/* Left Info & Items */}
-        <div className='flex items-center gap-3 overflow-x-auto max-w-full pb-1 sm:pb-0 scrollbar-none'>
+        <div className='flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden'>
           {/* Thumbnails */}
-          <div className='flex items-center -space-x-2 sm:space-x-1.5'>
+          <div className='flex items-center -space-x-2 sm:space-x-1.5 flex-shrink-0'>
             {categoryItems.map((product) => {
               const img = Array.isArray(product.image) ? product.image[0] : product.image;
               return (
                 <div
                   key={product.id}
-                  className='relative group flex-shrink-0 w-11 h-11 rounded-xl bg-white/10 border border-white/20 p-1 flex items-center justify-center overflow-hidden'
+                  className='relative group flex-shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/10 border border-white/20 p-1 flex items-center justify-center overflow-hidden'
                 >
                   <img
                     src={`/api/proxy?url=${encodeURIComponent(img)}`}
@@ -91,29 +91,29 @@ export const CompareFloatingBar = () => {
           </div>
 
           {/* Label */}
-          <div className='flex flex-col text-left'>
-            <span className='text-xs font-semibold text-neutral-200'>
-              В списке ({categoryItems.length})
+          <div className='flex flex-col text-left min-w-0 flex-1'>
+            <span className='text-xs font-semibold text-neutral-200 truncate'>
+              Сравнение ({categoryItems.length})
             </span>
-            <span className='text-[11px] text-neutral-400 truncate max-w-[140px]'>
+            <span className='text-[10px] sm:text-[11px] text-neutral-400 truncate hidden sm:block'>
               {categoryTitle}
             </span>
           </div>
         </div>
 
         {/* Right CTA Actions */}
-        <div className='flex items-center gap-2.5 w-full sm:w-auto justify-end'>
+        <div className='flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0'>
           <button
             type='button'
             onClick={() => clearCategoryCompare(currentCategory)}
-            className='text-xs font-medium text-neutral-400 hover:text-white px-2.5 py-1.5 transition-colors cursor-pointer'
+            className='text-xs font-medium text-neutral-400 hover:text-white px-1.5 sm:px-2.5 py-1.5 transition-colors cursor-pointer'
           >
             Очистить
           </button>
 
           <Link
             href={`/compare?category=${currentCategory}`}
-            className='flex items-center gap-1.5 px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap'
+            className='flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap'
           >
             <span>Сравнить</span>
             <svg

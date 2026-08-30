@@ -361,7 +361,7 @@ function CompareContent() {
 
                         <div>
                           {/* Image */}
-                          <div className='w-12 h-12 bg-neutral-50 rounded-lg p-1 mx-auto mb-1 flex items-center justify-center overflow-hidden'>
+                          <div className='aspect-square w-full bg-neutral-50 rounded-xl p-2 mb-2 flex items-center justify-center overflow-hidden'>
                             <img
                               src={`/api/proxy?url=${encodeURIComponent(img)}`}
                               alt={product.title}
