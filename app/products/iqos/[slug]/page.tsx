@@ -155,6 +155,8 @@ export default async function IqosSlugPage({ params }: Props) {
                       <Link
                         key={variant.id}
                         href={`/products/iqos/${variant.slug}`}
+                        scroll={false}
+                        replace={true}
                         title={vAttrs.color || variant.title}
                         className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${
                           isCurrent
