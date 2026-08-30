@@ -7,15 +7,15 @@ export async function GET(request: NextRequest) {
     return new NextResponse('Url parameter is required', { status: 400 });
   }
 
+  if (url.startsWith('/')) {
+    return NextResponse.redirect(new URL(url, request.nextUrl.origin));
+  }
+
   // Security: Only allow proxying images from Supabase
   const allowedHost = 'sjqoinxhewxxbcczliyl.supabase.co';
   try {
     const targetUrl = new URL(url);
     if (targetUrl.hostname !== allowedHost) {
-      // Allow relative URLs or other safe domains if needed, but for now strict check
-      // If it is a relative url (unlikely for supabase), we might need handling.
-      // But supabase urls are absolute.
-      // Let's also allow Unsplash if used, but user primarily uses Supabase.
       if (!['images.unsplash.com'].includes(targetUrl.hostname)) {
         return new NextResponse('Forbidden Host', { status: 403 });
       }
