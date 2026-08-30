@@ -35,19 +35,30 @@ export function ProductGrid({ products }: Props) {
     });
 
     const MODEL_DEFAULT_COLORS: Record<string, string> = {
-      'i': 'breeze blue',
-      'i-one': 'digital violet',
-      'i prime': 'aspen green',
+      'i': 'electric purple',
+      'i-one': 'electric purple',
+      'i prime': 'electric purple',
     };
 
     groupsMap.forEach((variants, lineKey) => {
+      // Sort variants so Electric Purple is first in the swatch list
+      variants.sort((a, b) => {
+        const colorA = String((a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title).toLowerCase();
+        const colorB = String((b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title).toLowerCase();
+        const isPurpleA = colorA.includes('electric purple') || colorA.includes('фиолетовый') || colorA.includes('purple');
+        const isPurpleB = colorB.includes('electric purple') || colorB.includes('фиолетовый') || colorB.includes('purple');
+        if (isPurpleA && !isPurpleB) return -1;
+        if (!isPurpleA && isPurpleB) return 1;
+        return 0;
+      });
+
       const preferredColor = MODEL_DEFAULT_COLORS[lineKey];
       const primary =
         (preferredColor &&
           variants.find(
             (v) =>
               v.in_stock &&
-              String((v.attributes as Record<string, any>)?.color || v.title)
+              String((v.attributes as Record<string, any>)?.colorVariantName || (v.attributes as Record<string, any>)?.color || v.title)
                 .toLowerCase()
                 .includes(preferredColor)
           )) ||

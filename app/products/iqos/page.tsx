@@ -65,7 +65,7 @@ export default async function IqosPage({ searchParams }: Props) {
   const { data: products, count } = await getProducts({
     category: 'gadget',
     page,
-    limit,
+    limit: 100,
     sort: params.sort as string,
     priceRange: { min: minPrice, max: maxPrice },
     inStock: params.inStock === 'true',

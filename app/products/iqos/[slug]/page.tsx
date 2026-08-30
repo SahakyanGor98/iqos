@@ -60,6 +60,15 @@ export default async function IqosSlugPage({ params }: Props) {
   if (attrs.line) {
     const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
     siblingVariants = gadgets.filter((p) => (p.attributes as Record<string, any>)?.line === attrs.line);
+    siblingVariants.sort((a, b) => {
+      const colorA = String((a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title).toLowerCase();
+      const colorB = String((b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title).toLowerCase();
+      const isPurpleA = colorA.includes('electric purple') || colorA.includes('фиолетовый') || colorA.includes('purple');
+      const isPurpleB = colorB.includes('electric purple') || colorB.includes('фиолетовый') || colorB.includes('purple');
+      if (isPurpleA && !isPurpleB) return -1;
+      if (!isPurpleA && isPurpleB) return 1;
+      return 0;
+    });
   }
 
 

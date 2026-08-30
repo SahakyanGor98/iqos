@@ -116,7 +116,7 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#4f86c6' },
   },
   {
-    keywords: ['digital violet', 'violet', 'фиолетовый'],
+    keywords: ['digital violet', 'violet', 'purple', 'electric purple', 'фиолетовый'],
     swatch: { background: '#705096' },
   },
   {
