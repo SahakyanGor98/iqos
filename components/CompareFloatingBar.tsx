@@ -1,0 +1,138 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { CategoryKey, useCompareStore } from '@/store/compareStore';
+
+export const CompareFloatingBar = () => {
+  const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  const itemsByCategory = useCompareStore((state) => state.itemsByCategory);
+  const removeFromCompare = useCompareStore((state) => state.removeFromCompare);
+  const clearCategoryCompare = useCompareStore((state) => state.clearCategoryCompare);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || pathname === '/compare') {
+    return null;
+  }
+
+  // Determine current page category context
+  let currentCategory: CategoryKey = 'gadget';
+  if (pathname.includes('/products/terea')) {
+    currentCategory = 'sticks';
+  } else if (pathname.includes('/products/accessories')) {
+    currentCategory = 'accessories';
+  } else if (pathname.includes('/products/water')) {
+    currentCategory = 'water';
+  } else if (pathname.includes('/products/iqos')) {
+    currentCategory = 'gadget';
+  } else {
+    const firstActive = (Object.keys(itemsByCategory) as CategoryKey[]).find(
+      (key) => (itemsByCategory[key] || []).length > 0,
+    );
+    if (firstActive) {
+      currentCategory = firstActive;
+    }
+  }
+
+  const categoryItems = itemsByCategory[currentCategory] || [];
+
+  if (categoryItems.length === 0) {
+    return null;
+  }
+
+  const categoryLabelMap: Record<CategoryKey, string> = {
+    gadget: 'Устройства IQOS',
+    sticks: 'Стики TEREA',
+    accessories: 'Аксессуары',
+    water: 'Вода',
+  };
+
+  const categoryTitle = categoryLabelMap[currentCategory] || 'товара';
+
+  return (
+    <div className='fixed bottom-6 right-4 left-4 md:left-auto md:right-8 z-40 max-w-lg w-full animate-in slide-in-from-bottom-6 duration-300'>
+      <div className='bg-neutral-900/95 backdrop-blur-md text-white rounded-2xl p-4 shadow-2xl border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4'>
+        {/* Left Info & Items */}
+        <div className='flex items-center gap-3 overflow-x-auto max-w-full pb-1 sm:pb-0 scrollbar-none'>
+          {/* Thumbnails */}
+          <div className='flex items-center -space-x-2 sm:space-x-1.5'>
+            {categoryItems.map((product) => {
+              const img = Array.isArray(product.image) ? product.image[0] : product.image;
+              return (
+                <div
+                  key={product.id}
+                  className='relative group flex-shrink-0 w-11 h-11 rounded-xl bg-white/10 border border-white/20 p-1 flex items-center justify-center overflow-hidden'
+                >
+                  <img
+                    src={`/api/proxy?url=${encodeURIComponent(img)}`}
+                    alt={product.title}
+                    className='w-full h-full object-contain'
+                  />
+                  <button
+                    type='button'
+                    onClick={(e) => {
+                      e.preventDefault();
+                      removeFromCompare(product.id, currentCategory);
+                    }}
+                    className='absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold rounded-xl'
+                    title={`Убрать ${product.title}`}
+                  >
+                    ✕
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Label */}
+          <div className='flex flex-col text-left'>
+            <span className='text-xs font-semibold text-neutral-200'>
+              В списке ({categoryItems.length})
+            </span>
+            <span className='text-[11px] text-neutral-400 truncate max-w-[140px]'>
+              {categoryTitle}
+            </span>
+          </div>
+        </div>
+
+        {/* Right CTA Actions */}
+        <div className='flex items-center gap-2.5 w-full sm:w-auto justify-end'>
+          <button
+            type='button'
+            onClick={() => clearCategoryCompare(currentCategory)}
+            className='text-xs font-medium text-neutral-400 hover:text-white px-2.5 py-1.5 transition-colors cursor-pointer'
+          >
+            Очистить
+          </button>
+
+          <Link
+            href={`/compare?category=${currentCategory}`}
+            className='flex items-center gap-1.5 px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap'
+          >
+            <span>Сравнить</span>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='14'
+              height='14'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2.5'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            >
+              <path d='M5 12h14' />
+              <path d='m12 5 7 7-7 7' />
+            </svg>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};

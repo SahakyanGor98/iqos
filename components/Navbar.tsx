@@ -4,13 +4,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
+import { useCompareStore } from '@/store/compareStore';
 import { useEffect, useState } from 'react';
-import { CartDrawer } from '@/components';
+import { CartDrawer, CompareFloatingBar } from '@/components';
 import { ROUTES } from '@/lib/constants';
 
 export const Navbar = () => {
   const pathname = usePathname();
   const cartItems = useCartStore((state) => state.items);
+  const compareItemsByCategory = useCompareStore((state) => state.itemsByCategory);
   const [mounted, setMounted] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -40,6 +42,12 @@ export const Navbar = () => {
   }, []);
 
   const totalItems = mounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  const totalCompareItems = mounted
+    ? Object.values(compareItemsByCategory).reduce(
+        (acc, list) => acc + (list?.length || 0),
+        0,
+      )
+    : 0;
 
   const links = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
@@ -164,7 +172,39 @@ export const Navbar = () => {
           </div>
 
           {/* Actions (Right) */}
-          <div className='flex flex-1 items-center justify-end gap-4'>
+          <div className='flex flex-1 items-center justify-end gap-3 md:gap-4'>
+            {/* Compare Link */}
+            <Link
+              href='/compare'
+              className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700 hover:text-black'
+              title='Сравнение товаров'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                className='w-5 h-5 md:w-6 md:h-6'
+              >
+                <path d='m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
+                <path d='m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
+                <path d='M7 21h10' />
+                <path d='M12 3v18' />
+                <path d='M3 7h18' />
+              </svg>
+              {totalCompareItems > 0 && (
+                <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] font-bold text-white'>
+                  {totalCompareItems}
+                </span>
+              )}
+            </Link>
+
+            {/* Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
               className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors -mr-2'
@@ -193,7 +233,6 @@ export const Navbar = () => {
             </button>
           </div>
         </div>
-
       </header>
 
       {/* Mobile Drawer Backdrop */}
@@ -218,11 +257,24 @@ export const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href='/compare'
+              onClick={() => setIsMenuOpen(false)}
+              className='text-base font-medium text-black flex items-center gap-2 pt-2 border-t border-neutral-100'
+            >
+              <span>Сравнение товаров</span>
+              {totalCompareItems > 0 && (
+                <span className='px-2 py-0.5 bg-neutral-100 text-neutral-800 rounded-full text-xs font-bold'>
+                  {totalCompareItems}
+                </span>
+              )}
+            </Link>
           </nav>
         </div>
       )}
 
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CompareFloatingBar />
     </>
   );
 };
