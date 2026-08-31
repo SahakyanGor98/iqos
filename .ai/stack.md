@@ -55,7 +55,7 @@ Inferred from `package.json`, `tsconfig.json`, `next.config.ts`, and the source 
 
 - **Lint:** ESLint 9 (`eslint-config-next`, `eslint-config-prettier`, `eslint-plugin-prettier`) — `eslint.config.mjs` (flat config).
 - **Format:** Prettier `3.5.2` — `.prettierrc.json`; ignore rules in `.prettierignore` (skips lockfile, build output, `.agents/`).
-- **Git hooks:** `husky` (`^9`) + `lint-staged` (`^17`) run Prettier on staged files pre-commit — `prepare: husky` installs the hook on `npm install`; `.husky/pre-commit` runs `npx lint-staged` (config in `package.json`).
+- **Git hooks:** `husky` (`^9`) + `lint-staged` (`^17`) run on staged files pre-commit — `eslint --fix` then `prettier --write` on `*.{ts,tsx,js,jsx}` (Prettier only for other types). A staged file with an ESLint **error** aborts the commit; warnings are allowed. `prepare: husky` installs the hook on `npm install`; `.husky/pre-commit` runs `npx lint-staged` (config in `package.json`).
 - **Scripts:** `dev`, `build`, `start`, `lint` (`--fix`), `format`, `fix` (lint + format), `prepare` (husky).
 - **DB scripts:** `scripts/migrate.cjs`, `scripts/seed-accessories.cjs`, plus raw SQL in `scripts/` and `supabase/`.
 

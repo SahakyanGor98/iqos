@@ -12,7 +12,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,cjs,mjs,json,css,md}": "prettier --write"
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{cjs,mjs,json,css,md}": "prettier --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
