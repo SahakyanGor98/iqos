@@ -2,15 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import { useCartStore } from '@/store/cartStore';
 import { useCompareStore } from '@/store/compareStore';
 import { useEffect, useState } from 'react';
 import { CartDrawer, CompareFloatingBar } from '@/components';
+import { NavDropdown } from './NavDropdown';
 import { ROUTES } from '@/lib/constants';
 
 export const Navbar = () => {
-  const pathname = usePathname();
   const cartItems = useCartStore((state) => state.items);
   const compareItemsByCategory = useCompareStore((state) => state.itemsByCategory);
   const [mounted, setMounted] = useState(false);
@@ -46,16 +45,17 @@ export const Navbar = () => {
     ? Object.values(compareItemsByCategory).reduce((acc, list) => acc + (list?.length || 0), 0)
     : 0;
 
-  const links = [
+  const catalogLinks = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
     { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
     { href: ROUTES.catalog.accessories, label: 'Аксессуары' },
-    { href: ROUTES.tradeIn, label: 'Трейд-ин' },
+    { href: ROUTES.catalog.water, label: 'Вода' },
+  ];
+
+  const aboutLinks = [
     { href: ROUTES.about.iqos, label: 'Об IQOS' },
     { href: ROUTES.contact, label: 'Контакты' },
   ];
-
-  const isActive = (path: string) => pathname.startsWith(path);
 
   return (
     <>
@@ -96,15 +96,14 @@ export const Navbar = () => {
 
           {/* Desktop Nav (Left) */}
           <nav className='hidden md:flex flex-1 items-center gap-6 lg:gap-8'>
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
-              >
-                {link.label}
-              </Link>
-            ))}
+            <NavDropdown label='Каталог' items={catalogLinks} />
+            <Link
+              href={ROUTES.tradeIn}
+              className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
+            >
+              Трейд-ин
+            </Link>
+            <NavDropdown label='О бренде' items={aboutLinks} />
           </nav>
 
           {/* Logo (Center) */}
@@ -244,28 +243,44 @@ export const Navbar = () => {
       {/* Mobile Drawer */}
       {isMenuOpen && (
         <div className='md:hidden border-t border-neutral-100 rounded-b-lg bg-white p-4 fixed top-16 left-0 w-full shadow-xl z-50'>
-          <nav className='flex flex-col gap-4'>
-            {links.map((link) => (
+          <nav className='flex flex-col gap-1'>
+            {/* Каталог */}
+            <span className='px-1 pb-1 pt-1 text-xs font-semibold uppercase tracking-wider text-neutral-400'>
+              Каталог
+            </span>
+            {catalogLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className='text-base font-medium text-black'
+                className='py-2 pl-3 text-base font-medium text-black'
               >
                 {link.label}
               </Link>
             ))}
+
+            {/* О бренде */}
+            <span className='px-1 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-neutral-400'>
+              О бренде
+            </span>
+            {aboutLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className='py-2 pl-3 text-base font-medium text-black'
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* Трейд-ин (last) */}
             <Link
-              href='/compare'
+              href={ROUTES.tradeIn}
               onClick={() => setIsMenuOpen(false)}
-              className='text-base font-medium text-black flex items-center gap-2 pt-2 border-t border-neutral-100'
+              className='mt-2 border-t border-neutral-100 pt-3 text-base font-medium text-black'
             >
-              <span>Сравнение товаров</span>
-              {totalCompareItems > 0 && (
-                <span className='px-2 py-0.5 bg-neutral-100 text-neutral-800 rounded-full text-xs font-bold'>
-                  {totalCompareItems}
-                </span>
-              )}
+              Трейд-ин
             </Link>
           </nav>
         </div>
