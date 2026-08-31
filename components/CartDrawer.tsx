@@ -12,16 +12,14 @@ type Props = {
 };
 
 export const CartDrawer = ({ isOpen, onClose }: Props) => {
-  const {
-    items,
-    removeFromCart,
-    updateQuantity,
-    getTotalPrice,
-    discount,
-    promoCode,
-    setPromoCode,
-    clearPromo,
-  } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const removeFromCart = useCartStore((s) => s.removeFromCart);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const getTotalPrice = useCartStore((s) => s.getTotalPrice);
+  const discount = useCartStore((s) => s.discount);
+  const promoCode = useCartStore((s) => s.promoCode);
+  const setPromoCode = useCartStore((s) => s.setPromoCode);
+  const clearPromo = useCartStore((s) => s.clearPromo);
 
   const [mounted, setMounted] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);

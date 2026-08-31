@@ -30,7 +30,10 @@ type Props = {
 };
 
 export const CheckoutForm = ({ onBack, onClose }: Props) => {
-  const { items, clearCart, promoCode, discount } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const clearCart = useCartStore((s) => s.clearCart);
+  const promoCode = useCartStore((s) => s.promoCode);
+  const discount = useCartStore((s) => s.discount);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
