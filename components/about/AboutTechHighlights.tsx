@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { TriangleAlert } from 'lucide-react';
 import { IQOS_ABOUT_IMAGES, SMARTCORE_BENEFITS, TEREA_CATEGORIES } from '@/lib/content/iqos-about';
 import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
@@ -98,7 +99,7 @@ export const AboutTechHighlights: React.FC = () => {
 
           {/* Stick Notice Banner */}
           <div className='mt-10 p-5 md:p-6 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm md:text-base leading-relaxed flex items-start gap-4'>
-            <span className='text-amber-600 text-xl font-bold flex-shrink-0'>⚠️</span>
+            <TriangleAlert className='w-6 h-6 text-amber-600 flex-shrink-0' />
             <div>
               <strong className='font-bold block mb-1'>Важное примечание о совместимости:</strong>
               Стики TEREA™ предназначены исключительно для устройств IQOS ILUMA™. Их нельзя

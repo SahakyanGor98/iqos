@@ -8,11 +8,7 @@ import { AboutFactsGrid } from '@/components/about/AboutFactsGrid';
 import { IqosLineupSection } from '@/components/about/IqosLineupSection';
 import { AboutTechHighlights } from '@/components/about/AboutTechHighlights';
 import { AboutComparisonTable } from '@/components/about/AboutComparisonTable';
-import {
-  AboutDefaultSection,
-  AboutHistorySection,
-  AboutTextOnlySection,
-} from '@/components/about/AboutSections';
+import { AboutDefaultSection, AboutHistorySection } from '@/components/about/AboutSections';
 import { ABOUT_FAQ } from '@/lib/content/faq';
 import { getIqosLineupProducts } from '@/lib/api';
 import {

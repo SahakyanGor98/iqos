@@ -1,5 +1,4 @@
 import React from 'react';
-import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 import { IQOS_DISCLAIMERS, IQOS_KEY_FACTS } from '@/lib/content/iqos-about';
 
 export const AboutFactsGrid: React.FC = () => {
