@@ -106,12 +106,26 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
     }
   };
 
+  // Reset the form on close so reopening starts a fresh trade-in request
+  // (otherwise the success screen and filled fields persist until a page reload).
+  const handleClose = () => {
+    setFullName('');
+    setPhone('');
+    setEmail('');
+    setAddress('');
+    setComment('');
+    setErrorMsg(null);
+    setIsSuccess(false);
+    setLoading(false);
+    onCancel?.();
+  };
+
   return (
     <div className='fixed inset-0 z-50 overflow-hidden'>
       {/* Backdrop */}
       <div
         className='fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 animate-in fade-in'
-        onClick={onCancel}
+        onClick={handleClose}
       />
 
       {/* Right Drawer Panel (Matching CartDrawer / CheckoutForm) */}
@@ -121,7 +135,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
           <div className='flex items-center gap-2'>
             {onCancel && (
               <HapticButton
-                onClick={onCancel}
+                onClick={handleClose}
                 className='p-1.5 -ml-1 rounded-full hover:bg-neutral-100 transition text-neutral-600'
                 aria-label='Назад'
               >
@@ -139,7 +153,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
           </div>
           {onCancel && (
             <HapticButton
-              onClick={onCancel}
+              onClick={handleClose}
               className='p-2 rounded-full hover:bg-neutral-100 transition text-neutral-500 hover:text-neutral-900'
               aria-label='Закрыть'
             >
@@ -194,7 +208,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
             </div>
 
             <HapticButton
-              onClick={onCancel}
+              onClick={handleClose}
               className='w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-neutral-800 transition active:scale-95'
             >
               Вернуться в магазин
