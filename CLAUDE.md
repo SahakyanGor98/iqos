@@ -1,0 +1,1 @@
+Before writing code, proposing changes, or reviewing architecture, you MUST read the relevant context files in the `.ai/` directory. For UI tasks, read `.ai/styling.md`. For data/auth/routing tasks, read `.ai/architecture.md`. For dependencies, read `.ai/stack.md`. For how an existing feature works, read `.ai/features.md`. Follow those rules strictly.
