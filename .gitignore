@@ -1,44 +1,189 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# =========================================================
+# Dependencies
+# =========================================================
 
-# dependencies
-/node_modules
-/.pnp
+node_modules/
+.pnp/
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
+!.yarn/sdks
+!.yarn/unsafe
 
-# testing
-/coverage
 
-# next.js
-/.next/
-/out/
+# =========================================================
+# Next.js
+# =========================================================
 
-# production
-/build
+.next/
+out/
+build/
 
-# misc
-.DS_Store
-*.pem
 
-# local editor / agent config (kept locally, not tracked)
-.claude/
+# =========================================================
+# Production / Deployment
+# =========================================================
 
-# debug
+.vercel/
+.netlify/
+.turbo/
+
+
+# =========================================================
+# Testing / Coverage
+# =========================================================
+
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+blob-report/
+
+
+# =========================================================
+# Environment Variables / Secrets
+# =========================================================
+
+.env
+.env.*
+!.env.example
+!.env.sample
+
+
+# =========================================================
+# TypeScript
+# =========================================================
+
+*.tsbuildinfo
+next-env.d.ts
+
+
+# =========================================================
+# Logs / Debugging
+# =========================================================
+
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .pnpm-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# env files (can opt-in for committing if needed)
-.env*
 
-# vercel
-.vercel
+# =========================================================
+# OS / Filesystem
+# =========================================================
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
+# =========================================================
+# Editors / IDEs
+# =========================================================
+
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+
+# =========================================================
+# Local AI / Agent Configuration
+# =========================================================
+
+.claude/
+.cursor/
+.windsurf/
+.aider/
+.copilot/
+
+
+# =========================================================
+# Temporary / Cache Files
+# =========================================================
+
+.tmp/
+.temp/
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.sass-cache/
+
+
+# =========================================================
+# Build / Tooling Caches
+# =========================================================
+
+.nx/
+.storybook-out/
+dist/
+
+
+# =========================================================
+# Package Manager Files
+# =========================================================
+
+# Don't ignore lockfiles — they should normally be committed.
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+
+# =========================================================
+# Generated Files
+# =========================================================
+
+*.generated.*
+*.gen.*
+*.map
+
+
+# =========================================================
+# Certificates / Private Keys
+# =========================================================
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+
+# =========================================================
+# Local Database / SQLite
+# =========================================================
+
+*.sqlite
+*.sqlite3
+*.db
+
+
+# =========================================================
+# Miscellaneous
+# =========================================================
+
+.Dockerignore
+*.orig
+*.rej
