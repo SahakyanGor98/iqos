@@ -45,6 +45,26 @@ This is a premium e-commerce/catalog application for IQOS products built with:
 
 ---
 
+## 🗄️ Database Schema (Supabase)
+
+Canonical reference: [`supabase/schema.sql`](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/supabase/schema.sql). Typed row shapes: [`types/supabase.ts`](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/types/supabase.ts). Last reconciled against the live DB on **2026-08-31**.
+
+| Table | Purpose | Key columns |
+| --- | --- | --- |
+| `products` | Catalog items | `slug`, `title`, `image text[]`, `price`, `category` (`gadget`\|`sticks`\|`water`), `in_stock`, `badges`/`attributes` (jsonb), `brand` |
+| `orders` | One row per checkout order **and** trade-in request | `user_name`, `user_email`, `user_phone`, `user_message`, `total_amount`, `status` (`pending`) |
+| `order_items` | Line items for a purchase order | `order_id`→`orders.id`, `product_id`→`products.id`, `quantity`, `price_at_time` |
+| `contact_messages` | Contact form submissions | `name`, `email`, `phone`, `message`, `status` (`new`) |
+
+**Notes & known gaps:**
+
+- Writes happen from **server actions** using the **anon** key (`lib/supabase.ts`), so an INSERT path is reachable for `anon`. Confirm `anon` cannot `SELECT` `orders`/`order_items`/`contact_messages` before exposing an admin panel.
+- `orders` currently has **no line-item snapshot** and no `order_type`/`discount` columns — order contents live only in `order_items` (purchases) and are lost for anything without catalog product IDs (e.g. trade-in). See "Trade-In → Orders" plan below.
+- The `products.category` value `accessories` exists in the live DB but is owned by a separate feature branch; not modelled on this branch.
+- The Supabase **DB password** is not in `.env.local` yet (only `host`/`port`/`database`/`user`), so DDL migrations must currently be applied via the Supabase dashboard SQL editor or MCP.
+
+---
+
 ## 🛠️ History of Custom Features & Implementations
 
 ### 1. Unified Polymorphic Button Component & Haptics
@@ -147,3 +167,20 @@ This is a premium e-commerce/catalog application for IQOS products built with:
   - **Single-Version Hiding**: Swatches are hidden when `colorVariants.length <= 1` (e.g., Seletti editions).
   - **Declarative Swatch Config**: `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual color keywords to HEX/gradient swatch backgrounds.
   - **Instant Image Preloading**: Background hidden image preloading (`<img className="hidden" aria-hidden="true" />`) pre-fetches variant images on render so color switching has 0ms lag.
+---
+
+### 9. Trade-In Program (`/trade-in`)
+
+- **Files**:
+  - [app/trade-in/page.tsx](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/trade-in/page.tsx)
+  - [app/actions/tradein.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/app/actions/tradein.ts)
+  - [lib/api.ts](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/lib/api.ts) (`getTradeInDevices`, `getTradeInTargets`)
+  - [components/trade-in/](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/trade-in/) (`TradeInHero`, `TradeInCalculator`, `TradeInForm`, `TradeInSteps`, `TradeInBenefits`)
+  - [components/emails/](file:///c:/Users/Gor/Desktop/Gor/sayt/iqos/components/emails/) (`TradeInNotification`, `TradeInConfirmation`)
+- **Details**:
+  - **Data source**: Old devices come from the admin-managed `trade_in_devices` table (`getTradeInDevices`); target devices are the real `products` gadget rows grouped by line (i-one / i / i prime) with a colour picker (`getTradeInTargets`). No hardcoded device arrays.
+  - **Online Calculator**: `TradeInCalculator` (client) receives both lists as props. Left panel: embla carousel of old devices (arrows + dot indicator + peek). Right panel: line + colour selection with the real per-colour price. Final price = product price − device discount, savings shown prominently.
+  - **Slide-Over Form**: "Оформить обмен" opens `TradeInForm` as a right-hand drawer. Collects name, phone, optional email, optional Moscow street address, and comment.
+  - **Server Action**: `submitTradeIn` validates with Zod, inserts into the `orders` table (`order_type = 'trade_in'`) with a self-contained `items` snapshot and structured `metadata.trade_in` (old/target device, colour, slug, discount, delivery address) via the service-role client. Sends an internal notification and a client confirmation email (Resend); email failure is non-fatal.
+  - **Moscow-Only**: City is hardcoded to Москва; only the street address is user-entered.
+  - **Wiring**: Linked from `Navbar`, `Footer`, and a homepage `TradeInPromoBanner`; route `ROUTES.tradeIn` (`/trade-in`), listed in `sitemap.ts`, ISR `revalidate = 60`.

@@ -31,3 +31,10 @@ export * from './WaterBanner';
 export * from './CompareButton';
 export * from './CompareFloatingBar';
 export * from './CompareAddModal';
+export * from './TradeInPromoBanner';
+export * from './trade-in/TradeInHero';
+export * from './trade-in/TradeInCalculator';
+export * from './trade-in/TradeInForm';
+export * from './trade-in/TradeInSteps';
+export * from './trade-in/TradeInBenefits';
+

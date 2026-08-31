@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
-import { ProductRow } from '@/types/supabase';
+import { ProductRow, TradeInDeviceRow } from '@/types/supabase';
+import { IQOS_LINES } from '@/lib/constants';
 import accessoriesData from '@/assets/accessories.json';
 
 export type ProductParams = {
@@ -232,9 +233,13 @@ export async function getIqosLineupProducts(
       matches.find(
         (product) =>
           product.in_stock &&
-          String((product.attributes as Record<string, string>)?.colorVariantName || (product.attributes as Record<string, string>)?.color || product.slug)
+          String(
+            (product.attributes as Record<string, string>)?.colorVariantName ||
+              (product.attributes as Record<string, string>)?.color ||
+              product.slug,
+          )
             .toLowerCase()
-            .includes('purple')
+            .includes('purple'),
       ) ??
       matches.find((product) => product.in_stock) ??
       matches[0];
@@ -268,4 +273,118 @@ export async function getAllSlugs(
   }
 
   return data.map((p) => p.slug);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Trade-in: old devices (dedicated table) + target devices (from products)   */
+/* -------------------------------------------------------------------------- */
+
+export type TradeInDeviceView = {
+  key: string; // device_key
+  name: string;
+  description: string | null;
+  image: string | null; // first image url, or null (e.g. "other device")
+  discount: number; // base_discount in RUB
+  badge: string | null;
+};
+
+export async function getTradeInDevices(): Promise<TradeInDeviceView[]> {
+  const { data, error } = await supabase
+    .from('trade_in_devices')
+    .select('*')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching trade-in devices:', error);
+    return [];
+  }
+
+  return (data as TradeInDeviceRow[]).map((d) => ({
+    key: d.device_key,
+    name: d.name,
+    description: d.description,
+    image: Array.isArray(d.image) ? (d.image[0] ?? null) : null,
+    discount: Number(d.base_discount),
+    badge: d.badge,
+  }));
+}
+
+export type TradeInTargetColor = {
+  productId: number;
+  slug: string;
+  colorLabel: string;
+  price: number;
+  image: string | null;
+  inStock: boolean;
+};
+
+export type TradeInTargetLine = {
+  line: string;
+  name: string;
+  colors: TradeInTargetColor[];
+};
+
+// Which gadget lines can be received via trade-in, in display order.
+const TRADE_IN_TARGET_LINES = ['i-one', 'i', 'i prime'];
+
+// Preferred default colour per line (mirrors the catalog's ProductGrid).
+const TRADE_IN_DEFAULT_COLORS: Record<string, string> = {
+  i: 'breeze blue',
+  'i-one': 'digital violet',
+  'i prime': 'aspen green',
+};
+
+export async function getTradeInTargets(): Promise<TradeInTargetLine[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('id, slug, price, in_stock, attributes, image')
+    .eq('category', 'gadget');
+
+  if (error) {
+    console.error('Error fetching trade-in targets:', error);
+    return [];
+  }
+
+  const byLine = new Map<string, TradeInTargetColor[]>();
+
+  for (const row of data ?? []) {
+    const attrs = (row.attributes as Record<string, unknown>) || {};
+    const line = String(attrs.line ?? '')
+      .toLowerCase()
+      .trim();
+    if (!TRADE_IN_TARGET_LINES.includes(line)) continue;
+
+    const imageValue = row.image as string[] | string | null;
+    const image = Array.isArray(imageValue) ? (imageValue[0] ?? null) : (imageValue ?? null);
+
+    const color: TradeInTargetColor = {
+      productId: row.id,
+      slug: row.slug,
+      colorLabel: (attrs.color as string) || row.slug,
+      price: Number(row.price),
+      image,
+      inStock: !!row.in_stock,
+    };
+
+    if (!byLine.has(line)) byLine.set(line, []);
+    byLine.get(line)!.push(color);
+  }
+
+  const sortColors = (line: string, colors: TradeInTargetColor[]): TradeInTargetColor[] => {
+    const preferred = TRADE_IN_DEFAULT_COLORS[line];
+    return [...colors].sort((a, b) => {
+      const aPref = preferred && a.colorLabel.toLowerCase().includes(preferred) ? 1 : 0;
+      const bPref = preferred && b.colorLabel.toLowerCase().includes(preferred) ? 1 : 0;
+      if (aPref !== bPref) return bPref - aPref; // preferred first
+      if (a.inStock !== b.inStock) return a.inStock ? -1 : 1; // in-stock first
+      return a.price - b.price; // cheaper first
+    });
+  };
+
+  return TRADE_IN_TARGET_LINES.filter((line) => byLine.has(line)).map((line) => ({
+    line,
+    name: IQOS_LINES[line] ?? line,
+    colors: sortColors(line, byLine.get(line)!),
+  }));
 }

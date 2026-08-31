@@ -35,6 +35,7 @@ export const ROUTES = {
     accessories: '/products/accessories',
     water: '/products/water',
   },
+  tradeIn: '/trade-in',
   contact: '/contact',
   cart: '/cart', // If used
 };

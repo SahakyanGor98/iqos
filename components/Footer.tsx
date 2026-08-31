@@ -36,6 +36,11 @@ export const FooterContent = () => {
                 </Link>
               </li>
               <li>
+                <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
+                  Трейд-ин
+                </Link>
+              </li>
+              <li>
                 <Link href={ROUTES.about.iqos} className='hover:text-white transition-colors'>
                   Об IQOS
                 </Link>

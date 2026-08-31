@@ -5,8 +5,9 @@ import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { CONTACTS } from '@/lib/constants';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase-admin';
 import { CartItem } from '@/store/cartStore';
+import { cartToSnapshot } from '@/lib/orders';
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY) || null;
@@ -43,7 +44,7 @@ export async function placeOrder(
 
     // 2. Persist to Supabase
     // Insert Order
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         user_name: validatedData.fullName,
@@ -51,7 +52,11 @@ export async function placeOrder(
         user_phone: validatedData.phone,
         user_message: validatedData.message,
         total_amount: totalAmount,
+        discount: discount || 0,
         status: 'pending',
+        order_type: 'purchase',
+        items: cartToSnapshot(items),
+        metadata: promoCode ? { promo_code: promoCode } : {},
       })
       .select()
       .single();
@@ -69,7 +74,7 @@ export async function placeOrder(
       price_at_time: item.product.price,
     }));
 
-    const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
+    const { error: itemsError } = await supabaseAdmin.from('order_items').insert(orderItems);
 
     if (itemsError) {
       console.error('Supabase Items Error:', itemsError);
@@ -94,7 +99,7 @@ export async function placeOrder(
           }),
         );
 
-        const adminResult = await resend.emails.send({
+        await resend.emails.send({
           from: `${CONTACTS.sender.name} Orders <${CONTACTS.sender.email}>`,
           to: INTERNAL_EMAIL,
           subject: `Новый заказ #${order.id} - ${totalAmount} ₽`,
@@ -118,7 +123,7 @@ export async function placeOrder(
           }),
         );
 
-        const userResult = await resend.emails.send({
+        await resend.emails.send({
           from: `${CONTACTS.sender.name} <${CONTACTS.sender.email}>`,
           to: validatedData.email,
           subject: `Ваш заказ #${order.id} принят!`,

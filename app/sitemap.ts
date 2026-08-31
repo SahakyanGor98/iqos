@@ -10,9 +10,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/about/iqos',
     '/products/iqos',
     '/products/terea',
+    '/products/water',
     '/products/accessories',
-    '/contact',
+    '/trade-in',
     '/compare',
+    '/contact',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
