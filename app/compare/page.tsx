@@ -9,7 +9,7 @@ import { AddToCartButton, CompareAddModal } from '@/components';
 import { ProductRow } from '@/types/supabase';
 import { Product } from '@/types/product';
 import { formatPrice, fixCasing, formatDeviceTitle } from '@/lib/utils';
-import { getProductBySlug, getProductsBySlugs } from '@/lib/api';
+import { fetchCompareProductsBySlugs } from '@/app/actions/products';
 
 // Helper to map DB row to Store Product
 const mapToStoreProduct = (row: ProductRow): Product => {
@@ -67,7 +67,7 @@ function CompareContent() {
     if (urlSlugs) {
       const slugs = urlSlugs.split(',').filter(Boolean);
       if (slugs.length > 0) {
-        getProductsBySlugs(slugs).then((fetchedProducts) => {
+        fetchCompareProductsBySlugs(slugs).then((fetchedProducts) => {
           if (fetchedProducts && fetchedProducts.length > 0) {
             addMultipleToCompare(fetchedProducts);
           }

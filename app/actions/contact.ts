@@ -3,7 +3,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
-import { supabase } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { CONTACTS } from '@/lib/constants';
 
 // Initialize Resend
@@ -27,7 +27,7 @@ export async function submitContact(data: ContactData) {
     const validatedData = contactSchema.parse(data);
 
     // 2. Persist to Supabase
-    const { error: dbError } = await supabase.from('contact_messages').insert({
+    const { error: dbError } = await supabaseAdmin.from('contact_messages').insert({
       name: validatedData.name,
       email: validatedData.email,
       phone: validatedData.phone,

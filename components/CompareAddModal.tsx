@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ProductRow } from '@/types/supabase';
-import { getProducts } from '@/lib/api';
+import { fetchCompareCandidates } from '@/app/actions/products';
 import { useCompareStore } from '@/store/compareStore';
 import { fixCasing, formatPrice } from '@/lib/utils';
 
@@ -25,11 +25,8 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
 
     async function fetchProducts() {
       setLoading(true);
-      const res = await getProducts({
-        category: category === 'accessories' ? 'gadget' : category,
-        limit: 100,
-      });
-      setAvailableProducts(res.data || []);
+      const products = await fetchCompareCandidates(category);
+      setAvailableProducts(products);
       setLoading(false);
     }
 

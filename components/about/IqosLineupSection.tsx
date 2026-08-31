@@ -1,6 +1,6 @@
 import { Button } from '../Button';
 import { ButtonVariant } from '../ButtonTypes';
-import { IqosLineupItem } from '@/lib/api';
+import type { IqosLineupItem } from '@/lib/api';
 import { ROUTES } from '@/lib/constants';
 import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 

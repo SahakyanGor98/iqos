@@ -3,7 +3,7 @@
 import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { CONTACTS } from '@/lib/constants';
 import type { OrderItemSnapshot } from '@/lib/orders';
 

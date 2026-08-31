@@ -5,7 +5,7 @@ import React from 'react';
 import { z } from 'zod';
 import { Resend } from 'resend';
 import { CONTACTS } from '@/lib/constants';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { supabaseAdmin } from '@/lib/supabase/admin';
 import { CartItem } from '@/store/cartStore';
 import { cartToSnapshot } from '@/lib/orders';
 
