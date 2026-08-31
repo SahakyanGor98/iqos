@@ -1,4 +1,6 @@
-import { supabase } from './supabase';
+import 'server-only';
+
+import { supabasePublic as supabase } from './supabase/public';
 import { ProductRow, TradeInDeviceRow } from '@/types/supabase';
 import { IQOS_LINES } from '@/lib/constants';
 import accessoriesData from '@/assets/accessories.json';

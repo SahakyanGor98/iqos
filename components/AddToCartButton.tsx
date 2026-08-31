@@ -12,7 +12,10 @@ type Props = {
 };
 
 export const AddToCartButton = ({ product, disabled, className }: Props) => {
-  const { items, addToCart, removeFromCart, updateQuantity } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const addToCart = useCartStore((s) => s.addToCart);
+  const removeFromCart = useCartStore((s) => s.removeFromCart);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

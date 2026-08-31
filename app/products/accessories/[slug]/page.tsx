@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllSlugs, getProductBySlug, getProducts } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
@@ -112,12 +113,14 @@ export default async function AccessorySlugPage({ params }: Props) {
           {productImages.length > 1 ? (
             <ProductImageCarousel images={productImages} title={productRow.title} />
           ) : (
-            <div className='bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
-              <img
-                src={`/api/proxy?url=${encodeURIComponent(productImages[0])}`}
+            <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center p-8'>
+              <Image
+                src={productImages[0]}
                 alt={productRow.title}
-                className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
-                loading='lazy'
+                fill
+                sizes='(max-width: 768px) 100vw, 50vw'
+                priority
+                className='object-contain transition-transform duration-500 hover:scale-105'
               />
             </div>
           )}

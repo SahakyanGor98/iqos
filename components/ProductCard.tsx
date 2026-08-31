@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { CompareButton } from '@/components/CompareButton';
@@ -30,11 +31,10 @@ const mapToStoreProduct = (row: ProductRow): Product => {
 };
 
 export const ProductCard = ({ product, variants }: Props) => {
+  // Local swatch selection. Reset happens via the `key` prop the parent grid
+  // sets (key={primary.id}) — never mirror `product` into state via an effect
+  // (see .ai/state.md §2).
   const [selectedVariant, setSelectedVariant] = useState<ProductRow>(product);
-
-  useEffect(() => {
-    setSelectedVariant(product);
-  }, [product]);
 
   const activeProduct = selectedVariant || product;
   const badges = activeProduct.badges as {
@@ -68,11 +68,12 @@ export const ProductCard = ({ product, variants }: Props) => {
     >
       {/* Image */}
       <div className='relative aspect-square bg-neutral-50 overflow-hidden'>
-        <img
-          src={`/api/proxy?url=${encodeURIComponent(mainImage)}`}
+        <Image
+          src={mainImage}
           alt={activeProduct.title}
-          className='w-full h-full object-cover transition-all duration-300 group-hover:scale-105'
-          loading='lazy'
+          fill
+          sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+          className='object-cover transition-all duration-300 group-hover:scale-105'
         />
 
         {/* Compare Button (Top Right) */}
@@ -98,9 +99,10 @@ export const ProductCard = ({ product, variants }: Props) => {
           <div className='hidden' aria-hidden='true'>
             {colorVariants.map((variant) => {
               const vImg = Array.isArray(variant.image) ? variant.image[0] : variant.image;
-              return (
-                <img key={variant.id} src={`/api/proxy?url=${encodeURIComponent(vImg)}`} alt='' />
-              );
+              // Raw <img> preload (kept intentionally) warms the browser cache for
+              // instant swatch switching. Points at the direct Supabase URL.
+              // eslint-disable-next-line @next/next/no-img-element
+              return <img key={variant.id} src={vImg} alt='' />;
             })}
           </div>
         )}

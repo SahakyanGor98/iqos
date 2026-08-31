@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton, CompareButton } from '@/components';
@@ -105,11 +106,13 @@ export default async function TereaSlugPage({ params }: Props) {
             <ProductImageCarousel images={allImages} title={productRow.title} />
           ) : (
             <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center'>
-              <img
-                src={`/api/proxy?url=${encodeURIComponent(allImages[0])}`}
+              <Image
+                src={allImages[0]}
                 alt={productRow.title}
-                className='w-full h-full object-cover transition-transform duration-500 hover:scale-105'
-                loading='lazy'
+                fill
+                sizes='(max-width: 768px) 100vw, 50vw'
+                priority
+                className='object-cover transition-transform duration-500 hover:scale-105'
               />
             </div>
           )}

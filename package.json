@@ -8,10 +8,15 @@
     "start": "next start",
     "lint": "eslint . --ext ts,tsx --fix",
     "format": "prettier --write .",
-    "fix": "npm run lint && npm run format"
+    "fix": "npm run lint && npm run format",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,cjs,mjs,json,css,md}": "prettier --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@supabase/ssr": "^0.12.5",
     "@supabase/supabase-js": "^2.89.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
@@ -21,6 +26,7 @@
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
     "resend": "^6.6.0",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^3.5.0",
     "zod": "^4.3.4",
     "zustand": "^5.0.9"
@@ -34,6 +40,8 @@
     "eslint-config-next": "16.3.3",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.4.1",
     "prettier": "3.5.2",
     "tailwindcss": "^4",
     "typescript": "^5"

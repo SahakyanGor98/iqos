@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { ProductRow } from '@/types/supabase';
-import { getProducts } from '@/lib/api';
+import { fetchCompareCandidates } from '@/app/actions/products';
 import { useCompareStore } from '@/store/compareStore';
 import { fixCasing, formatPrice } from '@/lib/utils';
 
@@ -25,11 +26,8 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
 
     async function fetchProducts() {
       setLoading(true);
-      const res = await getProducts({
-        category: category === 'accessories' ? 'gadget' : category,
-        limit: 100,
-      });
-      setAvailableProducts(res.data || []);
+      const products = await fetchCompareCandidates(category);
+      setAvailableProducts(products);
       setLoading(false);
     }
 
@@ -123,11 +121,13 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
                   }`}
                 >
                   <div className='flex items-center gap-3.5'>
-                    <div className='w-12 h-12 rounded-lg bg-white p-1 flex-shrink-0 flex items-center justify-center overflow-hidden border border-neutral-200/50'>
-                      <img
-                        src={`/api/proxy?url=${encodeURIComponent(img)}`}
+                    <div className='relative w-12 h-12 rounded-lg bg-white p-1 flex-shrink-0 flex items-center justify-center overflow-hidden border border-neutral-200/50'>
+                      <Image
+                        src={img}
                         alt={product.title}
-                        className='w-full h-full object-contain group-hover:scale-105 transition-transform'
+                        fill
+                        sizes='48px'
+                        className='object-contain group-hover:scale-105 transition-transform'
                       />
                     </div>
                     <div>
