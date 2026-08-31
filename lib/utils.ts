@@ -121,11 +121,11 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
   },
   {
     keywords: ['electric purple', 'electric-purple'],
-    swatch: { background: '#302D7F' },
+    swatch: { background: '#272361' },
   },
   {
     keywords: ['digital violet', 'digital-violet'],
-    swatch: { background: '#7884BE' },
+    swatch: { background: '#434181ff' },
   },
   {
     keywords: ['violet', 'purple', 'фиолетовый'],
