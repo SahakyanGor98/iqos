@@ -12,14 +12,14 @@ UI conventions inferred from `app/globals.css`, `lib/utils.ts`, and `components/
 
 Defined on `:root` in `globals.css` and used via arbitrary-value classes and raw CSS:
 
-| Token          | Value     | Meaning            |
-| -------------- | --------- | ------------------ |
-| `--background` | `#fffdfb` | Soft white page bg |
-| `--foreground` | `#34303d` | Slate text         |
-| `--primary`    | `#34303d` | Brand slate        |
-| `--accent`     | `#f5f3f1` | Off-white / cream  |
-| `--border` / `--input` | `#e5e7eb` | Borders    |
-| `--ring`       | `#34303d` | Focus ring         |
+| Token                  | Value     | Meaning            |
+| ---------------------- | --------- | ------------------ |
+| `--background`         | `#fffdfb` | Soft white page bg |
+| `--foreground`         | `#34303d` | Slate text         |
+| `--primary`            | `#34303d` | Brand slate        |
+| `--accent`             | `#f5f3f1` | Off-white / cream  |
+| `--border` / `--input` | `#e5e7eb` | Borders            |
+| `--ring`               | `#34303d` | Focus ring         |
 
 The brand slate **`#34303D`** and page background **`#fffdfb`** recur as Tailwind arbitrary values (`bg-[#34303D]`, `bg-[#fffdfb]`, `text-[#34303d]`). Prefer these exact hexes for brand surfaces to stay consistent.
 

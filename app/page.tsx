@@ -3,7 +3,13 @@ import { Metadata } from 'next';
 import { Button } from '@/components/Button';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { ButtonVariant } from '@/components/ButtonTypes';
-import { HeroSlider, IqosWhatIsSection, PromoBlock, TextSeparator, TradeInPromoBanner } from '@/components';
+import {
+  HeroSlider,
+  IqosWhatIsSection,
+  PromoBlock,
+  TextSeparator,
+  TradeInPromoBanner,
+} from '@/components';
 import { LANDING_FAQ } from '@/lib/content/faq';
 import { ENABLE_PROMO } from '@/lib/constants';
 

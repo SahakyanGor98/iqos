@@ -6,16 +6,16 @@ How routing, the Server/Client boundary, and data access work today — plus the
 
 All routes are under `app/`. Pages are **React Server Components by default**; only `app/compare/page.tsx` is a Client Component.
 
-| Route                              | File                                          | Notes                                             |
-| ---------------------------------- | --------------------------------------------- | ------------------------------------------------- |
-| `/`                                | `app/page.tsx`                                | Landing (hero, sections, FAQ, CTA).               |
-| `/products/{iqos,terea,water,accessories}` | `app/products/<cat>/page.tsx`         | Catalog listings; read `searchParams` for filters/sort/pagination. |
-| `/products/<cat>/[slug]`           | `app/products/<cat>/[slug]/page.tsx`          | Product detail; `generateStaticParams` + `generateMetadata`. |
-| `/trade-in`                        | `app/trade-in/page.tsx`                       | Trade-in calculator + form.                       |
-| `/compare`                         | `app/compare/page.tsx`                        | **Client** page, backed by `store/compareStore.ts`. |
-| `/contact`, `/about/iqos`          | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                    |
-| `/api/proxy`                       | `app/api/proxy/route.ts`                      | Route Handler; proxies allowlisted remote images. |
-| `robots`, `sitemap`               | `app/robots.ts`, `app/sitemap.ts`             | Metadata routes.                                  |
+| Route                                      | File                                              | Notes                                                              |
+| ------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------------ |
+| `/`                                        | `app/page.tsx`                                    | Landing (hero, sections, FAQ, CTA).                                |
+| `/products/{iqos,terea,water,accessories}` | `app/products/<cat>/page.tsx`                     | Catalog listings; read `searchParams` for filters/sort/pagination. |
+| `/products/<cat>/[slug]`                   | `app/products/<cat>/[slug]/page.tsx`              | Product detail; `generateStaticParams` + `generateMetadata`.       |
+| `/trade-in`                                | `app/trade-in/page.tsx`                           | Trade-in calculator + form.                                        |
+| `/compare`                                 | `app/compare/page.tsx`                            | **Client** page, backed by `store/compareStore.ts`.                |
+| `/contact`, `/about/iqos`                  | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                                          |
+| `/api/proxy`                               | `app/api/proxy/route.ts`                          | Route Handler; proxies allowlisted remote images.                  |
+| `robots`, `sitemap`                        | `app/robots.ts`, `app/sitemap.ts`                 | Metadata routes.                                                   |
 
 - **Server Actions** live in `app/actions/` (`checkout.ts`, `tradein.ts`, `contact.ts`), each marked `'use server'`.
 - Root layout `app/layout.tsx` sets global metadata, JSON-LD, fonts (`next/font/local`), analytics, and the persistent chrome (Navbar, footer disclaimer, toasts, age gate). The `<body>` is `h-[100dvh]` with an internally-scrolling `<main>`.
@@ -61,16 +61,16 @@ Direction for evolving data access and (future) authentication. Migrated in two 
 
 Adopt `@supabase/ssr` + `server-only` and split clients by trust level and rendering needs:
 
-| File | Client | Key | Cookies? | Used by |
-| --- | --- | --- | --- | --- |
-| `lib/supabase/public.ts` | anon (`createClient`), `server-only` | anon | **no** — stays ISR/SSG-safe | `lib/api.ts` public reads |
-| `lib/supabase/server.ts` | `createServerClient`, cookie-bound (async `next/headers`) | anon (user JWT) | yes | authed server reads / actions (**Phase B**) |
-| `lib/supabase/admin.ts` | service-role (`createClient`), `server-only` | service role | no | privileged writes (checkout, trade-in, contact) |
-| `lib/supabase/client.ts` | `createBrowserClient` | anon | yes | interactive client auth (**Phase B**) |
+| File                     | Client                                                    | Key             | Cookies?                    | Used by                                         |
+| ------------------------ | --------------------------------------------------------- | --------------- | --------------------------- | ----------------------------------------------- |
+| `lib/supabase/public.ts` | anon (`createClient`), `server-only`                      | anon            | **no** — stays ISR/SSG-safe | `lib/api.ts` public reads                       |
+| `lib/supabase/server.ts` | `createServerClient`, cookie-bound (async `next/headers`) | anon (user JWT) | yes                         | authed server reads / actions (**Phase B**)     |
+| `lib/supabase/admin.ts`  | service-role (`createClient`), `server-only`              | service role    | no                          | privileged writes (checkout, trade-in, contact) |
+| `lib/supabase/client.ts` | `createBrowserClient`                                     | anon            | yes                         | interactive client auth (**Phase B**)           |
 
 > **Why `public.ts` is separate from `server.ts`:** public catalog reads must remain statically renderable. The cookie-bound `server.ts` client reads `cookies()` from `next/headers`, which opts a route into dynamic rendering and would break `generateStaticParams` / `revalidate`. Public, unauthenticated reads therefore use a non-cookie, `server-only` anon client so ISR is preserved.
 
-### Phase A — Strictly server-side data fetching *(in progress)*
+### Phase A — Strictly server-side data fetching _(in progress)_
 
 - **All Supabase reads execute on the server** — Server Components, Server Actions, Route Handlers. No Supabase client is bundled into or invoked from a Client Component.
 - **`lib/api.ts` is `server-only`** (imports `server-only`) and reads through `lib/supabase/public.ts`. An accidental client import now fails the build.
@@ -82,7 +82,7 @@ Adopt `@supabase/ssr` + `server-only` and split clients by trust level and rende
 - **ISR preserved:** catalog pages keep `revalidate = 60` and `generateStaticParams`. Use `revalidatePath`/`revalidateTag` after mutations that change catalog/order state.
 - Keep serialized props minimal at the Server→Client boundary (pass the fields a component uses, not whole rows).
 
-### Phase B — Secure, cookie-based auth *(planned; do when accounts arrive)*
+### Phase B — Secure, cookie-based auth _(planned; do when accounts arrive)_
 
 - Use `lib/supabase/server.ts` + `lib/supabase/client.ts` for session management via cookies instead of `localStorage`, refreshed per request in `middleware.ts`.
 - **Cookies must be `httpOnly`, `secure`, `sameSite=lax`** so tokens are never readable by JS (the `@supabase/ssr` helpers set these by default).

@@ -4,12 +4,12 @@ Inferred from `package.json`, `tsconfig.json`, `next.config.ts`, and the source 
 
 ## Core framework
 
-| Concern    | Choice                        | Version   |
-| ---------- | ----------------------------- | --------- |
-| Framework  | Next.js (App Router)          | `16.3.3`  |
-| Runtime UI | React / React DOM             | `19.2.3`  |
-| Language   | TypeScript (`strict: true`)   | `^5`      |
-| Node types | `@types/node`                 | `^20`     |
+| Concern    | Choice                      | Version  |
+| ---------- | --------------------------- | -------- |
+| Framework  | Next.js (App Router)        | `16.3.3` |
+| Runtime UI | React / React DOM           | `19.2.3` |
+| Language   | TypeScript (`strict: true`) | `^5`     |
+| Node types | `@types/node`               | `^20`    |
 
 - **App Router only** — all routes live under `app/`. There is no `pages/` directory.
 - Path alias `@/*` → project root (see `tsconfig.json`), e.g. `@/lib/api`, `@/components`.
@@ -17,35 +17,35 @@ Inferred from `package.json`, `tsconfig.json`, `next.config.ts`, and the source 
 
 ## Data & backend
 
-| Concern             | Choice                        | Version    |
-| ------------------- | ----------------------------- | ---------- |
-| Database / storage  | Supabase (Postgres + Storage) | —          |
-| Supabase SDK        | `@supabase/supabase-js`       | `^2.89.0`  |
-| Transactional email | Resend                        | `^6.6.0`   |
-| Validation          | Zod                           | `^4.3.4`   |
+| Concern             | Choice                        | Version   |
+| ------------------- | ----------------------------- | --------- |
+| Database / storage  | Supabase (Postgres + Storage) | —         |
+| Supabase SDK        | `@supabase/supabase-js`       | `^2.89.0` |
+| Transactional email | Resend                        | `^6.6.0`  |
+| Validation          | Zod                           | `^4.3.4`  |
 
 - Two Supabase clients: **anon** (`lib/supabase.ts`, reads) and **service-role** (`lib/supabase-admin.ts`, server-only writes). See `architecture.md`.
 - Emails are React components in `components/emails/`, rendered with `react-dom/server`'s `renderToStaticMarkup` inside server actions and sent via Resend.
 
 ## UI & styling
 
-| Concern         | Choice                     | Version    |
-| --------------- | -------------------------- | ---------- |
-| CSS framework   | Tailwind CSS (v4, PostCSS) | `^4`       |
-| Tailwind plugin | `@tailwindcss/postcss`     | `^4`       |
+| Concern         | Choice                     | Version             |
+| --------------- | -------------------------- | ------------------- |
+| CSS framework   | Tailwind CSS (v4, PostCSS) | `^4`                |
+| Tailwind plugin | `@tailwindcss/postcss`     | `^4`                |
 | Class merging   | `clsx` + `tailwind-merge`  | `^2.1.1` / `^3.5.0` |
-| Icons           | `lucide-react`             | `^0.577.0` |
-| Carousels       | `embla-carousel-react`     | `^8.6.0`   |
+| Icons           | `lucide-react`             | `^0.577.0`          |
+| Carousels       | `embla-carousel-react`     | `^8.6.0`            |
 
 - Tailwind v4 is configured via `@import 'tailwindcss'` in `app/globals.css` and `postcss.config.mjs` — there is **no** `tailwind.config.js`. Theme tokens live as CSS variables in `globals.css`. See `styling.md`.
 
 ## Forms & state
 
-| Concern         | Choice                        | Version    |
-| --------------- | ----------------------------- | ---------- |
-| Forms           | `react-hook-form`             | `^7.69.0`  |
-| RHF resolvers   | `@hookform/resolvers` (+ Zod) | `^5.2.2`   |
-| Client state    | `zustand` (+ `persist`)       | `^5.0.9`   |
+| Concern       | Choice                        | Version   |
+| ------------- | ----------------------------- | --------- |
+| Forms         | `react-hook-form`             | `^7.69.0` |
+| RHF resolvers | `@hookform/resolvers` (+ Zod) | `^5.2.2`  |
+| Client state  | `zustand` (+ `persist`)       | `^5.0.9`  |
 
 - Client-side stores: `store/cartStore.ts` (cart + promo codes) and `store/compareStore.ts`, both persisted to `localStorage`.
 
