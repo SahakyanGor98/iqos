@@ -1,3 +1,4 @@
+// Reserved for future CMS/Admin feature flags.
 'use client';
 
 import { useEffect, useState } from 'react';

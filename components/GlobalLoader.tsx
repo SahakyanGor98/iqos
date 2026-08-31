@@ -1,21 +1,22 @@
-'use client';
+import { LoaderCircle } from 'lucide-react';
 
-import React from 'react';
-import Image from 'next/image';
-import { useLoading } from '@/context/LoadingContext';
-
+/**
+ * Pure presentational loader. Rendered by app/loading.tsx, so Next.js controls
+ * its mount/unmount via Suspense during navigation and server data fetching —
+ * it has no `isLoading` prop and no context (see .ai/state.md §3).
+ *
+ * The spinner animation lives on the wrapping <div>, not the <svg>, so the
+ * browser can hardware-accelerate it (see the animate-svg-wrapper rule).
+ */
 export const GlobalLoader = () => {
-  const { isLoading } = useLoading();
-
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-md transition-all duration-300 pointer-events-none 
-        ${isLoading ? 'opacity-100' : 'opacity-0'}`}
+      className='fixed inset-0 z-9999 flex items-center justify-center bg-black/40 backdrop-blur-md pointer-events-none'
+      role='status'
+      aria-label='Загрузка'
     >
-      <div className='relative w-32 h-32 md:w-48 md:h-48 animate-spin-linear'>
-        <div className='w-full h-full animate-pulse-smooth flex items-center justify-center'>
-          <Image src='/icon1.webp' alt='Loading...' fill priority className='object-contain' />
-        </div>
+      <div className='animate-spin'>
+        <LoaderCircle className='w-12 h-12 md:w-16 md:h-16 text-white' strokeWidth={2.5} />
       </div>
     </div>
   );
