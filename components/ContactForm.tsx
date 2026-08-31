@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import { IMaskInput } from 'react-imask';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { submitContact } from '@/app/actions/contact';
@@ -27,6 +28,7 @@ export const ContactForm = () => {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -102,13 +104,23 @@ export const ContactForm = () => {
         <div className='grid md:grid-cols-2 gap-6'>
           <div>
             <label className='block text-sm font-medium mb-2'>Телефон</label>
-            <input
-              {...register('phone')}
-              type='tel'
-              className={`w-full p-4 bg-neutral-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition ${
-                errors.phone ? 'border-red-500' : 'border-transparent'
-              }`}
-              placeholder='+7 (999) 000-00-00 или 8999...'
+            <Controller
+              name='phone'
+              control={control}
+              render={({ field }) => (
+                <IMaskInput
+                  mask='+7 (000) 000-00-00'
+                  type='tel'
+                  inputMode='tel'
+                  value={field.value ?? ''}
+                  onAccept={field.onChange}
+                  onBlur={field.onBlur}
+                  className={`w-full p-4 bg-neutral-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black transition ${
+                    errors.phone ? 'border-red-500' : 'border-transparent'
+                  }`}
+                  placeholder='+7 (999) 000-00-00'
+                />
+              )}
             />
             {errors.phone && <p className='text-red-500 text-sm mt-1'>{errors.phone.message}</p>}
           </div>

@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { HapticButton } from './HapticButton';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import { IMaskInput } from 'react-imask';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { placeOrder } from '@/app/actions/checkout';
@@ -42,6 +43,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -143,13 +145,23 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
 
         <div>
           <label className='block text-sm font-medium mb-1'>Телефон</label>
-          <input
-            {...register('phone')}
-            type='tel'
-            className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${
-              errors.phone ? 'border-red-500' : 'border-neutral-200'
-            }`}
-            placeholder='+7 (999) 000-00-00'
+          <Controller
+            name='phone'
+            control={control}
+            render={({ field }) => (
+              <IMaskInput
+                mask='+7 (000) 000-00-00'
+                type='tel'
+                inputMode='tel'
+                value={field.value ?? ''}
+                onAccept={field.onChange}
+                onBlur={field.onBlur}
+                className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition ${
+                  errors.phone ? 'border-red-500' : 'border-neutral-200'
+                }`}
+                placeholder='+7 (999) 000-00-00'
+              />
+            )}
           />
           {errors.phone && <p className='text-red-500 text-xs mt-1'>{errors.phone.message}</p>}
         </div>

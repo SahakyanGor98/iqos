@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { IMaskInput } from 'react-imask';
 import { submitTradeIn } from '@/app/actions/tradein';
 import { formatPrice } from '@/lib/utils';
 import { HapticButton } from '@/components/HapticButton';
@@ -248,11 +249,13 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
 
             <div>
               <label className='block text-sm font-medium mb-1'>Телефон</label>
-              <input
+              <IMaskInput
+                mask='+7 (000) 000-00-00'
                 type='tel'
+                inputMode='tel'
                 required
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onAccept={(value) => setPhone(value)}
                 placeholder='+7 (999) 000-00-00'
                 className='w-full p-3 border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black transition'
               />
