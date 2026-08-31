@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
 import { computeComparisonMatrix } from '@/lib/comparisonSpecs';
@@ -398,11 +399,13 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
 
                         <div>
                           {/* Image */}
-                          <div className='aspect-square w-full bg-neutral-50 rounded-xl p-2 mb-2 flex items-center justify-center overflow-hidden'>
-                            <img
-                              src={`/api/proxy?url=${encodeURIComponent(img)}`}
+                          <div className='relative aspect-square w-full bg-neutral-50 rounded-xl p-2 mb-2 flex items-center justify-center overflow-hidden'>
+                            <Image
+                              src={img}
                               alt={product.title}
-                              className='w-full h-full object-contain'
+                              fill
+                              sizes='(max-width: 768px) 45vw, 200px'
+                              className='object-contain'
                             />
                           </div>
 
@@ -596,11 +599,13 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
 
                           <div>
                             {/* Product Image */}
-                            <div className='aspect-square bg-neutral-50 rounded-xl overflow-hidden mb-3 p-2 flex items-center justify-center mx-auto'>
-                              <img
-                                src={`/api/proxy?url=${encodeURIComponent(img)}`}
+                            <div className='relative aspect-square bg-neutral-50 rounded-xl overflow-hidden mb-3 p-2 flex items-center justify-center mx-auto'>
+                              <Image
+                                src={img}
                                 alt={product.title}
-                                className='w-full h-full object-contain'
+                                fill
+                                sizes='(max-width: 768px) 45vw, 250px'
+                                className='object-contain'
                               />
                             </div>
 

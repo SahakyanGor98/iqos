@@ -3,6 +3,7 @@
 import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { HapticButton } from './HapticButton';
 import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 
@@ -124,11 +125,16 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                   items.map((item) => (
                     <div key={item.product.id} className='flex gap-4 border-b pb-4 last:border-0'>
                       <div className='relative w-20 h-20 flex-shrink-0 bg-neutral-50 rounded-md overflow-hidden'>
-                        <img
-                          src={`/api/proxy?url=${encodeURIComponent(Array.isArray(item.product.image) ? item.product.image[0] : item.product.image)}`}
+                        <Image
+                          src={
+                            Array.isArray(item.product.image)
+                              ? item.product.image[0]
+                              : item.product.image
+                          }
                           alt={item.product.title}
-                          className='w-full h-full object-contain p-1'
-                          loading='lazy'
+                          fill
+                          sizes='80px'
+                          className='object-contain p-1'
                         />
                       </div>
                       <div className='flex-1'>

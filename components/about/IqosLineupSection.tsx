@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Button } from '../Button';
 import { ButtonVariant } from '../ButtonTypes';
 import type { IqosLineupItem } from '@/lib/api';
@@ -7,9 +8,6 @@ import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 type Props = {
   devices: IqosLineupItem[];
 };
-
-const getImageSrc = (image: string) =>
-  image.startsWith('http') ? `/api/proxy?url=${encodeURIComponent(image)}` : image;
 
 const getCardStyle = (line: string) => {
   switch (line) {
@@ -75,11 +73,12 @@ export const IqosLineupSection = ({ devices }: Props) => {
                   </div>
 
                   <div className='relative aspect-square w-full max-w-[220px] mx-auto overflow-hidden flex items-center justify-center p-2'>
-                    <img
-                      src={getImageSrc(device.image)}
+                    <Image
+                      src={device.image}
                       alt={device.name}
-                      className='w-full h-full object-contain relative z-10 transition-transform duration-700 hover:scale-105'
-                      loading='lazy'
+                      fill
+                      sizes='220px'
+                      className='object-contain z-10 transition-transform duration-700 hover:scale-105'
                     />
                   </div>
 
