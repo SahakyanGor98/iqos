@@ -43,15 +43,13 @@ export const Navbar = () => {
 
   const totalItems = mounted ? cartItems.reduce((acc, item) => acc + item.quantity, 0) : 0;
   const totalCompareItems = mounted
-    ? Object.values(compareItemsByCategory).reduce(
-        (acc, list) => acc + (list?.length || 0),
-        0,
-      )
+    ? Object.values(compareItemsByCategory).reduce((acc, list) => acc + (list?.length || 0), 0)
     : 0;
 
   const links = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
     { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
+    { href: ROUTES.catalog.accessories, label: 'Аксессуары' },
     { href: ROUTES.tradeIn, label: 'Трейд-ин' },
     { href: ROUTES.about.iqos, label: 'Об IQOS' },
     { href: ROUTES.contact, label: 'Контакты' },

@@ -122,10 +122,7 @@ export default function Home() {
             Не уверены в выборе? Наши эксперты проконсультируют вас и помогут подобрать идеальное
             устройство и вкусы, подходящие именно вам.
           </p>
-          <Button
-            href='/contact'
-            variant={ButtonVariant.PRIMARY}
-          >
+          <Button href='/contact' variant={ButtonVariant.PRIMARY}>
             Связаться с нами
           </Button>
         </div>

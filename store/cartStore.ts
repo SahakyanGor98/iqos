@@ -100,10 +100,7 @@ export const useCartStore = create<CartState>()(
       },
       getTotalPrice: () => {
         const items = get().items;
-        const total = items.reduce(
-          (sum, item) => sum + item.product.price * item.quantity,
-          0,
-        );
+        const total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
         const eligibleTotal = items
           .filter((item) => item.product.category !== 'water')
           .reduce((sum, item) => sum + item.product.price * item.quantity, 0);

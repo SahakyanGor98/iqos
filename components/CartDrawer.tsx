@@ -4,7 +4,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import { CheckoutForm } from './CheckoutForm';
 import { HapticButton } from './HapticButton';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 
 type Props = {
   isOpen: boolean;
@@ -129,7 +129,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                       </div>
                       <div className='flex-1'>
                         <div className='flex justify-between items-start'>
-                          <h3 className='text-sm font-medium line-clamp-2'>{formatDeviceTitle(fixCasing(item.product.title, false))}</h3>
+                          <h3 className='text-sm font-medium line-clamp-2'>
+                            {formatDeviceTitle(fixCasing(item.product.title, false))}
+                          </h3>
                           <HapticButton
                             onClick={() => removeFromCart(item.product.id)}
                             className='text-red-500 hover:text-red-700 ml-2'
@@ -149,7 +151,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                             </svg>
                           </HapticButton>
                         </div>
-                        <p className='text-sm text-neutral-500 mt-1'>{formatPrice(item.product.price)} / шт</p>
+                        <p className='text-sm text-neutral-500 mt-1'>
+                          {formatPrice(item.product.price)} / шт
+                        </p>
 
                         <div className='flex items-center justify-between mt-3'>
                           <div className='flex items-center border rounded-md'>
@@ -170,7 +174,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                               +
                             </HapticButton>
                           </div>
-                          <p className='font-semibold'>{formatPrice(item.product.price * item.quantity)}</p>
+                          <p className='font-semibold'>
+                            {formatPrice(item.product.price * item.quantity)}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -221,7 +227,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     <div className='flex justify-between items-center text-sm text-neutral-600'>
                       <span>Товары</span>
                       <span>
-                        {formatPrice(items.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}
+                        {formatPrice(
+                          items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+                        )}
                       </span>
                     </div>
 

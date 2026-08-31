@@ -1,6 +1,7 @@
 import { supabase } from './supabase';
 import { ProductRow, TradeInDeviceRow } from '@/types/supabase';
 import { IQOS_LINES } from '@/lib/constants';
+import accessoriesData from '@/assets/accessories.json';
 
 export type ProductParams = {
   category: 'gadget' | 'sticks' | 'water' | 'accessories';
@@ -22,8 +23,26 @@ export type PaginatedResult = {
   count: number;
 };
 
+// Helper to format JSON asset to ProductRow
+function formatAccessoryRow(item: any): ProductRow {
+  return {
+    id: item.id,
+    created_at: new Date().toISOString(),
+    slug: item.slug,
+    title: item.title,
+    description: item.description,
+    image: Array.isArray(item.image) ? item.image : [item.image],
+    price: item.price,
+    category: 'accessories',
+    in_stock: item.inStock ?? true,
+    badges: item.badges || { isNew: false, isHit: false, isExclusive: false },
+    attributes: item.attributes || {},
+    brand: item.brand || 'IQOS',
+  };
+}
+
 export async function getProducts(params: ProductParams): Promise<PaginatedResult> {
-  const { category, page = 1, limit = 12, sort, filters } = params;
+  const { category, page = 1, limit = 25, sort, filters } = params;
 
   let query = supabase.from('products').select('*', { count: 'exact' }).eq('category', category);
 
@@ -109,8 +128,42 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
   const { data, error, count } = await query;
 
-  if (error) {
-    console.error(`Error fetching ${category}:`, error);
+  if (error || !data || data.length === 0) {
+    if (category === 'accessories') {
+      let mockList = accessoriesData.map(formatAccessoryRow);
+
+      if (filters?.color) {
+        const colors = Array.isArray(filters.color) ? filters.color : [filters.color];
+        mockList = mockList.filter((item) => colors.includes((item.attributes as any)?.color));
+      }
+      if (filters?.type) {
+        const types = Array.isArray(filters.type) ? filters.type : [filters.type];
+        mockList = mockList.filter((item) => types.includes((item.attributes as any)?.type));
+      }
+      if (filters?.compatibility) {
+        const comps = Array.isArray(filters.compatibility)
+          ? filters.compatibility
+          : [filters.compatibility];
+        mockList = mockList.filter((item) =>
+          comps.includes((item.attributes as any)?.compatibility),
+        );
+      }
+      if (params.inStock) {
+        mockList = mockList.filter((item) => item.in_stock);
+      }
+      if (params.priceRange?.min !== undefined) {
+        mockList = mockList.filter((item) => item.price >= params.priceRange!.min!);
+      }
+      if (params.priceRange?.max !== undefined) {
+        mockList = mockList.filter((item) => item.price <= params.priceRange!.max!);
+      }
+
+      const paginatedMock = mockList.slice((page - 1) * limit, page * limit);
+      return { data: paginatedMock, count: mockList.length };
+    }
+    if (error) {
+      console.error(`Error fetching ${category}:`, error);
+    }
     return { data: [], count: 0 };
   }
 
@@ -119,8 +172,14 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
 export async function getProductBySlug(slug: string): Promise<ProductRow | null> {
   const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single();
-  if (error) {
-    console.error(`Error fetching product ${slug}:`, error);
+  if (error || !data) {
+    const mockMatch = accessoriesData.find((item) => item.slug === slug);
+    if (mockMatch) {
+      return formatAccessoryRow(mockMatch);
+    }
+    if (error) {
+      console.error(`Error fetching product ${slug}:`, error);
+    }
     return null;
   }
   return data as ProductRow;
@@ -203,12 +262,17 @@ export async function getAllSlugs(
 ): Promise<string[]> {
   const { data, error } = await supabase.from('products').select('slug').eq('category', category);
 
-  if (error) {
-    console.error('Error fetching slugs:', error);
+  if (error || !data || data.length === 0) {
+    if (category === 'accessories') {
+      return accessoriesData.map((item) => item.slug);
+    }
+    if (error) {
+      console.error('Error fetching slugs:', error);
+    }
     return [];
   }
 
-  return data?.map((p) => p.slug) || [];
+  return data.map((p) => p.slug);
 }
 
 /* -------------------------------------------------------------------------- */

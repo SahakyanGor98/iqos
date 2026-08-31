@@ -28,6 +28,14 @@ export const FooterContent = () => {
                 </Link>
               </li>
               <li>
+                <Link
+                  href={ROUTES.catalog.accessories}
+                  className='hover:text-white transition-colors'
+                >
+                  Аксессуары
+                </Link>
+              </li>
+              <li>
                 <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
                   Трейд-ин
                 </Link>

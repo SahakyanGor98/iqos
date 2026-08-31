@@ -21,7 +21,7 @@ type Props = {
 export default async function WaterPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
-  const limit = Number(params.limit) || 12;
+  const limit = Number(params.limit) || 25;
 
   const minPrice = params.minPrice ? Number(params.minPrice) : undefined;
   const maxPrice = params.maxPrice ? Number(params.maxPrice) : undefined;
@@ -43,7 +43,8 @@ export default async function WaterPage({ searchParams }: Props) {
           Питьевая вода
         </h1>
         <p className='text-neutral-600 text-sm md:text-base max-w-2xl mx-auto'>
-          Чистейшая питьевая вода в блоках по 12 штук. Натуральная минерализация и идеальный освежающий вкус.
+          Чистейшая питьевая вода в блоках по 12 штук. Натуральная минерализация и идеальный
+          освежающий вкус.
         </p>
       </section>
 
