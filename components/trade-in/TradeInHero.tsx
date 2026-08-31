@@ -31,16 +31,24 @@ export const TradeInHero = () => {
             </Button>
           </div>
 
-          {/* Device visual */}
+          {/* Device visual — portrait (3:4) on mobile, landscape (16:9) on desktop */}
           <div className='order-1 md:order-2'>
-            <div className='relative aspect-[4/3] md:aspect-square w-full rounded-[28px] bg-gradient-to-br from-neutral-100 to-neutral-200/70 border border-neutral-200/80 overflow-hidden'>
+            <div className='relative aspect-square md:aspect-video w-full rounded-[28px] border border-neutral-200/80 overflow-hidden'>
               <Image
-                src='/ILUMA_i_Prime.webp'
-                alt='Новый IQOS ILUMA для обмена по программе Трейд-ин'
+                src='/trade-in-2.webp'
+                alt='Обмен старого устройства IQOS по программе Трейд-ин'
                 fill
                 priority
                 sizes='(max-width: 768px) 90vw, 520px'
-                className='object-contain p-8 md:p-12'
+                className='object-cover md:hidden'
+              />
+              <Image
+                src='/trade-in-1.webp'
+                alt='Обмен старого устройства IQOS по программе Трейд-ин'
+                fill
+                priority
+                sizes='(max-width: 768px) 90vw, 520px'
+                className='hidden object-cover md:block'
               />
             </div>
           </div>

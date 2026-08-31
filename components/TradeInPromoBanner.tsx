@@ -10,14 +10,22 @@ export const TradeInPromoBanner = () => {
     <section className='w-full bg-white'>
       <div className='w-full max-w-none md:max-w-7xl md:mx-auto px-0 md:px-8'>
         <div className='relative aspect-square md:aspect-auto h-auto md:h-[calc(100vh-64px)] overflow-hidden group w-full'>
-          {/* Background Image */}
+          {/* Background Image — portrait (3:4) on mobile, landscape (16:9) on desktop */}
           <div className='absolute inset-0 z-0'>
             <Image
-              src='/devices2.webp'
+              src='/trade-in-2.webp'
               alt='Трейд-ин IQOS — обменяйте старый девайс со скидкой на IQOS ILUMA'
               fill
               sizes='100vw'
-              className='object-cover object-center transition-transform duration-700 group-hover:scale-105'
+              className='object-cover object-center transition-transform duration-700 group-hover:scale-105 md:hidden'
+              priority
+            />
+            <Image
+              src='/trade-in-1.webp'
+              alt='Трейд-ин IQOS — обменяйте старый девайс со скидкой на IQOS ILUMA'
+              fill
+              sizes='100vw'
+              className='hidden object-cover object-center transition-transform duration-700 group-hover:scale-105 md:block'
               priority
             />
           </div>
@@ -31,7 +39,7 @@ export const TradeInPromoBanner = () => {
               <h2 className='text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight'>
                 Трейд-ин IQOS
               </h2>
-              <p className='text-base md:text-lg font-bold text-white max-w-md mx-auto md:mx-0 leading-relaxed'>
+              <p className='text-base md:text-lg font-bold text-white max-w-lg mx-auto md:mx-0 leading-relaxed'>
                 Обменяйте старое устройство со скидкой до 2 500 ₽ на новый IQOS ILUMA. Принимаем в
                 любом состоянии.
               </p>
