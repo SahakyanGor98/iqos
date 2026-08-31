@@ -24,8 +24,6 @@ export const OrderConfirmation = ({
   totalAmount,
   discount,
 }: Props) => {
-  const subtotal = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-
   return (
     <div style={emailStyles.body}>
       <div style={emailStyles.container}>

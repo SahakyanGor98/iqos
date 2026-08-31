@@ -1,16 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Share, Trash2, Scale, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Plus, Scale, Share, Trash2, X } from 'lucide-react';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
 import { computeComparisonMatrix } from '@/lib/comparisonSpecs';
 import { AddToCartButton } from '@/components';
 import { ProductRow } from '@/types/supabase';
 import { Product } from '@/types/product';
-import { formatPrice, fixCasing, formatDeviceTitle } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 import { fetchCompareProductsBySlugs } from '@/app/actions/products';
 
 // Click-triggered modal — loaded only when the user opens it (see .ai/seo-perf.md §2).

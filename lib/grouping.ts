@@ -1,4 +1,5 @@
 import { ProductRow } from '@/types/supabase';
+import { ProductAttributes } from '@/types/product';
 
 export type GroupedCard = {
   primary: ProductRow;
@@ -17,7 +18,7 @@ export function getGroupedCards(products: ProductRow[]): GroupedCard[] {
   const groupsMap = new Map<string, ProductRow[]>();
 
   products.forEach((product) => {
-    const attrs = (product.attributes as Record<string, any>) || {};
+    const attrs = (product.attributes as ProductAttributes) || {};
     const lineKey = attrs.line
       ? String(attrs.line).toLowerCase().trim()
       : product.title
@@ -42,8 +43,8 @@ export function getGroupedCards(products: ProductRow[]): GroupedCard[] {
 
   const colorOf = (p: ProductRow) =>
     String(
-      (p.attributes as Record<string, any>)?.colorVariantName ||
-        (p.attributes as Record<string, any>)?.color ||
+      (p.attributes as ProductAttributes)?.colorVariantName ||
+        (p.attributes as ProductAttributes)?.color ||
         p.title,
     ).toLowerCase();
 

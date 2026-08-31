@@ -2,16 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState, useTransition } from 'react';
-import {
-  ArrowUpDown,
-  Calendar,
-  Check,
-  ChevronDown,
-  SortAsc,
-  SortDesc,
-  TrendingUp,
-  Type,
-} from 'lucide-react';
+import { ArrowUpDown, Calendar, Check, ChevronDown, SortAsc, SortDesc, Type } from 'lucide-react';
 
 const SORT_OPTIONS = [
   { value: '', label: 'По умолчанию', icon: ArrowUpDown },

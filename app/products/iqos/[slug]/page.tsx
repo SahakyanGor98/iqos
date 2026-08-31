@@ -5,7 +5,7 @@ import { getAllSlugs, getProductBySlug, getProducts } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton, CompareButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
-import { Product } from '@/types/product';
+import { Product, ProductAttributes } from '@/types/product';
 import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
@@ -53,7 +53,7 @@ export default async function IqosSlugPage({ params }: Props) {
   }
 
   const { attributes, badges } = productRow;
-  const attrs = attributes as Record<string, any>;
+  const attrs = attributes as ProductAttributes;
   const badgeData = badges as Record<string, boolean>;
 
   // Fetch sibling color variants for the same line
@@ -61,15 +61,19 @@ export default async function IqosSlugPage({ params }: Props) {
   if (attrs.line) {
     const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
     siblingVariants = gadgets.filter(
-      (p) => (p.attributes as Record<string, any>)?.line === attrs.line,
+      (p) => (p.attributes as ProductAttributes)?.line === attrs.line,
     );
     // Show Electric Purple first among the sibling colours (rc behaviour).
     siblingVariants.sort((a, b) => {
       const colorA = String(
-        (a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title,
+        (a.attributes as ProductAttributes)?.colorVariantName ||
+          (a.attributes as ProductAttributes)?.color ||
+          a.title,
       ).toLowerCase();
       const colorB = String(
-        (b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title,
+        (b.attributes as ProductAttributes)?.colorVariantName ||
+          (b.attributes as ProductAttributes)?.color ||
+          b.title,
       ).toLowerCase();
       const isPurpleA =
         colorA.includes('electric purple') ||
@@ -171,7 +175,7 @@ export default async function IqosSlugPage({ params }: Props) {
                 </span>
                 <div className='flex items-center gap-2.5 flex-wrap'>
                   {siblingVariants.map((variant) => {
-                    const vAttrs = variant.attributes as Record<string, any>;
+                    const vAttrs = variant.attributes as ProductAttributes;
                     const isCurrent = variant.slug === productRow.slug;
                     const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
                     return (

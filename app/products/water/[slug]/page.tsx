@@ -4,7 +4,7 @@ import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
-import { Product } from '@/types/product';
+import { Product, ProductAttributes } from '@/types/product';
 import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 
 type Props = {
@@ -51,7 +51,7 @@ export default async function WaterSlugPage({ params }: Props) {
   }
 
   const { attributes, badges } = productRow;
-  const attrs = attributes as Record<string, any>;
+  const attrs = attributes as ProductAttributes;
   const badgeData = badges as Record<string, boolean>;
 
   const mainImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];

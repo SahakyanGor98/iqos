@@ -4,7 +4,7 @@ import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { X, Trash2, Minus, Plus, Check } from 'lucide-react';
+import { Check, Minus, Plus, Trash2, X } from 'lucide-react';
 import { HapticButton } from './HapticButton';
 import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 

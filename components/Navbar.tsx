@@ -6,10 +6,10 @@ import dynamic from 'next/dynamic';
 import { useCartStore } from '@/store/cartStore';
 import { useCompareStore } from '@/store/compareStore';
 import { useEffect, useState } from 'react';
-import { Menu, X, Scale, ShoppingCart } from 'lucide-react';
+import { Menu, Scale, ShoppingCart, X } from 'lucide-react';
 import { CompareFloatingBar } from '@/components';
 import { NavDropdown } from './NavDropdown';
-import { ROUTES, ENABLE_ACCESSORIES } from '@/lib/constants';
+import { ENABLE_ACCESSORIES, ROUTES } from '@/lib/constants';
 
 // Click-triggered drawer — loaded only when the cart is opened (see .ai/seo-perf.md §2).
 const CartDrawer = dynamic(() => import('./CartDrawer').then((m) => m.CartDrawer), {

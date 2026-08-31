@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { CompareButton } from '@/components/CompareButton';
-import { Product } from '@/types/product';
+import { Product, ProductAttributes } from '@/types/product';
 import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 
 // Helper to map DB row to Store Product
 const mapToStoreProduct = (row: ProductRow): Product => {
-  const attrs = row.attributes as Record<string, any>;
+  const attrs = row.attributes as ProductAttributes;
   return {
     id: row.id,
     slug: row.slug,
@@ -42,7 +42,7 @@ export const ProductCard = ({ product, variants }: Props) => {
     isHit?: boolean;
     isExclusive?: boolean;
   };
-  const attributes = activeProduct.attributes as Record<string, any>;
+  const attributes = activeProduct.attributes as ProductAttributes;
 
   const colorVariants =
     variants && variants.length > 0
@@ -131,7 +131,7 @@ export const ProductCard = ({ product, variants }: Props) => {
                 }}
               >
                 {colorVariants.map((variant) => {
-                  const vAttrs = variant.attributes as Record<string, any>;
+                  const vAttrs = variant.attributes as ProductAttributes;
                   const colorLabel = vAttrs.color || variant.title;
                   const isSelected = variant.id === activeProduct.id;
                   const swatch = getDeviceColorSwatch(

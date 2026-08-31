@@ -29,7 +29,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
     if (typeof window !== 'undefined' && 'vibrate' in navigator) {
       try {
         navigator.vibrate(12);
-      } catch (_) {}
+      } catch {}
     }
     setOpenItemId((prev) => (prev === id ? null : id));
   };
@@ -38,7 +38,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
     if (typeof window !== 'undefined' && 'vibrate' in navigator) {
       try {
         navigator.vibrate(20);
-      } catch (_) {}
+      } catch {}
     }
     setIsListExpanded((prev) => !prev);
   };

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Check, ChevronLeft, TriangleAlert } from 'lucide-react';
 import { HapticButton } from './HapticButton';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -64,7 +64,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
       } else {
         setError(result.error || 'Произошла ошибка при оформлении заказа');
       }
-    } catch (e) {
+    } catch {
       setError('Произошла непредвиденная ошибка');
     } finally {
       setIsSubmitting(false);

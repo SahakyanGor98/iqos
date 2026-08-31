@@ -14,7 +14,6 @@ interface Props {
 export const ProductImageCarousel = ({ images, title }: Props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -28,10 +27,9 @@ export const ProductImageCarousel = ({ images, title }: Props) => {
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
-    setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
-  }, [emblaApi, setScrollSnaps, onSelect]);
+  }, [emblaApi, onSelect]);
 
   if (!images || images.length === 0) return null;
 

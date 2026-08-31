@@ -73,12 +73,13 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Pr
       ...rest
     } = props;
 
-    const handleClick = (e: React.MouseEvent<any>) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
       if (haptic) {
         triggerHaptic(hapticPattern);
       }
       if (onClick) {
-        onClick(e);
+        // `onClick` is typed per the anchor/button union; the handler accepts either.
+        (onClick as (event: typeof e) => void)(e);
       }
     };
 
@@ -91,7 +92,11 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Pr
     );
 
     if (href !== undefined) {
-      const { type, ...linkRest } = rest as any;
+      // Strip `type` (a button-only prop) before spreading the rest onto <Link>.
+      const { type, ...linkRest } =
+        rest as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+          type?: string;
+        };
       return (
         <Link
           href={href}
@@ -107,11 +112,11 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Pr
 
     return (
       <button
-        type={(rest as any).type || 'button'}
+        type={(rest as React.ButtonHTMLAttributes<HTMLButtonElement>).type || 'button'}
         onClick={handleClick}
         className={classes}
         ref={ref as React.Ref<HTMLButtonElement>}
-        {...(rest as any)}
+        {...(rest as unknown as React.ButtonHTMLAttributes<HTMLButtonElement>)}
       >
         {children}
       </button>

@@ -2,6 +2,7 @@ import 'server-only';
 
 import { supabasePublic as supabase } from './supabase/public';
 import { ProductRow, TradeInDeviceRow } from '@/types/supabase';
+import { ProductAttributes } from '@/types/product';
 import { IQOS_LINES } from '@/lib/constants';
 import accessoriesData from '@/assets/accessories.json';
 
@@ -26,7 +27,7 @@ export type PaginatedResult = {
 };
 
 // Helper to format JSON asset to ProductRow
-function formatAccessoryRow(item: any): ProductRow {
+function formatAccessoryRow(item: (typeof accessoriesData)[number]): ProductRow {
   return {
     id: item.id,
     created_at: new Date().toISOString(),
@@ -136,18 +137,22 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
       if (filters?.color) {
         const colors = Array.isArray(filters.color) ? filters.color : [filters.color];
-        mockList = mockList.filter((item) => colors.includes((item.attributes as any)?.color));
+        mockList = mockList.filter((item) =>
+          colors.includes((item.attributes as ProductAttributes)?.color ?? ''),
+        );
       }
       if (filters?.type) {
         const types = Array.isArray(filters.type) ? filters.type : [filters.type];
-        mockList = mockList.filter((item) => types.includes((item.attributes as any)?.type));
+        mockList = mockList.filter((item) =>
+          types.includes((item.attributes as ProductAttributes)?.type ?? ''),
+        );
       }
       if (filters?.compatibility) {
         const comps = Array.isArray(filters.compatibility)
           ? filters.compatibility
           : [filters.compatibility];
         mockList = mockList.filter((item) =>
-          comps.includes((item.attributes as any)?.compatibility),
+          comps.includes((item.attributes as ProductAttributes)?.compatibility ?? ''),
         );
       }
       if (params.inStock) {

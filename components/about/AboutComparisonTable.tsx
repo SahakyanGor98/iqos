@@ -1,7 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 import { CIGARETTE_VS_IQOS_TABLE, ECIG_VS_IQOS } from '@/lib/content/iqos-about';
-import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
 export const AboutComparisonTable: React.FC = () => {
   return (

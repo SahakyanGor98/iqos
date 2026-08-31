@@ -78,7 +78,7 @@ export const ContactNotification = ({ name, email, phone, message }: Props) => {
               lineHeight: '1.6',
             }}
           >
-            "{message}"
+            &laquo;{message}&raquo;
           </div>
         </div>
 

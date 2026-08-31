@@ -33,6 +33,8 @@ export function YandexMetrika() {
       />
       <noscript>
         <div>
+          {/* Yandex Metrika tracking pixel — must be a raw <img>, not next/image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`https://mc.yandex.ru/watch/${ANALYTICS.yandexMetrikaId}`}
             style={{ position: 'absolute', left: '-9999px' }}

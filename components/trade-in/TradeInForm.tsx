@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ChevronLeft, X, Check } from 'lucide-react';
+import { Check, ChevronLeft, X } from 'lucide-react';
 import { IMaskInput } from 'react-imask';
 import { submitTradeIn } from '@/app/actions/tradein';
 import { formatPrice } from '@/lib/utils';

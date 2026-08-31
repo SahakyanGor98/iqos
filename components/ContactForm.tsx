@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -50,7 +50,7 @@ export const ContactForm = () => {
       } else {
         setError(result.error || 'Произошла ошибка при отправке');
       }
-    } catch (e) {
+    } catch {
       setError('Произошла непредвиденная ошибка');
     } finally {
       setIsSubmitting(false);
