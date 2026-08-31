@@ -143,23 +143,37 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
                   {isSelected ? (
                     <button
                       type='button'
-                      className='px-3 py-1.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer'
+                      className='px-3 py-1.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold transition cursor-pointer'
                     >
-                      <span>✓</span>
-                      <span>В списке</span>
+                      В списке
                     </button>
                   ) : (
                     <button
                       type='button'
                       className='px-3 py-1.5 border border-neutral-300 text-neutral-800 bg-white hover:bg-neutral-100 rounded-lg text-xs font-semibold transition cursor-pointer'
                     >
-                      + Добавить
+                      Добавить
                     </button>
                   )}
                 </div>
               );
             })
           )}
+        </div>
+
+        {/* Modal Footer with Apply Button */}
+        <div className='p-4 border-t border-neutral-100 bg-neutral-50/50 flex items-center justify-between gap-3'>
+          <div className='text-xs text-neutral-500 font-medium'>
+            Выбрано в списке:{' '}
+            <span className='font-bold text-neutral-900'>{currentCategoryItems.length}</span>
+          </div>
+          <button
+            type='button'
+            onClick={onClose}
+            className='px-6 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white rounded-xl text-xs font-bold transition shadow-sm cursor-pointer'
+          >
+            Применить
+          </button>
         </div>
       </div>
     </div>

@@ -130,8 +130,13 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#18181b' },
   },
   {
+    // Breeze Blue — dedicated pale device shade (from main); matched before the
+    // generic blue bucket so it wins first-match.
+    keywords: ['breeze blue'],
+    swatch: { background: '#CBFCFD', border: '1px solid #cbd5e1' },
+  },
+  {
     keywords: [
-      'breeze blue',
       'brisk blue',
       'chill blue',
       'vivid blue',
@@ -148,14 +153,19 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#2563eb' },
   },
   {
-    // Electric Purple (Фиолетовый) keeps its dedicated shade from rc; matched
+    // Electric Purple (Фиолетовый) — dedicated device shade (from main); matched
     // before the general violet entry below so it wins first-match.
     keywords: ['electric purple', 'фиолетовый'],
-    swatch: { background: '#705096' },
+    swatch: { background: '#272361' },
+  },
+  {
+    // Digital Violet — dedicated device shade (from main); matched before the
+    // general violet bucket so it wins first-match.
+    keywords: ['digital violet'],
+    swatch: { background: '#434181' },
   },
   {
     keywords: [
-      'digital violet',
       'wise violet',
       'majestic purple',
       'mysterious purple',
@@ -194,8 +204,13 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#ec4899' },
   },
   {
+    // Garnet Red — dedicated dark device shade (from main); matched before the
+    // generic red bucket so it wins first-match.
+    keywords: ['garnet red'],
+    swatch: { background: '#573044' },
+  },
+  {
     keywords: [
-      'garnet red',
       'claret red',
       'bold ruby',
       'warm red',
