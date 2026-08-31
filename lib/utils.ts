@@ -112,11 +112,19 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#212429' },
   },
   {
-    keywords: ['breeze blue', 'blue', 'синий'],
+    keywords: ['breeze blue'],
+    swatch: { background: '#CBFCFD', border: '1px solid #cbd5e1' },
+  },
+  {
+    keywords: ['blue', 'синий'],
     swatch: { background: '#4f86c6' },
   },
   {
-    keywords: ['digital violet', 'violet', 'purple', 'electric purple', 'фиолетовый'],
+    keywords: ['electric purple', 'electric-purple'],
+    swatch: { background: '#302D7F' },
+  },
+  {
+    keywords: ['digital violet', 'violet', 'purple', 'фиолетовый'],
     swatch: { background: '#705096' },
   },
   {
@@ -124,7 +132,11 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: '#406651' },
   },
   {
-    keywords: ['garnet red', 'red', 'красный', 'pink', 'розовый'],
+    keywords: ['garnet red', 'garnet-red'],
+    swatch: { background: '#573044' },
+  },
+  {
+    keywords: ['red', 'красный', 'pink', 'розовый'],
     swatch: { background: '#9e3232' },
   },
   {
@@ -147,7 +159,14 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
 
 const DEFAULT_SWATCH = { background: '#9ca3af' };
 
-export function getDeviceColorSwatch(colorName?: string, title?: string): { background: string; border?: string } {
+export function getDeviceColorSwatch(
+  colorName?: string,
+  title?: string,
+  explicitHex?: string
+): { background: string; border?: string } {
+  if (explicitHex && (explicitHex.startsWith('#') || explicitHex.startsWith('linear-gradient'))) {
+    return { background: explicitHex };
+  }
   const name = (colorName || title || '').toLowerCase();
   if (!name) return DEFAULT_SWATCH;
 
