@@ -143,17 +143,16 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
                   {isSelected ? (
                     <button
                       type='button'
-                      className='px-3 py-1.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer'
+                      className='px-3 py-1.5 bg-neutral-900 text-white rounded-lg text-xs font-semibold transition cursor-pointer'
                     >
-                      <span>✓</span>
-                      <span>В списке</span>
+                      В списке
                     </button>
                   ) : (
                     <button
                       type='button'
                       className='px-3 py-1.5 border border-neutral-300 text-neutral-800 bg-white hover:bg-neutral-100 rounded-lg text-xs font-semibold transition cursor-pointer'
                     >
-                      + Добавить
+                      Добавить
                     </button>
                   )}
                 </div>
