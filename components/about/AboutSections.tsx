@@ -163,23 +163,3 @@ export const AboutDefaultSection = ({ section }: Props) => {
     </section>
   );
 };
-
-export const AboutTextOnlySection = ({ section }: Props) => {
-  return (
-    <section id={section.id} className='pb-12 md:py-20 bg-neutral-50'>
-      <div className='container-custom max-w-3xl mx-auto text-left space-y-4'>
-        <h2 className='text-2xl md:text-3xl font-black uppercase tracking-tight mb-5 text-[#34303d] text-balance'>
-          {section.title}
-        </h2>
-
-        <div className='space-y-4 text-[#34303d]/90 leading-relaxed text-pretty'>
-          {section.paragraphs.map((paragraph) => (
-            <p key={paragraph} className='whitespace-pre-line'>
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
