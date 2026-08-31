@@ -51,7 +51,7 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
     return (
       <HapticButton
         disabled={true}
-        className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide bg-neutral-100 text-neutral-400 ${className}`}
+        className={`w-full h-14 px-8 flex items-center justify-center rounded-xl font-bold text-sm uppercase tracking-wide bg-neutral-100 text-neutral-400 ${className}`}
       >
         Загрузка...
       </HapticButton>
@@ -61,7 +61,7 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
   if (quantity > 0) {
     return (
       <div
-        className={`flex items-center justify-between w-full py-2 px-2 rounded-xl bg-black text-white ${className}`}
+        className={`flex items-center justify-between w-full h-14 px-2 rounded-xl bg-black text-white ${className}`}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -88,7 +88,7 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
     <HapticButton
       onClick={handleAdd}
       disabled={disabled}
-      className={`w-full py-4 px-8 rounded-xl font-bold text-sm uppercase tracking-wide transition-all duration-300 transform active:scale-95 active:brightness-90
+      className={`w-full h-14 px-8 flex items-center justify-center rounded-xl font-bold text-sm uppercase tracking-wide transition-all duration-300 transform active:scale-95 active:brightness-90
         ${
           disabled
             ? 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
