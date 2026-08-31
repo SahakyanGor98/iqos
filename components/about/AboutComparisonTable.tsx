@@ -1,4 +1,5 @@
 import React from 'react';
+import { Check } from 'lucide-react';
 import { CIGARETTE_VS_IQOS_TABLE, ECIG_VS_IQOS } from '@/lib/content/iqos-about';
 import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
@@ -85,7 +86,7 @@ export const AboutComparisonTable: React.FC = () => {
                       className='flex items-start gap-3 text-sm md:text-base text-[#34303d] leading-relaxed font-medium'
                     >
                       <span className='w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 text-xs mt-0.5'>
-                        ✓
+                        <Check className='w-3 h-3' />
                       </span>
                       <span>{pt}</span>
                     </li>

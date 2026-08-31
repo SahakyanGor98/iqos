@@ -2,6 +2,7 @@
 
 import { DELIVERY_NOTIFICATION_END } from '@/lib/constants';
 import { useEffect, useState } from 'react';
+import { CalendarDays, X } from 'lucide-react';
 
 export const DeliveryNoticeToast = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -50,29 +51,7 @@ export const DeliveryNoticeToast = () => {
     >
       {/* Warning Icon Container */}
       <div className='bg-amber-500 p-2 rounded-full flex-shrink-0 text-white shadow-sm flex items-center justify-center'>
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='20'
-          height='20'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='2'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='animate-pulse'
-        >
-          <rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect>
-          <line x1='16' y1='2' x2='16' y2='6'></line>
-          <line x1='8' y1='2' x2='8' y2='6'></line>
-          <line x1='3' y1='10' x2='21' y2='10'></line>
-          <path d='M8 14h.01'></path>
-          <path d='M12 14h.01'></path>
-          <path d='M16 14h.01'></path>
-          <path d='M8 18h.01'></path>
-          <path d='M12 18h.01'></path>
-          <path d='M16 18h.01'></path>
-        </svg>
+        <CalendarDays className='w-5 h-5 animate-pulse' strokeWidth={2} />
       </div>
 
       <div className='flex-1 min-w-0'>
@@ -89,20 +68,7 @@ export const DeliveryNoticeToast = () => {
         className='text-amber-500 hover:text-amber-700 transition-colors p-1 -mt-1 -mr-1'
         aria-label='Закрыть предупреждение'
       >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='2.5'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        >
-          <line x1='18' y1='6' x2='6' y2='18'></line>
-          <line x1='6' y1='6' x2='18' y2='18'></line>
-        </svg>
+        <X className='w-4 h-4' strokeWidth={2.5} />
       </button>
     </div>
   );

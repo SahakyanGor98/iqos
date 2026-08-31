@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Gift, X } from 'lucide-react';
 import { CONTACTS } from '@/lib/constants';
 
 export const FloatingPromo = () => {
@@ -42,12 +43,15 @@ export const FloatingPromo = () => {
         <div className='w-[260px] bg-white rounded-2xl shadow-xl p-4 animate-in fade-in slide-in-from-bottom-3 duration-300'>
           <div className='flex justify-between items-start'>
             <div>
-              <div className='text-sm font-semibold text-neutral-900'>🎁 -10% на заказ</div>
+              <div className='flex items-center gap-1.5 text-sm font-semibold text-neutral-900'>
+                <Gift className='w-4 h-4' />
+                <span>-10% на заказ</span>
+              </div>
               <div className='text-xs text-neutral-500 mt-1'>Промокод FIRST10</div>
             </div>
 
             <button onClick={handleClose} className='text-neutral-400 hover:text-neutral-700'>
-              ✕
+              <X className='w-4 h-4' />
             </button>
           </div>
 
@@ -66,7 +70,7 @@ export const FloatingPromo = () => {
           onClick={reopen}
           className='w-12 h-12 rounded-full bg-black text-white flex items-center justify-center shadow-lg hover:scale-105 transition'
         >
-          🎁
+          <Gift className='w-6 h-6' />
         </button>
       )}
 

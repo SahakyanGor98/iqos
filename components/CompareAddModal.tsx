@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { X } from 'lucide-react';
 import { ProductRow } from '@/types/supabase';
 import { fetchCompareCandidates } from '@/app/actions/products';
 import { useCompareStore } from '@/store/compareStore';
@@ -67,7 +68,7 @@ export const CompareAddModal = ({ isOpen, onClose, category }: Props) => {
             onClick={onClose}
             className='w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 flex items-center justify-center text-neutral-600 transition-colors'
           >
-            ✕
+            <X className='w-4 h-4' />
           </button>
         </div>
 

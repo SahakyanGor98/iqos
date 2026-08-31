@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { useCartStore } from '@/store/cartStore';
 import { useCompareStore } from '@/store/compareStore';
 import { useEffect, useState } from 'react';
+import { Menu, X, Scale, ShoppingCart } from 'lucide-react';
 import { CompareFloatingBar } from '@/components';
 import { NavDropdown } from './NavDropdown';
 import { ROUTES, ENABLE_ACCESSORIES } from '@/lib/constants';
@@ -73,30 +74,7 @@ export const Navbar = () => {
               className='p-2 hover:bg-neutral-100 rounded-lg -ml-2'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                {isMenuOpen ? (
-                  <>
-                    <line x1='18' y1='6' x2='6' y2='18' />
-                    <line x1='6' y1='6' x2='18' y2='18' />
-                  </>
-                ) : (
-                  <>
-                    <line x1='3' y1='12' x2='21' y2='12' />
-                    <line x1='3' y1='6' x2='21' y2='6' />
-                    <line x1='3' y1='18' x2='21' y2='18' />
-                  </>
-                )}
-              </svg>
+              {isMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
             </button>
           </div>
 
@@ -182,24 +160,7 @@ export const Navbar = () => {
               className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700 hover:text-black'
               title='Сравнение товаров'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='w-5 h-5 md:w-6 md:h-6'
-              >
-                <path d='m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
-                <path d='m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
-                <path d='M7 21h10' />
-                <path d='M12 3v18' />
-                <path d='M3 7h18' />
-              </svg>
+              <Scale className='w-5 h-5 md:w-6 md:h-6' />
               {totalCompareItems > 0 && (
                 <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] font-bold text-white'>
                   {totalCompareItems}
@@ -212,22 +173,7 @@ export const Navbar = () => {
               onClick={() => setIsCartOpen(true)}
               className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors -mr-2'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='24'
-                height='24'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='w-5 h-5 md:w-6 md:h-6'
-              >
-                <circle cx='9' cy='21' r='1' />
-                <circle cx='20' cy='21' r='1' />
-                <path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6' />
-              </svg>
+              <ShoppingCart className='w-5 h-5 md:w-6 md:h-6' />
               {totalItems > 0 && (
                 <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[10px] font-bold text-white'>
                   {totalItems}

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { X, ArrowRight } from 'lucide-react';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
 
 export const CompareFloatingBar = () => {
@@ -86,7 +87,7 @@ export const CompareFloatingBar = () => {
                     className='absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-bold rounded-xl'
                     title={`Убрать ${product.title}`}
                   >
-                    ✕
+                    <X className='w-4 h-4' />
                   </button>
                 </div>
               );
@@ -119,20 +120,7 @@ export const CompareFloatingBar = () => {
             className='flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-white text-neutral-900 hover:bg-neutral-100 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer whitespace-nowrap'
           >
             <span>Сравнить</span>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='14'
-              height='14'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path d='M5 12h14' />
-              <path d='m12 5 7 7-7 7' />
-            </svg>
+            <ArrowRight className='w-3.5 h-3.5' strokeWidth={2.5} />
           </Link>
         </div>
       </div>

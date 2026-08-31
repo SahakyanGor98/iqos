@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Props = {
   totalItems: number;
@@ -28,9 +29,9 @@ export const Pagination = ({ totalItems, itemsPerPage = 12 }: Props) => {
         href={createPageURL(Math.max(1, currentPage - 1))}
         className={`px-3 py-1 rounded border hover:bg-neutral-50 transition ${
           currentPage === 1 ? 'pointer-events-none opacity-50 bg-neutral-100' : 'bg-white'
-        }`}
+        } inline-flex items-center`}
       >
-        ←
+        <ChevronLeft className='w-4 h-4' />
       </Link>
 
       {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -51,9 +52,9 @@ export const Pagination = ({ totalItems, itemsPerPage = 12 }: Props) => {
         href={createPageURL(Math.min(totalPages, currentPage + 1))}
         className={`px-3 py-1 rounded border hover:bg-neutral-50 transition ${
           currentPage === totalPages ? 'pointer-events-none opacity-50 bg-neutral-100' : 'bg-white'
-        }`}
+        } inline-flex items-center`}
       >
-        →
+        <ChevronRight className='w-4 h-4' />
       </Link>
     </div>
   );

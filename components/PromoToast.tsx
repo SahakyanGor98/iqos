@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { X } from 'lucide-react';
 import { CONTACTS, DELIVERY_NOTIFICATION_END } from '@/lib/constants';
 
 export const PromoToast = () => {
@@ -74,20 +75,7 @@ export const PromoToast = () => {
           onClick={() => setIsVisible(false)}
           className='text-neutral-400 hover:text-neutral-600 transition-colors p-1'
         >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='18'
-            height='18'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='2'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          >
-            <line x1='18' y1='6' x2='6' y2='18'></line>
-            <line x1='6' y1='6' x2='18' y2='18'></line>
-          </svg>
+          <X size={18} />
         </button>
       </div>
     </div>

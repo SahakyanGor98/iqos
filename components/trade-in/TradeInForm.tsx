@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { ChevronLeft, X, Check } from 'lucide-react';
 import { IMaskInput } from 'react-imask';
 import { submitTradeIn } from '@/app/actions/tradein';
 import { formatPrice } from '@/lib/utils';
@@ -139,14 +140,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 className='p-1.5 -ml-1 rounded-full hover:bg-neutral-100 transition text-neutral-600'
                 aria-label='Назад'
               >
-                <svg className='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M15 19l-7-7 7-7'
-                  />
-                </svg>
+                <ChevronLeft className='w-5 h-5' />
               </HapticButton>
             )}
             <h2 className='text-lg font-bold text-[#34303d]'>Оформление Трейд-ин</h2>
@@ -157,14 +151,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
               className='p-2 rounded-full hover:bg-neutral-100 transition text-neutral-500 hover:text-neutral-900'
               aria-label='Закрыть'
             >
-              <svg className='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M6 18L18 6M6 6l12 12'
-                />
-              </svg>
+              <X className='w-5 h-5' />
             </HapticButton>
           )}
         </div>
@@ -173,14 +160,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
         {isSuccess ? (
           <div className='flex-1 overflow-y-auto p-6 text-center flex flex-col items-center justify-center animate-in fade-in'>
             <div className='w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 text-emerald-600 shrink-0'>
-              <svg className='w-8 h-8' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M5 13l4 4L19 7'
-                />
-              </svg>
+              <Check className='w-8 h-8' />
             </div>
             <h3 className='text-xl font-bold text-[#34303d] mb-2'>Заявка оформлена!</h3>
             <p className='text-sm text-neutral-600 mb-6 leading-relaxed'>

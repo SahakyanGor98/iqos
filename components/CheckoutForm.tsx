@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Check, ChevronLeft, TriangleAlert } from 'lucide-react';
 import { HapticButton } from './HapticButton';
 import { useForm, Controller } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
@@ -88,14 +89,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
     return (
       <div className='flex flex-col items-center justify-center h-full p-6 text-center animate-in fade-in'>
         <div className='w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4'>
-          <svg
-            className='w-8 h-8 text-green-600'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
-          </svg>
+          <Check className='w-8 h-8 text-green-600' />
         </div>
         <h3 className='text-xl font-bold mb-2'>Заказ оформлен!</h3>
         <p className='text-neutral-600 mb-6'>Мы отправили подтверждение на вашу почту.</p>
@@ -116,14 +110,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
           onClick={onBack}
           className='mr-4 p-2 -ml-2 rounded-full hover:bg-neutral-100 transition'
         >
-          <svg className='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth={2}
-              d='M15 19l-7-7 7-7'
-            />
-          </svg>
+          <ChevronLeft className='w-5 h-5' />
         </HapticButton>
         <h2 className='text-lg font-bold'>Оформление заказа</h2>
       </div>
@@ -208,19 +195,7 @@ export const CheckoutForm = ({ onBack, onClose }: Props) => {
           <div className='bg-white w-full max-w-sm rounded-2xl p-6 shadow-2xl border border-neutral-100 flex flex-col items-center text-center animate-in zoom-in-95 duration-200'>
             {/* Warning Icon */}
             <div className='w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center mb-4 text-amber-600 shadow-inner flex-shrink-0'>
-              <svg
-                className='w-7 h-7'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z'
-                />
-              </svg>
+              <TriangleAlert className='w-7 h-7' strokeWidth={2} />
             </div>
 
             {/* Content */}

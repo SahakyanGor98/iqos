@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Share, Trash2, Scale, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
 import { computeComparisonMatrix } from '@/lib/comparisonSpecs';
 import { AddToCartButton } from '@/components';
@@ -213,7 +214,8 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
               onClick={() => setIsAddModalOpen(true)}
               className='flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-neutral-200 bg-white hover:bg-neutral-50 text-xs font-semibold text-neutral-800 transition shadow-sm cursor-pointer'
             >
-              <span>+ Добавить в список</span>
+              <Plus className='w-4 h-4' />
+              <span>Добавить в список</span>
             </button>
 
             {/* Share Link */}
@@ -222,21 +224,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
               onClick={handleShareLink}
               className='flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-neutral-200 bg-white hover:bg-neutral-50 text-xs font-semibold text-neutral-800 transition shadow-sm cursor-pointer'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='14'
-                height='14'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8' />
-                <polyline points='16 6 12 2 8 6' />
-                <line x1='12' y1='2' x2='12' y2='15' />
-              </svg>
+              <Share className='w-3.5 h-3.5' strokeWidth={2} />
               <span>{copiedLink ? 'Ссылка скопирована!' : 'Поделиться'}</span>
             </button>
 
@@ -246,21 +234,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
               onClick={() => clearCategoryCompare(selectedCategory)}
               className='flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-neutral-200 bg-white hover:bg-red-50 hover:border-red-200 text-xs font-semibold text-red-600 transition shadow-sm cursor-pointer'
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='14'
-                height='14'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path d='M3 6h18' />
-                <path d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6' />
-                <path d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2' />
-              </svg>
+              <Trash2 className='w-3.5 h-3.5' strokeWidth={2} />
               <span>Очистить</span>
             </button>
           </div>
@@ -328,23 +302,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
         /* Empty State */
         <div className='bg-neutral-50 rounded-3xl p-12 md:p-16 text-center border border-neutral-200/80 max-w-2xl mx-auto my-8'>
           <div className='w-16 h-16 rounded-2xl bg-white border border-neutral-200 flex items-center justify-center mx-auto mb-5 shadow-sm text-neutral-400'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='32'
-              height='32'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path d='m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
-              <path d='m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z' />
-              <path d='M7 21h10' />
-              <path d='M12 3v18' />
-              <path d='M3 7h18' />
-            </svg>
+            <Scale className='w-8 h-8' strokeWidth={1.5} />
           </div>
           <h2 className='text-xl md:text-2xl font-bold text-neutral-900 text-center mb-2'>
             Список сравнения пуст
@@ -358,9 +316,10 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
             <button
               type='button'
               onClick={() => setIsAddModalOpen(true)}
-              className='px-6 py-3 bg-neutral-900 text-white rounded-xl text-xs font-bold hover:bg-neutral-800 transition shadow-sm cursor-pointer'
+              className='inline-flex items-center justify-center gap-1.5 px-6 py-3 bg-neutral-900 text-white rounded-xl text-xs font-bold hover:bg-neutral-800 transition shadow-sm cursor-pointer'
             >
-              + Выбрать товары для сравнения
+              <Plus className='w-4 h-4' />
+              Выбрать товары для сравнения
             </button>
             <Link
               href={selectedCategory === 'gadget' ? '/products/iqos' : '/products/terea'}
@@ -394,7 +353,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                           className='absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-neutral-100 hover:bg-red-100 hover:text-red-600 text-neutral-500 flex items-center justify-center text-[10px] font-bold z-10 transition'
                           title='Удалить из списка сравнения'
                         >
-                          ✕
+                          <X className='w-3 h-3' />
                         </button>
 
                         <div>
@@ -435,19 +394,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                           className='w-8 h-8 flex items-center justify-center text-neutral-600 hover:text-black active:scale-90 transition-transform cursor-pointer'
                           title='Предыдущий товар'
                         >
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='20'
-                            height='20'
-                            viewBox='0 0 24 24'
-                            fill='none'
-                            stroke='currentColor'
-                            strokeWidth='2.5'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                          >
-                            <path d='m15 18-6-6 6-6' />
-                          </svg>
+                          <ChevronLeft size={20} strokeWidth={2.5} />
                         </button>
 
                         <span className='text-xs font-black text-neutral-900 tracking-wide text-center min-w-[32px]'>
@@ -460,19 +407,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                           className='w-8 h-8 flex items-center justify-center text-neutral-600 hover:text-black active:scale-90 transition-transform cursor-pointer'
                           title='Следующий товар'
                         >
-                          <svg
-                            xmlns='http://www.w3.org/2000/svg'
-                            width='20'
-                            height='20'
-                            viewBox='0 0 24 24'
-                            fill='none'
-                            stroke='currentColor'
-                            strokeWidth='2.5'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                          >
-                            <path d='m9 18 6-6-6-6' />
-                          </svg>
+                          <ChevronRight size={20} strokeWidth={2.5} />
                         </button>
                       </div>
                     </div>
@@ -577,7 +512,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                               className='w-7 h-7 rounded-full bg-neutral-100 hover:bg-red-100 hover:text-red-600 text-neutral-500 flex items-center justify-center text-xs font-bold transition cursor-pointer'
                               title='Удалить товар из списка сравнения'
                             >
-                              🗑
+                              <Trash2 className='w-4 h-4' />
                             </button>
 
                             {/* Desktop 3rd slot container close button */}
@@ -592,7 +527,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                                 className='w-7 h-7 rounded-full bg-neutral-900 hover:bg-black text-white flex items-center justify-center text-xs font-bold transition shadow-sm cursor-pointer'
                                 title='Закрыть 3-ю колонку'
                               >
-                                ✕
+                                <X className='w-4 h-4' />
                               </button>
                             )}
                           </div>
@@ -641,19 +576,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                             className='w-10 h-10 flex items-center justify-center text-neutral-600 hover:text-black active:scale-90 transition-transform cursor-pointer'
                             title='Предыдущий товар'
                           >
-                            <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              width='22'
-                              height='22'
-                              viewBox='0 0 24 24'
-                              fill='none'
-                              stroke='currentColor'
-                              strokeWidth='2.5'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                            >
-                              <path d='m15 18-6-6 6-6' />
-                            </svg>
+                            <ChevronLeft size={22} strokeWidth={2.5} />
                           </button>
 
                           <span
@@ -672,19 +595,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                             className='w-10 h-10 flex items-center justify-center text-neutral-600 hover:text-black active:scale-90 transition-transform cursor-pointer'
                             title='Следующий товар'
                           >
-                            <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              width='22'
-                              height='22'
-                              viewBox='0 0 24 24'
-                              fill='none'
-                              stroke='currentColor'
-                              strokeWidth='2.5'
-                              strokeLinecap='round'
-                              strokeLinejoin='round'
-                            >
-                              <path d='m9 18 6-6-6-6' />
-                            </svg>
+                            <ChevronRight size={22} strokeWidth={2.5} />
                           </button>
                         </div>
                       </div>
@@ -704,7 +615,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
                         title='Добавить 3-ю модель для сравнения'
                       >
                         <span className='w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-xs font-black'>
-                          +
+                          <Plus className='w-3 h-3' />
                         </span>
                         <span>Добавить 3-ю модель</span>
                       </button>

@@ -3,6 +3,7 @@
 import { useCartStore } from '@/store/cartStore';
 import { Product } from '@/types/product';
 import { useEffect, useState } from 'react';
+import { Minus, Plus } from 'lucide-react';
 import { HapticButton } from './HapticButton';
 
 type Props = {
@@ -71,14 +72,14 @@ export const AddToCartButton = ({ product, disabled, className }: Props) => {
           onClick={handleDecrement}
           className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 active:brightness-90 active:bg-neutral-700 text-xl font-medium focus-visible:outline-white'
         >
-          −
+          <Minus className='w-5 h-5' />
         </HapticButton>
         <span className='font-bold text-lg w-8 text-center'>{quantity}</span>
         <HapticButton
           onClick={handleIncrement}
           className='w-10 h-10 flex items-center justify-center rounded-lg hover:bg-neutral-800 transition active:scale-90 active:brightness-90 active:bg-neutral-700 text-xl font-medium focus-visible:outline-white'
         >
-          +
+          <Plus className='w-5 h-5' />
         </HapticButton>
       </div>
     );

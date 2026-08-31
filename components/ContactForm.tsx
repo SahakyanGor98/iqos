@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { Check } from 'lucide-react';
 import { submitContact } from '@/app/actions/contact';
 
 const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
@@ -60,14 +61,7 @@ export const ContactForm = () => {
     return (
       <div className='flex flex-col items-center justify-center p-8 border border-neutral-200 rounded-2xl text-center h-full min-h-[400px] animate-in fade-in'>
         <div className='w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6'>
-          <svg
-            className='w-8 h-8 text-green-600'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
-          </svg>
+          <Check className='w-8 h-8 text-green-600' />
         </div>
         <h3 className='text-2xl font-bold mb-4'>Сообщение отправлено!</h3>
         <p className='text-neutral-600 mb-8 max-w-sm'>

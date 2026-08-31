@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { FaqItem } from '@/lib/content/faq';
 import { cn, fixCasing, formatDeviceTitle } from '@/lib/utils';
 
@@ -100,19 +101,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                         : 'bg-white text-[#34303d] border-neutral-200',
                     )}
                   >
-                    <svg
-                      className='w-4 h-4 transition-transform'
-                      fill='none'
-                      stroke='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2.5}
-                        d='M19 9l-7 7-7-7'
-                      />
-                    </svg>
+                    <ChevronDown className='w-4 h-4 transition-transform' strokeWidth={2.5} />
                   </span>
                 </button>
 
@@ -153,14 +142,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                   isListExpanded ? 'rotate-180' : 'group-hover:translate-y-0.5',
                 )}
               >
-                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2.5}
-                    d='M19 9l-7 7-7-7'
-                  />
-                </svg>
+                <ChevronDown className='w-4 h-4' strokeWidth={2.5} />
               </span>
             </button>
           </div>
