@@ -7,12 +7,14 @@ import { AddToCartButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
 import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
+import { ENABLE_ACCESSORIES } from '@/lib/constants';
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
+  if (!ENABLE_ACCESSORIES) return [];
   const slugs = await getAllSlugs('accessories');
   return slugs.map((slug) => ({ slug }));
 }
@@ -44,6 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export const revalidate = 60;
 
 export default async function AccessorySlugPage({ params }: Props) {
+  if (!ENABLE_ACCESSORIES) notFound();
   const { slug } = await params;
   const productRow = await getProductBySlug(slug);
 

@@ -8,7 +8,7 @@ import { useCompareStore } from '@/store/compareStore';
 import { useEffect, useState } from 'react';
 import { CompareFloatingBar } from '@/components';
 import { NavDropdown } from './NavDropdown';
-import { ROUTES } from '@/lib/constants';
+import { ROUTES, ENABLE_ACCESSORIES } from '@/lib/constants';
 
 // Click-triggered drawer — loaded only when the cart is opened (see .ai/seo-perf.md §2).
 const CartDrawer = dynamic(() => import('./CartDrawer').then((m) => m.CartDrawer), {
@@ -54,7 +54,7 @@ export const Navbar = () => {
   const catalogLinks = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
     { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
-    { href: ROUTES.catalog.accessories, label: 'Аксессуары' },
+    ...(ENABLE_ACCESSORIES ? [{ href: ROUTES.catalog.accessories, label: 'Аксессуары' }] : []),
     { href: ROUTES.catalog.water, label: 'Вода' },
   ];
 

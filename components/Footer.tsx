@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CONTACTS, ROUTES } from '@/lib/constants';
+import { CONTACTS, ROUTES, ENABLE_ACCESSORIES } from '@/lib/constants';
 
 export const FooterContent = () => {
   const currentYear = new Date().getFullYear();
@@ -27,14 +27,16 @@ export const FooterContent = () => {
                   Стики TEREA
                 </Link>
               </li>
-              <li>
-                <Link
-                  href={ROUTES.catalog.accessories}
-                  className='hover:text-white transition-colors'
-                >
-                  Аксессуары
-                </Link>
-              </li>
+              {ENABLE_ACCESSORIES && (
+                <li>
+                  <Link
+                    href={ROUTES.catalog.accessories}
+                    className='hover:text-white transition-colors'
+                  >
+                    Аксессуары
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
                   Трейд-ин
