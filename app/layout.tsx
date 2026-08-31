@@ -1,14 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import {
-  AgeVerification,
-  DeliveryNoticeToast,
-  FooterContent,
-  Navbar,
-  PromoToast,
-  TelegramFloat,
-  YandexMetrika,
-} from '@/components';
 import './globals.css';
 
 const christFont = localFont({
@@ -52,6 +43,13 @@ const jsonLd = {
   logo: 'https://24iqos.ru/icon.webp',
 };
 
+/**
+ * Root layout — the ONLY layout that owns <html>/<body>. It provides the global
+ * head, fonts, and the app-shell body (full-viewport flex column). The visual
+ * chrome is intentionally NOT here: the marketing site's nav/footer live in the
+ * (site) group layout, and /admin has its own bare shell. Each group layout
+ * fills this flex-column body.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,23 +66,7 @@ export default function RootLayout({
       <body
         className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans bg-[#fffdfb] text-[#34303d] ${christFont.variable}`}
       >
-        <YandexMetrika />
-        <AgeVerification />
-        <PromoToast />
-        <TelegramFloat />
-        <DeliveryNoticeToast />
-        <Navbar />
-        <main id='main-content' className='flex-1 overflow-y-auto'>
-          {children}
-          <FooterContent />
-        </main>
-        {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
-        <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>
-          <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
-            МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает
-            риски. Аэрозоль содержит никотин, вызывающий зависимость.
-          </p>
-        </footer>
+        {children}
       </body>
     </html>
   );

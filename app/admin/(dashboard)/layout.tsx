@@ -16,5 +16,5 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
     redirect('/admin/login');
   }
 
-  return <div className='min-h-full bg-neutral-50'>{children}</div>;
+  return <>{children}</>;
 }
