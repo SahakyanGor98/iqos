@@ -21,6 +21,12 @@ export default tseslint.config(
       // React hooks rules (no need to add plugin manually)
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      // Warn only: the codebase intentionally uses setState-in-effect for the
+      // client-mount hydration gate and embla-carousel external-store sync.
+      'react-hooks/set-state-in-effect': 'warn',
+
+      // Allow intentionally-omitted keys via destructuring rest (e.g. `const { type, ...rest }`)
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
 
       // Prettier formatting
       'prettier/prettier': 'error',
