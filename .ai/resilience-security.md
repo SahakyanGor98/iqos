@@ -39,6 +39,6 @@ Configured once in `next.config.ts` via `async headers()` applied to all routes 
 - Do **not** loosen `X-Frame-Options` unless a genuine embedding need appears (none today; Yandex Metrika only embeds outward).
 - **Future hardening (not yet added):** `Permissions-Policy` and a `Content-Security-Policy`. CSP needs care here — it must allow Yandex Metrika, Supabase (images/API), the Next image optimizer, and the inline JSON-LD / theme scripts. Introduce CSP in `Report-Only` mode first.
 
-## Related cleanup
+## Image handling note
 
-- After Phase 5, product images render via `next/image` directly against the Supabase storage URLs (allowlisted in `remotePatterns`), so the `app/api/proxy` route is no longer called by the app. It can be removed to shrink the surface area (it's a host-restricted fetch proxy) — do so once you've confirmed nothing external depends on it.
+- Product images render via `next/image` directly against the Supabase storage URLs (allowlisted in `remotePatterns` — see `seo-perf.md`). The old `app/api/proxy` image-proxy route was removed in Phase 5 once it had no callers, so images no longer pass through an app-level proxy. If a future image host is added, allowlist it in `next.config.ts` `images.remotePatterns` rather than reintroducing a proxy.

@@ -14,7 +14,6 @@ All routes are under `app/`. Pages are **React Server Components by default**; o
 | `/trade-in`                                | `app/trade-in/page.tsx`                           | Trade-in calculator + form.                                        |
 | `/compare`                                 | `app/compare/page.tsx`                            | **Client** page, backed by `store/compareStore.ts`.                |
 | `/contact`, `/about/iqos`                  | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                                          |
-| `/api/proxy`                               | `app/api/proxy/route.ts`                          | Route Handler; proxies allowlisted remote images.                  |
 | `robots`, `sitemap`                        | `app/robots.ts`, `app/sitemap.ts`                 | Metadata routes.                                                   |
 
 - **Server Actions** live in `app/actions/` (`checkout.ts`, `tradein.ts`, `contact.ts`), each marked `'use server'`.
