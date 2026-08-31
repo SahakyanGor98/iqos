@@ -4,25 +4,25 @@ How routing, the Server/Client boundary, and data access work today — plus the
 
 ## Routing structure (App Router)
 
-All routes are under `app/`. Pages are **React Server Components by default**; only `app/compare/page.tsx` is a Client Component.
+All routes are under `app/`. Pages are **React Server Components by default** — including `app/compare/page.tsx`, which exports `metadata` and delegates its interactive UI to a Client child (`app/compare/CompareContent.tsx`).
 
-| Route                                      | File                                              | Notes                                                              |
-| ------------------------------------------ | ------------------------------------------------- | ------------------------------------------------------------------ |
-| `/`                                        | `app/page.tsx`                                    | Landing (hero, sections, FAQ, CTA).                                |
-| `/products/{iqos,terea,water,accessories}` | `app/products/<cat>/page.tsx`                     | Catalog listings; read `searchParams` for filters/sort/pagination. |
-| `/products/<cat>/[slug]`                   | `app/products/<cat>/[slug]/page.tsx`              | Product detail; `generateStaticParams` + `generateMetadata`.       |
-| `/trade-in`                                | `app/trade-in/page.tsx`                           | Trade-in calculator + form.                                        |
-| `/compare`                                 | `app/compare/page.tsx`                            | **Client** page, backed by `store/compareStore.ts`.                |
-| `/contact`, `/about/iqos`                  | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                                          |
-| `robots`, `sitemap`                        | `app/robots.ts`, `app/sitemap.ts`                 | Metadata routes.                                                   |
+| Route                                      | File                                              | Notes                                                                                           |
+| ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `/`                                        | `app/page.tsx`                                    | Landing (hero, sections, FAQ, CTA).                                                             |
+| `/products/{iqos,terea,water,accessories}` | `app/products/<cat>/page.tsx`                     | Catalog listings; read `searchParams` for filters/sort/pagination.                              |
+| `/products/<cat>/[slug]`                   | `app/products/<cat>/[slug]/page.tsx`              | Product detail; `generateStaticParams` + `generateMetadata`.                                    |
+| `/trade-in`                                | `app/trade-in/page.tsx`                           | Trade-in calculator + form.                                                                     |
+| `/compare`                                 | `app/compare/page.tsx`                            | Server page rendering a Client child (`CompareContent.tsx`); backed by `store/compareStore.ts`. |
+| `/contact`, `/about/iqos`                  | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                                                                       |
+| `robots`, `sitemap`                        | `app/robots.ts`, `app/sitemap.ts`                 | Metadata routes.                                                                                |
 
 - **Server Actions** live in `app/actions/` (`checkout.ts`, `tradein.ts`, `contact.ts`), each marked `'use server'`.
 - Root layout `app/layout.tsx` sets global metadata, JSON-LD, fonts (`next/font/local`), analytics, and the persistent chrome (Navbar, footer disclaimer, toasts, age gate). The `<body>` is `h-[100dvh]` with an internally-scrolling `<main>`.
 
 ## Server vs. Client component boundary
 
-- **Server (default):** every `page.tsx` except `/compare`, all `generateMetadata`/`generateStaticParams`, and the data layer in `lib/`.
-- **Client (`'use client'`):** ~35 components under `components/` (and `context/LoadingContext.tsx`). These are interactive/stateful: forms (`CheckoutForm`, `ContactForm`, `TradeInForm`), stores-consumers (`CartDrawer`, `AddToCartButton`, `CompareButton`, `ProductGrid`), carousels/sliders, toasts, and the age-verification gate.
+- **Server (default):** every `page.tsx` (including `/compare`, which renders a Client child), all `generateMetadata`/`generateStaticParams`, and the data layer in `lib/`.
+- **Client (`'use client'`):** ~35 components under `components/` (plus `app/compare/CompareContent.tsx`). These are interactive/stateful: forms (`CheckoutForm`, `ContactForm`, `TradeInForm`), stores-consumers (`CartDrawer`, `AddToCartButton`, `CompareButton`, `ProductGrid`), carousels/sliders, toasts, and the age-verification gate.
 - **Pattern:** Server pages fetch data through `lib/api.ts`, compute/group it (e.g. `lib/grouping.ts`), and pass plain serializable props into Client components. Client components own interaction and local state only.
 
 ## Data fetching & database access (current)
