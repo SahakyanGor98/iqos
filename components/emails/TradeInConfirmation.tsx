@@ -65,7 +65,7 @@ export const TradeInConfirmation = ({
             </tbody>
           </table>
 
-          <div style={emailStyles.total}>К оплате курьеру: {formatRub(finalPrice)}</div>
+          <div style={emailStyles.total}>К оплате: {formatRub(finalPrice)}</div>
         </div>
 
         {/* Contact Info */}

@@ -65,8 +65,8 @@ export default async function TradeInPage() {
             Готовы обновить свой IQOS?
           </h2>
           <p className='text-base md:text-lg text-[#34303d]/85 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed'>
-            Рассчитайте точно стоимость вашего старого устройства за 1 минуту и получите новый IQOS
-            ILUMA с курьерской доставкой.
+            Рассчитайте точно стоимость вашего старого устройства за 1 минуту и заберите новый IQOS
+            ILUMA со скидкой.
           </p>
           <Button href='#calculator' variant={ButtonVariant.PRIMARY}>
             Перейти к калькулятору

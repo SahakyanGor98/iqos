@@ -187,7 +187,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 </span>
               </div>
               <div className='flex justify-between font-bold text-neutral-900 pt-2 border-t border-neutral-200'>
-                <span>К оплате курьеру:</span>
+                <span>К оплате:</span>
                 <span className='text-emerald-700 font-black'>{formatPrice(finalPrice)}</span>
               </div>
             </div>
