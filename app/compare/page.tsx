@@ -657,25 +657,6 @@ function CompareContent() {
                     );
                   })}
 
-                  {/* Add 3rd Slot Trigger Card (When 3rd slot is closed) */}
-                  {!isThirdSlotOpen && (
-                    <div className='flex flex-col justify-between h-full'>
-                      <div
-                        onClick={() => setThirdSlotOpen(true)}
-                        className='border-2 border-dashed border-neutral-200 hover:border-neutral-400 rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer transition group min-h-[220px] bg-neutral-50/50 hover:bg-neutral-50 h-full'
-                      >
-                        <div className='w-11 h-11 rounded-full bg-white border border-neutral-300 group-hover:border-neutral-900 group-hover:bg-neutral-900 group-hover:text-white text-neutral-600 flex items-center justify-center font-bold text-lg transition-all shadow-sm mb-2.5'>
-                          +
-                        </div>
-                        <span className='text-xs font-bold text-neutral-700 group-hover:text-neutral-900 text-center'>
-                          Добавить 3-ю модель
-                        </span>
-                        <span className='text-[11px] text-neutral-400 text-center mt-0.5'>
-                          в таблицу сравнения
-                        </span>
-                      </div>
-                    </div>
-                  )}
                 </div>
 
                 {/* Desktop Add 3rd Model Button Row (Compact with pr-4 right alignment under Product 2) */}
