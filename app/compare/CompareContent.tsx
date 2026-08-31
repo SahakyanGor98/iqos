@@ -299,7 +299,7 @@ export function CompareContent({ initialCategory, initialSlugs }: CompareContent
 
       {/* Main Content Area */}
       {pool.length === 0 ? (
-        /* Empty State */
+        /** Empty State */
         <div className='bg-neutral-50 rounded-3xl p-12 md:p-16 text-center border border-neutral-200/80 max-w-2xl mx-auto my-8'>
           <div className='w-16 h-16 rounded-2xl bg-white border border-neutral-200 flex items-center justify-center mx-auto mb-5 shadow-sm text-neutral-400'>
             <Scale className='w-8 h-8' strokeWidth={1.5} />

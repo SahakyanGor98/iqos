@@ -22,9 +22,7 @@ interface Props {
 
 const lineShortLabel = (line: string) => line.replace(/-/g, ' ').toUpperCase();
 
-/* -------------------------------------------------------------------------- */
-/* Old-device selector — embla carousel with arrows, dots and a peek edge      */
-/* -------------------------------------------------------------------------- */
+/** Old-device selector — embla carousel with arrows, dots and a peek edge */
 
 interface OldDeviceCarouselProps {
   devices: TradeInDeviceView[];
@@ -163,9 +161,7 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
   );
 };
 
-/* -------------------------------------------------------------------------- */
-/* Main calculator                                                            */
-/* -------------------------------------------------------------------------- */
+/** Main calculator */
 
 const StepBadge = ({ n, label }: { n: number; label: string }) => (
   <div className='flex items-center gap-2 mb-3'>

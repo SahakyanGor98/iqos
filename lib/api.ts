@@ -277,9 +277,7 @@ export async function getAllSlugs(
   return data.map((p) => p.slug);
 }
 
-/* -------------------------------------------------------------------------- */
-/* Trade-in: old devices (dedicated table) + target devices (from products)   */
-/* -------------------------------------------------------------------------- */
+/** Trade-in: old devices (dedicated table) + target devices (from products) */
 
 export type TradeInDeviceView = {
   key: string; // device_key
