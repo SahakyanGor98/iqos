@@ -2,9 +2,15 @@
 
 import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
-import { CheckoutForm } from './CheckoutForm';
+import dynamic from 'next/dynamic';
 import { HapticButton } from './HapticButton';
 import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
+
+// Loaded only when the user starts checkout — keeps react-hook-form + zod out of
+// the drawer's initial chunk (see .ai/seo-perf.md §2).
+const CheckoutForm = dynamic(() => import('./CheckoutForm').then((m) => m.CheckoutForm), {
+  ssr: false,
+});
 
 type Props = {
   isOpen: boolean;

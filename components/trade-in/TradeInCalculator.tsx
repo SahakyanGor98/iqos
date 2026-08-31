@@ -2,13 +2,18 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight, ArrowLeftRight, ArrowDown, Smartphone } from 'lucide-react';
 import type { TradeInDeviceView, TradeInTargetLine, TradeInTargetColor } from '@/lib/api';
 import { formatPrice, getDeviceColorSwatch } from '@/lib/utils';
-import { TradeInForm } from './TradeInForm';
 import { Button } from '@/components/Button';
 import { ButtonVariant } from '@/components/ButtonTypes';
+
+// Click-triggered slide-over — loaded only when the user opens the form (see .ai/seo-perf.md §2).
+const TradeInForm = dynamic(() => import('./TradeInForm').then((m) => m.TradeInForm), {
+  ssr: false,
+});
 
 interface Props {
   oldDevices: TradeInDeviceView[];

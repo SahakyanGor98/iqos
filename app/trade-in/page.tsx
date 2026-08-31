@@ -1,14 +1,20 @@
 import { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import {
   Button,
   FaqAccordion,
   TextSeparator,
   TradeInBenefits,
-  TradeInCalculator,
   TradeInHero,
   TradeInSteps,
 } from '@/components';
 import { ButtonVariant } from '@/components/ButtonTypes';
+
+// Below-the-fold, heavy (embla) client component. Split into its own chunk but
+// keep SSR (ssr:true) for HTML/layout stability and SEO (see .ai/seo-perf.md §2).
+const TradeInCalculator = dynamic(() =>
+  import('@/components/trade-in/TradeInCalculator').then((m) => m.TradeInCalculator),
+);
 import { TRADE_IN_FAQ } from '@/lib/content/trade-in';
 import { getTradeInDevices, getTradeInTargets } from '@/lib/api';
 
