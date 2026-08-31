@@ -47,5 +47,5 @@ className={cn(baseClass, variantStyles[variant], className)}
 - **Icons:** `lucide-react`. Import the specific icons you use.
 - **Fonts:** system sans (`font-sans` / Arial stack) for body; a local display face `--font-christ` (`assets/christ.100.ttf`, loaded in `layout.tsx`) applied to the "IQOS" wordmark via `formatDeviceTitle` in `lib/utils.ts`.
 - **Formatting helpers** live in `lib/utils.ts`: `formatPrice` (RU rubles, non-breaking `₽`), `fixCasing`, `formatDeviceTitle`, and `getDeviceColorSwatch` / `DEVICE_COLOR_SWATCH_MAP` (maps color names — RU + EN — to swatch backgrounds). Reuse these instead of re-implementing price/title/color rendering.
-- **Animations:** defined as keyframes in `globals.css` (`animate-fade-in`, `animate-spin-linear`, `animate-pulse-smooth`). Per project rule, animate a wrapper `<div>` (GPU) rather than the SVG element itself.
+- **Animations:** `animate-fade-in` (keyframes in `globals.css`); the global loader (`components/GlobalLoader.tsx`, a lucide `LoaderCircle`) spins via Tailwind's built-in `animate-spin`. Per project rule, put the animation on a wrapper `<div>` (GPU) rather than the SVG element itself.
 - **Responsive:** mobile-first; the layout uses `md:` breakpoints heavily and `100dvh`/internal scroll for the app shell.

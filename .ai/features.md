@@ -57,7 +57,7 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 - **Default color per line:** `MODEL_DEFAULT_COLORS` in `lib/grouping.ts` picks the initial swatch (`i` → breeze blue, `i-one` → digital violet, `i prime` → aspen green). Note the trade-in flow keeps its own parallel `TRADE_IN_DEFAULT_COLORS` in `lib/api.ts`.
 - **Interactive swatch:** `ProductCard` renders swatches under the title; clicking one swaps image/title/price/stock/slug/cart payload without triggering the card link (`stopPropagation` + `preventDefault`). Hidden when a line has ≤1 variant (e.g. Seletti editions).
 - **Swatch colors:** `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual (RU + EN) color keywords → hex/gradient backgrounds; matched first-wins.
-- **Zero-lag switching:** variant images are pre-fetched with hidden `<img aria-hidden>` so color changes are instant.
+- **Faster switching:** variant images are pre-fetched with a hidden `<img aria-hidden>` (a direct Supabase URL) to warm the browser cache for color switching. Note: the visible product images use `next/image` (see `seo-perf.md`), so this raw-`<img>` preload is a best-effort cache warm rather than a guaranteed instant swap.
 
 ## 9. Trade-In program (`/trade-in`)
 

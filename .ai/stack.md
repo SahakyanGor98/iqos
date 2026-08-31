@@ -21,10 +21,12 @@ Inferred from `package.json`, `tsconfig.json`, `next.config.ts`, and the source 
 | ------------------- | ----------------------------- | --------- |
 | Database / storage  | Supabase (Postgres + Storage) | —         |
 | Supabase SDK        | `@supabase/supabase-js`       | `^2.89.0` |
+| Supabase SSR helper | `@supabase/ssr`               | `^0.12.5` |
+| Server-only guard   | `server-only`                 | `^0.0.1`  |
 | Transactional email | Resend                        | `^6.6.0`  |
 | Validation          | Zod                           | `^4.3.4`  |
 
-- Two Supabase clients: **anon** (`lib/supabase.ts`, reads) and **service-role** (`lib/supabase-admin.ts`, server-only writes). See `architecture.md`.
+- Supabase clients live in `lib/supabase/`: `public.ts` (anon, `server-only`, cookie-free reads), `admin.ts` (service-role, `server-only` writes), plus `server.ts` / `client.ts` (cookie-based, reserved for future auth — Phase B). See `architecture.md`.
 - Emails are React components in `components/emails/`, rendered with `react-dom/server`'s `renderToStaticMarkup` inside server actions and sent via Resend.
 
 ## UI & styling
@@ -52,8 +54,9 @@ Inferred from `package.json`, `tsconfig.json`, `next.config.ts`, and the source 
 ## Tooling
 
 - **Lint:** ESLint 9 (`eslint-config-next`, `eslint-config-prettier`, `eslint-plugin-prettier`) — `eslint.config.mjs` (flat config).
-- **Format:** Prettier `3.5.2` — `.prettierrc.json`.
-- **Scripts:** `dev`, `build`, `start`, `lint` (`--fix`), `format`, `fix` (lint + format).
+- **Format:** Prettier `3.5.2` — `.prettierrc.json`; ignore rules in `.prettierignore` (skips lockfile, build output, `.agents/`).
+- **Git hooks:** `husky` (`^9`) + `lint-staged` (`^17`) run Prettier on staged files pre-commit — `prepare: husky` installs the hook on `npm install`; `.husky/pre-commit` runs `npx lint-staged` (config in `package.json`).
+- **Scripts:** `dev`, `build`, `start`, `lint` (`--fix`), `format`, `fix` (lint + format), `prepare` (husky).
 - **DB scripts:** `scripts/migrate.cjs`, `scripts/seed-accessories.cjs`, plus raw SQL in `scripts/` and `supabase/`.
 
 ## Build & deployment targets

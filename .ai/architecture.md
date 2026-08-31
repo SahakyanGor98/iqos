@@ -25,16 +25,17 @@ All routes are under `app/`. Pages are **React Server Components by default** �
 - **Client (`'use client'`):** ~35 components under `components/` (plus `app/compare/CompareContent.tsx`). These are interactive/stateful: forms (`CheckoutForm`, `ContactForm`, `TradeInForm`), stores-consumers (`CartDrawer`, `AddToCartButton`, `CompareButton`, `ProductGrid`), carousels/sliders, toasts, and the age-verification gate.
 - **Pattern:** Server pages fetch data through `lib/api.ts`, compute/group it (e.g. `lib/grouping.ts`), and pass plain serializable props into Client components. Client components own interaction and local state only.
 
-## Data fetching & database access (current)
+## Data fetching & database access
 
-Two Supabase clients, split by trust level:
+Supabase clients live in `lib/supabase/` (built on `@supabase/ssr` + the `server-only` package), split by trust level and rendering needs — full table under "Supabase client layout" below. In brief:
 
-1. **`lib/supabase.ts` — anon client.** Created with `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Used by `lib/api.ts` for all **reads** (products, slugs, trade-in devices/targets). Because the key is `NEXT_PUBLIC_*`, this module is technically importable from the browser; today it is invoked from Server Components, so reads happen on the server.
-2. **`lib/supabase-admin.ts` — service-role client.** Created with `SUPABASE_SERVICE_ROLE_KEY`, `persistSession: false`. **Bypasses RLS.** Imported only from `'use server'` actions to write `orders` / `order_items`. Must never reach a Client Component.
+- **Reads** go through `lib/api.ts` (marked `server-only`), which uses the cookie-free anon client `lib/supabase/public.ts`. Cookie-free keeps catalog pages ISR/SSG-safe; `server-only` means `lib/api.ts` can never be bundled into a Client Component.
+- **Writes** run in `'use server'` actions using the service-role client `lib/supabase/admin.ts` (also `server-only`, **bypasses RLS**): `checkout.ts` and `tradein.ts` write `orders`/`order_items`; `contact.ts` writes `contact_messages`. All three use this one trusted server path.
+- **Client Components never import `lib/api.ts`.** When they need catalog data they call a Server Action in `app/actions/products.ts` (e.g. the compare page's share-link hydration and the compare add-modal).
 
-Read functions live in `lib/api.ts`: `getProducts`, `getProductBySlug`, `getProductsBySlugs`, `getAllSlugs`, `getIqosLineupProducts`, `getTradeInDevices`, `getTradeInTargets`. Accessories currently fall back to a local JSON asset (`assets/accessories.json`) when the DB query is empty/errors.
+Read functions in `lib/api.ts`: `getProducts`, `getProductBySlug`, `getProductsBySlugs`, `getAllSlugs`, `getIqosLineupProducts`, `getTradeInDevices`, `getTradeInTargets`. Accessories fall back to a local JSON asset (`assets/accessories.json`) when the DB query is empty/errors.
 
-Writes flow through Server Actions: validate with Zod → insert via `supabaseAdmin` → render an email component and send via Resend (best-effort; email failures are caught and logged, order still succeeds).
+Writes flow through Server Actions: validate with Zod → insert via `supabaseAdmin` → render an email component and send via Resend (best-effort; email failures are caught and logged, the order still succeeds).
 
 ### Database (Supabase / Postgres)
 
@@ -54,7 +55,7 @@ There are **no user accounts** — every visitor is an anonymous guest. There is
 
 ## Target Architecture
 
-Direction for evolving data access and (future) authentication. Migrated in two phases. **Phase A is being implemented now**; **Phase B is auth-gated** (start only when user accounts / an admin surface are actually introduced — there is no point standing up cookie/middleware machinery for a session that doesn't exist yet).
+Direction for evolving data access and (future) authentication. Migrated in two phases. **Phase A is complete** — it is the current implementation described above. **Phase B is auth-gated and not started** (begin only when user accounts / an admin surface are actually introduced — there is no point standing up cookie/middleware machinery for a session that doesn't exist yet).
 
 ### Supabase client layout (`lib/supabase/`)
 
@@ -69,7 +70,7 @@ Adopt `@supabase/ssr` + `server-only` and split clients by trust level and rende
 
 > **Why `public.ts` is separate from `server.ts`:** public catalog reads must remain statically renderable. The cookie-bound `server.ts` client reads `cookies()` from `next/headers`, which opts a route into dynamic rendering and would break `generateStaticParams` / `revalidate`. Public, unauthenticated reads therefore use a non-cookie, `server-only` anon client so ISR is preserved.
 
-### Phase A — Strictly server-side data fetching _(in progress)_
+### Phase A — Strictly server-side data fetching _(done)_
 
 - **All Supabase reads execute on the server** — Server Components, Server Actions, Route Handlers. No Supabase client is bundled into or invoked from a Client Component.
 - **`lib/api.ts` is `server-only`** (imports `server-only`) and reads through `lib/supabase/public.ts`. An accidental client import now fails the build.
