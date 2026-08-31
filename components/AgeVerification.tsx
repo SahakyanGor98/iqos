@@ -78,6 +78,8 @@ export const AgeVerification = () => {
 
     if (age >= 18) {
       localStorage.setItem('age-verified', 'true');
+      // Notify listeners (toasts) instead of having them poll localStorage.
+      window.dispatchEvent(new Event('age-verified'));
       setIsVisible(false);
       document.body.style.overflow = 'unset';
     } else {

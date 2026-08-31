@@ -42,28 +42,25 @@ function CompareContent() {
 
   const removeFromCompare = useCompareStore((state) => state.removeFromCompare);
   const clearCategoryCompare = useCompareStore((state) => state.clearCategoryCompare);
-  const addToCompare = useCompareStore((state) => state.addToCompare);
   const addMultipleToCompare = useCompareStore((state) => state.addMultipleToCompare);
   const cycleSlotIndex = useCompareStore((state) => state.cycleSlotIndex);
   const setThirdSlotOpen = useCompareStore((state) => state.setThirdSlotOpen);
 
-  const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('gadget');
+  // Category is derived from the URL synchronously at first render — not set in
+  // an effect (see .ai/state.md §2). `handleTabChange` updates it thereafter.
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKey>(() => {
+    const urlCategory = searchParams.get('category') as CategoryKey | null;
+    return urlCategory && ['gadget', 'sticks', 'water', 'accessories'].includes(urlCategory)
+      ? urlCategory
+      : 'gadget';
+  });
 
+  // Run once on mount: set the hydration gate for the persisted store and, if
+  // this is a shared link, hydrate the compare pool from the `slugs` param.
   useEffect(() => {
     setMounted(true);
-  }, []);
 
-  // Hydrate category from URL
-  useEffect(() => {
-    if (!mounted) return;
-
-    const urlCategory = searchParams.get('category') as CategoryKey | null;
     const urlSlugs = searchParams.get('slugs');
-
-    if (urlCategory && ['gadget', 'sticks', 'water', 'accessories'].includes(urlCategory)) {
-      setSelectedCategory(urlCategory);
-    }
-
     if (urlSlugs) {
       const slugs = urlSlugs.split(',').filter(Boolean);
       if (slugs.length > 0) {
@@ -74,7 +71,8 @@ function CompareContent() {
         });
       }
     }
-  }, [mounted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only share-link hydration
+  }, []);
 
   // Active category pool
   const pool = itemsByCategory[selectedCategory] || [];
@@ -96,10 +94,18 @@ function CompareContent() {
 
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        cycleSlotIndex(selectedCategory, (focusedSlotPos % desktopVisibleSlotsCount) as 0 | 1 | 2, 'prev');
+        cycleSlotIndex(
+          selectedCategory,
+          (focusedSlotPos % desktopVisibleSlotsCount) as 0 | 1 | 2,
+          'prev',
+        );
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        cycleSlotIndex(selectedCategory, (focusedSlotPos % desktopVisibleSlotsCount) as 0 | 1 | 2, 'next');
+        cycleSlotIndex(
+          selectedCategory,
+          (focusedSlotPos % desktopVisibleSlotsCount) as 0 | 1 | 2,
+          'next',
+        );
       } else if (e.key === 'Tab') {
         e.preventDefault();
         setFocusedSlotPos((prev) => (prev + 1) % desktopVisibleSlotsCount);
@@ -108,7 +114,15 @@ function CompareContent() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mounted, pool.length, selectedCategory, focusedSlotPos, desktopVisibleSlotsCount, isAddModalOpen, cycleSlotIndex]);
+  }, [
+    mounted,
+    pool.length,
+    selectedCategory,
+    focusedSlotPos,
+    desktopVisibleSlotsCount,
+    isAddModalOpen,
+    cycleSlotIndex,
+  ]);
 
   if (!mounted) {
     return (
@@ -280,7 +294,20 @@ function CompareContent() {
         <div className='hidden md:flex items-center justify-between px-4 py-2 bg-neutral-100/70 border border-neutral-200/80 rounded-xl mb-6 text-xs text-neutral-500'>
           <div className='flex items-center gap-2'>
             <span className='font-bold text-neutral-700'>💡 Навигация с клавиатуры:</span>
-            <span>Кликните на колонку, затем используйте стрелки <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>←</kbd> <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>→</kbd> для прокрутки товаров или <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>Tab</kbd> для переключения колонок.</span>
+            <span>
+              Кликните на колонку, затем используйте стрелки{' '}
+              <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>
+                ←
+              </kbd>{' '}
+              <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>
+                →
+              </kbd>{' '}
+              для прокрутки товаров или{' '}
+              <kbd className='px-1.5 py-0.5 bg-white border border-neutral-300 rounded text-[11px] font-mono shadow-xs text-neutral-800'>
+                Tab
+              </kbd>{' '}
+              для переключения колонок.
+            </span>
           </div>
         </div>
       )}
@@ -458,10 +485,7 @@ function CompareContent() {
 
                     <div className='space-y-3.5'>
                       {visibleRows.map((row, rowIdx) => (
-                        <div
-                          key={`m-row-${rowIdx}`}
-                          className='pt-2 pb-2 transition text-center'
-                        >
+                        <div key={`m-row-${rowIdx}`} className='pt-2 pb-2 transition text-center'>
                           <div className='flex items-center justify-center gap-1.5 text-xs font-extrabold text-neutral-900 text-center mb-1.5'>
                             <span>{row.label}</span>
                             {row.hasDifference && (
@@ -499,11 +523,7 @@ function CompareContent() {
               {/* Selected Products Cards Header Container */}
               <div className='bg-white pt-2 pb-3 border-b border-neutral-200'>
                 {/* Header Cards Grid */}
-                <div
-                  className={`grid gap-4 ${
-                    isThirdSlotOpen ? 'grid-cols-4' : 'grid-cols-3'
-                  }`}
-                >
+                <div className={`grid gap-4 ${isThirdSlotOpen ? 'grid-cols-4' : 'grid-cols-3'}`}>
                   {/* Column 1: Header Title */}
                   <div className='flex flex-col justify-center p-3 text-center'>
                     <span className='text-xs font-bold uppercase tracking-wider text-neutral-400 text-center block'>
@@ -529,12 +549,9 @@ function CompareContent() {
                         {/* Product Card Container with Subtle Focus Outline */}
                         <div
                           className={`relative bg-white border rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:shadow-md transition text-center flex-1 ${
-                            isFocused
-                              ? 'border-neutral-400 shadow-md'
-                              : 'border-neutral-200'
+                            isFocused ? 'border-neutral-400 shadow-md' : 'border-neutral-200'
                           }`}
                         >
-
                           {/* Remove actions */}
                           <div className='absolute top-3 right-3 flex items-center gap-1.5 z-10'>
                             {/* Remove item from pool */}
@@ -624,7 +641,9 @@ function CompareContent() {
                             </svg>
                           </button>
 
-                          <span className={`text-xs md:text-sm font-black tracking-wider text-center min-w-[40px] ${isFocused ? 'text-neutral-900 scale-105 transition-transform' : 'text-neutral-600'}`}>
+                          <span
+                            className={`text-xs md:text-sm font-black tracking-wider text-center min-w-[40px] ${isFocused ? 'text-neutral-900 scale-105 transition-transform' : 'text-neutral-600'}`}
+                          >
                             {validIndex + 1} / {pool.length}
                           </span>
 
@@ -656,7 +675,6 @@ function CompareContent() {
                       </div>
                     );
                   })}
-
                 </div>
 
                 {/* Desktop Add 3rd Model Button Row (Compact with pr-4 right alignment under Product 2) */}
@@ -699,9 +717,7 @@ function CompareContent() {
                       >
                         <div className='col-span-1' />
                         <div
-                          className={`text-center ${
-                            isThirdSlotOpen ? 'col-span-3' : 'col-span-2'
-                          }`}
+                          className={`text-center ${isThirdSlotOpen ? 'col-span-3' : 'col-span-2'}`}
                         >
                           <h3 className='text-xs font-extrabold text-neutral-900 uppercase tracking-wider px-3 py-1 bg-neutral-100/80 rounded-lg inline-block text-center'>
                             {group.groupName}

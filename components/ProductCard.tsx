@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
@@ -30,11 +30,10 @@ const mapToStoreProduct = (row: ProductRow): Product => {
 };
 
 export const ProductCard = ({ product, variants }: Props) => {
+  // Local swatch selection. Reset happens via the `key` prop the parent grid
+  // sets (key={primary.id}) — never mirror `product` into state via an effect
+  // (see .ai/state.md §2).
   const [selectedVariant, setSelectedVariant] = useState<ProductRow>(product);
-
-  useEffect(() => {
-    setSelectedVariant(product);
-  }, [product]);
 
   const activeProduct = selectedVariant || product;
   const badges = activeProduct.badges as {

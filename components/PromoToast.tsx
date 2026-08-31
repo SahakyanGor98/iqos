@@ -14,34 +14,30 @@ export const PromoToast = () => {
   const topPosition = hasDeliveryNotice ? 'top-48 md:top-20' : 'top-20';
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional client-mount/hydration gate (see .ai/state.md)
     setIsMounted(true);
 
-    const checkVerification = () => {
-      const isVerified = localStorage.getItem('age-verified');
-      if (isVerified) {
-        // Start the toast sequence
-        const showTimer = setTimeout(() => {
-          setIsVisible(true);
-        }, 1000);
+    let showTimer: ReturnType<typeof setTimeout>;
+    let hideTimer: ReturnType<typeof setTimeout>;
 
-        const hideTimer = setTimeout(() => {
-          setIsVisible(false);
-        }, 8000);
-
-        return () => {
-          clearTimeout(showTimer);
-          clearTimeout(hideTimer);
-        };
-      } else {
-        // Retry checking
-        const retryTimer = setTimeout(checkVerification, 1000);
-        return () => clearTimeout(retryTimer);
-      }
+    const startSequence = () => {
+      showTimer = setTimeout(() => setIsVisible(true), 1000);
+      hideTimer = setTimeout(() => setIsVisible(false), 8000);
     };
 
-    const cleanup = checkVerification();
+    // Show once the visitor has passed age verification. If they already have,
+    // start immediately; otherwise wait for the one-off `age-verified` event
+    // (dispatched by AgeVerification) instead of polling localStorage.
+    if (localStorage.getItem('age-verified')) {
+      startSequence();
+    } else {
+      window.addEventListener('age-verified', startSequence, { once: true });
+    }
+
     return () => {
-      if (cleanup) cleanup();
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+      window.removeEventListener('age-verified', startSequence);
     };
   }, []);
 
