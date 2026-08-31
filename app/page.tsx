@@ -3,7 +3,13 @@ import { Metadata } from 'next';
 import { Button } from '@/components/Button';
 import { FaqAccordion } from '@/components/FaqAccordion';
 import { ButtonVariant } from '@/components/ButtonTypes';
-import { HeroSlider, IqosWhatIsSection, PromoBlock, TextSeparator } from '@/components';
+import {
+  HeroSlider,
+  IqosWhatIsSection,
+  PromoBlock,
+  TextSeparator,
+  TradeInPromoBanner,
+} from '@/components';
 import { LANDING_FAQ } from '@/lib/content/faq';
 import { ENABLE_PROMO } from '@/lib/constants';
 
@@ -100,6 +106,9 @@ export default function Home() {
       <IqosWhatIsSection />
 
       <TextSeparator />
+      <TradeInPromoBanner />
+
+      <TextSeparator />
       <FaqAccordion
         items={LANDING_FAQ}
         initialVisibleCount={4}
@@ -119,10 +128,7 @@ export default function Home() {
             Не уверены в выборе? Наши эксперты проконсультируют вас и помогут подобрать идеальное
             устройство и вкусы, подходящие именно вам.
           </p>
-          <Button
-            href='/contact'
-            variant={ButtonVariant.PRIMARY}
-          >
+          <Button href='/contact' variant={ButtonVariant.PRIMARY}>
             Связаться с нами
           </Button>
         </div>

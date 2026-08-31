@@ -9,7 +9,7 @@ export const PerPageSelect = () => {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  const currentLimit = searchParams.get('limit') || '12';
+  const currentLimit = searchParams.get('limit') || '25';
 
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -32,9 +32,10 @@ export const PerPageSelect = () => {
         className='form-select p-0.5 border-2 border-gray-700 text-sm rounded focus:ring-black focus:border-black'
         disabled={isPending}
       >
-        <option value='12'>12</option>
-        <option value='24'>24</option>
-        <option value='48'>48</option>
+        <option value='25'>25</option>
+        <option value='50'>50</option>
+        <option value='75'>75</option>
+        <option value='100'>100</option>
       </select>
     </div>
   );

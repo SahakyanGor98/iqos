@@ -1,3 +1,4 @@
+// Reserved for future CMS/Admin feature flags.
 'use client';
 
 import { Droplets } from 'lucide-react';
@@ -26,7 +27,8 @@ export const WaterBanner = () => {
               Природная питьевая Вода 0.33л
             </h3>
             <p className='text-xs sm:text-sm text-neutral-600 font-medium'>
-              Чистейшая природная питьевая вода в упаковке по 12 шт. Идеальное дополнение к вашему заказу.
+              Чистейшая природная питьевая вода в упаковке по 12 шт. Идеальное дополнение к вашему
+              заказу.
             </p>
           </div>
         </div>

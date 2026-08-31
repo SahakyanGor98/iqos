@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { getAllSlugs, getProductBySlug } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton, CompareButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -105,11 +106,13 @@ export default async function TereaSlugPage({ params }: Props) {
             <ProductImageCarousel images={allImages} title={productRow.title} />
           ) : (
             <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square flex items-center justify-center'>
-              <img
-                src={`/api/proxy?url=${encodeURIComponent(allImages[0])}`}
+              <Image
+                src={allImages[0]}
                 alt={productRow.title}
-                className='w-full h-full object-cover transition-transform duration-500 hover:scale-105'
-                loading='lazy'
+                fill
+                sizes='(max-width: 768px) 100vw, 50vw'
+                priority
+                className='object-cover transition-transform duration-500 hover:scale-105'
               />
             </div>
           )}
@@ -141,7 +144,9 @@ export default async function TereaSlugPage({ params }: Props) {
             </div>
 
             <div className='flex items-end gap-2'>
-              <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
+              <span className='text-4xl font-bold text-[#34303d]'>
+                {formatPrice(productRow.price)}
+              </span>
               <span className='text-sm font-medium text-neutral-500 mb-2'>/ блок (10 пачек)</span>
             </div>
 

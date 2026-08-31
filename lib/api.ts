@@ -1,5 +1,9 @@
-import { supabase } from './supabase';
-import { ProductRow } from '@/types/supabase';
+import 'server-only';
+
+import { supabasePublic as supabase } from './supabase/public';
+import { ProductRow, TradeInDeviceRow } from '@/types/supabase';
+import { IQOS_LINES } from '@/lib/constants';
+import accessoriesData from '@/assets/accessories.json';
 
 export type ProductParams = {
   category: 'gadget' | 'sticks' | 'water' | 'accessories';
@@ -21,8 +25,26 @@ export type PaginatedResult = {
   count: number;
 };
 
+// Helper to format JSON asset to ProductRow
+function formatAccessoryRow(item: any): ProductRow {
+  return {
+    id: item.id,
+    created_at: new Date().toISOString(),
+    slug: item.slug,
+    title: item.title,
+    description: item.description,
+    image: Array.isArray(item.image) ? item.image : [item.image],
+    price: item.price,
+    category: 'accessories',
+    in_stock: item.inStock ?? true,
+    badges: item.badges || { isNew: false, isHit: false, isExclusive: false },
+    attributes: item.attributes || {},
+    brand: item.brand || 'IQOS',
+  };
+}
+
 export async function getProducts(params: ProductParams): Promise<PaginatedResult> {
-  const { category, page = 1, limit = 12, sort, filters } = params;
+  const { category, page = 1, limit = 25, sort, filters } = params;
 
   let query = supabase.from('products').select('*', { count: 'exact' }).eq('category', category);
 
@@ -108,8 +130,42 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
   const { data, error, count } = await query;
 
-  if (error) {
-    console.error(`Error fetching ${category}:`, error);
+  if (error || !data || data.length === 0) {
+    if (category === 'accessories') {
+      let mockList = accessoriesData.map(formatAccessoryRow);
+
+      if (filters?.color) {
+        const colors = Array.isArray(filters.color) ? filters.color : [filters.color];
+        mockList = mockList.filter((item) => colors.includes((item.attributes as any)?.color));
+      }
+      if (filters?.type) {
+        const types = Array.isArray(filters.type) ? filters.type : [filters.type];
+        mockList = mockList.filter((item) => types.includes((item.attributes as any)?.type));
+      }
+      if (filters?.compatibility) {
+        const comps = Array.isArray(filters.compatibility)
+          ? filters.compatibility
+          : [filters.compatibility];
+        mockList = mockList.filter((item) =>
+          comps.includes((item.attributes as any)?.compatibility),
+        );
+      }
+      if (params.inStock) {
+        mockList = mockList.filter((item) => item.in_stock);
+      }
+      if (params.priceRange?.min !== undefined) {
+        mockList = mockList.filter((item) => item.price >= params.priceRange!.min!);
+      }
+      if (params.priceRange?.max !== undefined) {
+        mockList = mockList.filter((item) => item.price <= params.priceRange!.max!);
+      }
+
+      const paginatedMock = mockList.slice((page - 1) * limit, page * limit);
+      return { data: paginatedMock, count: mockList.length };
+    }
+    if (error) {
+      console.error(`Error fetching ${category}:`, error);
+    }
     return { data: [], count: 0 };
   }
 
@@ -118,8 +174,14 @@ export async function getProducts(params: ProductParams): Promise<PaginatedResul
 
 export async function getProductBySlug(slug: string): Promise<ProductRow | null> {
   const { data, error } = await supabase.from('products').select('*').eq('slug', slug).single();
-  if (error) {
-    console.error(`Error fetching product ${slug}:`, error);
+  if (error || !data) {
+    const mockMatch = accessoriesData.find((item) => item.slug === slug);
+    if (mockMatch) {
+      return formatAccessoryRow(mockMatch);
+    }
+    if (error) {
+      console.error(`Error fetching product ${slug}:`, error);
+    }
     return null;
   }
   return data as ProductRow;
@@ -173,9 +235,13 @@ export async function getIqosLineupProducts(
       matches.find(
         (product) =>
           product.in_stock &&
-          String((product.attributes as Record<string, string>)?.colorVariantName || (product.attributes as Record<string, string>)?.color || product.slug)
+          String(
+            (product.attributes as Record<string, string>)?.colorVariantName ||
+              (product.attributes as Record<string, string>)?.color ||
+              product.slug,
+          )
             .toLowerCase()
-            .includes('purple')
+            .includes('purple'),
       ) ??
       matches.find((product) => product.in_stock) ??
       matches[0];
@@ -198,10 +264,129 @@ export async function getAllSlugs(
 ): Promise<string[]> {
   const { data, error } = await supabase.from('products').select('slug').eq('category', category);
 
-  if (error) {
-    console.error('Error fetching slugs:', error);
+  if (error || !data || data.length === 0) {
+    if (category === 'accessories') {
+      return accessoriesData.map((item) => item.slug);
+    }
+    if (error) {
+      console.error('Error fetching slugs:', error);
+    }
     return [];
   }
 
-  return data?.map((p) => p.slug) || [];
+  return data.map((p) => p.slug);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Trade-in: old devices (dedicated table) + target devices (from products)   */
+/* -------------------------------------------------------------------------- */
+
+export type TradeInDeviceView = {
+  key: string; // device_key
+  name: string;
+  description: string | null;
+  image: string | null; // first image url, or null (e.g. "other device")
+  discount: number; // base_discount in RUB
+  badge: string | null;
+};
+
+export async function getTradeInDevices(): Promise<TradeInDeviceView[]> {
+  const { data, error } = await supabase
+    .from('trade_in_devices')
+    .select('*')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true });
+
+  if (error) {
+    console.error('Error fetching trade-in devices:', error);
+    return [];
+  }
+
+  return (data as TradeInDeviceRow[]).map((d) => ({
+    key: d.device_key,
+    name: d.name,
+    description: d.description,
+    image: Array.isArray(d.image) ? (d.image[0] ?? null) : null,
+    discount: Number(d.base_discount),
+    badge: d.badge,
+  }));
+}
+
+export type TradeInTargetColor = {
+  productId: number;
+  slug: string;
+  colorLabel: string;
+  price: number;
+  image: string | null;
+  inStock: boolean;
+};
+
+export type TradeInTargetLine = {
+  line: string;
+  name: string;
+  colors: TradeInTargetColor[];
+};
+
+// Which gadget lines can be received via trade-in, in display order.
+const TRADE_IN_TARGET_LINES = ['i-one', 'i', 'i prime'];
+
+// Preferred default colour per line (mirrors the catalog's ProductGrid).
+const TRADE_IN_DEFAULT_COLORS: Record<string, string> = {
+  i: 'breeze blue',
+  'i-one': 'digital violet',
+  'i prime': 'aspen green',
+};
+
+export async function getTradeInTargets(): Promise<TradeInTargetLine[]> {
+  const { data, error } = await supabase
+    .from('products')
+    .select('id, slug, price, in_stock, attributes, image')
+    .eq('category', 'gadget');
+
+  if (error) {
+    console.error('Error fetching trade-in targets:', error);
+    return [];
+  }
+
+  const byLine = new Map<string, TradeInTargetColor[]>();
+
+  for (const row of data ?? []) {
+    const attrs = (row.attributes as Record<string, unknown>) || {};
+    const line = String(attrs.line ?? '')
+      .toLowerCase()
+      .trim();
+    if (!TRADE_IN_TARGET_LINES.includes(line)) continue;
+
+    const imageValue = row.image as string[] | string | null;
+    const image = Array.isArray(imageValue) ? (imageValue[0] ?? null) : (imageValue ?? null);
+
+    const color: TradeInTargetColor = {
+      productId: row.id,
+      slug: row.slug,
+      colorLabel: (attrs.color as string) || row.slug,
+      price: Number(row.price),
+      image,
+      inStock: !!row.in_stock,
+    };
+
+    if (!byLine.has(line)) byLine.set(line, []);
+    byLine.get(line)!.push(color);
+  }
+
+  const sortColors = (line: string, colors: TradeInTargetColor[]): TradeInTargetColor[] => {
+    const preferred = TRADE_IN_DEFAULT_COLORS[line];
+    return [...colors].sort((a, b) => {
+      const aPref = preferred && a.colorLabel.toLowerCase().includes(preferred) ? 1 : 0;
+      const bPref = preferred && b.colorLabel.toLowerCase().includes(preferred) ? 1 : 0;
+      if (aPref !== bPref) return bPref - aPref; // preferred first
+      if (a.inStock !== b.inStock) return a.inStock ? -1 : 1; // in-stock first
+      return a.price - b.price; // cheaper first
+    });
+  };
+
+  return TRADE_IN_TARGET_LINES.filter((line) => byLine.has(line)).map((line) => ({
+    line,
+    name: IQOS_LINES[line] ?? line,
+    colors: sortColors(line, byLine.get(line)!),
+  }));
 }

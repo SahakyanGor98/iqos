@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ProductRow } from '@/types/supabase';
 import { AddToCartButton } from '@/components/AddToCartButton';
 import { CompareButton } from '@/components/CompareButton';
@@ -30,11 +31,10 @@ const mapToStoreProduct = (row: ProductRow): Product => {
 };
 
 export const ProductCard = ({ product, variants }: Props) => {
+  // Local swatch selection. Reset happens via the `key` prop the parent grid
+  // sets (key={primary.id}) — never mirror `product` into state via an effect
+  // (see .ai/state.md §2).
   const [selectedVariant, setSelectedVariant] = useState<ProductRow>(product);
-
-  useEffect(() => {
-    setSelectedVariant(product);
-  }, [product]);
 
   const activeProduct = selectedVariant || product;
   const badges = activeProduct.badges as {
@@ -45,24 +45,35 @@ export const ProductCard = ({ product, variants }: Props) => {
   const attributes = activeProduct.attributes as Record<string, any>;
 
   const colorVariants =
-    variants && variants.length > 0 ? variants : product.category === 'gadget' ? [product] : [];
+    variants && variants.length > 0
+      ? variants
+      : product.category === 'gadget' || product.category === 'accessories'
+        ? [product]
+        : [];
 
   const mainImage = Array.isArray(activeProduct.image)
     ? activeProduct.image[0]
     : activeProduct.image;
+  const getCategoryPath = (cat: string) => {
+    if (cat === 'gadget') return 'iqos';
+    if (cat === 'accessories') return 'accessories';
+    if (cat === 'water') return 'water';
+    return 'terea';
+  };
 
   return (
     <Link
-      href={`/products/${activeProduct.category === 'gadget' ? 'iqos' : activeProduct.category === 'water' ? 'water' : 'terea'}/${activeProduct.slug}`}
+      href={`/products/${getCategoryPath(activeProduct.category)}/${activeProduct.slug}`}
       className='group rounded-xl border border-neutral-200 bg-white transition hover:shadow-md h-full flex flex-col overflow-hidden relative'
     >
       {/* Image */}
       <div className='relative aspect-square bg-neutral-50 overflow-hidden'>
-        <img
-          src={`/api/proxy?url=${encodeURIComponent(mainImage)}`}
+        <Image
+          src={mainImage}
           alt={activeProduct.title}
-          className='w-full h-full object-cover transition-all duration-300 group-hover:scale-105'
-          loading='lazy'
+          fill
+          sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+          className='object-cover transition-all duration-300 group-hover:scale-105'
         />
 
         {/* Compare Button (Top Right) */}
@@ -88,9 +99,10 @@ export const ProductCard = ({ product, variants }: Props) => {
           <div className='hidden' aria-hidden='true'>
             {colorVariants.map((variant) => {
               const vImg = Array.isArray(variant.image) ? variant.image[0] : variant.image;
-              return (
-                <img key={variant.id} src={`/api/proxy?url=${encodeURIComponent(vImg)}`} alt='' />
-              );
+              // Raw <img> preload (kept intentionally) warms the browser cache for
+              // instant swatch switching. Points at the direct Supabase URL.
+              // eslint-disable-next-line @next/next/no-img-element
+              return <img key={variant.id} src={vImg} alt='' />;
             })}
           </div>
         )}
@@ -102,49 +114,54 @@ export const ProductCard = ({ product, variants }: Props) => {
           {formatDeviceTitle(fixCasing(activeProduct.title, false))}
         </h3>
 
-        {/* Color Swatches Controller for Gadgets directly below main title */}
-        {activeProduct.category === 'gadget' && colorVariants.length > 1 && (
-          <>
-            {attributes.color && (
-              <span className='text-[11px] text-neutral-500 font-medium block mb-3'>
-                Цвет: <span className='text-neutral-800 font-semibold'>{attributes.color}</span>
-              </span>
-            )}
-            <div
-              className='flex items-center gap-2 flex-wrap mb-1.5'
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-            >
-              {colorVariants.map((variant) => {
-                const vAttrs = variant.attributes as Record<string, any>;
-                const colorLabel = vAttrs.color || variant.title;
-                const isSelected = variant.id === activeProduct.id;
-                const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
+        {/* Color Swatches Controller for Gadgets & Accessories directly below main title */}
+        {(activeProduct.category === 'gadget' || activeProduct.category === 'accessories') &&
+          colorVariants.length > 1 && (
+            <>
+              {attributes.color && (
+                <span className='text-[11px] text-neutral-500 font-medium block mb-3'>
+                  Цвет: <span className='text-neutral-800 font-semibold'>{attributes.color}</span>
+                </span>
+              )}
+              <div
+                className='flex items-center gap-2 flex-wrap mb-1.5'
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                {colorVariants.map((variant) => {
+                  const vAttrs = variant.attributes as Record<string, any>;
+                  const colorLabel = vAttrs.color || variant.title;
+                  const isSelected = variant.id === activeProduct.id;
+                  const swatch = getDeviceColorSwatch(
+                    vAttrs.colorVariantName || vAttrs.color,
+                    variant.title,
+                    vAttrs.hex,
+                  );
 
-                return (
-                  <button
-                    key={variant.id}
-                    type='button'
-                    title={colorLabel}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setSelectedVariant(variant);
-                    }}
-                    className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${
-                      isSelected
-                        ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
-                        : 'hover:scale-110 opacity-80 hover:opacity-100'
-                    }`}
-                    style={swatch}
-                  />
-                );
-              })}
-            </div>
-          </>
-        )}
+                  return (
+                    <button
+                      key={variant.id}
+                      type='button'
+                      title={colorLabel}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setSelectedVariant(variant);
+                      }}
+                      className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${
+                        isSelected
+                          ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
+                          : 'hover:scale-110 opacity-80 hover:opacity-100'
+                      }`}
+                      style={swatch}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          )}
 
         {/* Attributes Display for Non-Gadgets */}
         <div className='text-xs text-neutral-500 mb-2 mt-auto'>

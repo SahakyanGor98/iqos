@@ -1,11 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllSlugs, getProductBySlug, getProducts } from '@/lib/api';
 import { notFound } from 'next/navigation';
 import { AddToCartButton, CompareButton } from '@/components';
 import { ProductImageCarousel } from '@/components/ProductImageCarousel';
 import { Product } from '@/types/product';
-import { formatPrice, formatDeviceTitle, fixCasing, getDeviceColorSwatch } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice, getDeviceColorSwatch } from '@/lib/utils';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -56,21 +57,33 @@ export default async function IqosSlugPage({ params }: Props) {
   const badgeData = badges as Record<string, boolean>;
 
   // Fetch sibling color variants for the same line
-  let siblingVariants: typeof productRow[] = [];
+  let siblingVariants: (typeof productRow)[] = [];
   if (attrs.line) {
     const { data: gadgets } = await getProducts({ category: 'gadget', limit: 100 });
-    siblingVariants = gadgets.filter((p) => (p.attributes as Record<string, any>)?.line === attrs.line);
+    siblingVariants = gadgets.filter(
+      (p) => (p.attributes as Record<string, any>)?.line === attrs.line,
+    );
+    // Show Electric Purple first among the sibling colours (rc behaviour).
     siblingVariants.sort((a, b) => {
-      const colorA = String((a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title).toLowerCase();
-      const colorB = String((b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title).toLowerCase();
-      const isPurpleA = colorA.includes('electric purple') || colorA.includes('фиолетовый') || colorA.includes('purple');
-      const isPurpleB = colorB.includes('electric purple') || colorB.includes('фиолетовый') || colorB.includes('purple');
+      const colorA = String(
+        (a.attributes as any)?.colorVariantName || (a.attributes as any)?.color || a.title,
+      ).toLowerCase();
+      const colorB = String(
+        (b.attributes as any)?.colorVariantName || (b.attributes as any)?.color || b.title,
+      ).toLowerCase();
+      const isPurpleA =
+        colorA.includes('electric purple') ||
+        colorA.includes('фиолетовый') ||
+        colorA.includes('purple');
+      const isPurpleB =
+        colorB.includes('electric purple') ||
+        colorB.includes('фиолетовый') ||
+        colorB.includes('purple');
       if (isPurpleA && !isPurpleB) return -1;
       if (!isPurpleA && isPurpleB) return 1;
       return 0;
     });
   }
-
 
   const productImages = Array.isArray(productRow.image) ? productRow.image : [productRow.image];
 
@@ -120,12 +133,14 @@ export default async function IqosSlugPage({ params }: Props) {
           {productImages.length > 1 ? (
             <ProductImageCarousel images={productImages} title={productRow.title} />
           ) : (
-            <div className='bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
-              <img
-                src={`/api/proxy?url=${encodeURIComponent(productImages[0])}`}
+            <div className='relative bg-neutral-50 rounded-3xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center p-8'>
+              <Image
+                src={productImages[0]}
                 alt={productRow.title}
-                className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
-                loading='lazy'
+                fill
+                sizes='(max-width: 768px) 100vw, 50vw'
+                priority
+                className='object-contain transition-transform duration-500 hover:scale-105'
               />
             </div>
           )}
@@ -166,10 +181,11 @@ export default async function IqosSlugPage({ params }: Props) {
                         scroll={false}
                         replace={true}
                         title={vAttrs.color || variant.title}
-                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${isCurrent
+                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${
+                          isCurrent
                             ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
                             : 'hover:scale-110 opacity-80 hover:opacity-100'
-                          }`}
+                        }`}
                         style={swatch}
                       />
                     );
@@ -189,7 +205,9 @@ export default async function IqosSlugPage({ params }: Props) {
                   </span>
                 </>
               ) : (
-                <span className='text-4xl font-bold text-[#34303d]'>{formatPrice(productRow.price)}</span>
+                <span className='text-4xl font-bold text-[#34303d]'>
+                  {formatPrice(productRow.price)}
+                </span>
               )}
             </div>
 

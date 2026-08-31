@@ -1,0 +1,1362 @@
+[
+  {
+    "id": 1001,
+    "slug": "iqos-iluma-i-x-seletti-nabor-kolets-1001",
+    "title": "IQOS ILUMA i x Seletti Набор колец",
+    "description": "Официальный аксессуар IQOS ILUMA i x Seletti Набор колец для IQOS ILUMA i.",
+    "image": [
+      "/accessories/seletti-ring-set/1.webp",
+      "/accessories/seletti-ring-set/2.webp",
+      "/accessories/seletti-ring-set/3.webp"
+    ],
+    "category": "accessories",
+    "price": 7100,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #BAAE75 0%, #EADAA2 50%, #080905 100%)"
+    },
+    "brand": "IQOS x SELETTI"
+  },
+  {
+    "id": 1002,
+    "slug": "iqos-iluma-i-prime-x-seletti-kryshka-nakladka-seletti-gradient-black-gold-3-1002",
+    "title": "IQOS ILUMA i Prime x Seletti Крышка-накладка - Seletti Gradient Black Gold",
+    "description": "Официальный аксессуар IQOS ILUMA i Prime x Seletti Крышка-накладка - Seletti Gradient Black Gold 3 для IQOS ILUMA i PRIME.",
+    "image": [
+      "/accessories/seletti-prime-cover/gradient-black-gold-1.webp",
+      "/accessories/seletti-prime-cover/gradient-black-gold-2.webp"
+    ],
+    "category": "accessories",
+    "price": 14200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Seletti Gradient Black Gold",
+      "line": "IQOS ILUMA i Prime x Seletti Крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#876F38"
+    },
+    "brand": "IQOS x SELETTI"
+  },
+  {
+    "id": 1003,
+    "slug": "iqos-iluma-i-prime-x-seletti-kryshka-nakladka-seletti-scallop-white-gold-1-1003",
+    "title": "IQOS ILUMA i Prime x Seletti Крышка-накладка - Seletti Scallop White Gold",
+    "description": "Официальный аксессуар IQOS ILUMA i Prime x Seletti Крышка-накладка - Seletti Scallop White Gold 1 для IQOS ILUMA i PRIME.",
+    "image": [
+      "/accessories/seletti-prime-cover/scallop-white-gold-1.webp",
+      "/accessories/seletti-prime-cover/scallop-white-gold-2.webp",
+      "/accessories/seletti-prime-cover/scallop-white-gold-3.webp",
+      "/accessories/seletti-prime-cover/scallop-white-gold-4.webp"
+    ],
+    "category": "accessories",
+    "price": 14200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Seletti Scallop White Gold",
+      "line": "IQOS ILUMA i Prime x Seletti Крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#D2D2D2"
+    },
+    "brand": "IQOS x SELETTI"
+  },
+  {
+    "id": 1007,
+    "slug": "panel-dlya-iqos-iluma-i-x-seletti-seletti-gradient-black-1-1007",
+    "title": "Панель для IQOS ILUMA i x Seletti - Seletti Gradient Black",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA i x Seletti - Seletti Gradient Black 1 для IQOS ILUMA i.",
+    "image": [
+      "/accessories/seletti-panel/gradient-black-1.webp",
+      "/accessories/seletti-panel/gradient-black-2.webp",
+      "/accessories/seletti-panel/gradient-black-3.webp"
+    ],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Черный",
+      "colorVariantName": "Seletti Gradient Black",
+      "line": "Панель для IQOS ILUMA i x Seletti",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#876F38"
+    },
+    "brand": "IQOS x SELETTI"
+  },
+  {
+    "id": 1010,
+    "slug": "panel-dlya-iqos-iluma-i-x-seletti-seletti-zagged-golden-1-1010",
+    "title": "Панель для IQOS ILUMA i x Seletti - Seletti Zagged Golden",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA i x Seletti - Seletti Zagged Golden 1 для IQOS ILUMA i.",
+    "image": [
+      "/accessories/seletti-panel/zagged-golden-1.webp",
+      "/accessories/seletti-panel/zagged-golden-2.webp"
+    ],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Seletti Zagged Golden",
+      "line": "Панель для IQOS ILUMA i x Seletti",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#D3AF37"
+    },
+    "brand": "IQOS x SELETTI"
+  },
+  {
+    "id": 1012,
+    "slug": "nabor-kolets-iqos-iluma-i-chromo-matic-1012",
+    "title": "Набор колец IQOS ILUMA i - Chromo Matic",
+    "description": "Официальный аксессуар Набор колец IQOS ILUMA i - Chromo Matic для IQOS ILUMA i.",
+    "image": ["/accessories/chromo-matic-ring-set/chromo-matic.webp"],
+    "category": "accessories",
+    "price": 5300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #01E5E3 0%, #AD2E2E 50%, #A3A1A4 100%)",
+      "line": "Набор колец IQOS ILUMA i",
+      "colorVariantName": "Chromo Matic"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1013,
+    "slug": "nabor-kolets-iqos-iluma-i-shimmering-shades-1013",
+    "title": "Набор колец IQOS ILUMA i - Shimmering Shades",
+    "description": "Официальный аксессуар Набор колец IQOS ILUMA i - Shimmering Shades для IQOS ILUMA i.",
+    "image": ["/accessories/shimmering-shades-ring-set/shimmering-shades.webp"],
+    "category": "accessories",
+    "price": 4900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #E1D0DA 0%, #E95A97 50%, #D0E762 100%)",
+      "line": "Набор колец IQOS ILUMA i",
+      "colorVariantName": "Shimmering Shades"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1014,
+    "slug": "iqos-iluma-i-prime-metallik-kryshka-nakladka-bold-blue-1014",
+    "title": "IQOS ILUMA i PRIME Металлик крышка-накладка - Bold Blue",
+    "description": "Официальный аксессуар IQOS ILUMA i PRIME Металлик крышка-накладка - Bold Blue для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/iluma-i-prime-metallic-cover/bold-blue.webp"],
+    "category": "accessories",
+    "price": 9900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Bold Blue",
+      "line": "IQOS ILUMA i PRIME Металлик крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#2563EB"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1015,
+    "slug": "iqos-iluma-i-prime-metallik-kryshka-nakladka-easy-green-1015",
+    "title": "IQOS ILUMA i PRIME Металлик крышка-накладка - Easy Green",
+    "description": "Официальный аксессуар IQOS ILUMA i PRIME Металлик крышка-накладка - Easy Green для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/iluma-i-prime-metallic-cover/easy-green.webp"],
+    "category": "accessories",
+    "price": 9900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Easy Green",
+      "line": "IQOS ILUMA i PRIME Металлик крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#059669"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1016,
+    "slug": "iqos-iluma-i-prime-kryshka-nakladka-vibrant-orange-1016",
+    "title": "IQOS ILUMA i PRIME Крышка-накладка - Vibrant Orange",
+    "description": "Официальный аксессуар IQOS ILUMA i PRIME Крышка-накладка - Vibrant Orange для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/iluma-i-prime-cover/vibrant-orange.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Vibrant Orange",
+      "line": "IQOS ILUMA i PRIME Крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#EA580C"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1017,
+    "slug": "iqos-iluma-i-prime-kryshka-nakladka-zest-yellow-1017",
+    "title": "IQOS ILUMA i PRIME Крышка-накладка - Zest Yellow",
+    "description": "Официальный аксессуар IQOS ILUMA i PRIME Крышка-накладка - Zest Yellow для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/iluma-i-prime-cover/zest-yellow.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Zest Yellow",
+      "line": "IQOS ILUMA i PRIME Крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#DCDE3F"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1018,
+    "slug": "alyuminevaya-panel-dlya-iqos-iluma-i-1018",
+    "title": "Алюминевая панель для IQOS ILUMA i",
+    "description": "Официальный аксессуар Алюминевая панель для IQOS ILUMA i для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-i-aluminum-panel/brisk-blue.webp"],
+    "category": "accessories",
+    "price": 6300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#0B45C7"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1019,
+    "slug": "panel-dlya-iqos-iluma-i-chill-blue-1019",
+    "title": "Панель для IQOS ILUMA i - Chill Blue",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA i - Chill Blue для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-i-panel/chill-blue.webp"],
+    "category": "accessories",
+    "price": 6300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Chill Blue",
+      "line": "Панель для IQOS ILUMA i",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#AAD5FD"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1020,
+    "slug": "panel-dlya-iqos-iluma-i-vivid-blue-1020",
+    "title": "Панель для IQOS ILUMA i - Vivid Blue",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA i - Vivid Blue для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-i-panel/vivid-blue.webp"],
+    "category": "accessories",
+    "price": 6300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Vivid Blue",
+      "line": "Панель для IQOS ILUMA i",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#C4EBEA"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1021,
+    "slug": "iqos-iluma-i-silikonovyy-chekhol-serene-pink-1021",
+    "title": "IQOS ILUMA i Силиконовый чехол - Serene Pink",
+    "description": "Официальный аксессуар IQOS ILUMA i Силиконовый чехол - Serene Pink для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-i-silicone-sleeve/serene-pink.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Розовый",
+      "colorVariantName": "Serene Pink",
+      "line": "IQOS ILUMA i Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#CF447F"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1022,
+    "slug": "iqos-iluma-i-silikonovyy-chekhol-wise-violet-1022",
+    "title": "IQOS ILUMA i Силиконовый чехол - Wise Violet",
+    "description": "Официальный аксессуар IQOS ILUMA i Силиконовый чехол - Wise Violet для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-i-silicone-sleeve/wise-violet.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Wise Violet",
+      "line": "IQOS ILUMA i Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#97A1D7"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1023,
+    "slug": "iqos-iluma-i-one-plus-chekhol-majestic-purple-1023",
+    "title": "IQOS ILUMA i ONE PLUS Чехол - Majestic Purple",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE PLUS Чехол - Majestic Purple для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-plus-sleeve/majestic-purple.webp"],
+    "category": "accessories",
+    "price": 3900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Majestic Purple",
+      "line": "IQOS ILUMA i ONE PLUS Чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#4E3D7D"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1024,
+    "slug": "iqos-iluma-i-one-plus-chekhol-mystical-grey-1024",
+    "title": "IQOS ILUMA i ONE PLUS Чехол - Mystical Grey",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE PLUS Чехол - Mystical Grey для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-plus-sleeve/mystical-grey.webp"],
+    "category": "accessories",
+    "price": 3900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Mystical Grey",
+      "line": "IQOS ILUMA i ONE PLUS Чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#464C56"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1025,
+    "slug": "iqos-iluma-i-one-plus-chekhol-serene-blue-1025",
+    "title": "IQOS ILUMA i ONE PLUS Чехол - Serene Blue",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE PLUS Чехол - Serene Blue для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-plus-sleeve/serene-blue.webp"],
+    "category": "accessories",
+    "price": 3900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Serene Blue",
+      "line": "IQOS ILUMA i ONE PLUS Чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#7497AA"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1026,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-bold-ruby-1026",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Bold Ruby",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Bold Ruby для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/bold-ruby.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Красный",
+      "colorVariantName": "Bold Ruby",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#A93437"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1027,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-charming-blue-1027",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Charming Blue",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Charming Blue для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/charming-blue.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Charming Blue",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#0C2961"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1028,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-delicate-blue-1028",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Delicate Blue",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Delicate Blue для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/delicate-blue.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Delicate Blue",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#60ACAD"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1029,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-majestic-purple-1029",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Majestic Purple",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Majestic Purple для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/majestic-purple.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Majestic Purple",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#804DBB"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1030,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-mysterious-purple-1030",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Mysterious Purple",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Mysterious Purple для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/mysterious-purple.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Mysterious Purple",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#412A3F"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1031,
+    "slug": "iqos-iluma-i-one-silikonovyy-chekhol-wishful-yellow-1031",
+    "title": "IQOS ILUMA i ONE Силиконовый чехол - Wishful Yellow",
+    "description": "Официальный аксессуар IQOS ILUMA i ONE Силиконовый чехол - Wishful Yellow для IQOS ILUMA i ONE.",
+    "image": ["/accessories/iluma-i-one-silicone-sleeve/wishful-yellow.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Wishful Yellow",
+      "line": "IQOS ILUMA i ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#D1C05D"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1032,
+    "slug": "premium-nabor-kolets-iqos-iluma-nabor-kolets-iqos-iluma-celebrate-1032",
+    "title": "Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Celebrate",
+    "description": "Официальный аксессуар Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Celebrate для IQOS ILUMA i.",
+    "image": ["/accessories/premium-ring-set/celebrate.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Набор колец IQOS ILUMA - Celebrate",
+      "line": "Премиум набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #898C8D 0%, #00AFAD 50%, #8D8BC3 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1033,
+    "slug": "premium-nabor-kolets-iqos-iluma-nabor-kolets-iqos-iluma-emanate-1033",
+    "title": "Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Emanate",
+    "description": "Официальный аксессуар Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Emanate для IQOS ILUMA i.",
+    "image": [
+      "/accessories/premium-ring-set/emanate-1.webp",
+      "/accessories/premium-ring-set/emanate-2.webp"
+    ],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Набор колец IQOS ILUMA - Emanate",
+      "line": "Премиум набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #D97D7A 0%, #E0DE8E 50%, #52AFCF 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1034,
+    "slug": "premium-nabor-kolets-iqos-iluma-nabor-kolets-iqos-iluma-exhilarate-1034",
+    "title": "Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Exhilarate",
+    "description": "Официальный аксессуар Премиум набор колец IQOS ILUMA - Набор колец IQOS ILUMA - Exhilarate для IQOS ILUMA i.",
+    "image": ["/accessories/premium-ring-set/exhilarate.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Набор колец IQOS ILUMA - Exhilarate",
+      "line": "Премиум набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #667E63 0%, #C45964 50%, #CC9450 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1036,
+    "slug": "nabor-kolets-iqos-iluma-energized-1036",
+    "title": "Набор колец IQOS ILUMA - Energized",
+    "description": "Официальный аксессуар Набор колец IQOS ILUMA - Energized для IQOS ILUMA i.",
+    "image": ["/accessories/ring-set/energized.webp"],
+    "category": "accessories",
+    "price": 4900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Energized",
+      "line": "Набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #00DADE 0%, #E5B366 50%, #E7E49A 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1037,
+    "slug": "nabor-kolets-iqos-iluma-grounded-1037",
+    "title": "Набор колец IQOS ILUMA - Grounded",
+    "description": "Официальный аксессуар Набор колец IQOS ILUMA - Grounded для IQOS ILUMA i.",
+    "image": ["/accessories/ring-set/grounded-1.webp", "/accessories/ring-set/grounded-2.webp"],
+    "category": "accessories",
+    "price": 4900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Grounded",
+      "line": "Набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #CFCFD0 0%, #AAC9DC 50%, #BA607D 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1038,
+    "slug": "nabor-kolets-iqos-iluma-sophisticated-1038",
+    "title": "Набор колец IQOS ILUMA - Sophisticated",
+    "description": "Официальный аксессуар Набор колец IQOS ILUMA - Sophisticated для IQOS ILUMA i.",
+    "image": ["/accessories/ring-set/sophisticated.webp"],
+    "category": "accessories",
+    "price": 4900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Sophisticated",
+      "line": "Набор колец IQOS ILUMA",
+      "type": "Колпачки",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "linear-gradient(135deg, #D18F81 0%, #3B87AD 50%, #8C81BF 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1039,
+    "slug": "iqos-iluma-prime-polnyy-chekhol-golden-khaki-1039",
+    "title": "IQOS ILUMA PRIME Полный чехол - Golden Khaki",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Полный чехол - Golden Khaki для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-full-sleeve/golden-khaki.webp"],
+    "category": "accessories",
+    "price": 11300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Золотой",
+      "colorVariantName": "Golden Khaki",
+      "line": "IQOS ILUMA PRIME Полный чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#A4836C"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1040,
+    "slug": "iqos-iluma-prime-polnyy-chekhol-iqos-iluma-prime-tkanevyy-polnyy-chekhol-bronze-taupe-1040",
+    "title": "IQOS ILUMA PRIME Полный чехол - IQOS ILUMA PRIME Тканевый полный чехол - Bronze Taupe",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Полный чехол - IQOS ILUMA PRIME Тканевый полный чехол - Bronze Taupe для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-full-sleeve/bronze-taupe.webp"],
+    "category": "accessories",
+    "price": 11300,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Бежевый",
+      "colorVariantName": "IQOS ILUMA PRIME Тканевый полный чехол - Bronze Taupe",
+      "line": "IQOS ILUMA PRIME Полный чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#6F7381"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1041,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-bronze-taupe-1041",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - Bronze Taupe",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - Bronze Taupe для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/bronze-taupe.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Бежевый",
+      "colorVariantName": "Bronze Taupe",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#6F7381"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1042,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-indigo-1042",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - Indigo",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - Indigo для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/indigo.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Indigo",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#3C5767"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1043,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-iqos-iluma-prime-kryshka-nakladka-obsidian-blac-1043",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - IQOS ILUMA PRIME Крышка-накладка - Obsidian Blac",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - IQOS ILUMA PRIME Крышка-накладка - Obsidian Blac для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/obsidian-black.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Черный",
+      "colorVariantName": "IQOS ILUMA PRIME Крышка-накладка - Obsidian Blac",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#1F1F1F"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1044,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-iqos-iluma-prime-perelivayushcheesya-kryshka-nakladka-night-shade-1044",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - IQOS ILUMA PRIME Переливающееся крышка-накладка - Night Shade",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - IQOS ILUMA PRIME Переливающееся крышка-накладка - Night Shade для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/night-shade.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "IQOS ILUMA PRIME Переливающееся крышка-накладка - Night Shade",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "linear-gradient(135deg, #5D4662 0%, #ADB297 50%, #79958C 100%)"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1045,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-jade-green-1045",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - Jade Green",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - Jade Green для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/jade-green.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Jade Green",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#5F7068"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1046,
+    "slug": "iqos-iluma-prime-tkanevaya-kryshka-nakladka-warm-red-1046",
+    "title": "IQOS ILUMA PRIME Тканевая крышка-накладка - Warm Red",
+    "description": "Официальный аксессуар IQOS ILUMA PRIME Тканевая крышка-накладка - Warm Red для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-fabric-cover/warm-red.webp"],
+    "category": "accessories",
+    "price": 8500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Красный",
+      "colorVariantName": "Warm Red",
+      "line": "IQOS ILUMA PRIME Тканевая крышка-накладка",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#63292F"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1047,
+    "slug": "nakladka-dlya-iqos-iluma-prime-bright-blue-1047",
+    "title": "Накладка для IQOS ILUMA PRIME - Bright Blue",
+    "description": "Официальный аксессуар Накладка для IQOS ILUMA PRIME - Bright Blue для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-overlay/bright-blue.webp"],
+    "category": "accessories",
+    "price": 7100,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Bright Blue",
+      "line": "Накладка для IQOS ILUMA PRIME",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#788EC0"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1048,
+    "slug": "nakladka-dlya-iqos-iluma-prime-bright-coral-1048",
+    "title": "Накладка для IQOS ILUMA PRIME - Bright Coral",
+    "description": "Официальный аксессуар Накладка для IQOS ILUMA PRIME - Bright Coral для IQOS ILUMA i PRIME.",
+    "image": ["/accessories/prime-overlay/bright-coral.webp"],
+    "category": "accessories",
+    "price": 7100,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Розовый",
+      "colorVariantName": "Bright Coral",
+      "line": "Накладка для IQOS ILUMA PRIME",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i PRIME",
+      "hex": "#E9908E"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1049,
+    "slug": "iqos-iluma-one-silikonovyy-chekhol-claret-red-1049",
+    "title": "IQOS ILUMA ONE Силиконовый чехол - Claret Red",
+    "description": "Официальный аксессуар IQOS ILUMA ONE Силиконовый чехол - Claret Red для IQOS ILUMA i ONE.",
+    "image": ["/accessories/one-silicone-sleeve/claret-red.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Красный",
+      "colorVariantName": "Claret Red",
+      "line": "IQOS ILUMA ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#E4506E"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1050,
+    "slug": "iqos-iluma-one-silikonovyy-chekhol-new-indigo-1050",
+    "title": "IQOS ILUMA ONE Силиконовый чехол - New Indigo",
+    "description": "Официальный аксессуар IQOS ILUMA ONE Силиконовый чехол - New Indigo для IQOS ILUMA i ONE.",
+    "image": ["/accessories/one-silicone-sleeve/new-indigo.webp"],
+    "category": "accessories",
+    "price": 3500,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "New Indigo",
+      "line": "IQOS ILUMA ONE Силиконовый чехол",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i ONE",
+      "hex": "#4C5A84"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1051,
+    "slug": "alyuminievaya-panel-dlya-iqos-iluma-azure-blue-1051",
+    "title": "Алюминиевая панель для IQOS ILUMA - Azure Blue",
+    "description": "Официальный аксессуар Алюминиевая панель для IQOS ILUMA - Azure Blue для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-aluminum-panel/azure-blue.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Синий",
+      "colorVariantName": "Azure Blue",
+      "line": "Алюминиевая панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#8CB2C7"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1052,
+    "slug": "alyuminievaya-panel-dlya-iqos-iluma-moss-green-1052",
+    "title": "Алюминиевая панель для IQOS ILUMA - Moss Green",
+    "description": "Официальный аксессуар Алюминиевая панель для IQOS ILUMA - Moss Green для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-aluminum-panel/moss-green.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Moss Green",
+      "line": "Алюминиевая панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#ABC9A8"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1053,
+    "slug": "alyuminievaya-panel-dlya-iqos-iluma-pebble-grey-1053",
+    "title": "Алюминиевая панель для IQOS ILUMA - Pebble Grey",
+    "description": "Официальный аксессуар Алюминиевая панель для IQOS ILUMA - Pebble Grey для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-aluminum-panel/pebble-grey.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Pebble Grey",
+      "line": "Алюминиевая панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#B0B0B0"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1054,
+    "slug": "panel-dlya-iqos-iluma-moss-green-1054",
+    "title": "Панель для IQOS ILUMA - Moss Green",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA - Moss Green для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-panel/moss-green.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Moss Green",
+      "line": "Панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#B5D9AD"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1055,
+    "slug": "panel-dlya-iqos-iluma-pebble-beige-1055",
+    "title": "Панель для IQOS ILUMA - Pebble Beige",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA - Pebble Beige для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-panel/pebble-beige.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Бежевый",
+      "colorVariantName": "Pebble Beige",
+      "line": "Панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#E6DED5"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1056,
+    "slug": "panel-dlya-iqos-iluma-pebble-grey-1056",
+    "title": "Панель для IQOS ILUMA - Pebble Grey",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA - Pebble Grey для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-panel/pebble-grey.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Pebble Grey",
+      "line": "Панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#6E7072"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1057,
+    "slug": "panel-dlya-iqos-iluma-amber-green-1057",
+    "title": "Панель для IQOS ILUMA - Amber Green",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA - Amber Green для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-panel/amber-green.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Зеленый",
+      "colorVariantName": "Amber Green",
+      "line": "Панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#AFCBA0"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1058,
+    "slug": "panel-dlya-iqos-iluma-purple-plume-1058",
+    "title": "Панель для IQOS ILUMA - Purple Plume",
+    "description": "Официальный аксессуар Панель для IQOS ILUMA - Purple Plume для IQOS ILUMA i.",
+    "image": ["/accessories/iluma-panel/purple-plume.webp"],
+    "category": "accessories",
+    "price": 5600,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Фиолетовый",
+      "colorVariantName": "Purple Plume",
+      "line": "Панель для IQOS ILUMA",
+      "type": "Чехлы и панели",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#C89FD7"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1059,
+    "slug": "adapter-pitaniya-dlya-ustroystv-iqos-iluma-1059",
+    "title": "Адаптер питания для устройств IQOS ILUMA",
+    "description": "Официальный аксессуар Адаптер питания для устройств IQOS ILUMA для Все устройства.",
+    "image": ["/accessories/power-adapter/power-adapter.webp"],
+    "category": "accessories",
+    "price": 4900,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "type": "Зарядные устройства",
+      "compatibility": "Все устройства",
+      "hex": "#EAE8E7"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1060,
+    "slug": "plastikovyy-konteyner-zeleny-1060",
+    "title": "Пластиковый Контейнер - Зелены",
+    "description": "Официальный аксессуар Пластиковый Контейнер - Зелены для IQOS ILUMA i.",
+    "image": ["/accessories/plastic-container/green.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Зелены",
+      "line": "Пластиковый Контейнер",
+      "type": "Чистка и уход",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#818676"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1061,
+    "slug": "plastikovyy-konteyner-krasno-korichnevy-1061",
+    "title": "Пластиковый Контейнер - Красно-коричневы",
+    "description": "Официальный аксессуар Пластиковый Контейнер - Красно-коричневы для IQOS ILUMA i.",
+    "image": ["/accessories/plastic-container/red-brown.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Красно-коричневы",
+      "line": "Пластиковый Контейнер",
+      "type": "Чистка и уход",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#F27B71"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1062,
+    "slug": "plastikovyy-konteyner-nezhno-rozovy-1062",
+    "title": "Пластиковый Контейнер - Нежно-розовы",
+    "description": "Официальный аксессуар Пластиковый Контейнер - Нежно-розовы для IQOS ILUMA i.",
+    "image": ["/accessories/plastic-container/soft-pink.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Нежно-розовы",
+      "line": "Пластиковый Контейнер",
+      "type": "Чистка и уход",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#F2CCB4"
+    },
+    "brand": "IQOS"
+  },
+  {
+    "id": 1063,
+    "slug": "plastikovyy-konteyner-sini-1063",
+    "title": "Пластиковый Контейнер - Сини",
+    "description": "Официальный аксессуар Пластиковый Контейнер - Сини для IQOS ILUMA i.",
+    "image": ["/accessories/plastic-container/blue.webp"],
+    "category": "accessories",
+    "price": 4200,
+    "inStock": true,
+    "badges": {
+      "isNew": false,
+      "isHit": false,
+      "isExclusive": false
+    },
+    "attributes": {
+      "color": "Серый",
+      "colorVariantName": "Сини",
+      "line": "Пластиковый Контейнер",
+      "type": "Чистка и уход",
+      "compatibility": "IQOS ILUMA i",
+      "hex": "#527A8F"
+    },
+    "brand": "IQOS"
+  }
+]

@@ -2,9 +2,16 @@
 
 import { useCartStore } from '@/store/cartStore';
 import { useEffect, useState } from 'react';
-import { CheckoutForm } from './CheckoutForm';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { HapticButton } from './HapticButton';
-import { formatPrice, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle, formatPrice } from '@/lib/utils';
+
+// Loaded only when the user starts checkout — keeps react-hook-form + zod out of
+// the drawer's initial chunk (see .ai/seo-perf.md §2).
+const CheckoutForm = dynamic(() => import('./CheckoutForm').then((m) => m.CheckoutForm), {
+  ssr: false,
+});
 
 type Props = {
   isOpen: boolean;
@@ -12,16 +19,14 @@ type Props = {
 };
 
 export const CartDrawer = ({ isOpen, onClose }: Props) => {
-  const {
-    items,
-    removeFromCart,
-    updateQuantity,
-    getTotalPrice,
-    discount,
-    promoCode,
-    setPromoCode,
-    clearPromo,
-  } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const removeFromCart = useCartStore((s) => s.removeFromCart);
+  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  const getTotalPrice = useCartStore((s) => s.getTotalPrice);
+  const discount = useCartStore((s) => s.discount);
+  const promoCode = useCartStore((s) => s.promoCode);
+  const setPromoCode = useCartStore((s) => s.setPromoCode);
+  const clearPromo = useCartStore((s) => s.clearPromo);
 
   const [mounted, setMounted] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -120,16 +125,23 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                   items.map((item) => (
                     <div key={item.product.id} className='flex gap-4 border-b pb-4 last:border-0'>
                       <div className='relative w-20 h-20 flex-shrink-0 bg-neutral-50 rounded-md overflow-hidden'>
-                        <img
-                          src={`/api/proxy?url=${encodeURIComponent(Array.isArray(item.product.image) ? item.product.image[0] : item.product.image)}`}
+                        <Image
+                          src={
+                            Array.isArray(item.product.image)
+                              ? item.product.image[0]
+                              : item.product.image
+                          }
                           alt={item.product.title}
-                          className='w-full h-full object-contain p-1'
-                          loading='lazy'
+                          fill
+                          sizes='80px'
+                          className='object-contain p-1'
                         />
                       </div>
                       <div className='flex-1'>
                         <div className='flex justify-between items-start'>
-                          <h3 className='text-sm font-medium line-clamp-2'>{formatDeviceTitle(fixCasing(item.product.title, false))}</h3>
+                          <h3 className='text-sm font-medium line-clamp-2'>
+                            {formatDeviceTitle(fixCasing(item.product.title, false))}
+                          </h3>
                           <HapticButton
                             onClick={() => removeFromCart(item.product.id)}
                             className='text-red-500 hover:text-red-700 ml-2'
@@ -149,7 +161,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                             </svg>
                           </HapticButton>
                         </div>
-                        <p className='text-sm text-neutral-500 mt-1'>{formatPrice(item.product.price)} / шт</p>
+                        <p className='text-sm text-neutral-500 mt-1'>
+                          {formatPrice(item.product.price)} / шт
+                        </p>
 
                         <div className='flex items-center justify-between mt-3'>
                           <div className='flex items-center border rounded-md'>
@@ -170,7 +184,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                               +
                             </HapticButton>
                           </div>
-                          <p className='font-semibold'>{formatPrice(item.product.price * item.quantity)}</p>
+                          <p className='font-semibold'>
+                            {formatPrice(item.product.price * item.quantity)}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -221,7 +237,9 @@ export const CartDrawer = ({ isOpen, onClose }: Props) => {
                     <div className='flex justify-between items-center text-sm text-neutral-600'>
                       <span>Товары</span>
                       <span>
-                        {formatPrice(items.reduce((sum, item) => sum + item.product.price * item.quantity, 0))}
+                        {formatPrice(
+                          items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+                        )}
                       </span>
                     </div>
 

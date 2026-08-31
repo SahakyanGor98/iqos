@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -42,14 +43,16 @@ export const ProductImageCarousel = ({ images, title }: Props) => {
           <div className='flex h-full'>
             {images.map((src, index) => (
               <div
-                key={index}
-                className='flex-[0_0_100%] min-w-0 h-full flex items-center justify-center'
+                key={src}
+                className='relative flex-[0_0_100%] min-w-0 h-full flex items-center justify-center'
               >
-                <img
-                  src={`/api/proxy?url=${encodeURIComponent(src)}`}
+                <Image
+                  src={src}
                   alt={`${title} - image ${index + 1}`}
-                  className='w-full h-full object-contain transition-transform duration-500 hover:scale-105'
-                  loading={index === 0 ? 'eager' : 'lazy'}
+                  fill
+                  sizes='(max-width: 768px) 100vw, 50vw'
+                  className='object-contain transition-transform duration-500 hover:scale-105'
+                  priority={index === 0}
                 />
               </div>
             ))}
@@ -80,17 +83,19 @@ export const ProductImageCarousel = ({ images, title }: Props) => {
         <div className='flex gap-2 overflow-x-auto pb-2 scrollbar-none'>
           {images.map((src, index) => (
             <button
-              key={index}
+              key={src}
               onClick={() => scrollTo(index)}
               className={cn(
                 'relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition',
                 selectedIndex === index ? 'border-neutral-900' : 'border-transparent bg-neutral-50',
               )}
             >
-              <img
-                src={`/api/proxy?url=${encodeURIComponent(src)}`}
+              <Image
+                src={src}
                 alt={`${title} thumb ${index + 1}`}
-                className='w-full h-full object-cover'
+                fill
+                sizes='80px'
+                className='object-cover'
               />
             </button>
           ))}

@@ -19,4 +19,3 @@ export const ButtonShadow = {
   LARGE: 'lg',
 } as const;
 export type ButtonShadow = (typeof ButtonShadow)[keyof typeof ButtonShadow];
-

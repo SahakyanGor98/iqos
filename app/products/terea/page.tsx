@@ -22,7 +22,7 @@ type Props = {
 export default async function TereaPage({ searchParams }: Props) {
   const params = await searchParams;
   const page = Number(params.page) || 1;
-  const limit = Number(params.limit) || 12;
+  const limit = Number(params.limit) || 25;
 
   const minPrice = params.minPrice ? Number(params.minPrice) : undefined;
   const maxPrice = params.maxPrice ? Number(params.maxPrice) : undefined;

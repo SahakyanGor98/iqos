@@ -46,47 +46,43 @@ export const useCompareStore = create<CompareState>()(
       },
 
       addToCompare: (product: ProductRow) => {
-        const { itemsByCategory } = get();
+        const idStr = String(product.id);
         const catKey = (product.category as CategoryKey) || 'gadget';
-        const currentList = itemsByCategory[catKey] || [];
 
-        // Check if already in list -> toggle off/remove
-        if (currentList.some((i) => String(i.id) === String(product.id))) {
-          const nextList = currentList.filter((i) => String(i.id) !== String(product.id));
-          set({
+        set((state) => {
+          const currentList = state.itemsByCategory[catKey] || [];
+          // Toggle: remove if already present, otherwise append (unlimited pool).
+          const alreadyIn = currentList.some((i) => String(i.id) === idStr);
+          const nextList = alreadyIn
+            ? currentList.filter((i) => String(i.id) !== idStr)
+            : [...currentList, product];
+
+          return {
             itemsByCategory: {
-              ...itemsByCategory,
+              ...state.itemsByCategory,
               [catKey]: nextList,
             },
-          });
-          return { success: true };
-        }
-
-        // Add to list (unlimited pool size)
-        const nextList = [...currentList, product];
-        set({
-          itemsByCategory: {
-            ...itemsByCategory,
-            [catKey]: nextList,
-          },
+          };
         });
+
         return { success: true };
       },
 
       addMultipleToCompare: (products: ProductRow[]) => {
-        const { itemsByCategory } = get();
-        const nextState = { ...itemsByCategory };
+        set((state) => {
+          const nextState = { ...state.itemsByCategory };
 
-        products.forEach((product) => {
-          const catKey = (product.category as CategoryKey) || 'gadget';
-          const currentList = [...(nextState[catKey] || [])];
-          if (!currentList.some((i) => String(i.id) === String(product.id))) {
-            currentList.push(product);
-            nextState[catKey] = currentList;
-          }
+          products.forEach((product) => {
+            const catKey = (product.category as CategoryKey) || 'gadget';
+            const currentList = [...(nextState[catKey] || [])];
+            if (!currentList.some((i) => String(i.id) === String(product.id))) {
+              currentList.push(product);
+              nextState[catKey] = currentList;
+            }
+          });
+
+          return { itemsByCategory: nextState };
         });
-
-        set({ itemsByCategory: nextState });
       },
 
       removeFromCompare: (productId: number, category?: CategoryKey) => {
@@ -141,11 +137,15 @@ export const useCompareStore = create<CompareState>()(
         const { itemsByCategory } = get();
         const idStr = String(productId);
         return Object.values(itemsByCategory).some((list) =>
-          (list || []).some((item) => String(item.id) === idStr)
+          (list || []).some((item) => String(item.id) === idStr),
         );
       },
 
-      cycleSlotIndex: (category: CategoryKey, slotPosition: 0 | 1 | 2, direction: 'prev' | 'next') => {
+      cycleSlotIndex: (
+        category: CategoryKey,
+        slotPosition: 0 | 1 | 2,
+        direction: 'prev' | 'next',
+      ) => {
         const { itemsByCategory, slotIndices } = get();
         const pool = itemsByCategory[category] || [];
         if (pool.length === 0) return;

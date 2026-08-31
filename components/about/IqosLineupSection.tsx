@@ -1,15 +1,13 @@
+import Image from 'next/image';
 import { Button } from '../Button';
 import { ButtonVariant } from '../ButtonTypes';
-import { IqosLineupItem } from '@/lib/api';
+import type { IqosLineupItem } from '@/lib/api';
 import { ROUTES } from '@/lib/constants';
-import { formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { fixCasing, formatDeviceTitle } from '@/lib/utils';
 
 type Props = {
   devices: IqosLineupItem[];
 };
-
-const getImageSrc = (image: string) =>
-  image.startsWith('http') ? `/api/proxy?url=${encodeURIComponent(image)}` : image;
 
 const getCardStyle = (line: string) => {
   switch (line) {
@@ -67,17 +65,20 @@ export const IqosLineupSection = ({ devices }: Props) => {
               >
                 <div className='p-6 md:p-8 text-center flex flex-col flex-1 justify-between gap-y-6'>
                   <div className='space-y-2'>
-                    <h3 className={`text-xl md:text-2xl font-black tracking-tight text-center ${styles.text}`}>
+                    <h3
+                      className={`text-xl md:text-2xl font-black tracking-tight text-center ${styles.text}`}
+                    >
                       {formatDeviceTitle(fixCasing(device.name, true), '#3c3c3cff', '#000000ff')}
                     </h3>
                   </div>
 
                   <div className='relative aspect-square w-full max-w-[220px] mx-auto overflow-hidden flex items-center justify-center p-2'>
-                    <img
-                      src={getImageSrc(device.image)}
+                    <Image
+                      src={device.image}
                       alt={device.name}
-                      className='w-full h-full object-contain relative z-10 transition-transform duration-700 hover:scale-105'
-                      loading='lazy'
+                      fill
+                      sizes='220px'
+                      className='object-contain z-10 transition-transform duration-700 hover:scale-105'
                     />
                   </div>
 
@@ -100,10 +101,7 @@ export const IqosLineupSection = ({ devices }: Props) => {
         </div>
 
         <div className='text-center'>
-          <Button
-            href={ROUTES.catalog.iqos}
-            variant={ButtonVariant.PRIMARY}
-          >
+          <Button href={ROUTES.catalog.iqos} variant={ButtonVariant.PRIMARY}>
             Смотреть все устройства
           </Button>
         </div>

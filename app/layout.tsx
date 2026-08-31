@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { LoadingProvider } from '@/context/LoadingContext';
 import {
   AgeVerification,
   DeliveryNoticeToast,
@@ -59,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang='ru'>
       <head>
         <script
           type='application/ld+json'
@@ -69,25 +68,23 @@ export default function RootLayout({
       <body
         className={`antialiased h-[100dvh] overflow-hidden flex flex-col font-sans bg-[#fffdfb] text-[#34303d] ${christFont.variable}`}
       >
-        <LoadingProvider>
-          <YandexMetrika />
-          <AgeVerification />
-          <PromoToast />
-          <TelegramFloat />
-          <DeliveryNoticeToast />
-          <Navbar />
-          <main id='main-content' className='flex-1 overflow-y-auto'>
-            {children}
-            <FooterContent />
-          </main>
-          {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
-          <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>
-            <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
-              МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает
-              риски. Аэрозоль содержит никотин, вызывающий зависимость.
-            </p>
-          </footer>
-        </LoadingProvider>
+        <YandexMetrika />
+        <AgeVerification />
+        <PromoToast />
+        <TelegramFloat />
+        <DeliveryNoticeToast />
+        <Navbar />
+        <main id='main-content' className='flex-1 overflow-y-auto'>
+          {children}
+          <FooterContent />
+        </main>
+        {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
+        <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>
+          <p className='text-[9px] md:text-sm font-bold uppercase tracking-widest text-neutral-400'>
+            МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: КУРЕНИЕ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. Данный продукт не исключает
+            риски. Аэрозоль содержит никотин, вызывающий зависимость.
+          </p>
+        </footer>
       </body>
     </html>
   );

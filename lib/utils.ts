@@ -13,7 +13,8 @@ export function triggerHaptic(pattern: number | number[] = 10) {
 }
 
 export function formatPrice(price: number | string): string {
-  const numeric = typeof price === 'number' ? price : parseFloat(String(price).replace(/[^\d.]/g, ''));
+  const numeric =
+    typeof price === 'number' ? price : parseFloat(String(price).replace(/[^\d.]/g, ''));
   if (isNaN(numeric)) return String(price) + '\u00A0₽';
   const formattedNumber = new Intl.NumberFormat('ru-RU', {
     style: 'decimal',
@@ -46,7 +47,7 @@ export interface FormatDeviceTitleOptions {
 export function formatDeviceTitle(
   titleOrOptions: string | FormatDeviceTitleOptions,
   iqosColorParam?: string,
-  remainingColorParam?: string
+  remainingColorParam?: string,
 ): React.ReactNode {
   let title = '';
   let iqosColor = iqosColorParam;
@@ -72,10 +73,11 @@ export function formatDeviceTitle(
           'span',
           {
             key: index,
-            className: 'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.06em] inline',
+            className:
+              'font-[family-name:var(--font-christ)] normal-case tracking-wide text-[1.06em] inline',
             style,
           },
-          part
+          part,
         );
       }
       if (remainingColor) {
@@ -85,11 +87,11 @@ export function formatDeviceTitle(
             key: index,
             style: { color: remainingColor },
           },
-          part
+          part,
         );
       }
       return React.createElement(React.Fragment, { key: index }, part);
-    })
+    }),
   );
 }
 
@@ -100,6 +102,10 @@ export type DeviceColorConfig = {
 
 export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
   {
+    keywords: ['seletti', 'gold', 'golden', 'золотой', 'золото'],
+    swatch: { background: 'linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #b45309 100%)' },
+  },
+  {
     keywords: ['neon', 'we edition'],
     swatch: { background: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%)' },
   },
@@ -108,56 +114,138 @@ export const DEVICE_COLOR_SWATCH_MAP: DeviceColorConfig[] = [
     swatch: { background: 'linear-gradient(135deg, #f97316 0%, #eab308 100%)' },
   },
   {
-    keywords: ['midnight black', 'black', 'черный', 'чёрный', 'темно-серый', 'тёмно-серый'],
-    swatch: { background: '#212429' },
+    keywords: ['chromo', 'silver', 'серебряный', 'серебро'],
+    swatch: { background: 'linear-gradient(135deg, #e5e7eb 0%, #9ca3af 50%, #4b5563 100%)' },
   },
   {
+    keywords: [
+      'midnight black',
+      'obsidian',
+      'black',
+      'черный',
+      'чёрный',
+      'темно-серый',
+      'тёмно-серый',
+    ],
+    swatch: { background: '#18181b' },
+  },
+  {
+    // Breeze Blue — dedicated pale device shade (from main); matched before the
+    // generic blue bucket so it wins first-match.
     keywords: ['breeze blue'],
     swatch: { background: '#CBFCFD', border: '1px solid #cbd5e1' },
   },
   {
-    keywords: ['blue', 'синий'],
-    swatch: { background: '#4f86c6' },
+    keywords: [
+      'brisk blue',
+      'chill blue',
+      'vivid blue',
+      'bold blue',
+      'charming blue',
+      'delicate blue',
+      'serene blue',
+      'bright blue',
+      'blue',
+      'синий',
+      'голубой',
+      'indigo',
+    ],
+    swatch: { background: '#2563eb' },
   },
   {
-    keywords: ['electric purple', 'electric-purple'],
+    // Electric Purple (Фиолетовый) — dedicated device shade (from main); matched
+    // before the general violet entry below so it wins first-match.
+    keywords: ['electric purple', 'фиолетовый'],
     swatch: { background: '#272361' },
   },
   {
-    keywords: ['digital violet', 'digital-violet'],
-    swatch: { background: '#434181ff' },
+    // Digital Violet — dedicated device shade (from main); matched before the
+    // general violet bucket so it wins first-match.
+    keywords: ['digital violet'],
+    swatch: { background: '#434181' },
   },
   {
-    keywords: ['violet', 'purple', 'фиолетовый'],
-    swatch: { background: '#705096' },
+    keywords: [
+      'wise violet',
+      'majestic purple',
+      'mysterious purple',
+      'night shade',
+      'purple plume',
+      'violet',
+      'purple',
+      'фиолетовый',
+    ],
+    swatch: { background: '#7c3aed' },
   },
   {
-    keywords: ['aspen green', 'leaf green', 'green', 'зеленый', 'зелёный'],
-    swatch: { background: '#406651' },
+    keywords: [
+      'aspen green',
+      'leaf green',
+      'moss green',
+      'amber green',
+      'jade green',
+      'easy green',
+      'green',
+      'зеленый',
+      'зелёный',
+    ],
+    swatch: { background: '#059669' },
   },
   {
-    keywords: ['garnet red', 'garnet-red'],
+    keywords: [
+      'pink',
+      'serene pink',
+      'bright coral',
+      'розовый',
+      'нежно-розовый',
+      'коралл',
+      'coral',
+    ],
+    swatch: { background: '#ec4899' },
+  },
+  {
+    // Garnet Red — dedicated dark device shade (from main); matched before the
+    // generic red bucket so it wins first-match.
+    keywords: ['garnet red'],
     swatch: { background: '#573044' },
   },
   {
-    keywords: ['red', 'красный', 'pink', 'розовый'],
-    swatch: { background: '#9e3232' },
+    keywords: [
+      'claret red',
+      'bold ruby',
+      'warm red',
+      'red',
+      'ruby',
+      'claret',
+      'красный',
+      'красно-коричневый',
+    ],
+    swatch: { background: '#dc2626' },
   },
   {
-    keywords: ['terracotta', 'orange', 'оранжевый'],
-    swatch: { background: '#cf5e2b' },
+    keywords: ['terracotta', 'vibrant orange', 'orange', 'оранжевый'],
+    swatch: { background: '#ea580c' },
   },
   {
-    keywords: ['beige', 'бежевый'],
+    keywords: [
+      'khaki',
+      'taupe',
+      'bronze',
+      'bronze taupe',
+      'golden khaki',
+      'pebble beige',
+      'beige',
+      'бежевый',
+    ],
     swatch: { background: '#d7c2a7' },
   },
   {
-    keywords: ['gray', 'серый'],
-    swatch: { background: '#6c757d' },
+    keywords: ['gray', 'grey', 'pebble grey', 'mystical grey', 'серый'],
+    swatch: { background: '#6b7280' },
   },
   {
-    keywords: ['gold', 'bright', 'желтый', 'жёлтый'],
-    swatch: { background: '#e0a838' },
+    keywords: ['zest yellow', 'wishful yellow', 'yellow', 'желтый', 'жёлтый', 'bright'],
+    swatch: { background: '#eab308' },
   },
 ];
 
@@ -166,19 +254,18 @@ const DEFAULT_SWATCH = { background: '#9ca3af' };
 export function getDeviceColorSwatch(
   colorName?: string,
   title?: string,
-  explicitHex?: string
+  customHex?: string,
 ): { background: string; border?: string } {
-  if (explicitHex && (explicitHex.startsWith('#') || explicitHex.startsWith('linear-gradient'))) {
-    return { background: explicitHex };
+  if (customHex) {
+    return { background: customHex };
   }
+
   const name = (colorName || title || '').toLowerCase();
   if (!name) return DEFAULT_SWATCH;
 
   const matched = DEVICE_COLOR_SWATCH_MAP.find((item) =>
-    item.keywords.some((keyword) => name.includes(keyword))
+    item.keywords.some((keyword) => name.includes(keyword)),
   );
 
   return matched ? matched.swatch : DEFAULT_SWATCH;
 }
-
-

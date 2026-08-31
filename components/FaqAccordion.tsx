@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FaqItem } from '@/lib/content/faq';
-import { cn, formatDeviceTitle, fixCasing } from '@/lib/utils';
+import { cn, fixCasing, formatDeviceTitle } from '@/lib/utils';
 
 export interface FaqAccordionProps {
   items: FaqItem[]; // Array of question/answer objects
@@ -48,9 +48,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
 
   // Slice items list based on expansion state
   const visibleItems =
-    shouldShowExpandButton && !isListExpanded
-      ? items.slice(0, initialVisibleCount)
-      : items;
+    shouldShowExpandButton && !isListExpanded ? items.slice(0, initialVisibleCount) : items;
 
   return (
     <section className={cn('py-12 md:py-20 bg-white text-[#34303d]', className)}>
@@ -82,7 +80,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                   'rounded-2xl border transition-all duration-300 overflow-hidden',
                   isOpen
                     ? 'border-[#34303d]/30 bg-neutral-50/80 shadow-md'
-                    : 'border-neutral-200/80 bg-neutral-50/40 hover:border-neutral-300 hover:bg-neutral-50/70'
+                    : 'border-neutral-200/80 bg-neutral-50/40 hover:border-neutral-300 hover:bg-neutral-50/70',
                 )}
               >
                 <button
@@ -99,7 +97,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                       'flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-transform duration-300',
                       isOpen
                         ? 'rotate-180 bg-[#34303d] text-white border-[#34303d]'
-                        : 'bg-white text-[#34303d] border-neutral-200'
+                        : 'bg-white text-[#34303d] border-neutral-200',
                     )}
                   >
                     <svg
@@ -122,7 +120,7 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
                 <div
                   className={cn(
                     'grid transition-all duration-300 ease-in-out overflow-hidden',
-                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
                   )}
                 >
                   <div className='min-h-0 overflow-hidden px-5 md:px-7'>
@@ -152,15 +150,10 @@ export const FaqAccordion: React.FC<FaqAccordionProps> = ({
               <span
                 className={cn(
                   'flex items-center justify-center transition-transform duration-300',
-                  isListExpanded ? 'rotate-180' : 'group-hover:translate-y-0.5'
+                  isListExpanded ? 'rotate-180' : 'group-hover:translate-y-0.5',
                 )}
               >
-                <svg
-                  className='w-4 h-4'
-                  fill='none'
-                  stroke='currentColor'
-                  viewBox='0 0 24 24'
-                >
+                <svg className='w-4 h-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                   <path
                     strokeLinecap='round'
                     strokeLinejoin='round'

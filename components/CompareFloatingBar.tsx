@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
 
@@ -69,10 +70,12 @@ export const CompareFloatingBar = () => {
                   key={product.id}
                   className='relative group flex-shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white/10 border border-white/20 p-1 flex items-center justify-center overflow-hidden'
                 >
-                  <img
-                    src={`/api/proxy?url=${encodeURIComponent(img)}`}
+                  <Image
+                    src={img}
                     alt={product.title}
-                    className='w-full h-full object-contain'
+                    fill
+                    sizes='44px'
+                    className='object-contain'
                   />
                   <button
                     type='button'
