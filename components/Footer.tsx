@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { CONTACTS, ENABLE_ACCESSORIES, ROUTES } from '@/lib/constants';
+import { CONTACTS, ROUTES } from '@/lib/constants';
 
-export const FooterContent = () => {
+export const FooterContent = ({ showAccessories = false }: { showAccessories?: boolean }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -27,7 +27,7 @@ export const FooterContent = () => {
                   Стики TEREA
                 </Link>
               </li>
-              {ENABLE_ACCESSORIES && (
+              {showAccessories && (
                 <li>
                   <Link
                     href={ROUTES.catalog.accessories}

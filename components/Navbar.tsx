@@ -9,14 +9,14 @@ import { useEffect, useState } from 'react';
 import { Menu, Scale, ShoppingCart, X } from 'lucide-react';
 import { CompareFloatingBar } from '@/components';
 import { NavDropdown } from './NavDropdown';
-import { ENABLE_ACCESSORIES, ROUTES } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 // Click-triggered drawer — loaded only when the cart is opened (see .ai/seo-perf.md §2).
 const CartDrawer = dynamic(() => import('./CartDrawer').then((m) => m.CartDrawer), {
   ssr: false,
 });
 
-export const Navbar = () => {
+export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean }) => {
   const cartItems = useCartStore((state) => state.items);
   const compareItemsByCategory = useCompareStore((state) => state.itemsByCategory);
   const [mounted, setMounted] = useState(false);
@@ -55,7 +55,7 @@ export const Navbar = () => {
   const catalogLinks = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
     { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
-    ...(ENABLE_ACCESSORIES ? [{ href: ROUTES.catalog.accessories, label: 'Аксессуары' }] : []),
+    ...(showAccessories ? [{ href: ROUTES.catalog.accessories, label: 'Аксессуары' }] : []),
     { href: ROUTES.catalog.water, label: 'Вода' },
   ];
 

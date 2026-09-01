@@ -11,7 +11,7 @@ import {
   TradeInPromoBanner,
 } from '@/components';
 import { LANDING_FAQ } from '@/lib/content/faq';
-import { ENABLE_PROMO } from '@/lib/constants';
+import { isFeatureEnabled } from '@/lib/settings';
 
 export const metadata: Metadata = {
   title: 'Купить IQOS ILUMA и стики TEREA в Москве | Официальный магазин',
@@ -19,14 +19,16 @@ export const metadata: Metadata = {
     'Магазин оригинальных устройств IQOS ILUMA и стиков TEREA. Все вкусы в наличии, быстрая доставка по Москве. Проконсультируйтесь с нашими экспертами.',
 };
 
-export default function Home() {
+export default async function Home() {
+  const showPromo = await isFeatureEnabled('promo_homepage');
+
   return (
     <div className='flex flex-col min-h-screen'>
       <HeroSlider />
 
       {/* <TextSeparator /> */}
 
-      {ENABLE_PROMO && <PromoBlock />}
+      {showPromo ? <PromoBlock /> : null}
 
       {/* Separator 1: Always visible */}
       <TextSeparator />
