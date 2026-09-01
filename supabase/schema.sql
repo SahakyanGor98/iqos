@@ -114,8 +114,40 @@ create policy "Allow public read access"
   to public
   using (true);
 
+-- ----------------------------------------------------------------------------
+-- site_settings — CMS feature-flag / toggle store for the admin panel
+-- ----------------------------------------------------------------------------
+create table public.site_settings (
+  key         text primary key,                       -- stable flag key, e.g. 'page_accessories'
+  value       jsonb not null default 'false'::jsonb,  -- boolean now; future-proof for richer settings
+  group_name  text not null default 'general',        -- UI grouping: 'banners' | 'pages'
+  label       text not null,                          -- admin-facing label (RU)
+  description text,                                    -- admin-facing helper text
+  sort_order  integer not null default 0,             -- display order within its group
+  updated_at  timestamptz not null default timezone('utc'::text, now()),
+  updated_by  uuid references auth.users(id)          -- who last changed it (audit)
+);
+
+alter table public.site_settings enable row level security;
+
+-- Public read (storefront reads flags on every render — ISR-safe anon read).
+create policy "Allow public read access"
+  on public.site_settings
+  for select
+  to public
+  using (true);
+
+-- Authenticated admin update (mutations run under the user's JWT via
+-- lib/supabase/server.ts). No INSERT/DELETE — the flag catalog is seeded.
+create policy "Allow authenticated update"
+  on public.site_settings
+  for update
+  to authenticated
+  using (true)
+  with check (true);
+
 -- ============================================================================
--- RLS model (no user accounts — every visitor is an anonymous guest):
+-- RLS model (public catalog is anon; the /admin panel is authenticated):
 --   * products          — RLS on, public SELECT (catalog is public).
 --   * orders            — RLS on, NO anon policies. Writes go through server
 --   * order_items         actions using the SERVICE ROLE key (lib/supabase-admin.ts),
@@ -124,5 +156,9 @@ create policy "Allow public read access"
 --                         form), no anon SELECT.
 --   * trade_in_devices  — RLS on, public SELECT (calculator lists these); writes
 --                         via the service role (admin panel).
--- See supabase/migrations/20260831_lock_down_orders_rls.sql.
+--   * site_settings     — RLS on, public SELECT (feature flags read on the
+--                         storefront); authenticated UPDATE only (admin toggles
+--                         run under the signed-in user's JWT).
+-- See supabase/migrations/20260831_lock_down_orders_rls.sql and
+--     supabase/migrations/20260901_site_settings.sql.
 -- ============================================================================
