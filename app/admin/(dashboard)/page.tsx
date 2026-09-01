@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, MessageSquare, Package, Settings, ShoppingCart } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Clock,
+  MessageSquare,
+  Package,
+  Settings,
+  ShoppingCart,
+} from 'lucide-react';
 import { type DashboardStats, getDashboardStats } from '@/lib/admin-stats';
 
 export const metadata: Metadata = {
@@ -9,19 +17,40 @@ export const metadata: Metadata = {
 };
 
 const STAT_CARDS = [
-  { key: 'orders', label: 'Всего заказов', hint: 'За всё время', icon: ShoppingCart },
-  { key: 'activeProducts', label: 'Активные товары', hint: 'В наличии', icon: Package },
+  {
+    key: 'pendingOrders',
+    label: 'Новые заказы',
+    hint: 'Ожидают обработки',
+    icon: Clock,
+    href: '/admin/orders?status=pending',
+  },
+  {
+    key: 'orders',
+    label: 'Всего заказов',
+    hint: 'За всё время',
+    icon: ShoppingCart,
+    href: '/admin/orders',
+  },
+  {
+    key: 'activeProducts',
+    label: 'Активные товары',
+    hint: 'В наличии',
+    icon: Package,
+    href: '/admin/products',
+  },
   {
     key: 'unreadMessages',
     label: 'Новые сообщения',
     hint: 'Из формы контактов',
     icon: MessageSquare,
+    href: '/admin/messages',
   },
 ] as const satisfies ReadonlyArray<{
   key: keyof DashboardStats;
   label: string;
   hint: string;
   icon: typeof ShoppingCart;
+  href: string;
 }>;
 
 const QUICK_ACTIONS = [
@@ -31,8 +60,6 @@ const QUICK_ACTIONS = [
     href: '/admin/settings',
     icon: Settings,
   },
-  { label: 'Товары', description: 'Управление каталогом', href: '/admin/products', icon: Package },
-  { label: 'Заказы', description: 'История заказов', href: '/admin/orders', icon: ShoppingCart },
 ];
 
 const numberFormatter = new Intl.NumberFormat('ru-RU');
@@ -52,26 +79,30 @@ export default async function AdminDashboardPage() {
         <p className='mt-0.5 text-sm text-neutral-500'>Ключевые показатели магазина.</p>
       </div>
 
-      {/* Stat cards */}
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+      {/* Stat cards — each drills into its section */}
+      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         {STAT_CARDS.map((card) => {
           const Icon = card.icon;
           return (
-            <div
+            <Link
               key={card.key}
-              className='rounded-2xl border border-gray-200 bg-white p-5 transition-shadow hover:shadow-sm'
+              href={card.href}
+              className='group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:border-[#34303d]/30 hover:shadow-sm'
             >
               <div className='flex items-center justify-between'>
                 <p className='text-sm font-medium text-neutral-500'>{card.label}</p>
-                <span className='flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-neutral-500'>
+                <span className='flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-neutral-500 transition-colors group-hover:bg-[#34303d] group-hover:text-white'>
                   <Icon className='h-[18px] w-[18px]' />
                 </span>
               </div>
               <p className='mt-4 text-3xl font-black tracking-tight text-[#34303d]'>
                 {formatStat(stats[card.key])}
               </p>
-              <p className='mt-1 text-xs text-neutral-400'>{card.hint}</p>
-            </div>
+              <p className='mt-1 flex items-center gap-1 text-xs text-neutral-400'>
+                {card.hint}
+                <ArrowUpRight className='h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100' />
+              </p>
+            </Link>
           );
         })}
       </div>
