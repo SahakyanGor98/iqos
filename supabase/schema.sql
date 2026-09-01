@@ -7,9 +7,9 @@
 -- observed application behaviour and standard Supabase conventions — confirm
 -- against the live DB (`\d+ <table>`) before treating this file as canonical.
 --
--- NOTE: The `products.category` value 'accessories' also exists in the live DB
--- but is intentionally handled on a separate feature branch and is NOT modelled
--- here yet.
+-- NOTE: `products.category` includes 'accessories' in the live DB (56 rows);
+-- the admin panel manages all four categories. The storefront accessories route
+-- can still be feature-flagged off independently (see lib/settings.ts).
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ create table public.products (
   description text,
   image text[],                                  -- array of image URLs
   price numeric not null,
-  category text not null check (category in ('gadget', 'sticks', 'water')),
+  category text not null check (category in ('gadget', 'sticks', 'water', 'accessories')),
   in_stock boolean default true,
   badges jsonb default '{}'::jsonb,
   attributes jsonb default '{}'::jsonb,
