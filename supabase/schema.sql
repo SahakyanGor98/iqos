@@ -49,7 +49,8 @@ create table public.orders (
   user_phone text not null,
   user_message text,                             -- optional free-text comment
   total_amount numeric not null,                 -- final amount payable
-  status text default 'pending',                 -- set by the application
+  status text not null default 'pending'         -- lifecycle (see orders_status_check)
+    check (status in ('pending', 'confirmed', 'shipped', 'completed', 'cancelled')),
   order_type text not null default 'purchase'    -- 'purchase' | 'trade_in'
     check (order_type in ('purchase', 'trade_in')),
   discount numeric not null default 0,           -- amount discounted from subtotal
@@ -58,6 +59,7 @@ create table public.orders (
 );
 
 create index if not exists orders_order_type_idx on public.orders (order_type);
+create index if not exists orders_status_idx on public.orders (status);
 
 alter table public.orders enable row level security;
 
