@@ -41,6 +41,14 @@ className={cn(baseClass, variantStyles[variant], className)}
 - **Variant pattern (see `components/Button.tsx`):** enums in a sibling `*Types.ts` (`ButtonTypes.ts`) map to lookup objects of class strings (`variantStyles`, `sizeStyles`, `shadowStyles`), composed with `cn()`. Follow this pattern for new multi-variant components rather than ad-hoc conditionals. `Button` is a polymorphic `forwardRef` that renders `<Link>` when `href` is set, else `<button>`.
 - Reusable class recipes exist as component classes in `globals.css` (`.container-custom`, `.btn-primary`, `.btn-secondary`, `.btn-light`) via `@layer components` + `@apply`. Note the `.btn-*` classes duplicate `Button.tsx`'s styles — prefer the `<Button>` component for interactive buttons; use the utility classes only for static/markup cases.
 
+## Admin panel UI — plain Tailwind, no component library
+
+The `/admin` surfaces use the **same utility-first Tailwind + `cn()`** as the rest of the site — **not** a component library. shadcn/ui and Mantine were both evaluated and rejected: this project runs Tailwind v4 with **no `tailwind.config.js`**, and dropping a kit in for a few controls wasn't worth the integration/token surgery.
+
+- Build admin screens from plain elements: cards are `rounded-2xl border border-neutral-200 bg-white p-6`, labels/headings use the brand slate `#34303d` and `text-neutral-500` helper text (see `app/admin/login/LoginForm.tsx` for the established look).
+- Reuse the brand `<Button>` (`components/Button.tsx`) for actions.
+- Hand-roll small primitives rather than adding deps — e.g. the settings toggle is a `<button role="switch" aria-checked>` with a translating thumb (`app/admin/(dashboard)/settings/SettingToggle.tsx`), ~15 lines, brand slate when on.
+
 ## Conventions & idioms
 
 - **Design language:** rounded-full buttons, uppercase tracked labels (`uppercase tracking-[0.1em]`), bold/black headings (`font-black uppercase tracking-tighter`), subtle hover scale (`hover:scale-[1.02]`, `active:scale-[0.96]`), 300ms transitions, and always-styled focus rings (`focus-visible:ring-2 focus-visible:ring-offset-2`).

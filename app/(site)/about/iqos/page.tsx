@@ -17,6 +17,8 @@ import {
   IQOS_DEVICE_LINEUP,
 } from '@/lib/content/iqos-about';
 import { ROUTES } from '@/lib/constants';
+import { notFound } from 'next/navigation';
+import { isFeatureEnabled } from '@/lib/settings';
 
 export const metadata: Metadata = {
   title: 'Что такое IQOS — бездымные альтернативы',
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default async function IqosAboutPage() {
+  if (!(await isFeatureEnabled('page_about'))) notFound();
   const lineupDevices = await getIqosLineupProducts([...IQOS_DEVICE_LINEUP]);
 
   const whySection = IQOS_ABOUT_SECTIONS.find((s) => s.id === 'why-iqos');

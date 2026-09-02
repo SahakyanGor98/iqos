@@ -10,6 +10,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Don't let `next build` auto-generate/append to the project's CLAUDE.md.
+  agentRules: false,
   async headers() {
     return [
       {

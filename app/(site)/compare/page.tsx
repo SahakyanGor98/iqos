@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { isFeatureEnabled } from '@/lib/settings';
 import { CompareContent } from './CompareContent';
 
 export const metadata: Metadata = {
@@ -19,6 +21,7 @@ type Props = {
 };
 
 export default async function ComparePage({ searchParams }: Props) {
+  if (!(await isFeatureEnabled('page_compare'))) notFound();
   const params = await searchParams;
   const initialCategory = typeof params.category === 'string' ? params.category : undefined;
   const initialSlugs = typeof params.slugs === 'string' ? params.slugs : undefined;

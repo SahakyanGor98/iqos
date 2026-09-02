@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { CONTACTS, ENABLE_ACCESSORIES, ROUTES } from '@/lib/constants';
+import { CONTACTS, ROUTES } from '@/lib/constants';
+import type { NavPageFlags } from './Navbar';
 
-export const FooterContent = () => {
+export const FooterContent = ({ pages }: { pages: NavPageFlags }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -27,7 +28,7 @@ export const FooterContent = () => {
                   Стики TEREA
                 </Link>
               </li>
-              {ENABLE_ACCESSORIES && (
+              {pages.accessories && (
                 <li>
                   <Link
                     href={ROUTES.catalog.accessories}
@@ -37,21 +38,27 @@ export const FooterContent = () => {
                   </Link>
                 </li>
               )}
-              <li>
-                <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
-                  Трейд-ин
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.about.iqos} className='hover:text-white transition-colors'>
-                  Об IQOS
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.contact} className='hover:text-white transition-colors'>
-                  Контакты
-                </Link>
-              </li>
+              {pages.tradein && (
+                <li>
+                  <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
+                    Трейд-ин
+                  </Link>
+                </li>
+              )}
+              {pages.about && (
+                <li>
+                  <Link href={ROUTES.about.iqos} className='hover:text-white transition-colors'>
+                    Об IQOS
+                  </Link>
+                </li>
+              )}
+              {pages.contact && (
+                <li>
+                  <Link href={ROUTES.contact} className='hover:text-white transition-colors'>
+                    Контакты
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 
