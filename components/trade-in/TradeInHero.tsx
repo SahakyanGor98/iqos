@@ -5,7 +5,7 @@ import { ButtonVariant } from '@/components/ButtonTypes';
 const HERO_HIGHLIGHTS = [
   { value: 'до 2 500 ₽', label: 'Выгода при обмене' },
   { value: 'Любое состояние', label: 'Даже нерабочие устройства' },
-  { value: 'При получении', label: 'Обмен в точке выдачи' },
+  { value: 'При получении', label: 'Обмен прямо на месте' },
 ];
 
 export const TradeInHero = () => {
