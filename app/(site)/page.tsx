@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const showPromo = await isFeatureEnabled('promo_homepage');
+  const showTradeInBanner = await isFeatureEnabled('page_tradein');
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -107,8 +108,12 @@ export default async function Home() {
       <TextSeparator />
       <IqosWhatIsSection />
 
-      <TextSeparator />
-      <TradeInPromoBanner />
+      {showTradeInBanner ? (
+        <>
+          <TextSeparator />
+          <TradeInPromoBanner />
+        </>
+      ) : null}
 
       <TextSeparator />
       <FaqAccordion

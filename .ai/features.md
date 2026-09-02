@@ -68,3 +68,12 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 - **Server action** `submitTradeIn`: Zod-validates → inserts one `orders` row with `order_type = 'trade_in'`, a self-contained `items` snapshot, and structured `metadata.trade_in` (old/target device, color, slug, discount, delivery address) via the **service-role** client → sends internal + client emails via Resend (email failure is non-fatal).
 - **Moscow-only:** city is fixed to Москва; only street address is user-entered.
 - Wired from Navbar, Footer, and the homepage `TradeInPromoBanner`; `revalidate = 60`; listed in `sitemap.ts`.
+
+## 10. CMS feature flags (`site_settings`)
+
+- Files: [`lib/settings.ts`](../lib/settings.ts) (reads), [`app/actions/settings.ts`](../app/actions/settings.ts) (admin write), [`components/FeatureFlagsProvider.tsx`](../components/FeatureFlagsProvider.tsx) (client context), admin UI in `app/admin/(dashboard)/settings/`. Table: `site_settings` (see `supabase/migrations/2026090*_*.sql`).
+- **Model:** one key-value row per flag (`value` jsonb boolean, `group_name` for UI grouping — `banners` / `pages`). RLS: **public SELECT** (storefront reads), **authenticated UPDATE** only (admin toggles run under the admin JWT). Seeded via migration; the admin never invents keys.
+- **Reads are ISR-safe:** `getSiteSettingsMap()` / `isFeatureEnabled(key)` use the cookie-free `supabasePublic` client wrapped in React `cache()`. Defaults live in `DEFAULT_SITE_SETTINGS` — banners/promo + the (disabled) accessories page default **OFF**; the live secondary pages (compare/tradein/about/contact) default **ON** (fail-open) so nothing 404s before the seed migration runs.
+- **Current flags:** banners (`banner_water`, `banner_floating_promo`, `promo_homepage`) and page gates (`page_accessories`, `page_compare`, `page_tradein`, `page_about`, `page_contact`).
+- **Page gating pattern:** the route Server Component calls `notFound()` when its flag is off; the `(site)` layout hides the matching Navbar/Footer links (via a single `pages` object) and the homepage banners; `sitemap.ts` omits disabled routes. For deep **client** widgets that must react to a flag (the per-card compare button), the layout feeds flags into `FeatureFlagsProvider` and the widget reads `usePageFlags()` — no prop-drilling.
+- **Applying a toggle:** `updateSiteSetting` writes under the admin JWT, then `revalidatePath('/', 'layout')` (+ sitemap) so ISR storefront pages re-read on the next request.

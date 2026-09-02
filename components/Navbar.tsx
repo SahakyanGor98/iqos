@@ -16,7 +16,15 @@ const CartDrawer = dynamic(() => import('./CartDrawer').then((m) => m.CartDrawer
   ssr: false,
 });
 
-export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean }) => {
+export type NavPageFlags = {
+  accessories: boolean;
+  compare: boolean;
+  tradein: boolean;
+  about: boolean;
+  contact: boolean;
+};
+
+export const Navbar = ({ pages }: { pages: NavPageFlags }) => {
   const cartItems = useCartStore((state) => state.items);
   const compareItemsByCategory = useCompareStore((state) => state.itemsByCategory);
   const [mounted, setMounted] = useState(false);
@@ -55,13 +63,13 @@ export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean 
   const catalogLinks = [
     { href: ROUTES.catalog.iqos, label: 'Устройства IQOS' },
     { href: ROUTES.catalog.terea, label: 'Стики TEREA' },
-    ...(showAccessories ? [{ href: ROUTES.catalog.accessories, label: 'Аксессуары' }] : []),
+    ...(pages.accessories ? [{ href: ROUTES.catalog.accessories, label: 'Аксессуары' }] : []),
     { href: ROUTES.catalog.water, label: 'Вода' },
   ];
 
   const aboutLinks = [
-    { href: ROUTES.about.iqos, label: 'Об IQOS' },
-    { href: ROUTES.contact, label: 'Контакты' },
+    ...(pages.about ? [{ href: ROUTES.about.iqos, label: 'Об IQOS' }] : []),
+    ...(pages.contact ? [{ href: ROUTES.contact, label: 'Контакты' }] : []),
   ];
 
   return (
@@ -81,13 +89,15 @@ export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean 
           {/* Desktop Nav (Left) */}
           <nav className='hidden md:flex flex-1 items-center gap-6 lg:gap-8'>
             <NavDropdown label='Каталог' items={catalogLinks} />
-            <Link
-              href={ROUTES.tradeIn}
-              className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
-            >
-              Трейд-ин
-            </Link>
-            <NavDropdown label='О бренде' items={aboutLinks} />
+            {pages.tradein && (
+              <Link
+                href={ROUTES.tradeIn}
+                className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
+              >
+                Трейд-ин
+              </Link>
+            )}
+            {aboutLinks.length > 0 && <NavDropdown label='О бренде' items={aboutLinks} />}
           </nav>
 
           {/* Logo (Center) */}
@@ -155,18 +165,20 @@ export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean 
           {/* Actions (Right) */}
           <div className='flex flex-1 items-center justify-end gap-3 md:gap-4'>
             {/* Compare Link */}
-            <Link
-              href='/compare'
-              className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700 hover:text-black'
-              title='Сравнение товаров'
-            >
-              <Scale className='w-5 h-5 md:w-6 md:h-6' />
-              {totalCompareItems > 0 && (
-                <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] font-bold text-white'>
-                  {totalCompareItems}
-                </span>
-              )}
-            </Link>
+            {pages.compare && (
+              <Link
+                href='/compare'
+                className='relative p-2 hover:bg-neutral-100 rounded-full transition-colors text-neutral-700 hover:text-black'
+                title='Сравнение товаров'
+              >
+                <Scale className='w-5 h-5 md:w-6 md:h-6' />
+                {totalCompareItems > 0 && (
+                  <span className='absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-neutral-900 text-[10px] font-bold text-white'>
+                    {totalCompareItems}
+                  </span>
+                )}
+              </Link>
+            )}
 
             {/* Cart Button */}
             <button
@@ -212,34 +224,40 @@ export const Navbar = ({ showAccessories = false }: { showAccessories?: boolean 
             ))}
 
             {/* О бренде */}
-            <span className='px-1 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-neutral-400'>
-              О бренде
-            </span>
-            {aboutLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className='py-2 pl-3 text-base font-medium text-black'
-              >
-                {link.label}
-              </Link>
-            ))}
+            {aboutLinks.length > 0 && (
+              <>
+                <span className='px-1 pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-neutral-400'>
+                  О бренде
+                </span>
+                {aboutLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className='py-2 pl-3 text-base font-medium text-black'
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </>
+            )}
 
             {/* Трейд-ин (last) */}
-            <Link
-              href={ROUTES.tradeIn}
-              onClick={() => setIsMenuOpen(false)}
-              className='mt-2 border-t border-neutral-100 pt-3 text-base font-medium text-black'
-            >
-              Трейд-ин
-            </Link>
+            {pages.tradein && (
+              <Link
+                href={ROUTES.tradeIn}
+                onClick={() => setIsMenuOpen(false)}
+                className='mt-2 border-t border-neutral-100 pt-3 text-base font-medium text-black'
+              >
+                Трейд-ин
+              </Link>
+            )}
           </nav>
         </div>
       )}
 
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      <CompareFloatingBar />
+      {pages.compare && <CompareFloatingBar />}
     </>
   );
 };

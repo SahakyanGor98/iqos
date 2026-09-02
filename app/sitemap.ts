@@ -1,23 +1,23 @@
 import { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/api';
-import { isFeatureEnabled } from '@/lib/settings';
+import { getSiteSettingsMap } from '@/lib/settings';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://24iqos.ru';
 
-  const accessoriesEnabled = await isFeatureEnabled('page_accessories');
+  const flags = await getSiteSettingsMap();
 
-  // Static routes
+  // Static routes (flag-gated pages are omitted when disabled)
   const routes = [
     '',
-    '/about/iqos',
     '/products/iqos',
     '/products/terea',
     '/products/water',
-    ...(accessoriesEnabled ? ['/products/accessories'] : []),
-    '/trade-in',
-    '/compare',
-    '/contact',
+    ...(flags.page_accessories ? ['/products/accessories'] : []),
+    ...(flags.page_tradein ? ['/trade-in'] : []),
+    ...(flags.page_compare ? ['/compare'] : []),
+    ...(flags.page_about ? ['/about/iqos'] : []),
+    ...(flags.page_contact ? ['/contact'] : []),
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic routes
   const iqosSlugs = await getAllSlugs('gadget');
   const tereaSlugs = await getAllSlugs('sticks');
-  const accessorySlugs = accessoriesEnabled ? await getAllSlugs('accessories') : [];
+  const accessorySlugs = flags.page_accessories ? await getAllSlugs('accessories') : [];
 
   const iqosRoutes = iqosSlugs.map((slug) => ({
     url: `${baseUrl}/products/iqos/${slug}`,

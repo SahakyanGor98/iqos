@@ -24,6 +24,14 @@ import { getSiteSettingsMap } from '@/lib/settings';
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSiteSettingsMap();
 
+  const pages = {
+    accessories: settings.page_accessories,
+    compare: settings.page_compare,
+    tradein: settings.page_tradein,
+    about: settings.page_about,
+    contact: settings.page_contact,
+  };
+
   return (
     <>
       <YandexMetrika />
@@ -32,11 +40,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <TelegramFloat />
       {settings.banner_floating_promo ? <FloatingPromo /> : null}
       <DeliveryNoticeToast />
-      <Navbar showAccessories={settings.page_accessories} />
+      <Navbar pages={pages} />
       <main id='main-content' className='flex-1 overflow-y-auto'>
         {settings.banner_water ? <WaterBanner /> : null}
         {children}
-        <FooterContent showAccessories={settings.page_accessories} />
+        <FooterContent pages={pages} />
       </main>
       {/* Disclaimer: always visible — body is h-screen, main scrolls internally */}
       <footer className='w-full bg-[#272a32] text-white py-3 text-center px-4 flex-shrink-0'>

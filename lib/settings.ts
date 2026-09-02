@@ -20,18 +20,30 @@ export const FLAG_KEYS = [
   'banner_floating_promo',
   'promo_homepage',
   'page_accessories',
+  'page_compare',
+  'page_tradein',
+  'page_about',
+  'page_contact',
 ] as const;
 
 export type SiteSettingKey = (typeof FLAG_KEYS)[number];
 export type SiteSettingsMap = Record<SiteSettingKey, boolean>;
 
-/** Safe fallback when a row is missing or the DB read fails — never crash a
- *  storefront render; default every flag OFF (matches the pre-CMS constants). */
+/**
+ * Safe fallback when a row is missing or the DB read fails — never crash a
+ * storefront render. Banners/promo and the (intentionally disabled) accessories
+ * page default OFF; the currently-live secondary pages default ON so they stay
+ * reachable even before the page-flags migration runs (fail-open).
+ */
 export const DEFAULT_SITE_SETTINGS: SiteSettingsMap = {
   banner_water: false,
   banner_floating_promo: false,
   promo_homepage: false,
   page_accessories: false,
+  page_compare: true,
+  page_tradein: true,
+  page_about: true,
+  page_contact: true,
 };
 
 const FLAG_KEY_SET = new Set<string>(FLAG_KEYS);
