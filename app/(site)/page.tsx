@@ -105,15 +105,15 @@ export default async function Home() {
         </section>
       </div>
 
-      <TextSeparator />
-      <IqosWhatIsSection />
-
       {showTradeInBanner ? (
         <>
           <TextSeparator />
           <TradeInPromoBanner />
         </>
       ) : null}
+
+      <TextSeparator />
+      <IqosWhatIsSection />
 
       <TextSeparator />
       <FaqAccordion

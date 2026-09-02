@@ -1,25 +1,6 @@
 'use client';
 
-const TRADE_IN_STEPS = [
-  {
-    step: '01',
-    title: 'Выберите устройства',
-    description:
-      'Укажите модель вашего старого устройства в онлайн-калькуляторе и выберите новый IQOS ILUMA.',
-  },
-  {
-    step: '02',
-    title: 'Оформите заявку за 1 минуту',
-    description:
-      'Заполните имя и номер телефона. Наш специалист свяжется с вами для подтверждения обмена.',
-  },
-  {
-    step: '03',
-    title: 'Простой обмен при получении',
-    description:
-      'Передайте старое устройство в точке выдачи и заберите новый IQOS ILUMA со скидкой.',
-  },
-];
+import { TRADE_IN_STEPS } from '@/lib/content/trade-in';
 
 export const TradeInSteps = () => {
   return (
