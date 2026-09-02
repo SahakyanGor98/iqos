@@ -8,6 +8,8 @@ import type { NextConfig } from 'next';
 // ISR/statically rendered, and a nonce-based strict policy would force every
 // route to dynamic rendering (killing ISR). Inline scripts in play: Next's
 // hydration/bootstrap and the Yandex Metrika loader (components/YandexMetrika).
+// `'unsafe-eval'` + `wss://mc.yandex.ru` are required by Metrika **webvisor**
+// (session replay uses eval + a WebSocket) — accepted trade-off to keep webvisor.
 // External hosts: Supabase (storage images + API), Yandex Metrika, and the
 // next/image remote hosts. Keep this in sync with next.config images + Metrika.
 const contentSecurityPolicy = [
@@ -16,11 +18,13 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "frame-ancestors 'self'",
   "form-action 'self'",
-  "script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://yastatic.net",
+  // 'unsafe-eval' is required by Yandex Metrika webvisor (session replay).
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://mc.yandex.ru https://yastatic.net",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.supabase.co https://iqos-iluma.com https://images.unsplash.com https://mc.yandex.ru https://mc.yandex.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.supabase.co https://mc.yandex.ru https://mc.yandex.com",
+  // wss://mc.yandex.ru is the webvisor WebSocket (solid.ws).
+  "connect-src 'self' https://*.supabase.co https://mc.yandex.ru https://mc.yandex.com wss://mc.yandex.ru",
   "frame-src 'self' https://mc.yandex.ru",
   'upgrade-insecure-requests',
 ].join('; ');
