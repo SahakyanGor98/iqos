@@ -8,7 +8,7 @@ export const TradeInBenefits = () => {
       <div className='container-custom max-w-5xl mx-auto'>
         <div className='text-left md:text-center mb-10 md:mb-14'>
           <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
-            Почему стоит сдать старый IQOS в Трейд-ин
+            Почему стоит сдать старый IQOS в Трейд&#8209;ин
           </h2>
           <p className='text-[#34303d]/80 text-sm md:text-base max-w-2xl mx-auto'>
             Выгода, комфорт и инновационная технология индукционного нагрева SMARTCORE

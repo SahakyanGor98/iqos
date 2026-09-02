@@ -194,7 +194,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
       <section id='calculator' className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
         <div className='container-custom max-w-2xl mx-auto text-center'>
           <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight mb-3'>
-            Калькулятор Трейд-ин
+            Калькулятор Трейд&#8209;ин
           </h2>
           <p className='text-[#34303d]/70'>
             Калькулятор временно недоступен. Пожалуйста, свяжитесь с нами для расчёта обмена.
@@ -213,7 +213,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
         {/* Header */}
         <div className='max-w-2xl mx-auto text-center mb-10 md:mb-14'>
           <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
-            Калькулятор Трейд-ин
+            Калькулятор Трейд&#8209;ин
           </h2>
           <p className='text-[#34303d]/70 text-base md:text-lg'>
             Выберите старое устройство и новый IQOS ILUMA. Расчёт скидки обновится мгновенно.

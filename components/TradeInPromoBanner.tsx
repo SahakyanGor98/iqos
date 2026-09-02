@@ -37,7 +37,7 @@ export const TradeInPromoBanner = () => {
           <div className='relative z-20 h-full w-full flex flex-col justify-center items-center md:items-start text-center md:text-left text-white drop-shadow-lg p-8 md:p-16 pb-24 md:pb-16'>
             <div className='max-w-2xl space-y-4 md:space-y-6'>
               <h2 className='text-4xl md:text-6xl font-black uppercase tracking-tighter leading-tight'>
-                Трейд-ин IQOS
+                Трейд&#8209;ин IQOS
               </h2>
               <p className='text-base md:text-lg font-bold text-white max-w-lg mx-auto md:mx-0 leading-relaxed'>
                 Обменяйте старое устройство со скидкой до 2 500 ₽ на новый IQOS ILUMA. Принимаем в
@@ -50,7 +50,7 @@ export const TradeInPromoBanner = () => {
                 variant={ButtonVariant.LIGHT}
                 className='hidden md:inline-flex'
               >
-                Рассчитать Трейд-ин
+                Рассчитать Трейд&#8209;ин
               </Button>
             </div>
 
@@ -60,7 +60,7 @@ export const TradeInPromoBanner = () => {
               variant={ButtonVariant.LIGHT}
               className='md:hidden absolute bottom-8 left-1/2 -translate-x-1/2'
             >
-              Рассчитать Трейд-ин
+              Рассчитать Трейд&#8209;ин
             </Button>
           </div>
         </div>

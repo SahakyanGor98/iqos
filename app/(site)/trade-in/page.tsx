@@ -56,7 +56,7 @@ export default async function TradeInPage() {
         items={TRADE_IN_FAQ}
         initialVisibleCount={5}
         enableExpandButton={false}
-        title='Вопросы и ответы по Трейд-ин'
+        title='Вопросы и ответы по Трейд&#8209;ин'
       />
 
       <TextSeparator />

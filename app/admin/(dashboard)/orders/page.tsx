@@ -18,7 +18,7 @@ const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
 
 const TYPE_LABEL: Record<AdminOrder['order_type'], string> = {
   purchase: 'Покупка',
-  trade_in: 'Трейд-ин',
+  trade_in: 'Трейд‑ин',
 };
 
 type Props = {

@@ -41,7 +41,7 @@ export const FooterContent = ({ pages }: { pages: NavPageFlags }) => {
               {pages.tradein && (
                 <li>
                   <Link href={ROUTES.tradeIn} className='hover:text-white transition-colors'>
-                    Трейд-ин
+                    Трейд&#8209;ин
                   </Link>
                 </li>
               )}

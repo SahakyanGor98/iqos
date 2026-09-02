@@ -94,7 +94,7 @@ export const Navbar = ({ pages }: { pages: NavPageFlags }) => {
                 href={ROUTES.tradeIn}
                 className='text-xs lg:text-sm font-medium transition-all duration-300 hover:scale-105 text-black tracking-normal'
               >
-                Трейд-ин
+                Трейд&#8209;ин
               </Link>
             )}
             {aboutLinks.length > 0 && <NavDropdown label='О бренде' items={aboutLinks} />}
@@ -249,7 +249,7 @@ export const Navbar = ({ pages }: { pages: NavPageFlags }) => {
                 onClick={() => setIsMenuOpen(false)}
                 className='mt-2 border-t border-neutral-100 pt-3 text-base font-medium text-black'
               >
-                Трейд-ин
+                Трейд&#8209;ин
               </Link>
             )}
           </nav>

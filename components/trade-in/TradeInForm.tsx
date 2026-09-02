@@ -143,7 +143,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 <ChevronLeft className='w-5 h-5' />
               </HapticButton>
             )}
-            <h2 className='text-lg font-bold text-[#34303d]'>Оформление Трейд-ин</h2>
+            <h2 className='text-lg font-bold text-[#34303d]'>Оформление Трейд&#8209;ин</h2>
           </div>
           {onCancel && (
             <HapticButton
@@ -217,7 +217,7 @@ export const TradeInForm: React.FC<TradeInFormProps> = ({
                 <span className='font-semibold text-neutral-900'>Москва</span>
               </div>
               <div className='border-t border-neutral-200/80 pt-2 flex justify-between items-center font-bold text-xs sm:text-sm'>
-                <span className='text-neutral-700'>Скидка по Трейд-ин:</span>
+                <span className='text-neutral-700'>Скидка по Трейд&#8209;ин:</span>
                 <span className='text-emerald-700'>-{formatPrice(estimatedDiscount)}</span>
               </div>
               <div className='flex justify-between items-center font-black text-sm sm:text-base text-neutral-900'>

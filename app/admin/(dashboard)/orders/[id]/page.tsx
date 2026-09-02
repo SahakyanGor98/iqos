@@ -55,7 +55,7 @@ export default async function OrderDetailPage({ params }: Props) {
                 Заказ #{order.id}
               </h2>
               <span className='rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-neutral-500'>
-                {isTradeIn ? 'Трейд-ин' : 'Покупка'}
+                {isTradeIn ? 'Трейд‑ин' : 'Покупка'}
               </span>
               <span
                 className={cn(
@@ -189,8 +189,8 @@ function TradeInDetails({ order }: { order: AdminOrder }) {
   if (!tradeIn) {
     return (
       <section className='rounded-2xl border border-gray-200 bg-white p-6'>
-        <h3 className='mb-2 text-base font-bold text-[#34303d]'>Трейд-ин</h3>
-        <p className='text-sm text-neutral-500'>Детали трейд-ина не сохранены.</p>
+        <h3 className='mb-2 text-base font-bold text-[#34303d]'>Трейд&#8209;ин</h3>
+        <p className='text-sm text-neutral-500'>Детали трейд&#8209;ина не сохранены.</p>
       </section>
     );
   }
@@ -202,14 +202,14 @@ function TradeInDetails({ order }: { order: AdminOrder }) {
 
   return (
     <section className='rounded-2xl border border-gray-200 bg-white p-6'>
-      <h3 className='mb-4 text-base font-bold text-[#34303d]'>Трейд-ин</h3>
+      <h3 className='mb-4 text-base font-bold text-[#34303d]'>Трейд&#8209;ин</h3>
       <dl className='grid grid-cols-1 gap-3 text-sm sm:grid-cols-2'>
         <Field label='Старое устройство'>{tradeIn.old_device ?? '—'}</Field>
         <Field label='Новое устройство'>{newDevice}</Field>
         <Field label='Цена устройства'>
           {tradeIn.original_price != null ? formatPrice(tradeIn.original_price) : '—'}
         </Field>
-        <Field label='Скидка за трейд-ин'>
+        <Field label='Скидка за трейд&#8209;ин'>
           {tradeIn.estimated_discount != null ? `−${formatPrice(tradeIn.estimated_discount)}` : '—'}
         </Field>
         <Field label='Адрес доставки'>{address}</Field>

@@ -16,7 +16,7 @@ export const TradeInHero = () => {
           {/* Copy */}
           <div className='text-left order-2 md:order-1'>
             <p className='text-xs uppercase font-bold tracking-widest text-neutral-500 mb-3'>
-              Трейд-ин только в Москве
+              Трейд&#8209;ин только в Москве
             </p>
             <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] text-[#34303d] text-balance mb-5'>
               Сдайте старый IQOS,{' '}
