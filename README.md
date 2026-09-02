@@ -92,7 +92,7 @@ supabase/migrations/
 ```
 
 - The **`site_settings`** migration is required to enable the admin **feature flags / UI toggles** at `/admin/settings` (banners and page access). Without it the storefront still runs on safe code-level defaults, but the toggles have nothing to control.
-- **Admin access:** create a user in **Supabase → Authentication → Users**, then sign in at `/admin/login`. Admin routes are gated by `middleware.ts` + the `(dashboard)` layout.
+- **Admin access:** create a user in **Supabase → Authentication → Users**, then sign in at `/admin/login`. Admin routes are gated by `proxy.ts` + the `(dashboard)` layout.
 
 ## Deployment
 

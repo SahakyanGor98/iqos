@@ -52,13 +52,13 @@ Reference schema: `supabase/schema.sql`; changes in `supabase/migrations/`.
 ### Auth (current)
 
 - **Storefront visitors are anonymous** — no account, no session cookie. Cart and compare state live client-side in `localStorage` via Zustand (`store/cartStore.ts`, `store/compareStore.ts`); guest checkout / trade-in write through service-role server actions.
-- **The `/admin` panel is authenticated** (Supabase email + password) — this is Phase B, now live for the admin surface. `middleware.ts` refreshes the session on every request and gates `/admin`; `lib/supabase/server.ts` (cookie-bound) reads the session in `app/admin/(dashboard)/layout.tsx` and the login action (`app/actions/auth.ts`); cookies are `httpOnly`/`secure`/`sameSite=lax` via `@supabase/ssr`. Admin screens read the RLS-locked tables (`orders`, `contact_messages`, plus `products` for consistency) through the **service-role** client _behind_ that auth gate, with an explicit `getUser()` re-check in each write action. `site_settings` is the exception: its UPDATE runs under the admin JWT and is enforced by RLS. See features.md §§10–15.
+- **The `/admin` panel is authenticated** (Supabase email + password) — this is Phase B, now live for the admin surface. `proxy.ts` (the Next 16 proxy/middleware convention; the request-bound Supabase logic lives in `lib/supabase/middleware.ts`) refreshes the session on every request and gates `/admin`; `lib/supabase/server.ts` (cookie-bound) reads the session in `app/admin/(dashboard)/layout.tsx` and the login action (`app/actions/auth.ts`); cookies are `httpOnly`/`secure`/`sameSite=lax` via `@supabase/ssr`. Admin screens read the RLS-locked tables (`orders`, `contact_messages`, plus `products` for consistency) through the **service-role** client _behind_ that auth gate, with an explicit `getUser()` re-check in each write action. `site_settings` is the exception: its UPDATE runs under the admin JWT and is enforced by RLS. See features.md §§10–15.
 
 ---
 
 ## Target Architecture
 
-Direction for evolving data access and (future) authentication. Migrated in two phases. **Phase A is complete** — it is the current implementation described above. **Phase B is auth-gated and not started** (begin only when user accounts / an admin surface are actually introduced — there is no point standing up cookie/middleware machinery for a session that doesn't exist yet).
+Direction for evolving data access and (future) authentication. Migrated in two phases. **Phase A is complete** — it is the current implementation described above. **Phase B (cookie-based auth) is now live for the `/admin` panel** — see the Auth section above; per-user storefront accounts remain out of scope (guest checkout stays).
 
 ### Supabase client layout (`lib/supabase/`)
 
@@ -87,9 +87,9 @@ Adopt `@supabase/ssr` + `server-only` and split clients by trust level and rende
 
 ### Phase B — Secure, cookie-based auth _(implemented for the `/admin` panel)_
 
-Now live for the admin surface (login, `middleware.ts` session refresh, cookie-bound reads in the `(dashboard)` layout). The points below describe the pattern in use. Note the admin deliberately reads/writes the RLS-locked tables via the **service role behind the auth gate** rather than per-user RLS — there is a single admin role, not per-user data, so RLS-per-user (below) applies only if/when storefront accounts are introduced (still not planned; guest checkout remains).
+Now live for the admin surface (login, `proxy.ts` session refresh, cookie-bound reads in the `(dashboard)` layout). The points below describe the pattern in use. Note the admin deliberately reads/writes the RLS-locked tables via the **service role behind the auth gate** rather than per-user RLS — there is a single admin role, not per-user data, so RLS-per-user (below) applies only if/when storefront accounts are introduced (still not planned; guest checkout remains).
 
-- Use `lib/supabase/server.ts` + `lib/supabase/client.ts` for session management via cookies instead of `localStorage`, refreshed per request in `middleware.ts`.
+- Use `lib/supabase/server.ts` + `lib/supabase/client.ts` for session management via cookies instead of `localStorage`, refreshed per request in `proxy.ts` (via the `lib/supabase/middleware.ts` helper).
 - **Cookies must be `httpOnly`, `secure`, `sameSite=lax`** so tokens are never readable by JS (the `@supabase/ssr` helpers set these by default).
 - **Authorize with RLS, not the service role.** Once users exist, authed reads/writes run under the user's JWT so RLS enforces per-user access. Reserve `admin.ts` for genuinely privileged server-only tasks.
 - Gate protected routes/actions by checking the session server-side; redirect unauthenticated users before rendering.

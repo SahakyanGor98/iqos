@@ -80,7 +80,7 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 
 ## 11. Admin panel — shell & auth
 
-- Route group: `app/admin/` with a bare wrapper (`app/admin/layout.tsx`, a chrome-less `bg-gray-50` canvas), a public `login/` (outside the protected group so it stays reachable), and the protected `(dashboard)/` group. `app/admin/(dashboard)/layout.tsx` is a Server Component that gates on `getUser()` (defense-in-depth on top of `middleware.ts`) and renders the SaaS shell.
+- Route group: `app/admin/` with a bare wrapper (`app/admin/layout.tsx`, a chrome-less `bg-gray-50` canvas), a public `login/` (outside the protected group so it stays reachable), and the protected `(dashboard)/` group. `app/admin/(dashboard)/layout.tsx` is a Server Component that gates on `getUser()` (defense-in-depth on top of `proxy.ts`) and renders the SaaS shell.
 - **Shell:** `AdminSidebar` (client, fixed `w-64`, active link via `usePathname`) + `AdminHeader` (client, route-derived title + sign out) around a scrolling `<main>`, sized to fit the app-shell `100dvh` body so only content scrolls. Nav is driven by one source of truth: `app/admin/(dashboard)/nav-config.tsx`.
 - **UI convention:** plain Tailwind + `cn()` + the brand `<Button>` — **no component library** (shadcn/Mantine were evaluated and removed; see `styling.md`). Cards are `rounded-2xl border border-gray-200 bg-white`.
 - **Auth:** Supabase email+password (`app/actions/auth.ts` `signIn`/`signOut`). All dashboard pages export `robots: { index: false }`. See `architecture.md` → Auth for the session/cookie/service-role model.
