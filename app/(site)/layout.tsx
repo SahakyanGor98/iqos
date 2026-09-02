@@ -9,6 +9,7 @@ import {
   WaterBanner,
   YandexMetrika,
 } from '@/components';
+import { FeatureFlagsProvider } from '@/components/FeatureFlagsProvider';
 import { getSiteSettingsMap } from '@/lib/settings';
 
 /**
@@ -33,7 +34,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   };
 
   return (
-    <>
+    <FeatureFlagsProvider flags={pages}>
       <YandexMetrika />
       <AgeVerification />
       <PromoToast />
@@ -53,6 +54,6 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
           Аэрозоль содержит никотин, вызывающий зависимость.
         </p>
       </footer>
-    </>
+    </FeatureFlagsProvider>
   );
 }
