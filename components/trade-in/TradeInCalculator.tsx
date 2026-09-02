@@ -36,11 +36,10 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
   onSelect,
 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
-    containScroll: 'trimSnaps',
+    align: 'center',
+    containScroll: 'keepSnaps',
     dragFree: true,
   });
-  const [selectedSnap, setSelectedSnap] = useState(0);
   const [snaps, setSnaps] = useState<number[]>([]);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
@@ -51,7 +50,6 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
 
   const onSnap = useCallback(() => {
     if (!emblaApi) return;
-    setSelectedSnap(emblaApi.selectedScrollSnap());
     setCanPrev(emblaApi.canScrollPrev());
     setCanNext(emblaApi.canScrollNext());
   }, [emblaApi]);
@@ -68,10 +66,28 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
     };
   }, [emblaApi, onSnap]);
 
+  const selectedIndex = Math.max(
+    0,
+    devices.findIndex((d) => d.key === selectedKey),
+  );
+
+  // Focus the view on the selected device whenever the selection changes.
+  // scrollTo() takes a snap index, so clamp slide index into the snap range
+  // (trimSnaps means tail slides share the last snap).
+  useEffect(() => {
+    if (!emblaApi) return;
+    const lastSnap = emblaApi.scrollSnapList().length - 1;
+    if (lastSnap < 0) return;
+    emblaApi.scrollTo(Math.min(selectedIndex, lastSnap));
+  }, [emblaApi, selectedIndex]);
+
+  // Active dot tracks the SELECTED device, not the free-drag scroll position.
+  const activeDot = snaps.length ? Math.min(selectedIndex, snaps.length - 1) : 0;
+
   return (
     <div className='mt-auto pt-4'>
       <div className='flex items-center justify-between mb-2.5'>
-        <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400'>
+        <span className='text-sm uppercase font-bold tracking-wider text-neutral-400'>
           Выберите модель для сдачи
         </span>
         <div className='flex items-center gap-1.5'>
@@ -126,11 +142,11 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
                       <Smartphone className='w-8 h-8 text-neutral-500' />
                     )}
                   </div>
-                  <div className='text-[11px] font-bold leading-tight line-clamp-2 min-h-[26px]'>
+                  <div className='text-xs font-bold leading-tight line-clamp-2 min-h-[30px]'>
                     {device.name}
                   </div>
                   <div
-                    className={`text-xs font-black mt-0.5 ${isSelected ? 'text-emerald-600' : 'text-emerald-400'}`}
+                    className={`text-sm font-black mt-0.5 ${isSelected ? 'text-emerald-600' : 'text-emerald-400'}`}
                   >
                     −{formatPrice(device.discount)}
                   </div>
@@ -151,7 +167,7 @@ const OldDeviceCarousel: React.FC<OldDeviceCarouselProps> = ({
               onClick={() => scrollTo(i)}
               aria-label={`Прокрутить к группе ${i + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                selectedSnap === i ? 'w-5 bg-white' : 'w-1.5 bg-white/30 hover:bg-white/50'
+                activeDot === i ? 'w-5 bg-white' : 'w-1.5 bg-white/30 hover:bg-white/50'
               }`}
             />
           ))}
@@ -191,12 +207,12 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
 
   if (!selectedOld || !selectedLine || !selectedColor) {
     return (
-      <section id='calculator' className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
+      <section id='calculator' className='py-14 md:py-24 bg-neutral-50 text-[#34303d]'>
         <div className='container-custom max-w-2xl mx-auto text-center'>
-          <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight mb-3'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] text-balance mb-3'>
             Калькулятор Трейд&#8209;ин
           </h2>
-          <p className='text-[#34303d]/70'>
+          <p className='text-base md:text-lg text-[#34303d]/70 leading-relaxed text-pretty'>
             Калькулятор временно недоступен. Пожалуйста, свяжитесь с нами для расчёта обмена.
           </p>
         </div>
@@ -208,23 +224,23 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
   const finalPrice = Math.max(0, selectedColor.price - estimatedDiscount);
 
   return (
-    <section id='calculator' className='py-14 md:py-24 px-4 md:px-6 bg-neutral-50 text-[#34303d]'>
-      <div className='container-custom max-w-5xl mx-auto'>
+    <section id='calculator' className='py-14 md:py-24  bg-neutral-50 text-[#34303d]'>
+      <div className='max-w-5xl mx-auto'>
         {/* Header */}
         <div className='max-w-2xl mx-auto text-center mb-10 md:mb-14'>
-          <h2 className='text-3xl md:text-5xl font-black uppercase tracking-tight text-[#34303d] mb-3'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] text-balance mb-3'>
             Калькулятор Трейд&#8209;ин
           </h2>
-          <p className='text-[#34303d]/70 text-base md:text-lg'>
+          <p className='text-base md:text-lg text-[#34303d]/70 leading-relaxed text-pretty'>
             Выберите старое устройство и новый IQOS ILUMA. Расчёт скидки обновится мгновенно.
           </p>
         </div>
 
         {/* Showcase card */}
-        <div className='bg-[#34303D] rounded-[28px] p-5 sm:p-8 md:p-10 text-white shadow-2xl'>
+        <div className='bg-[#34303D] lg:rounded-[28px] p-5 sm:p-8 md:p-10 text-white shadow-2xl'>
           <div className='grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-5 md:gap-4 items-stretch'>
             {/* ---- Give (old device) ---- */}
-            <div className='flex flex-col min-w-0 p-4 sm:p-5 rounded-3xl bg-white/[0.06] border border-white/10'>
+            <div className='flex flex-col min-w-0 p-4 sm:p-5 rounded-3xl bg-white/6 border border-white/10'>
               <StepBadge n={1} label='Что сдаёте' />
 
               <div className='relative w-full h-40 sm:h-52 rounded-2xl bg-neutral-950/40 overflow-hidden flex items-center justify-center'>
@@ -248,7 +264,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
               <div className='mt-3'>
                 <h4 className='font-black text-lg leading-tight'>{selectedOld.name}</h4>
                 {selectedOld.description && (
-                  <p className='text-xs text-neutral-400 mt-0.5'>{selectedOld.description}</p>
+                  <p className='text-base text-neutral-400 mt-0.5'>{selectedOld.description}</p>
                 )}
               </div>
 
@@ -293,7 +309,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                     {formatPrice(selectedColor.price)}
                   </span>
                 </div>
-                <p className='text-xs text-neutral-400 mt-0.5'>
+                <p className='text-base text-neutral-400 mt-0.5'>
                   Цвет:{' '}
                   <span className='text-neutral-200 font-semibold'>{selectedColor.colorLabel}</span>
                 </p>
@@ -302,7 +318,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
               {/* Line + colour selectors */}
               <div className='mt-auto pt-4 space-y-4'>
                 <div>
-                  <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
+                  <span className='text-sm uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
                     Выберите модель для получения
                   </span>
                   <div className='grid grid-cols-3 gap-2'>
@@ -321,11 +337,11 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                               : 'border-white/10 bg-white/5 text-neutral-300 hover:bg-white/10 hover:border-white/25'
                           }`}
                         >
-                          <div className='text-[11px] font-black leading-tight truncate'>
+                          <div className='text-xs font-black leading-tight truncate'>
                             {lineShortLabel(line.line)}
                           </div>
                           <div
-                            className={`text-[10px] font-medium ${isSelected ? 'text-neutral-500' : 'text-neutral-400'}`}
+                            className={`text-xs font-medium ${isSelected ? 'text-neutral-500' : 'text-neutral-400'}`}
                           >
                             от {formatPrice(minPrice)}
                           </div>
@@ -336,7 +352,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                 </div>
 
                 <div>
-                  <span className='text-[11px] uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
+                  <span className='text-sm uppercase font-bold tracking-wider text-neutral-400 block mb-2.5'>
                     Выберите цвет устройства
                   </span>
                   <div className='flex items-center gap-2.5 flex-wrap'>
@@ -370,7 +386,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
           <div className='mt-6 pt-6 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-5'>
             <div>
               <div className='flex items-center gap-2 mb-1'>
-                <span className='text-sm text-neutral-300'>Ваша выгода</span>
+                <span className='text-base text-neutral-300'>Ваша выгода</span>
                 <span className='px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-sm font-black'>
                   −{formatPrice(estimatedDiscount)}
                 </span>
@@ -383,7 +399,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                   {formatPrice(selectedColor.price)}
                 </span>
               </div>
-              <div className='text-xs text-neutral-400 mt-1'>Итого к оплате при обмене</div>
+              <div className='text-sm text-neutral-400 mt-1'>Итого к оплате при обмене</div>
             </div>
 
             <Button onClick={() => setIsModalOpen(true)} variant={ButtonVariant.LIGHT}>

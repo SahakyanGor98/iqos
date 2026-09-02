@@ -57,3 +57,42 @@ The `/admin` surfaces use the **same utility-first Tailwind + `cn()`** as the re
 - **Formatting helpers** live in `lib/utils.ts`: `formatPrice` (RU rubles, non-breaking `₽`), `fixCasing`, `formatDeviceTitle`, and `getDeviceColorSwatch` / `DEVICE_COLOR_SWATCH_MAP` (maps color names — RU + EN — to swatch backgrounds). Reuse these instead of re-implementing price/title/color rendering.
 - **Animations:** `animate-fade-in` (keyframes in `globals.css`); the global loader (`components/GlobalLoader.tsx`, a lucide `LoaderCircle`) spins via Tailwind's built-in `animate-spin`. Per project rule, put the animation on a wrapper `<div>` (GPU) rather than the SVG element itself.
 - **Responsive:** mobile-first; the layout uses `md:` breakpoints heavily and `100dvh`/internal scroll for the app shell.
+
+## Typography System
+
+The **`/about/iqos` page and its `components/about/*` are the canonical reference** for typography across the public marketing site — match these exact class combinations on every public page and shared component. Each role steps up **one Tailwind size at the `md:` breakpoint** (mobile-first); only the page **H1** takes a further `lg:` step.
+
+Brand text color is **`text-[#34303d]`**; muted body uses an alpha (`/90`, `/85`, `/80`, `/70`), and neutral greys (`text-neutral-500` / `-400`) for footnotes. Headings use `text-balance`; multi-line body uses `text-pretty`.
+
+| Role                                             | Size (mobile → desktop)            | Weight               | Case        | Tracking            | Leading           | Default color                          |
+| ------------------------------------------------ | ---------------------------------- | -------------------- | ----------- | ------------------- | ----------------- | -------------------------------------- |
+| **H1** — page title (one per page)               | `text-3xl md:text-5xl lg:text-6xl` | `font-black`         | `uppercase` | `tracking-tight`    | `leading-[1.1]`   | `text-[#34303d]`                       |
+| **H2** — section heading                         | `text-2xl md:text-4xl`             | `font-black`         | `uppercase` | `tracking-tight`    | —                 | `text-[#34303d]`                       |
+| **H3** — sub-section heading                     | `text-xl md:text-2xl`              | `font-black`         | `uppercase` | `tracking-tight`    | —                 | `text-[#34303d]`                       |
+| **H4** — card title                              | `text-base md:text-lg`             | `font-bold`          | —           | —                   | —                 | `text-[#34303d]`                       |
+| **Lead / large body** — section intro, hero lead | `text-base md:text-lg`             | (`font-medium` opt.) | —           | —                   | `leading-relaxed` | `text-[#34303d]/90`                    |
+| **Body** — card & table text                     | `text-sm md:text-base`             | —                    | —           | —                   | `leading-relaxed` | contextual (`/85`, `text-neutral-600`) |
+| **Small** — footnotes, disclaimers               | `text-xs md:text-sm`               | —                    | —           | —                   | `leading-relaxed` | `text-neutral-500` / `-400`            |
+| **Eyebrow / overline** — kicker above a heading  | `text-xs md:text-sm`               | `font-bold`          | `uppercase` | `tracking-[0.25em]` | —                 | `text-[#34303d]/70`                    |
+| **Pill / badge label**                           | `text-xs`                          | `font-extrabold`     | `uppercase` | `tracking-wider`    | —                 | contextual                             |
+
+**Canonical strings (copy verbatim; add `text-balance` to headings, `text-pretty` to multi-line body):**
+
+```
+H1:      text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#34303d] leading-[1.1] text-balance
+H2:      text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] text-balance
+H3:      text-xl md:text-2xl font-black uppercase tracking-tight text-[#34303d]
+H4:      text-base md:text-lg font-bold text-[#34303d]
+Lead:    text-base md:text-lg leading-relaxed text-pretty text-[#34303d]/90
+Body:    text-sm md:text-base leading-relaxed
+Small:   text-xs md:text-sm leading-relaxed text-neutral-500
+Eyebrow: text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#34303d]/70
+```
+
+**Rules & exceptions**
+
+- **Spacing is separate from type.** Keep existing margin utilities (`mb-3`, `mb-4 md:mb-6`, `mt-4`, …) when applying a role — this scale defines size/weight/case/tracking/leading only, never margins/padding/alignment/layout.
+- **Proper nouns / device names** (e.g. lineup card titles) keep the H2/H3 size + `font-black tracking-tight` but **omit `uppercase`** — `fixCasing` / `formatDeviceTitle` already control their casing.
+- **Constrained containers** (e.g. a glass card) may drop one desktop step (H2 → `md:text-3xl`); prefer the full scale unless space forces it.
+- **Do not restyle non-prose scales:** buttons (`Button.tsx`), prices (`formatPrice`), nav links, form labels/inputs, and data-table cell sizing keep their own utilities.
+- **Out of scope:** the `/admin` dashboard (functional CRUD UI — see the Admin section above) and `components/emails/*` (inline-styled emails) are **not** governed by this system.

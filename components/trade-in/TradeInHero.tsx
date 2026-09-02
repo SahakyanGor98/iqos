@@ -15,14 +15,14 @@ export const TradeInHero = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center'>
           {/* Copy */}
           <div className='text-left order-2 md:order-1'>
-            <p className='text-xs uppercase font-bold tracking-widest text-neutral-500 mb-3'>
+            <p className='text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-[#34303d]/70 mb-3'>
               Трейд&#8209;ин только в Москве
             </p>
-            <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.05] text-[#34303d] text-balance mb-5'>
+            <h1 className='text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-[1.1] text-[#34303d] text-balance mb-5'>
               Сдайте старый IQOS,{' '}
               <span className='text-[#34303d]/60'>получите новый ILUMA со скидкой</span>
             </h1>
-            <p className='text-sm md:text-base text-[#34303d]/80 max-w-xl leading-relaxed mb-7 text-pretty'>
+            <p className='text-base md:text-lg text-[#34303d]/80 max-w-xl leading-relaxed mb-7 text-pretty'>
               Простой обмен устройств в Москве. Принимаем IQOS, lil SOLID и другие бренды в любом
               состоянии, с выгодой до <strong className='text-[#34303d] font-bold'>2 500 ₽</strong>.
             </p>

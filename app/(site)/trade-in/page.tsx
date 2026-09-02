@@ -21,7 +21,7 @@ import { getTradeInDevices, getTradeInTargets } from '@/lib/api';
 import { isFeatureEnabled } from '@/lib/settings';
 
 // Device data is admin-managed in the DB; revalidate so edits appear without a
-// redeploy (ISR, 60s).
+// redeployment (ISR, 60s).
 export const revalidate = 60;
 
 export const metadata: Metadata = {
@@ -64,10 +64,10 @@ export default async function TradeInPage() {
       {/* Bottom CTA Section */}
       <section className='bg-neutral-50 text-[#34303d] py-12 md:py-20 px-6 text-center'>
         <div className='container-custom max-w-4xl mx-auto'>
-          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] mb-4'>
+          <h2 className='text-2xl md:text-4xl font-black uppercase tracking-tight text-[#34303d] text-balance mb-4'>
             Готовы обновить свой IQOS?
           </h2>
-          <p className='text-base md:text-lg text-[#34303d]/85 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed'>
+          <p className='text-base md:text-lg text-[#34303d]/85 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed text-pretty'>
             Рассчитайте точно стоимость вашего старого устройства за 1 минуту и заберите новый IQOS
             ILUMA со скидкой.
           </p>
