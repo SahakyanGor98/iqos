@@ -10,7 +10,7 @@ const HERO_HIGHLIGHTS = [
 
 export const TradeInHero = () => {
   return (
-    <section className='relative overflow-hidden bg-neutral-50 text-[#34303d] pt-10 md:pt-16 pb-12 md:pb-20 px-4 md:px-6'>
+    <section className='relative overflow-hidden bg-neutral-50 text-[#34303d] md:pt-16 pb-12 md:pb-20 px-4 md:px-6'>
       <div className='container-custom max-w-6xl mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center'>
           {/* Copy */}
@@ -31,15 +31,16 @@ export const TradeInHero = () => {
             </Button>
           </div>
 
-          {/* Device visual — portrait (3:4) on mobile, landscape (16:9) on desktop */}
+          {/* Device visual — edge-to-edge full-bleed on mobile (matches the About
+              page hero), rounded landscape card on desktop */}
           <div className='order-1 md:order-2'>
-            <div className='relative aspect-square md:aspect-video w-full rounded-[28px] border border-neutral-200/80 overflow-hidden'>
+            <div className='relative aspect-square w-screen left-1/2 -ml-[50vw] overflow-hidden md:aspect-video md:w-full md:left-auto md:ml-0 md:rounded-[28px] md:border md:border-neutral-200/80'>
               <Image
                 src='/trade-in-2.webp'
                 alt='Обмен старого устройства IQOS по программе Трейд-ин'
                 fill
                 priority
-                sizes='(max-width: 768px) 90vw, 520px'
+                sizes='100vw'
                 className='object-cover md:hidden'
               />
               <Image
