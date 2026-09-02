@@ -7,9 +7,9 @@
 -- observed application behaviour and standard Supabase conventions — confirm
 -- against the live DB (`\d+ <table>`) before treating this file as canonical.
 --
--- NOTE: The `products.category` value 'accessories' also exists in the live DB
--- but is intentionally handled on a separate feature branch and is NOT modelled
--- here yet.
+-- NOTE: `products.category` includes 'accessories' in the live DB (56 rows);
+-- the admin panel manages all four categories. The storefront accessories route
+-- can still be feature-flagged off independently (see lib/settings.ts).
 -- ============================================================================
 
 -- ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ create table public.products (
   description text,
   image text[],                                  -- array of image URLs
   price numeric not null,
-  category text not null check (category in ('gadget', 'sticks', 'water')),
+  category text not null check (category in ('gadget', 'sticks', 'water', 'accessories')),
   in_stock boolean default true,
   badges jsonb default '{}'::jsonb,
   attributes jsonb default '{}'::jsonb,
@@ -49,7 +49,8 @@ create table public.orders (
   user_phone text not null,
   user_message text,                             -- optional free-text comment
   total_amount numeric not null,                 -- final amount payable
-  status text default 'pending',                 -- set by the application
+  status text not null default 'pending'         -- lifecycle (see orders_status_check)
+    check (status in ('pending', 'confirmed', 'shipped', 'completed', 'cancelled')),
   order_type text not null default 'purchase'    -- 'purchase' | 'trade_in'
     check (order_type in ('purchase', 'trade_in')),
   discount numeric not null default 0,           -- amount discounted from subtotal
@@ -58,6 +59,7 @@ create table public.orders (
 );
 
 create index if not exists orders_order_type_idx on public.orders (order_type);
+create index if not exists orders_status_idx on public.orders (status);
 
 alter table public.orders enable row level security;
 
@@ -114,8 +116,40 @@ create policy "Allow public read access"
   to public
   using (true);
 
+-- ----------------------------------------------------------------------------
+-- site_settings — CMS feature-flag / toggle store for the admin panel
+-- ----------------------------------------------------------------------------
+create table public.site_settings (
+  key         text primary key,                       -- stable flag key, e.g. 'page_accessories'
+  value       jsonb not null default 'false'::jsonb,  -- boolean now; future-proof for richer settings
+  group_name  text not null default 'general',        -- UI grouping: 'banners' | 'pages'
+  label       text not null,                          -- admin-facing label (RU)
+  description text,                                    -- admin-facing helper text
+  sort_order  integer not null default 0,             -- display order within its group
+  updated_at  timestamptz not null default timezone('utc'::text, now()),
+  updated_by  uuid references auth.users(id)          -- who last changed it (audit)
+);
+
+alter table public.site_settings enable row level security;
+
+-- Public read (storefront reads flags on every render — ISR-safe anon read).
+create policy "Allow public read access"
+  on public.site_settings
+  for select
+  to public
+  using (true);
+
+-- Authenticated admin update (mutations run under the user's JWT via
+-- lib/supabase/server.ts). No INSERT/DELETE — the flag catalog is seeded.
+create policy "Allow authenticated update"
+  on public.site_settings
+  for update
+  to authenticated
+  using (true)
+  with check (true);
+
 -- ============================================================================
--- RLS model (no user accounts — every visitor is an anonymous guest):
+-- RLS model (public catalog is anon; the /admin panel is authenticated):
 --   * products          — RLS on, public SELECT (catalog is public).
 --   * orders            — RLS on, NO anon policies. Writes go through server
 --   * order_items         actions using the SERVICE ROLE key (lib/supabase-admin.ts),
@@ -124,5 +158,9 @@ create policy "Allow public read access"
 --                         form), no anon SELECT.
 --   * trade_in_devices  — RLS on, public SELECT (calculator lists these); writes
 --                         via the service role (admin panel).
--- See supabase/migrations/20260831_lock_down_orders_rls.sql.
+--   * site_settings     — RLS on, public SELECT (feature flags read on the
+--                         storefront); authenticated UPDATE only (admin toggles
+--                         run under the signed-in user's JWT).
+-- See supabase/migrations/20260831_lock_down_orders_rls.sql and
+--     supabase/migrations/20260901_site_settings.sql.
 -- ============================================================================

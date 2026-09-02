@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Scale } from 'lucide-react';
 import { ProductRow } from '@/types/supabase';
 import { CategoryKey, useCompareStore } from '@/store/compareStore';
+import { usePageFlags } from './FeatureFlagsProvider';
 
 type Props = {
   product: ProductRow;
@@ -20,12 +21,16 @@ export const CompareButton = ({
 }: Props) => {
   const [mounted, setMounted] = useState(false);
 
+  const { compare: compareEnabled } = usePageFlags();
   const itemsByCategory = useCompareStore((state) => state.itemsByCategory);
   const addToCompare = useCompareStore((state) => state.addToCompare);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Compare page disabled via CMS flag → render no compare affordance anywhere.
+  if (!compareEnabled) return null;
 
   const category = (product.category as CategoryKey) || 'gadget';
   const categoryItems = mounted ? itemsByCategory[category] || [] : [];

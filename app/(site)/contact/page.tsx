@@ -1,13 +1,16 @@
 import { ContactForm } from '@/components';
 import { CONTACTS } from '@/lib/constants';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { isFeatureEnabled } from '@/lib/settings';
 
 export const metadata: Metadata = {
   title: 'Контакты | IQOS & TEREA',
   description: 'Свяжитесь с нами для консультации или поддержки. Telegram, Email, Телефон.',
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  if (!(await isFeatureEnabled('page_contact'))) notFound();
   return (
     <div className='container-custom py-12 md:py-20'>
       <div className='grid md:grid-cols-2 gap-12 lg:gap-20 items-start'>

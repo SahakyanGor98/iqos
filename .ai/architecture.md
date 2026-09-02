@@ -16,8 +16,9 @@ All routes are under `app/`. Pages are **React Server Components by default** �
 | `/contact`, `/about/iqos`                  | `app/contact/page.tsx`, `app/about/iqos/page.tsx` | Static-ish content pages.                                                                       |
 | `robots`, `sitemap`                        | `app/robots.ts`, `app/sitemap.ts`                 | Metadata routes.                                                                                |
 
-- **Server Actions** live in `app/actions/` (`checkout.ts`, `tradein.ts`, `contact.ts`), each marked `'use server'`.
-- Root layout `app/layout.tsx` sets global metadata, JSON-LD, fonts (`next/font/local`), analytics, and the persistent chrome (Navbar, footer disclaimer, toasts, age gate). The `<body>` is `h-[100dvh]` with an internally-scrolling `<main>`.
+- **Route groups:** the public storefront lives in `app/(site)/` (its layout owns the Navbar/footer/toasts chrome); the authenticated back-office lives in `app/admin/` (bare wrapper + `login/` + a protected `(dashboard)/` group with its own SaaS shell). See features.md §§11–15.
+- **Server Actions** live in `app/actions/`: storefront (`checkout.ts`, `tradein.ts`, `contact.ts`) and admin (`auth.ts`, `settings.ts`, `messages.ts`, `orders.ts`, `products-admin.ts`), each marked `'use server'`.
+- Root layout `app/layout.tsx` owns only `<html>/<body>` (global metadata, JSON-LD, fonts, the `h-[100dvh]` flex-column shell); each route group's layout fills it. The storefront chrome lives in `app/(site)/layout.tsx`, not the root.
 
 ## Server vs. Client component boundary
 
@@ -41,15 +42,17 @@ Writes flow through Server Actions: validate with Zod → insert via `supabaseAd
 
 Reference schema: `supabase/schema.sql`; changes in `supabase/migrations/`.
 
-- `products` — catalog (`gadget` | `sticks` | `water`; `accessories` handled separately). `attributes`/`badges` are JSONB; filtering uses `attributes->>key`. RLS on, **public SELECT**.
-- `orders` — one row per purchase or trade-in (`order_type`), with a self-contained `items` JSONB snapshot + `metadata`. **RLS on, no anon policies** — writes only via service role, no anon read.
-- `order_items` — FK line items for purchases. Same lock-down as `orders`.
-- `contact_messages` — RLS on, anon INSERT allowed, no anon SELECT.
+- `products` — catalog (`gadget` | `sticks` | `water` | `accessories`; the CHECK allows all four and the admin panel manages every category — see features.md §14). `attributes`/`badges` are JSONB; filtering uses `attributes->>key`. RLS on, **public SELECT**; admin writes via the service role.
+- `orders` — one row per purchase or trade-in (`order_type`), with a self-contained `items` JSONB snapshot + `metadata`. `status` follows a fixed lifecycle (`pending` → `confirmed` → `shipped` → `completed`, + `cancelled`) enforced by `orders_status_check`. **RLS on, no anon policies** — admin reads/writes via the service role behind the `/admin` auth gate.
+- `order_items` — FK line items for purchases. Same lock-down as `orders` (its FK blocks hard-deleting a referenced product).
+- `contact_messages` — RLS on, anon INSERT allowed, no anon SELECT. `status` is `new` | `read` (admin inbox); admin reads/writes via the service role.
 - `trade_in_devices` — admin-managed calculator list. RLS on, **public SELECT**.
+- `site_settings` — CMS feature flags (key-value, jsonb value, `group_name`). RLS on, **public SELECT**, **authenticated UPDATE** only. See features.md §10.
 
 ### Auth (current)
 
-There are **no user accounts** — every visitor is an anonymous guest. There is no session, no login, and no auth cookie. Cart and compare state live client-side in `localStorage` via Zustand (`store/cartStore.ts`, `store/compareStore.ts`).
+- **Storefront visitors are anonymous** — no account, no session cookie. Cart and compare state live client-side in `localStorage` via Zustand (`store/cartStore.ts`, `store/compareStore.ts`); guest checkout / trade-in write through service-role server actions.
+- **The `/admin` panel is authenticated** (Supabase email + password) — this is Phase B, now live for the admin surface. `middleware.ts` refreshes the session on every request and gates `/admin`; `lib/supabase/server.ts` (cookie-bound) reads the session in `app/admin/(dashboard)/layout.tsx` and the login action (`app/actions/auth.ts`); cookies are `httpOnly`/`secure`/`sameSite=lax` via `@supabase/ssr`. Admin screens read the RLS-locked tables (`orders`, `contact_messages`, plus `products` for consistency) through the **service-role** client _behind_ that auth gate, with an explicit `getUser()` re-check in each write action. `site_settings` is the exception: its UPDATE runs under the admin JWT and is enforced by RLS. See features.md §§10–15.
 
 ---
 
@@ -82,7 +85,9 @@ Adopt `@supabase/ssr` + `server-only` and split clients by trust level and rende
 - **ISR preserved:** catalog pages keep `revalidate = 60` and `generateStaticParams`. Use `revalidatePath`/`revalidateTag` after mutations that change catalog/order state.
 - Keep serialized props minimal at the Server→Client boundary (pass the fields a component uses, not whole rows).
 
-### Phase B — Secure, cookie-based auth _(planned; do when accounts arrive)_
+### Phase B — Secure, cookie-based auth _(implemented for the `/admin` panel)_
+
+Now live for the admin surface (login, `middleware.ts` session refresh, cookie-bound reads in the `(dashboard)` layout). The points below describe the pattern in use. Note the admin deliberately reads/writes the RLS-locked tables via the **service role behind the auth gate** rather than per-user RLS — there is a single admin role, not per-user data, so RLS-per-user (below) applies only if/when storefront accounts are introduced (still not planned; guest checkout remains).
 
 - Use `lib/supabase/server.ts` + `lib/supabase/client.ts` for session management via cookies instead of `localStorage`, refreshed per request in `middleware.ts`.
 - **Cookies must be `httpOnly`, `secure`, `sameSite=lax`** so tokens are never readable by JS (the `@supabase/ssr` helpers set these by default).

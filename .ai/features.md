@@ -68,3 +68,42 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 - **Server action** `submitTradeIn`: Zod-validates → inserts one `orders` row with `order_type = 'trade_in'`, a self-contained `items` snapshot, and structured `metadata.trade_in` (old/target device, color, slug, discount, delivery address) via the **service-role** client → sends internal + client emails via Resend (email failure is non-fatal).
 - **Moscow-only:** city is fixed to Москва; only street address is user-entered.
 - Wired from Navbar, Footer, and the homepage `TradeInPromoBanner`; `revalidate = 60`; listed in `sitemap.ts`.
+
+## 10. CMS feature flags (`site_settings`)
+
+- Files: [`lib/settings.ts`](../lib/settings.ts) (reads), [`app/actions/settings.ts`](../app/actions/settings.ts) (admin write), [`components/FeatureFlagsProvider.tsx`](../components/FeatureFlagsProvider.tsx) (client context), admin UI in `app/admin/(dashboard)/settings/`. Table: `site_settings` (see `supabase/migrations/2026090*_*.sql`).
+- **Model:** one key-value row per flag (`value` jsonb boolean, `group_name` for UI grouping — `banners` / `pages`). RLS: **public SELECT** (storefront reads), **authenticated UPDATE** only (admin toggles run under the admin JWT). Seeded via migration; the admin never invents keys.
+- **Reads are ISR-safe:** `getSiteSettingsMap()` / `isFeatureEnabled(key)` use the cookie-free `supabasePublic` client wrapped in React `cache()`. Defaults live in `DEFAULT_SITE_SETTINGS` — banners/promo + the (disabled) accessories page default **OFF**; the live secondary pages (compare/tradein/about/contact) default **ON** (fail-open) so nothing 404s before the seed migration runs.
+- **Current flags:** banners (`banner_water`, `banner_floating_promo`, `promo_homepage`) and page gates (`page_accessories`, `page_compare`, `page_tradein`, `page_about`, `page_contact`).
+- **Page gating pattern:** the route Server Component calls `notFound()` when its flag is off; the `(site)` layout hides the matching Navbar/Footer links (via a single `pages` object) and the homepage banners; `sitemap.ts` omits disabled routes. For deep **client** widgets that must react to a flag (the per-card compare button), the layout feeds flags into `FeatureFlagsProvider` and the widget reads `usePageFlags()` — no prop-drilling.
+- **Applying a toggle:** `updateSiteSetting` writes under the admin JWT, then `revalidatePath('/', 'layout')` (+ sitemap) so ISR storefront pages re-read on the next request.
+
+## 11. Admin panel — shell & auth
+
+- Route group: `app/admin/` with a bare wrapper (`app/admin/layout.tsx`, a chrome-less `bg-gray-50` canvas), a public `login/` (outside the protected group so it stays reachable), and the protected `(dashboard)/` group. `app/admin/(dashboard)/layout.tsx` is a Server Component that gates on `getUser()` (defense-in-depth on top of `middleware.ts`) and renders the SaaS shell.
+- **Shell:** `AdminSidebar` (client, fixed `w-64`, active link via `usePathname`) + `AdminHeader` (client, route-derived title + sign out) around a scrolling `<main>`, sized to fit the app-shell `100dvh` body so only content scrolls. Nav is driven by one source of truth: `app/admin/(dashboard)/nav-config.tsx`.
+- **UI convention:** plain Tailwind + `cn()` + the brand `<Button>` — **no component library** (shadcn/Mantine were evaluated and removed; see `styling.md`). Cards are `rounded-2xl border border-gray-200 bg-white`.
+- **Auth:** Supabase email+password (`app/actions/auth.ts` `signIn`/`signOut`). All dashboard pages export `robots: { index: false }`. See `architecture.md` → Auth for the session/cookie/service-role model.
+- **Trust model:** admin screens read the RLS-locked tables via the **service-role** client (server-only) behind the auth gate; each mutation re-checks `getUser()` and validates input with Zod before writing.
+
+## 12. Admin — Messages inbox (`/admin/messages`)
+
+- Files: [`lib/messages.ts`](../lib/messages.ts) (service-role read), [`app/actions/messages.ts`](../app/actions/messages.ts) (`updateMessageStatus`), `app/admin/(dashboard)/messages/`.
+- Lists `contact_messages` newest-first, split into **Новые / Прочитанные** tabs (`?status=`), with `mailto:`/`tel:` links. `MessageStatusButton` optimistically toggles `status` between `new`/`read` (service-role write behind an auth re-check — `contact_messages` has no authenticated UPDATE policy), then revalidates the inbox + the dashboard "new messages" count.
+
+## 13. Admin — Orders management (`/admin/orders`)
+
+- Files: [`lib/admin-orders.ts`](../lib/admin-orders.ts) (reads), [`app/actions/orders.ts`](../app/actions/orders.ts) (`updateOrderStatus`), status config in [`lib/orders.ts`](../lib/orders.ts), UI in `app/admin/(dashboard)/orders/`.
+- **Status lifecycle:** `pending → confirmed → shipped → completed`, + `cancelled` — canonical `ORDER_STATUSES`/`ORDER_STATUS_META` in `lib/orders.ts` (client-safe), validated in the action and enforced by the `orders_status_check` DB constraint (`supabase/migrations/20260902_orders_status.sql`).
+- **List:** status filter chips with counts, type + status badges. **Detail** (`[id]`): customer block, then either a purchase line-items table (subtotal/discount/total from the `items` snapshot) or the trade-in breakdown from `metadata.trade_in`, plus a one-click `OrderStatusControl`. Reads/writes via the service role (orders is RLS-locked).
+
+## 14. Admin — Products CRUD (`/admin/products`)
+
+- Files: [`lib/product-form.ts`](../lib/product-form.ts) (client-safe config + Zod schema), [`lib/admin-products.ts`](../lib/admin-products.ts) (reads), [`app/actions/products-admin.ts`](../app/actions/products-admin.ts) (create/update/delete), UI in `app/admin/(dashboard)/products/`.
+- Manages **all four categories including accessories** (56 rows live in `products`; `assets/accessories.json` is only a fallback). List has a category filter + title/slug search; a shared create/edit `ProductForm` handles core fields, **URL-list images** (with preview — there is no upload; images are Storage URLs), badge checkboxes (preserving unknown badge keys like `bestseller`), and a **JSON `attributes` editor** (attributes vary by category).
+- **Delete** is a two-step guarded action: hard-deletes unless the product is referenced by `order_items` (FK `23503`), in which case it explains and suggests marking out of stock; duplicate slug surfaces `23505`. Every mutation revalidates the admin views **and** the affected public catalog pages (mapping `gadget→iqos`, `sticks→terea`, `accessories→accessories`) + sitemap.
+
+## 15. Admin — Dashboard (`/admin`)
+
+- Files: [`lib/admin-stats.ts`](../lib/admin-stats.ts), `app/admin/(dashboard)/page.tsx`.
+- Four **actionable** stat cards (concurrent service-role counts): new orders (`status='pending'`), total orders, active products (`in_stock=true`), new messages (`status='new'`) — each links into its filtered section. A failed count renders `—` (never a misleading `0`).

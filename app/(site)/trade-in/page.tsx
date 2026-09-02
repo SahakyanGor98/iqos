@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import {
   Button,
@@ -17,6 +18,7 @@ const TradeInCalculator = dynamic(() =>
 );
 import { TRADE_IN_FAQ } from '@/lib/content/trade-in';
 import { getTradeInDevices, getTradeInTargets } from '@/lib/api';
+import { isFeatureEnabled } from '@/lib/settings';
 
 // Device data is admin-managed in the DB; revalidate so edits appear without a
 // redeploy (ISR, 60s).
@@ -29,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TradeInPage() {
+  if (!(await isFeatureEnabled('page_tradein'))) notFound();
   const [oldDevices, targetLines] = await Promise.all([getTradeInDevices(), getTradeInTargets()]);
 
   return (

@@ -3,7 +3,7 @@ import { getGroupedCards } from '@/lib/grouping';
 import { Pagination, PerPageSelect, ProductFilters, ProductGrid, SortSelect } from '@/components';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ENABLE_ACCESSORIES } from '@/lib/constants';
+import { isFeatureEnabled } from '@/lib/settings';
 
 export const metadata: Metadata = {
   title: 'Аксессуары IQOS | Чехлы, колпачки, зарядные устройства',
@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default async function AccessoriesPage({ searchParams }: Props) {
-  if (!ENABLE_ACCESSORIES) notFound();
+  if (!(await isFeatureEnabled('page_accessories'))) notFound();
   const params = await searchParams;
   const page = Number(params.page) || 1;
   const limit = Number(params.limit) || 25;
