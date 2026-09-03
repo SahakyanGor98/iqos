@@ -37,8 +37,39 @@ Use `next/dynamic` **strictly** for Client Components that are **below the fold*
 | `TradeInForm`          | `TradeInCalculator` (client) | click (slide-over) | `dynamic`, `ssr:false` |
 | `TradeInCalculator`    | `/trade-in` (server page)    | below fold         | `dynamic`, `ssr:true`  |
 
-## 3. Production configuration (Cloud4Box VPS)
+## 3. Production configuration & deployment (Cloud4Box VPS)
 
-- **Deployment model: `next build` + `next start`, managed by pm2.** The app is deployed on the VPS with the standard build/start flow, not `output: 'standalone'`. Deploy steps: `git pull` → `npm install` → `rm -rf .next` → `npm run build` → `pm2 restart iqos` (the `iqos` pm2 process runs `next start`).
+**Deployment model: `next build` + `next start` under pm2** (process name `iqos`, running from `/var/www/iqos`). The VPS is small (**1.8 GB RAM**) and `next build` is memory-heavy — it OOM-kills on the box — so the **primary deploy builds in CI and ships the finished artifact; the VPS only runs `next start`, never compiles.**
+
+### Primary: CI build + artifact deploy (GitHub Actions)
+
+- Workflow: [`.github/workflows/deploy.yml`](../.github/workflows/deploy.yml), **manually triggered** (Actions tab → _Deploy to production_ → Run workflow). Auto-deploy on push is intentionally off because we commit straight to `main`; add a `push` trigger to enable full CD.
+- Runner steps: `npm ci` → `npm run build` (with the `NEXT_PUBLIC_*` secrets) → `rsync` the build output to the VPS → on the VPS run `npm ci --omit=dev && pm2 reload iqos`. Shipped paths: `.next/` (minus `cache`), `public/`, `package.json`, `package-lock.json`, `next.config.ts`, `tsconfig.json`. `--delete` is scoped to `.next/` and `public/` only, so the server's `.env`, `node_modules`, and `.git` are never touched.
+- **Required GitHub Secrets:**
+
+  | Secret                          | Purpose                                                       |
+  | ------------------------------- | ------------------------------------------------------------- |
+  | `NEXT_PUBLIC_SUPABASE_URL`      | build-time — inlined into client bundle + ISR fetch           |
+  | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | build-time — inlined into client bundle + ISR fetch           |
+  | `NEXT_PUBLIC_YANDEX_METRIKA_ID` | build-time — inlined into client bundle                       |
+  | `DEPLOY_HOST`                   | VPS host/IP                                                   |
+  | `DEPLOY_USER`                   | SSH user (e.g. `root`)                                        |
+  | `DEPLOY_PATH`                   | app dir on the VPS (e.g. `/var/www/iqos`)                     |
+  | `DEPLOY_SSH_KEY`                | private SSH key; its public half in the VPS `authorized_keys` |
+
+- **Server-only secrets stay on the VPS `.env`** and are loaded by Next at runtime — never add them to CI: `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `INTERNAL_EMAIL`.
+- **VPS prerequisites:** `rsync` installed; `node`/`npm`/`pm2` reachable from a login shell (the reload step runs `bash -lc`, so ensure your profile puts them on `PATH` — if you see `pm2: command not found`, that's the cause); the `iqos` pm2 process already exists; `.env` present in `DEPLOY_PATH`.
+- Keep the runner's Node major in sync with the VPS via [`.nvmrc`](../.nvmrc) (currently `24`).
+
+### Fallback: manual build on the VPS
+
+Works but slow — use only if CI is unavailable, and **it must not OOM**:
+
+- The box needs **≥ ~2 GB swap** (peak build RSS ~1.2 GB _on top of_ the running app). One-time: `fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile` (persist in `/etc/fstab`).
+- **Stop the app first to free its RAM:** `pm2 stop iqos` → build → `pm2 start iqos`.
+- Steps: `git pull` → `npm ci` → `npm run build` → `pm2 restart iqos`. **Do _not_ `rm -rf .next`** — it deletes `.next/cache` and forces a cold, slower, more memory-hungry rebuild every time. To clear stale output while keeping the cache: `find .next -mindepth 1 -maxdepth 1 ! -name cache -exec rm -rf {} +`.
+
+### Other notes
+
 - **Do not enable `output: 'standalone'`** unless the deployment moves to Docker/containers or otherwise wants a self-contained server. It is incompatible with `next start` (must run `node .next/standalone/server.js`) and does not copy `public/` or `.next/static` into the output — both changes would break the current pm2 flow.
 - **`next/image` remote hosts** are allowlisted in `next.config.ts` `images.remotePatterns` — the Supabase public storage bucket (`sjqoinxhewxxbcczliyl.supabase.co`, `/storage/v1/object/public/**`, matching `NEXT_PUBLIC_SUPABASE_URL`), plus `iqos-iluma.com` and `images.unsplash.com`. Add a host here before rendering its images with `next/image`.
