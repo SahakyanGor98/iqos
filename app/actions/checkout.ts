@@ -9,8 +9,6 @@ import { supabaseAdmin } from '@/lib/supabase/admin';
 import { CartItem } from '@/store/cartStore';
 import { cartToSnapshot } from '@/lib/orders';
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY) || null;
 const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL || null;
 
 const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
@@ -84,6 +82,7 @@ export async function placeOrder(
 
     // 3. Send Emails (if API key exists)
     if (process.env.RESEND_API_KEY && INTERNAL_EMAIL) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
       // Internal Notification
       try {
         const { renderToStaticMarkup } = await import('react-dom/server');

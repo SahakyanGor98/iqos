@@ -3,6 +3,12 @@ import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { AdminSidebar } from './AdminSidebar';
 import { AdminHeader } from './AdminHeader';
 
+// Admin dashboard is auth-gated and shows live data — it must render per-request,
+// never be statically prerendered at build. Forcing dynamic here cascades to every
+// nested dashboard page, so `next build` won't invoke the service-role Supabase
+// client at build time (the key lives only in the VPS runtime .env, not in CI).
+export const dynamic = 'force-dynamic';
+
 /**
  * Protected admin SaaS shell: fixed sidebar + top header + scrolling content.
  * The login page lives OUTSIDE this route group (app/admin/login), so it is not

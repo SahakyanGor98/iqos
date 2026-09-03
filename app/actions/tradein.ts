@@ -7,8 +7,6 @@ import { supabaseAdmin } from '@/lib/supabase/admin';
 import { CONTACTS } from '@/lib/constants';
 import type { OrderItemSnapshot } from '@/lib/orders';
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
 const INTERNAL_EMAIL = process.env.INTERNAL_EMAIL;
 
 const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
@@ -90,6 +88,7 @@ export async function submitTradeIn(data: TradeInData) {
 
     // 4. Send emails (internal notification + client confirmation)
     if (process.env.RESEND_API_KEY && INTERNAL_EMAIL) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
       const { renderToStaticMarkup } = await import('react-dom/server');
 
       // Internal notification
