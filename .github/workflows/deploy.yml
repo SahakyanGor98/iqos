@@ -1,0 +1,80 @@
+name: Deploy to production
+
+# Manual trigger only: Actions tab -> "Deploy to production" -> Run workflow.
+# We commit straight to main, so we intentionally do NOT auto-deploy on push.
+# To enable full CD later, add a push trigger, e.g.:
+#   push:
+#     branches: [main]
+on:
+  workflow_dispatch:
+
+# Never let two production deploys overlap.
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Next.js)
+        # NEXT_PUBLIC_* are inlined into the client bundle at build time, and the
+        # public Supabase client reads them to prerender ISR pages during build.
+        # Server-only secrets (service role, Resend) are runtime-only and live in
+        # the VPS .env — they are deliberately absent here.
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_YANDEX_METRIKA_ID: ${{ secrets.NEXT_PUBLIC_YANDEX_METRIKA_ID }}
+        run: npm run build
+
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Ship build to the server
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          SSH="ssh -i $HOME/.ssh/deploy_key -o StrictHostKeyChecking=yes"
+          TARGET="$DEPLOY_USER@$DEPLOY_HOST"
+          # Build output — skip the local compiler cache (not needed to serve).
+          rsync -az --delete --exclude 'cache' -e "$SSH" .next/ "$TARGET:$DEPLOY_PATH/.next/"
+          # Static assets.
+          rsync -az --delete -e "$SSH" public/ "$TARGET:$DEPLOY_PATH/public/"
+          # Runtime manifests + config. No --delete here so we never touch the
+          # server's .env, node_modules or .git.
+          rsync -az -e "$SSH" \
+            package.json package-lock.json next.config.ts tsconfig.json \
+            "$TARGET:$DEPLOY_PATH/"
+
+      - name: Install prod deps & reload pm2
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          # `bash -lc` runs a login shell so node/npm/pm2 are on PATH (nvm/global bin).
+          ssh -i "$HOME/.ssh/deploy_key" -o StrictHostKeyChecking=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "bash -lc 'cd $DEPLOY_PATH && npm ci --omit=dev && pm2 reload iqos'"
