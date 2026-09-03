@@ -16,7 +16,7 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 - `fixCasing(title, uppercase?)` — keeps a lowercase "i" in "IQOS ILUMA i" (preserves the dot).
 - `formatDeviceTitle(title, iqosColor?, remainingColor?)` — wraps "IQOS" in the `--font-christ` script face with optional colors; returns a React fragment.
 - `formatPrice(price)` — RU thousands separators + non-breaking space before `₽` (e.g. `12 990 ₽`).
-- `getDeviceColorSwatch()` / `DEVICE_COLOR_SWATCH_MAP` — see feature 8.
+- `getDeviceColorSwatch(hex)` — resolves a product's `attributes.hex` to a swatch background; see feature 8.
 
 ## 3. Reusable content components
 
@@ -54,9 +54,10 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 
 - Files: [`lib/grouping.ts`](../lib/grouping.ts), [`components/ProductGrid.tsx`](../components/ProductGrid.tsx), [`components/ProductCard.tsx`](../components/ProductCard.tsx), [`lib/utils.ts`](../lib/utils.ts), [`app/products/iqos/[slug]/page.tsx`](../app/products/iqos/[slug]/page.tsx).
 - **Grouping:** `getGroupedCards` in `lib/grouping.ts` collapses device rows sharing `attributes.line` (`i`, `i-one`, `i prime`, …) into one catalog card.
-- **Default color per line:** `MODEL_DEFAULT_COLORS` in `lib/grouping.ts` picks the initial swatch (`i` → breeze blue, `i-one` → digital violet, `i prime` → aspen green). Note the trade-in flow keeps its own parallel `TRADE_IN_DEFAULT_COLORS` in `lib/api.ts`.
+- **Default variant per line (ordering, not color values):** `MODEL_DEFAULT_COLORS` in `lib/grouping.ts` picks which variant is primary/first (currently Electric Purple for every line); the trade-in flow keeps a parallel `TRADE_IN_DEFAULT_COLORS` in `lib/api.ts` (`i` → breeze blue, `i-one` → digital violet, `i prime` → aspen green). These choose _which_ variant shows first — they are not color-value maps.
 - **Interactive swatch:** `ProductCard` renders swatches under the title; clicking one swaps image/title/price/stock/slug/cart payload without triggering the card link (`stopPropagation` + `preventDefault`). Hidden when a line has ≤1 variant (e.g. Seletti editions).
-- **Swatch colors:** `DEVICE_COLOR_SWATCH_MAP` in `lib/utils.ts` maps multilingual (RU + EN) color keywords → hex/gradient backgrounds; matched first-wins.
+- **Swatch colors are data-driven** (not hardcoded): each product row stores its swatch in `attributes.hex` (a hex, or a CSS gradient e.g. Seletti), and `getDeviceColorSwatch(hex)` in `lib/utils.ts` returns `{ background: hex }` (neutral-gray fallback when unset). Backfilled by `supabase/migrations/20260902_gadget_colors.sql` (**Digital Violet = `#a9b2db`**); accessories already carried `hex`. The former hardcoded `DEVICE_COLOR_SWATCH_MAP` was **removed**. Consumers: `ProductCard`, the iqos & accessories `[slug]` pages, and the trade-in calculator (via `TradeInTargetColor.colorHex`). Admins set `hex` through the **"Swatch hex"** field (native color picker) in the product form (feature 14).
+- **Swatch UI:** circles carry a subtle `border border-black/10` (so pale hexes stay visible on white) and only **scale** on hover — no opacity/color change.
 - **Faster switching:** variant images are pre-fetched with a hidden `<img aria-hidden>` (a direct Supabase URL) to warm the browser cache for color switching. Note: the visible product images use `next/image` (see `seo-perf.md`), so this raw-`<img>` preload is a best-effort cache warm rather than a guaranteed instant swap.
 
 ## 9. Trade-In program (`/trade-in`)
@@ -100,7 +101,7 @@ Feature-level "why/how" knowledge that isn't obvious from the code alone. For st
 ## 14. Admin — Products CRUD (`/admin/products`)
 
 - Files: [`lib/product-form.ts`](../lib/product-form.ts) (client-safe config + Zod schema), [`lib/admin-products.ts`](../lib/admin-products.ts) (reads), [`app/actions/products-admin.ts`](../app/actions/products-admin.ts) (create/update/delete), UI in `app/admin/(dashboard)/products/`.
-- Manages **all four categories including accessories** (56 rows live in `products`; `assets/accessories.json` is only a fallback). List has a category filter + title/slug search; a shared create/edit `ProductForm` handles core fields, **URL-list images** (with preview — there is no upload; images are Storage URLs), badge checkboxes (preserving unknown badge keys like `bestseller`), and a **JSON `attributes` editor** (attributes vary by category).
+- Manages **all four categories including accessories** (56 rows live in `products`; `assets/accessories.json` is only a fallback). List has a category filter + title/slug search; a shared create/edit `ProductForm` handles core fields, **URL-list images** (with preview — there is no upload; images are Storage URLs), badge checkboxes (preserving unknown badge keys like `bestseller`), a **"Swatch hex" field** (native color picker + text, writes `attributes.hex` — see feature 8), and a **JSON `attributes` editor** for the rest (attributes vary by category; `hex` is extracted from it into the dedicated field).
 - **Delete** is a two-step guarded action: hard-deletes unless the product is referenced by `order_items` (FK `23503`), in which case it explains and suggests marking out of stock; duplicate slug surfaces `23505`. Every mutation revalidates the admin views **and** the affected public catalog pages (mapping `gadget→iqos`, `sticks→terea`, `accessories→accessories`) + sitemap.
 
 ## 15. Admin — Dashboard (`/admin`)

@@ -177,7 +177,7 @@ export default async function IqosSlugPage({ params }: Props) {
                   {siblingVariants.map((variant) => {
                     const vAttrs = variant.attributes as ProductAttributes;
                     const isCurrent = variant.slug === productRow.slug;
-                    const swatch = getDeviceColorSwatch(vAttrs.color, variant.title);
+                    const swatch = getDeviceColorSwatch(vAttrs.hex);
                     return (
                       <Link
                         key={variant.id}
@@ -185,10 +185,10 @@ export default async function IqosSlugPage({ params }: Props) {
                         scroll={false}
                         replace={true}
                         title={vAttrs.color || variant.title}
-                        className={`w-7 h-7 rounded-full transition-all duration-200 flex items-center justify-center ${
+                        className={`w-7 h-7 rounded-full border border-black/10 transition-all duration-200 flex items-center justify-center ${
                           isCurrent
                             ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
-                            : 'hover:scale-110 opacity-80 hover:opacity-100'
+                            : 'hover:scale-110'
                         }`}
                         style={swatch}
                       />

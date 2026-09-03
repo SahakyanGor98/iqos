@@ -158,7 +158,7 @@ export default async function AccessorySlugPage({ params }: Props) {
                     const vAttrs = variant.attributes as ProductAttributes;
                     const isCurrent = variant.slug === productRow.slug;
                     const variantLabel = vAttrs.colorVariantName || vAttrs.color || variant.title;
-                    const swatch = getDeviceColorSwatch(variantLabel, variant.title, vAttrs.hex);
+                    const swatch = getDeviceColorSwatch(vAttrs.hex);
 
                     return (
                       <Link

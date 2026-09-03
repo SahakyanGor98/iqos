@@ -319,6 +319,7 @@ export type TradeInTargetColor = {
   productId: number;
   slug: string;
   colorLabel: string;
+  colorHex?: string;
   price: number;
   image: string | null;
   inStock: boolean;
@@ -367,6 +368,7 @@ export async function getTradeInTargets(): Promise<TradeInTargetLine[]> {
       productId: row.id,
       slug: row.slug,
       colorLabel: (attrs.color as string) || row.slug,
+      colorHex: typeof attrs.hex === 'string' ? attrs.hex : undefined,
       price: Number(row.price),
       image,
       inStock: !!row.in_stock,

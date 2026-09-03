@@ -134,11 +134,7 @@ export const ProductCard = ({ product, variants }: Props) => {
                   const vAttrs = variant.attributes as ProductAttributes;
                   const colorLabel = vAttrs.color || variant.title;
                   const isSelected = variant.id === activeProduct.id;
-                  const swatch = getDeviceColorSwatch(
-                    vAttrs.colorVariantName || vAttrs.color,
-                    variant.title,
-                    vAttrs.hex,
-                  );
+                  const swatch = getDeviceColorSwatch(vAttrs.hex);
 
                   return (
                     <button
@@ -150,10 +146,10 @@ export const ProductCard = ({ product, variants }: Props) => {
                         e.stopPropagation();
                         setSelectedVariant(variant);
                       }}
-                      className={`relative w-5 h-5 rounded-full transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${
+                      className={`relative w-5 h-5 rounded-full border border-black/10 transition-all duration-200 flex items-center justify-center focus:outline-none cursor-pointer ${
                         isSelected
                           ? 'ring-2 ring-neutral-900 ring-offset-2 scale-110 shadow-sm z-10'
-                          : 'hover:scale-110 opacity-80 hover:opacity-100'
+                          : 'hover:scale-110'
                       }`}
                       style={swatch}
                     />

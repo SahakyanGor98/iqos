@@ -358,7 +358,7 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                   <div className='flex items-center gap-2.5 flex-wrap'>
                     {selectedLine.colors.map((color) => {
                       const isSelected = selectedColor.slug === color.slug;
-                      const swatch = getDeviceColorSwatch(color.colorLabel);
+                      const swatch = getDeviceColorSwatch(color.colorHex);
                       return (
                         <button
                           key={color.slug}
@@ -368,10 +368,10 @@ export const TradeInCalculator: React.FC<Props> = ({ oldDevices, targetLines }) 
                           aria-pressed={isSelected}
                           onClick={() => setSelectedColor(color)}
                           style={swatch}
-                          className={`w-7 h-7 rounded-full transition-all duration-200 ${
+                          className={`w-7 h-7 rounded-full border border-black/10 transition-all duration-200 ${
                             isSelected
                               ? 'ring-2 ring-white ring-offset-2 ring-offset-[#34303D] scale-110'
-                              : 'opacity-80 hover:opacity-100 hover:scale-105'
+                              : 'hover:scale-105'
                           } ${color.inStock ? '' : 'opacity-40'}`}
                         />
                       );

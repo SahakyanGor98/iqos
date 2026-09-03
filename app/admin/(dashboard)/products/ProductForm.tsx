@@ -20,6 +20,10 @@ const inputClass =
 const labelClass = 'mb-1 block text-xs font-bold uppercase tracking-widest text-neutral-500';
 const cardClass = 'flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6';
 
+// A 6-digit hex the native <input type="color"> can represent (it can't hold
+// gradients / shorthand — those stay editable in the adjacent text field).
+const HEX6_RE = /^#[0-9a-fA-F]{6}$/;
+
 type BadgeState = Record<(typeof EDITABLE_BADGES)[number]['key'], boolean>;
 
 function initialBadges(badges: Record<string, unknown> | undefined): BadgeState {
@@ -61,9 +65,16 @@ export function ProductForm({
   const [inStock, setInStock] = useState(product?.in_stock ?? true);
   const [images, setImages] = useState<string[]>(product?.image?.length ? product.image : ['']);
   const [badges, setBadges] = useState<BadgeState>(initialBadges(product?.badges));
-  const [attributesText, setAttributesText] = useState(
-    JSON.stringify(product?.attributes ?? {}, null, 2),
-  );
+  const [swatchHex, setSwatchHex] = useState(() => {
+    const h = (product?.attributes as Record<string, unknown> | undefined)?.hex;
+    return typeof h === 'string' ? h : '';
+  });
+  // `hex` is edited via the dedicated Swatch field below, not the raw JSON editor.
+  const [attributesText, setAttributesText] = useState(() => {
+    const rest = { ...(product?.attributes ?? {}) } as Record<string, unknown>;
+    delete rest.hex;
+    return JSON.stringify(rest, null, 2);
+  });
 
   const setImageAt = (index: number, value: string) =>
     setImages((arr) => arr.map((url, i) => (i === index ? value : url)));
@@ -91,6 +102,11 @@ export function ProductForm({
       setError('Атрибуты: некорректный JSON (ожидается объект)');
       return;
     }
+
+    // Merge the dedicated swatch-hex field into attributes (single source of truth).
+    const hex = swatchHex.trim();
+    if (hex) attributes.hex = hex;
+    else delete attributes.hex;
 
     const payload = {
       title: title.trim(),
@@ -297,6 +313,39 @@ export function ProductForm({
               </label>
             ))}
           </div>
+        </div>
+
+        <div>
+          <label htmlFor='swatchHex' className={labelClass}>
+            Цвет свотча (hex)
+          </label>
+          <div className='flex items-center gap-2'>
+            {/* Native color picker, styled to a clean rounded square (its inner
+                swatch fills it) — doubles as the live preview for solid colors. */}
+            <input
+              type='color'
+              aria-label='Выбрать цвет свотча'
+              value={HEX6_RE.test(swatchHex.trim()) ? swatchHex.trim() : '#000000'}
+              onChange={(e) => setSwatchHex(e.target.value)}
+              className={cn(
+                'h-9 w-9 shrink-0 cursor-pointer appearance-none rounded-lg border border-black/10 bg-transparent p-0',
+                '[&::-webkit-color-swatch-wrapper]:p-0',
+                '[&::-webkit-color-swatch]:rounded-lg [&::-webkit-color-swatch]:border-0',
+                '[&::-moz-color-swatch]:rounded-lg [&::-moz-color-swatch]:border-0',
+              )}
+            />
+            <input
+              id='swatchHex'
+              className={inputClass}
+              value={swatchHex}
+              onChange={(e) => setSwatchHex(e.target.value)}
+              placeholder='#a9b2db или CSS-градиент'
+            />
+          </div>
+          <p className='mt-1 text-xs text-neutral-400'>
+            Цвет кружка-свотча на карточке (устройства и аксессуары). Выберите пипеткой или введите
+            hex / CSS-градиент.
+          </p>
         </div>
 
         <div>
